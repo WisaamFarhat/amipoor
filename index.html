@@ -945,9 +945,73 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 10: Share -->
+  <!-- SECTION 10: Financial Plan -->
   <div class="section">
-    <div class="section-head"><div class="sec-num">10</div><div><h2 class="sec-title">Settle the debate</h2><div class="sec-subtitle">Who earns more — you or your friends?</div></div></div>
+    <div class="section-head">
+      <div class="sec-num">10</div>
+      <div>
+        <h2 class="sec-title">Your personalized financial plan</h2>
+        <div class="sec-subtitle">A full plan based on your numbers — exportable to PDF</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden">
+
+      <!-- Preview of what's in the plan -->
+      <div style="padding:20px 20px 0">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
+          <div style="background:var(--bg3);border-radius:var(--r);padding:12px 14px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">What's included</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.8">
+              ✦ Your income & time breakdown<br>
+              ✦ Monthly budget analysis<br>
+              ✦ Savings rate & target gap<br>
+              ✦ FIRE number & timeline<br>
+              ✦ Investment projection
+            </div>
+          </div>
+          <div style="background:var(--bg3);border-radius:var(--r);padding:12px 14px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Personalised actions</div>
+            <div style="font-size:12px;color:var(--text2);line-height:1.8">
+              ✦ Top 3 things to do this month<br>
+              ✦ Where to cut spending<br>
+              ✦ How to reach FIRE faster<br>
+              ✦ Investment recommendations<br>
+              ✦ Year-by-year milestones
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-bottom:16px;padding:10px 12px;background:var(--gold-glow);border-radius:8px;border-left:2px solid var(--gold)">
+          💡 For the best plan, make sure you've filled in your spending and investment details above.
+        </div>
+      </div>
+
+      <!-- Generate button -->
+      <div style="padding:0 20px 20px">
+        <!-- Progress indicator -->
+        <div id="planProgress" style="display:none;margin-bottom:14px;padding:14px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border2)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <div class="live-dot" style="flex-shrink:0"></div>
+            <div style="font-size:12px;font-weight:700;color:var(--text2)" id="planProgressText">Analysing your finances with AI...</div>
+          </div>
+          <div style="background:var(--border);border-radius:4px;height:3px;overflow:hidden">
+            <div id="planProgressBar" style="height:100%;background:var(--gold);width:0%;transition:width 0.5s ease;border-radius:4px"></div>
+          </div>
+        </div>
+        <button onclick="generatePlan()" id="planBtn"
+          style="width:100%;background:linear-gradient(135deg,var(--gold),#e8c96e);color:#070707;border:none;border-radius:var(--r);padding:16px;font-family:var(--sans);font-weight:800;font-size:15px;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s;box-shadow:0 4px 20px rgba(201,168,76,0.25)">
+          ✦ Generate My AI Financial Plan (Free)
+        </button>
+        <div style="text-align:center;font-size:10px;color:var(--text3);margin-top:8px">Powered by Claude AI · Downloads as PDF</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 11: Share -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">11</div><div><h2 class="sec-title">Settle the debate</h2><div class="sec-subtitle">Who earns more — you or your friends?</div></div></div>
     <div class="share-grid">
       <button class="sbtn primary" onclick="shareResult()">↗ Send to a friend</button>
       <button class="sbtn secondary" onclick="challengeFriend()">⚡ Who earns more?</button>
@@ -2189,6 +2253,467 @@ function computeInvestFireInsight(fireNumUSD, currentPortfolioUSD, monthlySaving
     showInsight('invFireInsight', tip, 'var(--green)');
   }
 }
+// ── FINANCIAL PLAN PDF (AI-powered) ──────────────────────────────────────────
+function setPlanProgress(pct, text){
+  const bar = g('planProgressBar'), txt = g('planProgressText'), prog = g('planProgress');
+  if(prog) prog.style.display = 'block';
+  if(bar)  bar.style.width = pct + '%';
+  if(txt && text) txt.textContent = text;
+}
+
+async function generatePlan(){
+  const btn = g('planBtn');
+  btn.disabled = true;
+  btn.style.opacity = '0.7';
+  btn.textContent = '⏳ Generating...';
+
+  try {
+    // ── Step 1: Build financial snapshot
+    setPlanProgress(10, 'Gathering your financial data...');
+    const s           = sym();
+    const rt          = currObj().rate;
+    const salaryLocal = parseFloat(g('salary').value)||0;
+    const hours       = parseFloat(g('hours').value)||40;
+    const age         = parseFloat(g('age').value)||30;
+    const salaryUSD   = toUSD(salaryLocal)*(MULT[mode]||1);
+    const workHourlyUSD = salaryUSD/(hours*52/12);
+    const dailyUSD    = salaryUSD/30;
+    const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+    const leftoverUSD = salaryUSD - totalSpendUSD;
+    const savingsPct  = salaryUSD>0?Math.max(0,(leftoverUSD/salaryUSD)*100):0;
+    const annualExpUSD= totalSpendUSD*12;
+    const fireNumUSD  = annualExpUSD*25;
+    const portfolioUSD= toUSD(investData.portfolio||0);
+    const retPct      = investData.returnPct||7;
+    const monthlyContribUSD = toUSD(investData.monthly||0);
+    const monthlySavingsUSD = Math.max(0,leftoverUSD);
+    const totalMonthlyUSD   = monthlySavingsUSD + monthlyContribUSD;
+    const r=0.07/12;
+    let fireMonths=0, bal=portfolioUSD;
+    if(totalMonthlyUSD>0&&fireNumUSD>0){ while(bal<fireNumUSD&&fireMonths<1200){bal=bal*(1+r)+totalMonthlyUSD;fireMonths++;} }
+    const fireYears = fireMonths>0&&fireMonths<1200?(fireMonths/12).toFixed(1):null;
+    const fireAge   = fireYears?(age+parseFloat(fireYears)).toFixed(0):null;
+    const pctToFire = fireNumUSD>0?Math.min(100,(portfolioUSD/fireNumUSD)*100):0;
+    let fv10=portfolioUSD; for(let m2=0;m2<120;m2++) fv10=fv10*(1+r)+(totalMonthlyUSD||0);
+    const sleepH    = parseFloat((g('donut-sleep')&&g('donut-sleep').value)||7.5);
+    const commuteH  = parseFloat((g('donut-commute')&&g('donut-commute').value)||1);
+
+    function disp(usd,d){ const v=usd*rt; if(d!==undefined) return v.toFixed(d); if(v>=1e6) return (v/1e6).toFixed(2)+'M'; if(v>=1000) return (v/1000).toFixed(0)+'K'; return v.toFixed(0); }
+    function dispFull(usd){ return `${disp(usd)} ${s}`; }
+
+    // Build spending breakdown string
+    const spendBreakdown = SPEND_CATS.filter(c=>c.key!=='savings').map(cat=>{
+      const v=toUSD(spendData[cat.key]||0);
+      if(v===0) return null;
+      return `${cat.label}: ${dispFull(v)}/mo (${salaryUSD>0?(v/salaryUSD*100).toFixed(0):0}% of income)`;
+    }).filter(Boolean).join(', ');
+
+    // ── Step 2: Call Claude API
+    setPlanProgress(25, 'Sending to Claude AI for analysis...');
+
+    const prompt = `You are a frank, direct personal finance advisor. A user has shared their complete financial data. Write a personalised financial plan analysis. Be specific, honest, and use their actual numbers throughout.
+
+USER FINANCIAL DATA:
+- Currency: ${s} (1 USD = ${rt} ${s})
+- Monthly salary: ${dispFull(salaryUSD)}
+- Work hours/week: ${hours}h
+- Age: ${age}
+- Mode: ${mode}
+- Sleep: ${sleepH}h/night, Commute: ${commuteH}h/day
+- Monthly spending: ${totalSpendUSD>0 ? dispFull(totalSpendUSD)+'/mo' : 'not entered'}
+- Spending breakdown: ${spendBreakdown || 'not entered'}
+- Monthly left over: ${dispFull(leftoverUSD)} (savings rate: ${savingsPct.toFixed(0)}%)
+- FIRE number: ${fireNumUSD>0 ? dispFull(fireNumUSD) : 'cannot calculate — no spending data'}
+- Current portfolio: ${portfolioUSD>0 ? dispFull(portfolioUSD)+` (${pctToFire.toFixed(1)}% of FIRE target)` : 'none entered'}
+- Monthly investment contribution: ${monthlyContribUSD>0 ? dispFull(monthlyContribUSD) : 'none'}
+- FIRE timeline: ${fireYears ? `${fireYears} years (age ${fireAge})` : 'cannot calculate'}
+- 10-year portfolio projection: ${portfolioUSD>0 ? dispFull(fv10) : 'n/a'}
+
+Respond ONLY with a valid JSON object, no markdown, no explanation outside the JSON. Use this exact structure:
+{
+  "headline": "One punchy sentence summarising their financial situation (max 120 chars)",
+  "diagnosis": "2-3 sentences of honest diagnosis. Reference their actual numbers. Don't sugarcoat.",
+  "budget_analysis": "2-3 sentences specifically about their spending. Name their biggest category. Reference percentages.",
+  "fire_analysis": "2-3 sentences on their FIRE timeline and what's realistic. Be specific about the years and what would change them.",
+  "investment_take": "2-3 sentences on their investment situation. If no portfolio, say what they should do to start. If they have one, assess it.",
+  "action1": "Specific actionable thing #1 with exact numbers from their data",
+  "action2": "Specific actionable thing #2 with exact numbers from their data",
+  "action3": "Specific actionable thing #3 with exact numbers from their data",
+  "closing": "One motivating but realistic closing sentence. Reference their specific FIRE age or timeline."
+}`;
+
+    // ── Step 2: Call Claude via Cloudflare Worker (keeps API key secret)
+    setPlanProgress(25, 'Sending to Claude AI for analysis...');
+
+    // Update this URL after you deploy your Worker (see worker.js)
+    const WORKER_URL = 'https://amipoor-api.wisaam-farhat.workers.dev';
+
+    const response = await fetch(WORKER_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+
+    // Handle rate limiting gracefully
+    if(response.status === 429){
+      const err = await response.json().catch(()=>({}));
+      throw new Error(err.message || 'You can generate up to 3 plans per day. Come back tomorrow!');
+    }
+
+    setPlanProgress(65, 'Claude is writing your analysis...');
+
+    if(!response.ok) throw new Error(`API error: ${response.status}`);
+    const data = await response.json();
+    const rawText = data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+
+    // Parse JSON response
+    let aiContent;
+    try {
+      const cleaned = rawText.replace(/```json|```/g,'').trim();
+      aiContent = JSON.parse(cleaned);
+    } catch(e) {
+      console.warn('JSON parse failed, using raw text');
+      aiContent = {
+        headline: 'Your Personal Financial Analysis',
+        diagnosis: rawText.slice(0,300),
+        budget_analysis: '',
+        fire_analysis: '',
+        investment_take: '',
+        action1: 'Review your spending breakdown above',
+        action2: 'Set a monthly investment contribution',
+        action3: 'Track your savings rate monthly',
+        closing: 'Small consistent changes compound into financial freedom.'
+      };
+    }
+
+    // ── Step 3: Build PDF with AI content
+    setPlanProgress(80, 'Building your PDF...');
+    await buildPlanPDF(aiContent, {
+      s, rt, disp, dispFull,
+      salaryUSD, workHourlyUSD, dailyUSD, hours, age,
+      totalSpendUSD, leftoverUSD, savingsPct, annualExpUSD,
+      fireNumUSD, portfolioUSD, retPct, monthlyContribUSD,
+      monthlySavingsUSD, totalMonthlyUSD, fireYears, fireAge,
+      pctToFire, fv10, sleepH, commuteH
+    });
+
+    setPlanProgress(100, 'Done! Your plan is downloading...');
+    setTimeout(()=>{ if(g('planProgress')) g('planProgress').style.display='none'; }, 2000);
+
+  } catch(err) {
+    console.error('Plan generation error:', err);
+    const msg = err.message && err.message.length < 100 ? err.message : 'Could not reach AI — generating basic plan instead';
+    toast(msg);
+    g('planProgress') && (g('planProgress').style.display='none');
+    // Fallback to basic plan
+    try { await buildPlanPDF(null, null); } catch(e2) { console.error(e2); }
+  }
+
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.textContent = '✦ Generate My AI Financial Plan (Free)';
+}
+
+function buildPlanPDF(ai, d){
+  // d = pre-computed data object from generatePlan
+  // ai = Claude's JSON analysis (null = fallback mode)
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const W=210,H=297,ml=20,mr=20,cw=W-ml-mr;
+  let y=0;
+
+  const GOLD=[180,140,40], GOLD_BG=[253,247,230], GREEN=[30,160,100];
+  const RED=[200,60,60], ACCENT=[40,40,40], BODY=[60,60,60];
+  const MUTED=[130,125,120], RULE=[220,215,210], COVER_BG=[18,18,18];
+
+  // If called from fallback (no d), recompute everything
+  const s   = d ? d.s   : sym();
+  const rt  = d ? d.rt  : currObj().rate;
+  const disp = d ? d.disp : (usd,dec)=>{ const v=usd*rt; if(dec!==undefined) return v.toFixed(dec); if(v>=1e6) return (v/1e6).toFixed(2)+'M'; if(v>=1000) return (v/1000).toFixed(0)+'K'; return v.toFixed(0); };
+  const dispFull = d ? d.dispFull : (usd)=>`${disp(usd)} ${s}`;
+
+  const salaryLocal = parseFloat(g('salary').value)||0;
+  const hours    = d ? d.hours    : parseFloat(g('hours').value)||40;
+  const age      = d ? d.age      : parseFloat(g('age').value)||30;
+  const salaryUSD= d ? d.salaryUSD: toUSD(salaryLocal)*(MULT[mode]||1);
+  const workHourlyUSD = d ? d.workHourlyUSD : salaryUSD/(hours*52/12);
+  const dailyUSD = d ? d.dailyUSD : salaryUSD/30;
+  const totalSpendUSD = d ? d.totalSpendUSD : SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const leftoverUSD   = d ? d.leftoverUSD   : salaryUSD-totalSpendUSD;
+  const savingsPct    = d ? d.savingsPct    : salaryUSD>0?Math.max(0,(leftoverUSD/salaryUSD)*100):0;
+  const annualExpUSD  = d ? d.annualExpUSD  : totalSpendUSD*12;
+  const fireNumUSD    = d ? d.fireNumUSD    : annualExpUSD*25;
+  const portfolioUSD  = d ? d.portfolioUSD  : toUSD(investData.portfolio||0);
+  const retPct        = d ? d.retPct        : investData.returnPct||7;
+  const monthlyContribUSD = d ? d.monthlyContribUSD : toUSD(investData.monthly||0);
+  const monthlySavingsUSD = d ? d.monthlySavingsUSD : Math.max(0,leftoverUSD);
+  const totalMonthlyUSD   = d ? d.totalMonthlyUSD   : monthlySavingsUSD+monthlyContribUSD;
+  const fireYears = d ? d.fireYears : null;
+  const fireAge   = d ? d.fireAge   : null;
+  const pctToFire = d ? d.pctToFire : fireNumUSD>0?Math.min(100,(portfolioUSD/fireNumUSD)*100):0;
+  const fv10      = d ? d.fv10      : portfolioUSD;
+  const sleepH    = d ? d.sleepH    : parseFloat((g('donut-sleep')&&g('donut-sleep').value)||7.5);
+  const commuteH  = d ? d.commuteH  : parseFloat((g('donut-commute')&&g('donut-commute').value)||1);
+  const r = 0.07/12;
+
+  // ── Helpers ──────────────────────────────────────────────────────────
+  function newPage(){
+    doc.addPage(); y=0;
+    doc.setFillColor(245,243,238); doc.rect(0,0,W,11,'F');
+    doc.setFillColor(...GOLD); doc.rect(0,0,W,1.5,'F');
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(...MUTED);
+    doc.text('Am I Poor? — AI Financial Plan',ml,8);
+    doc.setFont('helvetica','normal'); doc.text('amipoor.com',W-mr,8,{align:'right'});
+    y=17;
+  }
+  function chk(n){ if(y+n>H-18) newPage(); }
+  function secTitle(t,sub){
+    chk(20);
+    doc.setFillColor(...GOLD); doc.rect(ml,y,2.5,sub?11:9,'F');
+    doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(...ACCENT);
+    doc.text(t,ml+6,y+7);
+    if(sub){ doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED); doc.text(sub,ml+6,y+13); y+=20; }
+    else{ y+=13; }
+  }
+  function row(lbl,val,valColor){
+    chk(8);
+    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY); doc.text(lbl,ml,y);
+    doc.setFont('helvetica','bold'); doc.setTextColor(...(valColor||ACCENT)); doc.text(val,W-mr,y,{align:'right'});
+    doc.setDrawColor(...RULE); doc.setLineWidth(0.2); doc.line(ml,y+2,W-mr,y+2); y+=8;
+  }
+  function aiBox(text, type){
+    if(!text || !text.trim()) return;
+    chk(24);
+    const lines = doc.splitTextToSize(text, cw-12);
+    const bh = lines.length*5.2+10;
+    const bg     = type==='good'?[235,250,243]:type==='warn'?[252,238,238]:[248,245,232];
+    const border = type==='good'?GREEN:type==='warn'?RED:GOLD;
+    doc.setFillColor(...bg); doc.roundedRect(ml,y,cw,bh,2,2,'F');
+    doc.setDrawColor(...border); doc.setLineWidth(1); doc.line(ml,y,ml,y+bh);
+    // AI label
+    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(...border);
+    doc.text('✦ AI ANALYSIS',ml+5,y+5);
+    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
+    doc.text(lines,ml+5,y+10);
+    y+=bh+5;
+  }
+  function ins(text,type){
+    chk(18);
+    const lines=doc.splitTextToSize(text,cw-10);
+    const bh=lines.length*5+8;
+    const bg=type==='good'?[235,250,243]:type==='warn'?[252,238,238]:[248,245,235];
+    const border=type==='good'?GREEN:type==='warn'?RED:GOLD;
+    doc.setFillColor(...bg); doc.roundedRect(ml,y,cw,bh,2,2,'F');
+    doc.setDrawColor(...border); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+bh);
+    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
+    doc.text(lines,ml+5,y+5); y+=bh+5;
+  }
+  function pbar(pct,lbl){
+    chk(12);
+    doc.setFillColor(235,232,228); doc.roundedRect(ml,y,cw,7,2,2,'F');
+    const fw=Math.min(cw,cw*pct/100);
+    if(fw>0){ doc.setFillColor(...(pct>=100?GREEN:pct>=50?GOLD:RED)); doc.roundedRect(ml,y,fw,7,2,2,'F'); }
+    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(...(fw>cw*0.4?[255,255,255]:BODY));
+    doc.text(`${pct.toFixed(0)}%  ${lbl}`,ml+3,y+4.8); y+=11;
+  }
+  function act(n,text){
+    chk(16);
+    doc.setFillColor(...GOLD); doc.circle(ml+3.5,y+3.5,3.5,'F');
+    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text(String(n),ml+3.5,y+4.8,{align:'center'});
+    const lines=doc.splitTextToSize(text,cw-10);
+    doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
+    doc.text(lines,ml+10,y+4.8); y+=lines.length*5.5+5;
+  }
+  function mstone(yr,lbl,highlight){
+    chk(9);
+    doc.setFillColor(...(highlight?[230,250,238]:[245,243,238])); doc.rect(ml,y-1,cw,8,'F');
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(...(highlight?GREEN:GOLD));
+    doc.text(`Year ${yr}`,ml+3,y+4.5);
+    doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
+    doc.text(lbl,ml+22,y+4.5); y+=9;
+  }
+
+  // ════════════════════════════════════════════════════════
+  //  COVER
+  // ════════════════════════════════════════════════════════
+  doc.setFillColor(...COVER_BG); doc.rect(0,0,W,H,'F');
+  doc.setFillColor(...GOLD); doc.rect(0,0,W,2,'F'); doc.rect(0,H-2,W,2,'F');
+  doc.setFontSize(30); doc.setFont('helvetica','bold');
+  doc.setTextColor(240,237,230); doc.text('am i',ml,46);
+  doc.setTextColor(...GOLD); doc.text(' poor?',ml+doc.getTextWidth('am i'),46);
+  doc.setFontSize(10); doc.setFont('helvetica','normal');
+  doc.setTextColor(130,125,120); doc.text('amipoor.com',ml,55);
+  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(240,237,230);
+  doc.text('Your AI-Powered',ml,85); doc.text('Financial Plan',ml,98);
+  doc.setFillColor(...GOLD); doc.rect(ml,102,50,1.5,'F');
+
+  // AI headline on cover if available
+  if(ai && ai.headline){
+    doc.setFillColor(28,28,28); doc.roundedRect(ml,110,cw,20,3,3,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.roundedRect(ml,110,cw,20,3,3,'S');
+    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD); doc.text('✦ AI VERDICT',ml+6,118);
+    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(240,237,230);
+    const hl = doc.splitTextToSize(ai.headline, cw-12);
+    doc.text(hl, ml+6, 124);
+    doc.setFillColor(28,28,28); doc.roundedRect(ml,134,cw,78,3,3,'F');
+  } else {
+    doc.setFillColor(28,28,28); doc.roundedRect(ml,115,cw,88,3,3,'F');
+  }
+
+  const boxY = ai&&ai.headline ? 134 : 115;
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.roundedRect(ml,boxY,cw,80,3,3,'S');
+  const sumItems=[
+    ['Monthly salary',dispFull(salaryUSD)],
+    ['Currency',`${s}`],
+    ['Savings rate',totalSpendUSD>0?`${savingsPct.toFixed(0)}%`:'Not entered'],
+    ['Portfolio',portfolioUSD>0?dispFull(portfolioUSD):'Not entered'],
+    ['FIRE target',fireNumUSD>0?dispFull(fireNumUSD):'Enter spending to calculate'],
+    ['FIRE timeline',fireYears?`${fireYears} years (age ${fireAge})`:'—'],
+  ];
+  let sy=boxY+9;
+  sumItems.forEach(([l,v])=>{
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(130,125,120); doc.text(l,ml+8,sy);
+    doc.setFont('helvetica','bold'); doc.setTextColor(240,237,230); doc.text(v,W-mr-8,sy,{align:'right'}); sy+=12;
+  });
+  const mLabel={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Delusional x5'}[mode]||mode;
+  doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(130,125,120);
+  doc.text(`Mode: ${mLabel}   |   ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`,ml,228);
+  doc.text('AI-generated analysis. Not financial advice. Consult a qualified advisor.',ml,235);
+
+  // ════════════════════════════════════════════════════════
+  //  PAGE 2 — DIAGNOSIS & INCOME
+  // ════════════════════════════════════════════════════════
+  newPage();
+
+  // AI diagnosis first — the most valuable part
+  if(ai && ai.diagnosis){
+    secTitle('AI Financial Diagnosis','Your personal financial assessment');
+    aiBox(ai.diagnosis, leftoverUSD<0?'warn':savingsPct>=25?'good':'info');
+    y+=2;
+  }
+
+  secTitle('1. Income Breakdown','What your salary looks like at every interval');
+  row('Monthly salary',           dispFull(salaryUSD));
+  row('Per work hour',            dispFull(workHourlyUSD));
+  row('Per calendar hour (24/7)', disp(dailyUSD/24)+' '+s);
+  row('Per day (÷ 30)',           dispFull(dailyUSD));
+  row('Per second',               `${(perSecUSD*rt).toFixed(4)} ${s}`);
+  row('Annual (×12)',             dispFull(salaryUSD*12));
+  y+=6;
+
+  secTitle('2. Time Allocation','Your weekday breakdown');
+  const workHday=Math.min(hours/5,16), freeH=Math.max(0,24-workHday-sleepH-commuteH);
+  row('Working',  `${workHday.toFixed(1)}h/day  (${hours}h/week)`);
+  row('Sleeping', `${sleepH}h/night`);
+  row('Commuting',`${commuteH}h/day  =  ${(commuteH*5*52).toFixed(0)}h/year`);
+  row('Free time',`${freeH.toFixed(1)}h/day`);
+  y+=4;
+  if(sleepH<7)   ins(`${sleepH}h sleep is below the recommended minimum. Chronic deprivation reduces cognitive performance by up to 25%.`,'warn');
+  if(commuteH>1.5) ins(`${commuteH}h/day commute = ${(commuteH*5*52/8).toFixed(0)} working days/year in unpaid transit time.`,'warn');
+
+  // ════════════════════════════════════════════════════════
+  //  PAGE 3 — BUDGET
+  // ════════════════════════════════════════════════════════
+  newPage();
+  secTitle('3. Monthly Budget','Where your money goes');
+  if(totalSpendUSD>0){
+    SPEND_CATS.filter(c=>c.key!=='savings').forEach(cat=>{
+      const v=toUSD(spendData[cat.key]||0);
+      if(v>0) row(cat.label,`${dispFull(v)}  (${salaryUSD>0?(v/salaryUSD*100).toFixed(0):0}%)`);
+    });
+    y+=4;
+    row('Total spend',   dispFull(totalSpendUSD), RED);
+    row('Left over',     `${leftoverUSD<0?'-':''}${dispFull(Math.abs(leftoverUSD))}`, leftoverUSD>=0?GREEN:RED);
+    y+=4;
+    pbar(Math.min(100,(totalSpendUSD/salaryUSD)*100),'of income spent');
+    pbar(Math.min(100,savingsPct),'savings rate');
+    y+=4;
+    // AI budget analysis
+    if(ai && ai.budget_analysis) aiBox(ai.budget_analysis, leftoverUSD<0?'warn':savingsPct>=25?'good':'info');
+  } else {
+    ins('No spending data entered. Add your expenses on amipoor.com for a complete analysis.','info');
+  }
+
+  // ════════════════════════════════════════════════════════
+  //  PAGE 4 — FIRE & INVESTMENTS
+  // ════════════════════════════════════════════════════════
+  newPage();
+  secTitle('4. Financial Independence (FIRE)','Your number and path to it');
+  if(fireNumUSD>0){
+    row('Annual expenses',    dispFull(annualExpUSD));
+    row('FIRE number (25×)',  dispFull(fireNumUSD));
+    row('Current portfolio',  portfolioUSD>0?dispFull(portfolioUSD):'Not entered');
+    row('Still needed',       dispFull(Math.max(0,fireNumUSD-portfolioUSD)), pctToFire>=100?GREEN:BODY);
+    row('Progress to FIRE',   `${pctToFire.toFixed(1)}%`);
+    y+=4; pbar(pctToFire,'of FIRE number reached'); y+=4;
+    if(ai && ai.fire_analysis) aiBox(ai.fire_analysis, fireYears&&parseFloat(fireYears)<=15?'good':'info');
+    else if(fireYears) ins(`At current rate: FIRE in ${fireYears} years (age ${fireAge}).`,parseFloat(fireYears)<=10?'good':'info');
+  } else {
+    ins('Enter spending data to calculate your FIRE number.','info');
+  }
+
+  y+=4;
+  secTitle('5. Investment Projection',`${retPct}% return assumption`);
+  if(portfolioUSD>0){
+    row('Current portfolio',     dispFull(portfolioUSD));
+    row('Monthly contributions', monthlyContribUSD>0?dispFull(monthlyContribUSD):'None');
+    row('Monthly savings added', monthlySavingsUSD>0?dispFull(monthlySavingsUSD):'None');
+    row('Portfolio in 10 years', dispFull(fv10), GREEN);
+    row('Monthly passive at yr 10',dispFull(fv10*(retPct/100)/12), GREEN);
+    y+=4;
+    if(ai && ai.investment_take) aiBox(ai.investment_take,'good');
+    else ins(`10-year projection: ${dispFull(fv10)} generating ${dispFull(fv10*(retPct/100)/12)}/month.`,'info');
+  } else {
+    if(ai && ai.investment_take) aiBox(ai.investment_take,'info');
+    else ins('Enter a portfolio value to see your projection.','info');
+  }
+
+  // ════════════════════════════════════════════════════════
+  //  PAGE 5 — ACTIONS & MILESTONES
+  // ════════════════════════════════════════════════════════
+  newPage();
+  secTitle('6. Your Action Plan','What to do this month — personalised to your numbers');
+
+  // Use AI actions if available, otherwise compute
+  const a1 = ai&&ai.action1 ? ai.action1 : (leftoverUSD<0 ? `Cut spending — you are ${dispFull(Math.abs(leftoverUSD))}/mo in deficit` : `Reduce top expense by 15% to save ~${dispFull(totalSpendUSD>0?toUSD(spendData[SPEND_CATS[0].key]||0)*0.15:salaryUSD*0.05)}/mo`);
+  const a2 = ai&&ai.action2 ? ai.action2 : (portfolioUSD===0 ? `Start investing ${dispFull(Math.max(monthlySavingsUSD*0.5,salaryUSD*0.05))}/month` : `Increase monthly contribution to ${dispFull(Math.max(totalMonthlyUSD*1.1,salaryUSD*0.1))}/month`);
+  const a3 = ai&&ai.action3 ? ai.action3 : `Build ${dispFull(salaryUSD*3)}–${dispFull(salaryUSD*6)} emergency fund before aggressive investing`;
+
+  act(1, a1); act(2, a2); act(3, a3);
+
+  y+=8;
+  secTitle('7. Year-by-Year Milestones');
+  const yrs=fireYears?[1,2,3,5,10,15,20].filter(n=>n<=parseFloat(fireYears)+2):[1,3,5,10];
+  yrs.forEach(yr=>{
+    let b=portfolioUSD; for(let m2=0;m2<yr*12;m2++) b=b*(1+r)+(totalMonthlyUSD||0);
+    const prog=fireNumUSD>0?` | ${(b/fireNumUSD*100).toFixed(0)}% to FIRE`:'';
+    mstone(yr,`Portfolio: ${dispFull(b)}${prog}`,false);
+  });
+  if(fireYears&&parseFloat(fireYears)<=30) mstone(Math.ceil(parseFloat(fireYears)),`FIRE reached — work becomes optional`,true);
+
+  // AI closing
+  if(ai && ai.closing){
+    y+=6; chk(18);
+    doc.setFillColor(248,245,232); doc.roundedRect(ml,y,cw,16,2,2,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+16);
+    const cl=doc.splitTextToSize(ai.closing,cw-12);
+    doc.setFontSize(10); doc.setFont('helvetica','italic'); doc.setTextColor(...ACCENT);
+    doc.text(cl,ml+6,y+7); y+=20;
+  }
+
+  // Footer
+  chk(18); y+=6;
+  doc.setDrawColor(...RULE); doc.setLineWidth(0.5); doc.line(ml,y,W-mr,y); y+=5;
+  doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+  const disc=doc.splitTextToSize('This plan is AI-generated for informational purposes only and does not constitute financial advice. All projections use a 7% annual return assumption and are estimates. Past performance does not guarantee future results. Consult a qualified financial advisor before making investment decisions.',cw);
+  doc.text(disc,ml,y); y+=disc.length*4+4;
+  doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD);
+  doc.text('amipoor.com — Are you poor? Now you know.',ml,y);
+
+  doc.save(`amipoor-plan-${new Date().toISOString().slice(0,10)}.pdf`);
+  toast('Your AI financial plan is downloading!');
+}
 let bugType = 'bug';
 
 function setBugType(type){
@@ -2321,5 +2846,6 @@ if(_sl) _sl.addEventListener('input',updateRetire);
   }
 ]
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>
