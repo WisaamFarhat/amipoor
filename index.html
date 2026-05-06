@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ═══ PRIMARY SEO ═══ -->
+<title>Am I Poor? — Real-Time Salary Calculator, Spending Tracker & Savings Rate</title>
+<meta name="description" content="Am I poor? Find out instantly. Watch your salary tick up every second, track your spending, see your real savings rate, and calculate passive investment income. Free. Any currency. Uncomfortably honest.">
+<meta name="keywords" content="what am I worth calculator, salary per second calculator, live earnings counter, how much do I earn per minute, time value of money, spending tracker, savings rate calculator, passive income calculator, investment income calculator, salary calculator UAE, AED earnings live, what is my time worth, money per second, hourly rate calculator, FIRE number calculator, financial independence calculator">
+<meta name="author" content="AmiPoor">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://amipoor.com">
+
+<!-- ═══ OPEN GRAPH (Facebook, LinkedIn, WhatsApp) ═══ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://amipoor.com">
+<meta property="og:site_name" content="Am I Poor?">
+<meta property="og:title" content="Am I Poor? — Watch Your Salary Tick Up in Real Time">
+<meta property="og:description" content="How much have you earned since opening this tab? See your salary per second, track your spending, check your savings rate, and calculate your passive investment income. Free tool, any currency.">
+<meta property="og:image" content="https://amipoor.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- ═══ TWITTER / X ═══ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@amipoor">
+<meta name="twitter:title" content="Am I Poor? — Real-Time Salary Counter">
+<meta name="twitter:description" content="Watch your salary tick up every second. Track spending. Calculate passive income. Free, any currency.">
+<meta name="twitter:image" content="https://amipoor.com/og-image.png">
+
+<!-- ═══ THEME & FAVICON ═══ -->
+<meta name="theme-color" content="#070707">
+<meta name="msapplication-TileColor" content="#070707">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+
+<!-- ═══ FONTS ═══ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#c9a84c;--gold-light:#e8c96e;--gold-dim:#7a6230;
+  --gold-glow:rgba(201,168,76,0.09);--gold-glow2:rgba(201,168,76,0.20);
+  --bg:#070707;--bg2:#0d0d0d;--bg3:#111111;
+  --card:#0f0f0f;--card2:#141414;
+  --border:#1c1c1c;--border2:#282828;
+  --text:#f0ede6;--text2:#9a9590;--text3:#504e4a;
+  --green:#3ecf8e;--green-bg:rgba(62,207,142,0.08);--green-border:rgba(62,207,142,0.20);
+  --red:#e84d4d;--red-bg:rgba(232,77,77,0.07);--red-border:rgba(232,77,77,0.18);
+  --blue:#4d9de8;
+  --mono:'DM Mono',monospace;--sans:'Syne',sans-serif;
+  --r:12px;--r2:16px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.013) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.013) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.05),transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+
+.topbar{position:sticky;top:0;z-index:200;background:rgba(7,7,7,0.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:15px;font-weight:800;letter-spacing:-0.3px}
+.logo span{color:var(--gold)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.curr-select{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 8px;color:var(--text2);font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;outline:none;max-width:140px}
+.curr-select option{background:var(--bg3)}
+.live-badge{display:flex;align-items:center;gap:5px;background:var(--green-bg);border:1px solid var(--green-border);border-radius:20px;padding:4px 10px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.live-text{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--green);text-transform:uppercase}
+.icon-btn{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--text3);cursor:pointer;font-family:var(--sans);font-weight:600;transition:color 0.2s;white-space:nowrap}
+.icon-btn:hover{color:var(--text2)}
+
+#onboarding{position:fixed;inset:0;z-index:500;background:rgba(7,7,7,0.97);display:flex;align-items:center;justify-content:center;padding:16px;transition:opacity 0.4s}
+.ob-wrap{width:100%;max-width:460px;max-height:90vh;overflow-y:auto;scrollbar-width:none}
+.ob-wrap::-webkit-scrollbar{display:none}
+.ob-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:32px 28px;position:relative}
+.ob-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:20px 20px 0 0}
+.ob-step-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ob-step{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase}
+.ob-skip{font-size:11px;color:var(--text3);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.ob-skip:hover{color:var(--text2)}
+.ob-title{font-size:26px;font-weight:800;letter-spacing:-0.8px;margin-bottom:6px}
+.ob-title span{color:var(--gold)}
+.ob-sub{font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.6}
+.ob-section-label{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:10px;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+.ob-section-label:first-of-type{margin-top:0;padding-top:0;border-top:none}
+.ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ob-grid.three{grid-template-columns:1fr 1fr 1fr}
+.ob-field{display:flex;flex-direction:column;gap:5px}
+.ob-field.full{grid-column:1/-1}
+.ob-label{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--text3);text-transform:uppercase}
+.ob-hint{font-size:10px;color:var(--text3);margin-top:2px}
+.ob-inp{background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:11px 13px;color:var(--text);font-family:var(--mono);font-size:15px;width:100%;outline:none;transition:border-color 0.2s;-moz-appearance:textfield}
+.ob-inp::-webkit-inner-spin-button,.ob-inp::-webkit-outer-spin-button{-webkit-appearance:none}
+.ob-inp:focus{border-color:var(--gold)}
+.ob-inp.select-inp{cursor:pointer}
+.ob-actions{display:flex;gap:8px;margin-top:22px}
+.start-btn{flex:1;background:var(--gold);color:#070707;border:none;border-radius:12px;padding:14px;font-family:var(--sans);font-weight:800;font-size:13px;letter-spacing:0.5px;cursor:pointer;transition:opacity 0.2s,transform 0.1s;text-transform:uppercase}
+.start-btn:hover{opacity:0.9}
+.start-btn:active{transform:scale(0.98)}
+.ob-tabs{display:flex;gap:4px;margin-bottom:18px}
+.ob-tab{flex:1;padding:8px;background:var(--bg);border:1px solid var(--border2);border-radius:8px;font-size:11px;font-weight:700;color:var(--text3);cursor:pointer;font-family:var(--sans);text-align:center;transition:all 0.2s}
+.ob-tab.active{background:var(--gold-glow);border-color:var(--gold-dim);color:var(--gold)}
+.ob-page{display:none}
+.ob-page.active{display:block}
+
+.main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:32px 24px 0}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:10px}
+.hero-title{font-size:clamp(28px,6vw,44px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:6px}
+.hero-title .accent{color:var(--gold)}
+.hero-sub{font-size:14px;color:var(--text2);margin-bottom:24px}
+
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sl{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--text3);text-transform:uppercase;margin-bottom:5px}
+.inp{background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:9px 12px;color:var(--text);font-family:var(--mono);font-size:15px;width:100%;outline:none;transition:border-color 0.2s;-moz-appearance:textfield}
+.inp::-webkit-inner-spin-button,.inp::-webkit-outer-spin-button{-webkit-appearance:none}
+.inp:focus{border-color:var(--gold)}
+
+.mode-tabs{display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap}
+.mode-tab{padding:7px 16px;border-radius:30px;font-size:11px;font-weight:700;letter-spacing:0.4px;border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;font-family:var(--sans);transition:all 0.2s;text-transform:uppercase}
+.mode-tab:hover{color:var(--text2)}
+.mode-tab.active{background:var(--gold);color:#070707;border-color:var(--gold)}
+.mode-tab.fantasy.active{background:linear-gradient(135deg,#c9a84c 0%,#f0dc90 50%,#c9a84c 100%);background-size:200% 100%;animation:shimmer 2s linear infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+.counter-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:26px 22px;margin-bottom:12px;position:relative;overflow:hidden}
+.counter-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.counter-card::after{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(201,168,76,0.06),transparent 70%);pointer-events:none}
+.counter-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:10px}
+.counter-amount{font-family:var(--mono);font-size:clamp(40px,9vw,62px);font-weight:500;color:var(--green);letter-spacing:-2px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.counter-amount.flash{animation:cflash 0.18s ease}
+@keyframes cflash{0%{color:var(--green)}50%{color:#9fffd4}100%{color:var(--green)}}
+.counter-currency{font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:1px}
+.counter-meta{display:flex;align-items:center;gap:20px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap}
+.cmeta{font-size:11px;color:var(--text3)}
+.cmeta strong{color:var(--text2);font-family:var(--mono);font-weight:400}
+
+.mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+@media(max-width:540px){.mini-grid{grid-template-columns:repeat(2,1fr)}}
+.mini-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 12px}
+.mini-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:6px}
+.mini-value{font-family:var(--mono);font-size:18px;font-weight:500;color:var(--text);font-variant-numeric:tabular-nums}
+.mini-sub{font-size:10px;color:var(--text3);margin-top:2px}
+
+.scroll-cost{background:var(--gold-glow);border:1px solid var(--gold-glow2);border-radius:var(--r);padding:14px 18px;margin-bottom:36px;display:flex;align-items:center;justify-content:space-between}
+.sc-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:3px}
+.sc-sub{font-size:11px;color:var(--text3)}
+.sc-value{font-family:var(--mono);font-size:28px;font-weight:500;color:var(--gold);letter-spacing:-1px}
+
+.section{margin-bottom:36px}
+.section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-num{width:22px;height:22px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0}
+.sec-title{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
+hr.div{border:none;border-top:1px solid var(--border);margin:36px 0}
+
+.compare-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;transition:border-color 0.2s}
+.compare-row:hover{border-color:var(--border2)}
+.cmp-left{display:flex;align-items:center;gap:10px}
+.cmp-emoji{font-size:20px;width:26px;text-align:center}
+.cmp-name{font-size:13px;color:var(--text);font-weight:600}
+.cmp-price{font-size:10px;color:var(--text3);margin-top:1px}
+.cmp-right{text-align:right}
+.cmp-qty{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--green);font-variant-numeric:tabular-nums;line-height:1}
+.cmp-qty-label{font-size:9px;color:var(--text3);letter-spacing:0.5px;margin-top:2px;text-transform:uppercase}
+.add-items-btn{margin-left:auto;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--gold);cursor:pointer;font-family:var(--sans);letter-spacing:0.3px;transition:all 0.2s;white-space:nowrap}
+.add-items-btn:hover{background:var(--gold-glow);border-color:var(--gold-glow2)}
+.item-picker{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:18px;margin-top:10px}
+.picker-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.picker-title{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase}
+.picker-close{background:none;border:none;color:var(--text3);font-size:16px;cursor:pointer;padding:2px 6px;border-radius:6px;transition:color 0.2s}
+.picker-close:hover{color:var(--text)}
+.picker-cats{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.picker-cat{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:pointer;font-family:var(--sans);transition:all 0.2s;text-transform:capitalize}
+.picker-cat.active{background:var(--border2);color:var(--text2)}
+.picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px;max-height:300px;overflow-y:auto;padding-right:4px}
+.picker-grid::-webkit-scrollbar{width:4px}
+.picker-grid::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+.picker-item{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.15s;user-select:none}
+.picker-item:hover{border-color:var(--border2);background:var(--bg3)}
+.picker-item.selected{border-color:var(--gold-dim);background:var(--gold-glow)}
+.picker-item.selected .pi-check{opacity:1}
+.pi-emoji{font-size:18px;flex-shrink:0;width:22px;text-align:center}
+.pi-info{flex:1;min-width:0}
+.pi-name{font-size:12px;color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pi-price{font-size:10px;color:var(--text3);font-family:var(--mono)}
+.pi-check{font-size:13px;color:var(--gold);opacity:0;flex-shrink:0;transition:opacity 0.15s}
+
+.avg-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px}
+.avg-row{margin-bottom:14px}
+.avg-row-top{display:flex;justify-content:space-between;margin-bottom:6px;font-size:12px;color:var(--text2)}
+.avg-row-top span{font-family:var(--mono);font-size:11px;color:var(--text3)}
+.avg-track{background:var(--bg);border-radius:4px;height:6px;overflow:hidden}
+.avg-fill{height:100%;border-radius:4px;transition:width 0.9s cubic-bezier(0.4,0,0.2,1)}
+.avg-insight{font-size:12px;color:var(--text2);padding-top:12px;border-top:1px solid var(--border);margin-top:4px;line-height:1.6}
+.avg-insight strong{color:var(--text);font-weight:600}
+
+.donut-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.donut-wrap{position:relative;width:140px;height:140px;flex-shrink:0}
+.donut-wrap svg{transform:rotate(-90deg)}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-cv{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--text)}
+.donut-cl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.donut-legend{flex:1;min-width:160px;display:flex;flex-direction:column;gap:10px}
+.dl-item{display:flex;align-items:center;gap:10px}
+.dl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dl-label{font-size:12px;color:var(--text2)}
+.dl-val{font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto}
+
+.life-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.life-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.lc-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.lc-val{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--text);letter-spacing:-0.5px;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.lc-sub{font-size:10px;color:var(--text3)}
+.bar-track{margin-top:10px;background:var(--bg);border-radius:4px;height:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width 0.9s cubic-bezier(0.4,0,0.2,1)}
+.lifetime-card{background:linear-gradient(135deg,rgba(201,168,76,0.07),transparent);border:1px solid var(--gold-glow2);border-radius:var(--r2);padding:20px;margin-top:8px}
+.lt-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:8px}
+.lt-val{font-family:var(--mono);font-size:32px;font-weight:500;color:var(--gold);letter-spacing:-1px;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.lt-sub{font-size:11px;color:var(--text3)}
+
+.retire-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:22px}
+.retire-label-row{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:4px}
+.retire-label-row strong{color:var(--text);font-family:var(--mono);font-weight:500}
+input[type=range]#retireSlider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background:var(--border2);outline:none;cursor:pointer;margin:10px 0 6px}
+input[type=range]#retireSlider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--bg);box-shadow:0 0 0 1px var(--gold)}
+input[type=range]#retireSlider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--bg)}
+.retire-ticks{display:flex;justify-content:space-between;font-size:9px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.retire-result{text-align:center;padding:22px 0 18px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:16px 0}
+.retire-result-label{font-size:11px;color:var(--text3);letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase;font-weight:600}
+.retire-result-value{font-family:var(--mono);font-size:clamp(34px,7vw,50px);font-weight:500;color:var(--gold);letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
+.retire-result-currency{font-size:13px;color:var(--text3);margin-top:6px;font-family:var(--mono);letter-spacing:1px}
+.retire-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:480px){.retire-breakdown{grid-template-columns:1fr 1fr}}
+.rb-item{background:var(--bg3);border-radius:8px;padding:10px 12px}
+.rb-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px}
+.rb-val{font-family:var(--mono);font-size:14px;color:var(--text2);font-variant-numeric:tabular-nums}
+
+.wait-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.wait-row{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--border)}
+.wait-row:last-child{border-bottom:none}
+.wl{font-size:13px;color:var(--text2)}
+.wsl{font-size:10px;color:var(--text3);margin-top:2px}
+.we{font-family:var(--mono);font-size:14px;font-weight:500}
+.wait-row.verdict{background:var(--red-bg);border-top:1px solid var(--red-border)}
+.wait-row.verdict .wl{color:var(--red);font-weight:600}
+
+.spend-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.spend-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+.spend-sum-item{padding:18px 16px;border-right:1px solid var(--border);text-align:center}
+.spend-sum-item:last-child{border-right:none}
+.spend-sum-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:6px}
+.spend-sum-val{font-family:var(--mono);font-size:20px;font-weight:500;font-variant-numeric:tabular-nums}
+.spend-sum-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.spend-list{padding:0 16px}
+.spend-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.spend-item:last-child{border-bottom:none}
+.spend-icon{font-size:20px;flex-shrink:0;width:28px;text-align:center}
+.spend-info{flex:1}
+.spend-name{font-size:13px;color:var(--text);font-weight:600}
+.spend-freq{font-size:10px;color:var(--text3);margin-top:1px}
+.spend-amount-wrap{display:flex;align-items:center;gap:8px}
+.spend-amount{font-family:var(--mono);font-size:15px;color:var(--text2);text-align:right;font-variant-numeric:tabular-nums}
+.spend-pct{font-size:10px;font-family:var(--mono);color:var(--text3)}
+.spend-bar-row{padding:14px 16px;border-top:1px solid var(--border)}
+.spend-bar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:8px}
+.spend-stacked-bar{height:8px;border-radius:6px;background:var(--bg);overflow:hidden;display:flex}
+.sbar-seg{height:100%;transition:width 0.6s ease}
+.spend-legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.sleg-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text3)}
+.sleg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.spend-edit-btn{background:none;border:1px solid var(--border2);border-radius:8px;padding:3px 9px;font-size:11px;color:var(--text3);cursor:pointer;font-family:var(--sans);font-weight:600;transition:color 0.2s;margin-left:auto}
+.spend-edit-btn:hover{color:var(--text2)}
+.spend-edit-panel{display:none;padding:14px 16px;border-top:1px solid var(--border);background:var(--bg2)}
+.spend-edit-panel.open{display:block}
+.spend-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+@media(max-width:480px){.spend-edit-grid{grid-template-columns:1fr}}
+.spend-edit-row{display:flex;flex-direction:column;gap:4px}
+.spend-edit-label{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--text3);text-transform:uppercase}
+
+.savings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px}
+.savings-hero{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.savings-pct-wrap{text-align:center}
+.savings-pct{font-family:var(--mono);font-size:48px;font-weight:500;letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
+.savings-pct-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin-top:4px}
+.savings-insight{flex:1;padding-left:24px;font-size:13px;color:var(--text2);line-height:1.65}
+.savings-insight strong{color:var(--text);font-weight:700}
+.savings-ring{position:relative;flex-shrink:0}
+.savings-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.sstat{background:var(--bg3);border-radius:var(--r);padding:14px}
+.sstat-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:6px}
+.sstat-val{font-family:var(--mono);font-size:18px;font-weight:500;font-variant-numeric:tabular-nums}
+.sstat-sub{font-size:10px;color:var(--text3);margin-top:2px}
+
+.share-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:460px){.share-grid{grid-template-columns:1fr}}
+.sbtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;border:none;border-radius:var(--r);padding:15px;font-family:var(--sans);font-weight:700;font-size:15px;letter-spacing:0.2px;cursor:pointer;transition:opacity 0.2s,transform 0.1s;text-transform:none}
+.sbtn:active{transform:scale(0.97)}
+.sbtn:hover{opacity:0.88}
+.sbtn.primary{background:var(--gold);color:#070707}
+.sbtn.secondary{background:var(--bg3);color:var(--text2);border:1px solid var(--border2)}
+#shareCanvas{display:none}
+
+.confetti-piece{position:fixed;pointer-events:none;z-index:9999;border-radius:2px;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(105vh) rotate(760deg);opacity:0}}
+.milestone{position:fixed;top:66px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--gold);color:#070707;padding:10px 24px;border-radius:30px;font-size:13px;font-weight:800;letter-spacing:0.5px;z-index:9998;opacity:0;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);white-space:nowrap}
+.milestone.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green);color:#070707;padding:10px 22px;border-radius:30px;font-size:13px;font-weight:700;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1);z-index:9999;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24px;border-top:1px solid var(--border)}
+.ft-logo{font-size:15px;font-weight:800;margin-bottom:4px}
+.ft-logo span{color:var(--gold)}
+.ft-tag{font-size:11px;color:var(--text3);margin-bottom:18px}
+.seo-title{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.seo-badges{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px}
+.seo-badge{font-size:10px;padding:4px 9px;border-radius:20px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);text-decoration:none}
+.ft-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:16px;border-top:1px solid var(--border);font-size:10px;color:var(--text3)}
+
+.fade-in{opacity:0;animation:fadeIn 0.5s 0.1s ease forwards}
+@keyframes fadeIn{to{opacity:1}}
+
+/* ═══ SECTION HEADERS ═══ */
+.section-head{
+  display:flex;align-items:flex-start;gap:14px;
+  margin-bottom:20px;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--border);
+}
+.sec-num{
+  width:30px;height:30px;border-radius:50%;
+  background:var(--bg3);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:800;flex-shrink:0;
+  color:var(--text3);margin-top:2px;
+}
+.sec-title{
+  font-family:var(--sans);
+  font-size:20px;font-weight:700;
+  letter-spacing:-0.3px;
+  color:var(--text);
+  line-height:1.2;
+}
+.sec-subtitle{
+  font-family:var(--sans);
+  font-size:12px;color:var(--text3);margin-top:4px;letter-spacing:0;font-weight:400;
+}
+
+/* ═══ INVESTMENTS ═══ */
+.invest-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.invest-inputs{padding:18px 18px 14px}
+.invest-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.invest-field{display:flex;flex-direction:column;gap:4px}
+.invest-label{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--text3);text-transform:uppercase}
+.invest-compare{padding:16px 18px;border-top:1px solid var(--border)}
+.invest-compare-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:10px}
+.invest-bar-track{height:10px;border-radius:8px;background:var(--bg);overflow:hidden;display:flex}
+.invest-bar-salary{height:100%;background:var(--gold);transition:width 0.6s ease}
+.invest-bar-invest{height:100%;background:var(--blue);transition:width 0.6s ease}
+.invest-bar-legend{display:flex;gap:14px;margin-top:8px;font-size:10px;color:var(--text3)}
+.invest-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.invest-dot.salary{background:var(--gold)}
+.invest-dot.invest{background:var(--blue)}
+.invest-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border)}
+.invest-stat{padding:16px 18px;border-right:1px solid var(--border);text-align:center}
+.invest-stat:last-child{border-right:none}
+.invest-stat-label{font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.invest-stat-val{font-family:var(--mono);font-size:20px;font-weight:500;font-variant-numeric:tabular-nums;line-height:1;margin-bottom:4px}
+.invest-stat-sub{font-size:10px;color:var(--text3)}
+.invest-projection{padding:18px;border-top:1px solid var(--border);background:linear-gradient(135deg,rgba(77,157,232,0.05),transparent)}
+.invest-proj-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.invest-proj-value{font-family:var(--mono);font-size:32px;font-weight:500;color:var(--blue);letter-spacing:-1px;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.invest-proj-sub{font-size:11px;color:var(--text3);margin-bottom:14px}
+.invest-proj-breakdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ipb-item{background:var(--bg3);border-radius:8px;padding:10px 12px}
+.ipb-label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px}
+.ipb-val{font-family:var(--mono);font-size:14px;color:var(--text2);font-variant-numeric:tabular-nums}
+.invest-fire{padding:16px 18px;border-top:1px solid var(--border);background:rgba(62,207,142,0.04)}
+.invest-fire-label{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.invest-fire-val{font-family:var(--mono);font-size:26px;font-weight:500;color:var(--green);letter-spacing:-1px;margin-bottom:4px;font-variant-numeric:tabular-nums}
+.invest-fire-sub{font-size:11px;color:var(--text3)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:480px){
+  .main{padding:24px 16px 0}
+  .picker-grid{grid-template-columns:1fr 1fr}
+  .spend-summary{grid-template-columns:1fr}
+  .spend-sum-item{border-right:none;border-bottom:1px solid var(--border)}
+  .spend-sum-item:last-child{border-bottom:none}
+  .savings-stats{grid-template-columns:1fr 1fr}
+  .savings-hero{flex-direction:column;gap:16px}
+  .savings-insight{padding-left:0}
+  .invest-input-grid{grid-template-columns:1fr}
+  .invest-stats{grid-template-columns:1fr 1fr}
+  .invest-proj-breakdown{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="glow-orb"></div>
+
+<!-- ═══ ONBOARDING ═══ -->
+<div id="onboarding">
+  <div class="ob-wrap">
+  <div class="ob-card">
+    <div class="ob-step-row">
+      <div class="ob-step">Set up your profile</div>
+      <span class="ob-skip" onclick="skipOnboarding()">Skip with defaults</span>
+    </div>
+    <h1 class="ob-title">What am I <span>worth?</span></h1>
+    <p class="ob-sub">Takes 30 seconds. We'll remember everything for next time.</p>
+
+    <!-- Tab nav -->
+    <div class="ob-tabs">
+      <div class="ob-tab active" onclick="obTab(0)">💰 Income</div>
+      <div class="ob-tab" onclick="obTab(1)">🏠 Spending</div>
+    </div>
+
+    <!-- Page 0: Income -->
+    <div class="ob-page active" id="ob-p0">
+      <div class="ob-section-label">Your currency & income</div>
+      <div class="ob-grid">
+        <div class="ob-field full">
+          <label class="ob-label" for="ob-currency">Currency</label>
+          <select class="ob-inp ob-inp select-inp" id="ob-currency"></select>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-salary">Monthly Salary</label>
+          <input class="ob-inp" id="ob-salary" type="number" inputmode="numeric" placeholder="5,000">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-hours">Work Hours / Week</label>
+          <input class="ob-inp" id="ob-hours" type="number" inputmode="numeric" placeholder="40">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-age">Your Age</label>
+          <input class="ob-inp" id="ob-age" type="number" inputmode="numeric" placeholder="30">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-coffee">Daily Food / Coffee</label>
+          <input class="ob-inp" id="ob-coffee" type="number" inputmode="numeric" placeholder="10">
+          <span class="ob-hint">Per day, in your currency</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page 1: Spending -->
+    <div class="ob-page" id="ob-p1">
+      <div class="ob-section-label">Monthly spending (optional — leave blank to skip)</div>
+      <div class="ob-grid">
+        <div class="ob-field">
+          <label class="ob-label" for="ob-rent">🏠 Rent / Mortgage</label>
+          <input class="ob-inp" id="ob-rent" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Per month</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-food">🛒 Groceries</label>
+          <input class="ob-inp" id="ob-food" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Per month</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-transport">🚗 Transport</label>
+          <input class="ob-inp" id="ob-transport" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Per month</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-utils">⚡ Utilities</label>
+          <input class="ob-inp" id="ob-utils" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Per month</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-subs">📱 Subscriptions</label>
+          <input class="ob-inp" id="ob-subs" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Per month</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-leisure">🎭 Leisure / Going out</label>
+          <input class="ob-inp" id="ob-leisure" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Per month</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-savings">💾 Monthly Savings Goal</label>
+          <input class="ob-inp" id="ob-savings" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">What you aim to save</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label" for="ob-other">➕ Other</label>
+          <input class="ob-inp" id="ob-other" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Per month</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ob-actions">
+      <button class="start-btn" onclick="startApp()">Show me the truth →</button>
+    </div>
+  </div>
+  </div>
+</div>
+
+<!-- ═══ TOPBAR ═══ -->
+<nav class="topbar">
+  <div class="logo">am i<span> poor?</span></div>
+  <div class="topbar-right">
+    <select id="currencySelect" class="curr-select" onchange="setCurrencyFromSelect(this)"></select>
+    <div class="live-badge"><div class="live-dot"></div><span class="live-text">Live</span></div>
+    <button class="icon-btn" onclick="openEditDrawer()">⚙ Edit</button>
+  </div>
+</nav>
+
+<!-- ═══ EDIT DRAWER ═══ -->
+<div id="editDrawer" style="display:none;position:fixed;inset:0;z-index:400;background:rgba(7,7,7,0.95);overflow-y:auto;padding:0 0 40px">
+  <div style="max-width:520px;margin:0 auto;padding:24px 20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <div style="font-size:16px;font-weight:800;letter-spacing:-0.3px">Edit your profile</div>
+      <button onclick="closeEditDrawer()" style="background:none;border:1px solid var(--border2);border-radius:8px;padding:6px 12px;color:var(--text3);cursor:pointer;font-family:var(--sans);font-size:12px;font-weight:700">✕ Close</button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="ob-tabs" style="margin-bottom:20px">
+      <div class="ob-tab active" id="ed-tab0" onclick="edTab(0)">💰 Income</div>
+      <div class="ob-tab" id="ed-tab1" onclick="edTab(1)">🏠 Spending</div>
+    </div>
+
+    <!-- Income page -->
+    <div id="ed-p0">
+      <div class="ob-grid">
+        <div class="ob-field full">
+          <label class="ob-label">Currency</label>
+          <select class="ob-inp ob-inp select-inp" id="ed-currency" onchange="applyCurrency(this.value);save()"></select>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">Monthly Salary</label>
+          <input class="ob-inp" id="ed-salary" type="number" inputmode="numeric" oninput="syncIncome()">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">Work Hours / Week</label>
+          <input class="ob-inp" id="ed-hours" type="number" inputmode="numeric" oninput="syncIncome()">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">Your Age</label>
+          <input class="ob-inp" id="ed-age" type="number" inputmode="numeric" oninput="syncIncome()">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">Daily Food / Coffee</label>
+          <input class="ob-inp" id="ed-coffee" type="number" inputmode="numeric" oninput="syncIncome()">
+          <span class="ob-hint">Per day, in your currency</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spending page -->
+    <div id="ed-p1" style="display:none">
+      <div style="font-size:12px;color:var(--text3);margin-bottom:14px;line-height:1.5">All amounts in your selected currency, per month.</div>
+      <div class="ob-grid">
+        <div class="ob-field">
+          <label class="ob-label">🏠 Rent / Mortgage</label>
+          <input class="ob-inp" id="eds-rent" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">🛒 Groceries</label>
+          <input class="ob-inp" id="eds-food" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">🚗 Transport</label>
+          <input class="ob-inp" id="eds-transport" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">⚡ Utilities</label>
+          <input class="ob-inp" id="eds-utils" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">📱 Subscriptions</label>
+          <input class="ob-inp" id="eds-subs" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">🎭 Leisure</label>
+          <input class="ob-inp" id="eds-leisure" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">💾 Monthly Savings Goal</label>
+          <input class="ob-inp" id="eds-savings" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">➕ Other</label>
+          <input class="ob-inp" id="eds-other" type="number" inputmode="numeric" placeholder="0">
+        </div>
+      </div>
+      <button class="start-btn" style="margin-top:18px" onclick="applySpendFromDrawer()">Save Spending →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<main class="main fade-in">
+  <!-- Hidden fields recalc reads from -->
+  <input type="hidden" id="salary" value="1000">
+  <input type="hidden" id="hours" value="40">
+  <input type="hidden" id="age" value="30">
+  <input type="hidden" id="coffee" value="10">
+
+
+    <p class="hero-eyebrow">The real-time money check · any currency</p>
+    <h1 class="hero-title">Are you actually<br><span class="accent">making money?</span></h1>
+    <p class="hero-sub">Enter your salary. Watch every second of your life convert to real cash — live on screen, right now.</p>
+
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="realistic" onclick="setMode(this,'realistic')">Realistic</button>
+      <button class="mode-tab" data-mode="optimistic" onclick="setMode(this,'optimistic')">Glow Up +35%</button>
+      <button class="mode-tab fantasy" data-mode="fantasy" onclick="setMode(this,'fantasy')">Delusional ✦ 5×</button>
+    </div>
+
+    <div class="counter-card">
+      <div class="counter-label">Earned since you landed here</div>
+      <div class="counter-amount" id="liveCounter">0.0000</div>
+      <div class="counter-currency" id="currLabel">— ticking every frame</div>
+      <div class="counter-meta">
+        <div class="cmeta">Per second: <strong id="metaSec">—</strong></div>
+        <div class="cmeta">Session: <strong id="metaTime">0:00</strong></div>
+        <div class="cmeta">Est. today: <strong id="metaDay">—</strong></div>
+      </div>
+    </div>
+
+    <div class="mini-grid" style="margin-top:12px">
+      <div class="mini-card"><div class="mini-label">Per Second</div><div class="mini-value" id="perSec">—</div><div class="mini-sub" id="perSecCurr">—</div></div>
+      <div class="mini-card"><div class="mini-label">Per Minute</div><div class="mini-value" id="perMin">—</div><div class="mini-sub" id="perMinCurr">—</div></div>
+      <div class="mini-card"><div class="mini-label">Per Hour</div><div class="mini-value" id="perHour">—</div><div class="mini-sub" id="perHourCurr">—</div></div>
+      <div class="mini-card"><div class="mini-label">Per Day</div><div class="mini-value" id="perDay">—</div><div class="mini-sub" id="perDayCurr">—</div></div>
+    </div>
+
+    <div class="scroll-cost" style="margin-top:12px">
+      <div><div class="sc-label">That scroll just cost you</div><div class="sc-sub">five seconds of your one life</div></div>
+      <div class="sc-value" id="scrollCost">—</div>
+    </div>
+
+  <!-- SECTION 1: Comparisons -->
+  <div class="section">
+    <div class="section-head">
+      <div class="sec-num">1</div>
+      <div><h2 class="sec-title">This is what your time buys</h2><div class="sec-subtitle">Live count since you opened this tab</div></div>
+      <button class="add-items-btn" onclick="togglePicker()" id="addItemsBtn">+ Add items</button>
+    </div>
+    <div id="compareList"></div>
+    <div id="itemPicker" class="item-picker" style="display:none">
+      <div class="picker-header">
+        <span class="picker-title">Choose what to compare</span>
+        <button class="picker-close" onclick="togglePicker()">✕</button>
+      </div>
+      <div class="picker-cats" id="pickerCats"></div>
+      <div class="picker-grid" id="pickerGrid"></div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 2: Salary vs averages -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">2</div><div><h2 class="sec-title">How you stack up globally</h2><div class="sec-subtitle">Your salary vs world averages</div></div></div>
+    <div class="avg-card">
+      <div class="avg-row"><div class="avg-row-top">Your salary (current mode) <span id="avgYourLabel">—</span></div><div class="avg-track"><div class="avg-fill" id="avgYourBar" style="width:0%;background:var(--gold)"></div></div></div>
+      <div class="avg-row"><div class="avg-row-top">Global average salary <span id="avgNatLabel">~$1,650/mo</span></div><div class="avg-track"><div class="avg-fill" id="avgNatBar" style="width:0%;background:var(--text3)"></div></div></div>
+      <div class="avg-row" style="margin-bottom:0"><div class="avg-row-top">Developed world average <span id="avgDubLabel">~$4,200/mo</span></div><div class="avg-track"><div class="avg-fill" id="avgDubBar" style="width:0%;background:var(--text3)"></div></div></div>
+      <div class="avg-insight" id="avgInsight" style="margin-top:14px">—</div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 3: Time donut -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">3</div><div><h2 class="sec-title">Where your day actually goes</h2><div class="sec-subtitle">24 hours broken down honestly</div></div></div>
+    <div class="donut-card">
+      <div class="donut-wrap">
+        <svg width="140" height="140" viewBox="0 0 140 140" id="donutSvg"></svg>
+        <div class="donut-center"><div class="donut-cv">24h</div><div class="donut-cl">per day</div></div>
+      </div>
+      <div class="donut-legend" id="donutLegend"></div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 4: Spending Tracker -->
+  <div class="section" id="spendingSection">
+    <div class="section-head">
+      <div class="sec-num">4</div>
+      <div><h2 class="sec-title">Where it all disappears</h2><div class="sec-subtitle">Monthly spending breakdown</div></div>
+      <button class="spend-edit-btn" onclick="openEditDrawer();edTab(1)">✏ Edit</button>
+    </div>
+    <div class="spend-card">
+      <!-- Summary row -->
+      <div class="spend-summary">
+        <div class="spend-sum-item">
+          <div class="spend-sum-label">Monthly income</div>
+          <div class="spend-sum-val" id="ssIncome" style="color:var(--green)">—</div>
+          <div class="spend-sum-sub" id="ssIncSurr">—</div>
+        </div>
+        <div class="spend-sum-item">
+          <div class="spend-sum-label">Monthly spend</div>
+          <div class="spend-sum-val" id="ssSpend" style="color:var(--red)">—</div>
+          <div class="spend-sum-sub" id="ssSpendSub">of income</div>
+        </div>
+        <div class="spend-sum-item">
+          <div class="spend-sum-label">Left over</div>
+          <div class="spend-sum-val" id="ssLeft" style="color:var(--gold)">—</div>
+          <div class="spend-sum-sub" id="ssLeftSub">per month</div>
+        </div>
+      </div>
+
+      <!-- Spending rows -->
+      <div class="spend-list" id="spendList"></div>
+
+      <!-- Stacked bar -->
+      <div class="spend-bar-row">
+        <div class="spend-bar-label">
+          <span>Budget breakdown</span>
+          <span id="spendBarPct" style="font-family:var(--mono);font-size:11px;color:var(--text3)">—</span>
+        </div>
+        <div class="spend-stacked-bar" id="spendBar"></div>
+        <div class="spend-legend" id="spendLegend"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 5: Savings -->
+  <div class="section" id="savingsSection">
+    <div class="section-head"><div class="sec-num">5</div><div><h2 class="sec-title">Are you actually saving?</h2><div class="sec-subtitle">Savings rate vs your goal</div></div></div>
+    <div class="savings-card">
+      <div class="savings-hero">
+        <!-- SVG ring — shows actual vs goal -->
+        <div class="savings-ring">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <!-- Goal track (dim, full circle) -->
+            <circle cx="55" cy="55" r="44" fill="none" stroke="#1c1c1c" stroke-width="10"/>
+            <!-- Goal arc (gold, shows what portion of income the goal represents) -->
+            <circle id="savingsGoalArc" cx="55" cy="55" r="44" fill="none" stroke="#c9a84c" stroke-width="10" stroke-opacity="0.25"
+              stroke-dasharray="0 276.46" stroke-dashoffset="0" stroke-linecap="round"
+              style="transition:stroke-dasharray 0.8s ease;transform-origin:center;transform:rotate(-90deg)"/>
+            <!-- Actual arc (solid, shows real savings) -->
+            <circle id="savingsRing" cx="55" cy="55" r="44" fill="none" stroke="#3ecf8e" stroke-width="10"
+              stroke-dasharray="0 276.46" stroke-dashoffset="0" stroke-linecap="round"
+              style="transition:stroke-dasharray 0.8s ease,stroke 0.4s ease;transform-origin:center;transform:rotate(-90deg)"/>
+            <text x="55" y="47" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#f0ede6" id="savingsRingPct">0%</text>
+            <text x="55" y="63" text-anchor="middle" font-family="Syne,sans-serif" font-size="8" fill="#504e4a" letter-spacing="1">OF GOAL</text>
+          </svg>
+        </div>
+        <div class="savings-insight" id="savingsInsight">Enter your spending details to see your savings picture.</div>
+      </div>
+      <!-- Goal progress bar -->
+      <div id="savingsGoalRow" style="display:none;padding:14px 0 18px;border-bottom:1px solid var(--border);margin-bottom:18px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+          <span style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">Monthly savings goal</span>
+          <span style="font-family:var(--mono);font-size:12px;color:var(--text3)" id="savingsGoalLabel">—</span>
+        </div>
+        <div style="background:var(--bg);border-radius:6px;height:8px;overflow:hidden;position:relative">
+          <div id="savingsGoalBar" style="height:100%;border-radius:6px;background:var(--gold);width:0%;transition:width 0.8s ease;opacity:0.3"></div>
+          <div id="savingsActualBar" style="height:100%;border-radius:6px;background:var(--green);width:0%;transition:width 0.8s ease;position:absolute;top:0;left:0"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;font-family:var(--mono);color:var(--text3)">
+          <span>Actual: <span id="savingsActualLabel" style="color:var(--green)">—</span></span>
+          <span>Goal: <span id="savingsGoalMax" style="color:var(--gold)">—</span></span>
+        </div>
+      </div>
+      <div class="savings-stats">
+        <div class="sstat"><div class="sstat-label">Actual saved/mo</div><div class="sstat-val" id="sSaved" style="color:var(--green)">—</div><div class="sstat-sub" id="sSavedCurr">—</div></div>
+        <div class="sstat"><div class="sstat-label">Annual savings</div><div class="sstat-val" id="sAnnual" style="color:var(--gold)">—</div><div class="sstat-sub" id="sAnnualCurr">—</div></div>
+        <div class="sstat"><div class="sstat-label">10-yr projection</div><div class="sstat-val" id="s10yr" style="color:var(--blue)">—</div><div class="sstat-sub" id="s10yrNote">at 6% growth</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 6: Investments -->
+  <div class="section" id="investSection">
+    <div class="section-head"><div class="sec-num">6</div><div><h2 class="sec-title">Your money making money</h2><div class="sec-subtitle">Passive income from investments</div></div></div>
+    <div class="invest-card">
+
+      <!-- Inputs row -->
+      <div class="invest-inputs" id="investInputs">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:12px;line-height:1.5">Add your portfolio to see how investment income compares to your salary — per second.</div>
+        <div class="invest-input-grid">
+          <div class="invest-field">
+            <label class="invest-label">💰 Portfolio Value</label>
+            <input class="ob-inp" id="inv-portfolio" type="number" inputmode="numeric" placeholder="0" oninput="saveInvest();recalcInvest()">
+            <span style="font-size:10px;color:var(--text3);margin-top:2px">Total invested amount</span>
+          </div>
+          <div class="invest-field">
+            <label class="invest-label">📈 Annual Return %</label>
+            <input class="ob-inp" id="inv-return" type="number" inputmode="decimal" placeholder="7" step="0.1" oninput="saveInvest();recalcInvest()">
+            <span style="font-size:10px;color:var(--text3);margin-top:2px">Interest, dividends or growth rate</span>
+          </div>
+        </div>
+        <div class="invest-input-grid" style="margin-top:8px">
+          <div class="invest-field">
+            <label class="invest-label">➕ Monthly Contribution</label>
+            <input class="ob-inp" id="inv-monthly" type="number" inputmode="numeric" placeholder="0" oninput="saveInvest();recalcInvest()">
+            <span style="font-size:10px;color:var(--text3);margin-top:2px">What you add each month</span>
+          </div>
+          <div class="invest-field">
+            <label class="invest-label">📅 Time Horizon (years)</label>
+            <input class="ob-inp" id="inv-years" type="number" inputmode="numeric" placeholder="10" min="1" max="50" oninput="saveInvest();recalcInvest()">
+            <span style="font-size:10px;color:var(--text3);margin-top:2px">How long you plan to hold</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live output — hidden until portfolio > 0 -->
+      <div id="investResults" style="display:none">
+
+        <!-- Combined income bar -->
+        <div class="invest-compare">
+          <div class="invest-compare-label">Monthly income breakdown</div>
+          <div class="invest-compare-bar-wrap">
+            <div class="invest-bar-track">
+              <div class="invest-bar-salary" id="invBarSalary" style="width:0%"></div>
+              <div class="invest-bar-invest" id="invBarInvest" style="width:0%"></div>
+            </div>
+            <div class="invest-bar-legend">
+              <span><span class="invest-dot salary"></span>Salary</span>
+              <span><span class="invest-dot invest"></span>Investments</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="invest-stats">
+          <div class="invest-stat">
+            <div class="invest-stat-label">Monthly from investments</div>
+            <div class="invest-stat-val" id="invMonthly" style="color:var(--blue)">—</div>
+            <div class="invest-stat-sub" id="invMonthlySub">—</div>
+          </div>
+          <div class="invest-stat">
+            <div class="invest-stat-label">Per second (passive)</div>
+            <div class="invest-stat-val" id="invPerSec" style="color:var(--green)">—</div>
+            <div class="invest-stat-sub" id="invPerSecSub">—</div>
+          </div>
+          <div class="invest-stat">
+            <div class="invest-stat-label">vs your salary</div>
+            <div class="invest-stat-val" id="invVsSalary" style="color:var(--gold)">—</div>
+            <div class="invest-stat-sub">of salary income</div>
+          </div>
+        </div>
+
+        <!-- Projection -->
+        <div class="invest-projection">
+          <div class="invest-proj-label">Portfolio in <span id="invProjYears">10</span> years</div>
+          <div class="invest-proj-value" id="invFutureVal">—</div>
+          <div class="invest-proj-sub" id="invFutureSub">—</div>
+          <div class="invest-proj-breakdown" id="invProjBreakdown"></div>
+        </div>
+
+        <!-- FIRE number -->
+        <div class="invest-fire" id="investFire">
+          <div class="invest-fire-label">🔥 Financial Independence number</div>
+          <div class="invest-fire-val" id="invFireVal">—</div>
+          <div class="invest-fire-sub" id="invFireSub">25× your annual expenses (4% rule)</div>
+        </div>
+
+      </div>
+
+      <!-- Empty state prompt -->
+      <div id="investEmpty" style="padding:24px 0;text-align:center;font-size:13px;color:var(--text3)">
+        Enter your portfolio value above to see your passive income per second.
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 7: Life so far -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">7</div><div><h2 class="sec-title">The bigger picture</h2><div class="sec-subtitle">Your lifetime earnings & time left</div></div></div>
+    <div class="life-grid">
+      <div class="life-card"><div class="lc-label">Total Est. Earned</div><div class="lc-val" id="totalEarned">—</div><div class="lc-sub" id="totalEarnedSub">lifetime</div></div>
+      <div class="life-card"><div class="lc-label">Years Working</div><div class="lc-val" id="yearsWorking">—</div><div class="lc-sub">of your life so far</div><div class="bar-track"><div class="bar-fill" id="workBar" style="width:0%;background:var(--gold)"></div></div></div>
+      <div class="life-card"><div class="lc-label">Food / Coffee Habit</div><div class="lc-val" id="coffeeCost">—</div><div class="lc-sub" id="coffeeSub">per year</div></div>
+      <div class="life-card"><div class="lc-label">Time Left (80yr avg)</div><div class="lc-val" id="timeLeft">—</div><div class="lc-sub">years remaining</div><div class="bar-track"><div class="bar-fill" id="lifeBar" style="width:0%;background:var(--red)"></div></div></div>
+    </div>
+    <div class="lifetime-card">
+      <div class="lt-label">Lifetime money still to earn</div>
+      <div class="lt-val" id="lifetimeLeft">—</div>
+      <div class="lt-sub" id="lifetimeSub">Based on current salary until age 60</div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 8: Retirement slider -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">8</div><div><h2 class="sec-title">Your earning potential</h2><div class="sec-subtitle">Drag to see total earnings by retirement age</div></div></div>
+    <div class="retire-card">
+      <div class="retire-label-row"><span>Age <strong id="retireFromAge">—</strong> (now)</span><span>Age <strong id="retireToAge">60</strong></span></div>
+      <input type="range" id="retireSlider" min="18" max="60" value="60" step="1">
+      <div class="retire-ticks"><span>18</span><span>25</span><span>30</span><span>35</span><span>40</span><span>45</span><span>50</span><span>55</span><span>60</span></div>
+      <div class="retire-result">
+        <div class="retire-result-label">Total earnings between now and age <span id="retireTargetLabel">60</span></div>
+        <div class="retire-result-value" id="retireTotal">—</div>
+        <div class="retire-result-currency" id="retireUnit">—</div>
+      </div>
+      <div class="retire-breakdown" id="retireBreakdown"></div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 9: Cost of waiting -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">9</div><div><h2 class="sec-title">Every minute counts</h2><div class="sec-subtitle">The real cost of procrastinating</div></div></div>
+    <div class="wait-card">
+      <div class="wait-row"><div><div class="wl">Hang around 1 more minute</div><div class="wsl">You'll earn →</div></div><div class="we" id="w1" style="color:var(--green)">—</div></div>
+      <div class="wait-row"><div><div class="wl">Waste 10 more minutes here</div><div class="wsl">You'll earn →</div></div><div class="we" id="w10" style="color:var(--green)">—</div></div>
+      <div class="wait-row"><div><div class="wl">Burn a full hour</div><div class="wsl">You'll earn →</div></div><div class="we" id="w60" style="color:var(--green)">—</div></div>
+      <div class="wait-row verdict"><div><div class="wl">But that time is gone forever</div><div class="wsl">No refunds. No replays.</div></div><div class="we" style="color:var(--red)">priceless</div></div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 10: Share -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">10</div><div><h2 class="sec-title">Settle the debate</h2><div class="sec-subtitle">Who earns more — you or your friends?</div></div></div>
+    <div class="share-grid">
+      <button class="sbtn primary" onclick="shareResult()">↗ Send to a friend</button>
+      <button class="sbtn secondary" onclick="challengeFriend()">⚡ Who earns more?</button>
+    </div>
+    <button class="sbtn secondary" style="width:100%" onclick="generateCard()">📸 Make the card</button>
+    <canvas id="shareCanvas" width="1080" height="1080"></canvas>
+  </div>
+</main>
+
+<footer>
+  <div class="ft-logo">What Am I <span>Worth?</span></div>
+  <div class="ft-tag">The uncomfortable truth about your money · amipoor.com</div>
+  <div class="seo-title">People also search for</div>
+  <nav class="seo-badges">
+    <a class="seo-badge" href="?q=what-am-i-worth">what am I worth calculator</a>
+    <a class="seo-badge" href="?q=salary-per-second">salary per second calculator</a>
+    <a class="seo-badge" href="?q=live-earnings-counter">live earnings counter</a>
+    <a class="seo-badge" href="?q=spending-tracker">spending tracker</a>
+    <a class="seo-badge" href="?q=savings-rate-calculator">savings rate calculator</a>
+    <a class="seo-badge" href="?q=time-value-of-money">time value of money</a>
+    <a class="seo-badge" href="?q=salary-per-second-uae">salary per second UAE</a>
+    <a class="seo-badge" href="?q=earn-per-minute-dubai">earn per minute Dubai</a>
+  </nav>
+  <div class="ft-bottom">
+    <span>© 2025 Am I Poor? · amipoor.com</span>
+    <span>All figures are estimates</span>
+  </div>
+
+  <!-- Bug report -->
+  <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+    <div id="bugTrigger" onclick="toggleBugReport()" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);cursor:pointer;transition:color 0.2s" onmouseover="this.style.color='var(--text2)'" onmouseout="this.style.color='var(--text3)'">
+      <span>🐛</span>
+      <span>See a bug? Report it to us</span>
+      <span id="bugChevron" style="font-size:9px;transition:transform 0.2s">▼</span>
+    </div>
+
+    <div id="bugPanel" style="display:none;margin-top:14px">
+      <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:16px">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.5">Describe what happened — what you expected vs what you saw. Optional: include your salary/currency settings so we can reproduce it.</div>
+        <textarea id="bugText" placeholder="e.g. The per-day figure doesn't match when I switch from AED to USD..." style="width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;color:var(--text);font-family:var(--mono);font-size:13px;resize:vertical;min-height:80px;outline:none;transition:border-color 0.2s;line-height:1.5" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
+          <span style="font-size:10px;color:var(--text3)">Sent anonymously · no account needed</span>
+          <button onclick="submitBug()" style="background:var(--gold);color:#070707;border:none;border-radius:8px;padding:7px 16px;font-family:var(--sans);font-size:11px;font-weight:800;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s" onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">Send report →</button>
+        </div>
+        <div id="bugConfirm" style="display:none;margin-top:10px;font-size:12px;color:var(--green);font-weight:600">✓ Thanks — we'll look into it!</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="milestone" id="milestone"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* © 2025 AmiPoor · amipoor.com · All rights reserved.
+   Unauthorised copying, redistribution or resale of this code is prohibited.
+   Contact: hello@amipoor.com */
+// ═══════════════════════════════════════════════════════════
+//  CURRENCIES
+// ═══════════════════════════════════════════════════════════
+const CURRENCIES = [
+  { code:'USD', sym:'$',   name:'US Dollar',           rate:1       },
+  { code:'EUR', sym:'€',   name:'Euro',                rate:0.92    },
+  { code:'GBP', sym:'£',   name:'British Pound',       rate:0.79    },
+  { code:'JPY', sym:'¥',   name:'Japanese Yen',        rate:149     },
+  { code:'CNY', sym:'¥',   name:'Chinese Yuan',        rate:7.24    },
+  { code:'INR', sym:'₹',   name:'Indian Rupee',        rate:83.5    },
+  { code:'CAD', sym:'C$',  name:'Canadian Dollar',     rate:1.36    },
+  { code:'AUD', sym:'A$',  name:'Australian Dollar',   rate:1.53    },
+  { code:'CHF', sym:'Fr',  name:'Swiss Franc',         rate:0.90    },
+  { code:'SGD', sym:'S$',  name:'Singapore Dollar',    rate:1.34    },
+  { code:'AED', sym:'د.إ', name:'UAE Dirham',          rate:3.67    },
+  { code:'SAR', sym:'﷼',   name:'Saudi Riyal',         rate:3.75    },
+  { code:'KWD', sym:'KD',  name:'Kuwaiti Dinar',       rate:0.307   },
+  { code:'QAR', sym:'QR',  name:'Qatari Riyal',        rate:3.64    },
+  { code:'MXN', sym:'$',   name:'Mexican Peso',        rate:17.1    },
+  { code:'BRL', sym:'R$',  name:'Brazilian Real',      rate:4.97    },
+  { code:'ZAR', sym:'R',   name:'South African Rand',  rate:18.6    },
+  { code:'TRY', sym:'₺',   name:'Turkish Lira',        rate:32.1    },
+  { code:'KRW', sym:'₩',   name:'South Korean Won',    rate:1320    },
+  { code:'SEK', sym:'kr',  name:'Swedish Krona',       rate:10.4    },
+  { code:'NOK', sym:'kr',  name:'Norwegian Krone',     rate:10.6    },
+];
+
+const LOCALE_CURRENCY = {
+  'en-US':'USD','en-GB':'GBP','de':'EUR','fr':'EUR','it':'EUR','es':'EUR',
+  'pt':'EUR','nl':'EUR','de-CH':'CHF','ja':'JPY','zh':'CNY','zh-CN':'CNY',
+  'hi':'INR','en-IN':'INR','en-CA':'CAD','en-AU':'AUD','en-SG':'SGD',
+  'ar-AE':'AED','ar-SA':'SAR','ar-KW':'KWD','ar-QA':'QAR',
+  'ko':'KRW','sv':'SEK','nb':'NOK','tr':'TRY','pt-BR':'BRL','af':'ZAR','es-MX':'MXN',
+};
+
+function detectCurrency() {
+  const langs = navigator.languages || [navigator.language || 'en-US'];
+  for (const l of langs) {
+    if (LOCALE_CURRENCY[l]) return LOCALE_CURRENCY[l];
+    const b = l.split('-')[0];
+    if (LOCALE_CURRENCY[b]) return LOCALE_CURRENCY[b];
+  }
+  return 'USD';
+}
+
+function getCurrObj(code) { return CURRENCIES.find(c=>c.code===code)||CURRENCIES[0]; }
+
+function buildCurrencySelects() {
+  const opts = CURRENCIES.map(c=>`<option value="${c.code}">${c.code} — ${c.name}</option>`).join('');
+  ['currencySelect','ob-currency'].forEach(id=>{
+    const el=g(id); if(el){el.innerHTML=opts; el.value=currency;}
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ITEMS
+// ═══════════════════════════════════════════════════════════
+const ALL_ITEMS = [
+  { name:'Coffee (café)',        emoji:'☕', usd:5,      cat:'food'    },
+  { name:'Big Mac meal',         emoji:'🍔', usd:9,      cat:'food'    },
+  { name:'Metro trip',           emoji:'🚇', usd:2.5,    cat:'local'   },
+  { name:'Avocado toast',        emoji:'🥑', usd:14,     cat:'food'    },
+  { name:'Parking hour',         emoji:'🅿', usd:3,      cat:'local'   },
+  { name:'Pizza slice',          emoji:'🍕', usd:5,      cat:'food'    },
+  { name:'Bubble tea',           emoji:'🧋', usd:6,      cat:'food'    },
+  { name:'Sushi roll',           emoji:'🍣', usd:12,     cat:'food'    },
+  { name:'Burrito',              emoji:'🌯', usd:10,     cat:'food'    },
+  { name:'Ramen bowl',           emoji:'🍲', usd:15,     cat:'food'    },
+  { name:'Smoothie',             emoji:'🥤', usd:7,      cat:'food'    },
+  { name:'Steak dinner',         emoji:'🥩', usd:55,     cat:'food'    },
+  { name:'Karak tea 🇦🇪',        emoji:'🫖', usd:1.4,    cat:'uae'     },
+  { name:'Shawarma 🇦🇪',         emoji:'🌮', usd:3.3,    cat:'uae'     },
+  { name:'Abra ride 🇦🇪',        emoji:'⛵', usd:0.27,   cat:'uae'     },
+  { name:'Camel milk latte 🇦🇪', emoji:'🐪', usd:8.2,    cat:'uae'     },
+  { name:'Kunafa slice 🇦🇪',     emoji:'🍮', usd:5.4,    cat:'uae'     },
+  { name:'Dates box 🇦🇪',        emoji:'🌴', usd:12.3,   cat:'uae'     },
+  { name:'Desert safari 🇦🇪',    emoji:'🏜️', usd:54,     cat:'uae'     },
+  { name:'Falcon (trained) 🇦🇪', emoji:'🦅', usd:19000,  cat:'uae'     },
+  { name:'Arabian horse 🇦🇪',    emoji:'🐴', usd:30000,  cat:'uae'     },
+  { name:'Uber ride',            emoji:'🚕', usd:18,     cat:'local'   },
+  { name:'Transit pass/mo',      emoji:'🚌', usd:90,     cat:'local'   },
+  { name:'Cinema ticket',        emoji:'🎬', usd:15,     cat:'leisure' },
+  { name:'Netflix month',        emoji:'📺', usd:15,     cat:'leisure' },
+  { name:'Spotify month',        emoji:'🎵', usd:11,     cat:'leisure' },
+  { name:'Concert ticket',       emoji:'🎤', usd:120,    cat:'leisure' },
+  { name:'Gym month',            emoji:'🏋️', usd:50,     cat:'leisure' },
+  { name:'iPhone 16 Pro',        emoji:'📱', usd:1099,   cat:'tech'    },
+  { name:'AirPods Pro',          emoji:'🎧', usd:249,    cat:'tech'    },
+  { name:'PS5',                  emoji:'🎮', usd:499,    cat:'tech'    },
+  { name:'MacBook Air',          emoji:'🖥️', usd:1099,   cat:'tech'    },
+  { name:'Nike Air Max',         emoji:'👟', usd:170,    cat:'fashion' },
+  { name:'Ray-Bans',             emoji:'🕶️', usd:200,    cat:'fashion' },
+  { name:'Gold (1g, 24k)',       emoji:'🥇', usd:90,     cat:'luxury'  },
+  { name:'Rolex Submariner',     emoji:'⌚', usd:9000,   cat:'luxury'  },
+  { name:'Business class flight',emoji:'🛫', usd:4000,   cat:'luxury'  },
+  { name:'Maldives night',       emoji:'🏝️', usd:1200,   cat:'luxury'  },
+  { name:'Private jet hour',     emoji:'🛩️', usd:12000,  cat:'luxury'  },
+  { name:'1 Bitcoin (~)',        emoji:'₿',  usd:100000, cat:'big'     },
+  { name:'Toyota Camry',         emoji:'🚙', usd:28000,  cat:'big'     },
+  { name:'1BR city apt/mo',      emoji:'🏠', usd:2000,   cat:'big'     },
+  { name:'Harvard year tuition', emoji:'🎓', usd:59000,  cat:'big'     },
+  { name:'Horse (avg)',          emoji:'🐴', usd:5000,   cat:'big'     },
+];
+const activeItemIds = new Set([0,1,2,3,4,5]);
+
+// ═══════════════════════════════════════════════════════════
+//  SPENDING CATEGORIES
+// ═══════════════════════════════════════════════════════════
+const SPEND_CATS = [
+  { key:'rent',      label:'Rent / Mortgage', emoji:'🏠', color:'#4d9de8' },
+  { key:'food',      label:'Groceries',       emoji:'🛒', color:'#3ecf8e' },
+  { key:'transport', label:'Transport',        emoji:'🚗', color:'#c9a84c' },
+  { key:'utils',     label:'Utilities',        emoji:'⚡', color:'#a78bfa' },
+  { key:'subs',      label:'Subscriptions',   emoji:'📱', color:'#f59e0b' },
+  { key:'leisure',   label:'Leisure',          emoji:'🎭', color:'#e84d4d' },
+  { key:'savings',   label:'Savings goal',    emoji:'💾', color:'#10b981' },
+  { key:'other',     label:'Other',            emoji:'➕', color:'#6b7280' },
+];
+
+// ═══════════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════════
+let perSecUSD = 0;
+let mode      = 'realistic';
+let currency  = detectCurrency();
+let t0        = performance.now();
+let lastInt   = -1;
+let hitMilestones = new Set();
+let running   = false;
+const MULT    = { realistic:1, optimistic:1.35, fantasy:5 };
+const MILESTONES  = [10,50,100,500,1000];
+const CONFETTI_COLORS = ['#c9a84c','#3ecf8e','#e8c96e','#4d9de8','#f0ede6'];
+const GLOBAL_AVG_USD  = 1650;
+const DEVELOPED_AVG_USD = 4200;
+
+// Spend state (all stored per month in user's currency)
+let spendData = { rent:0, food:0, transport:0, utils:0, subs:0, leisure:0, savings:0, other:0 };
+let investData = { portfolio:0, returnPct:7, monthly:0, years:10 };
+let pickerFilter = 'all';
+
+// ═══════════════════════════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════════════════════════
+function g(id){ return document.getElementById(id); }
+function set(id,val){ const el=g(id); if(el) el.value=val; }
+function currObj(){ return getCurrObj(currency); }
+function toDisp(usd,d=2){ return (usd*currObj().rate).toFixed(d); }
+function toUSD(local){ return local/currObj().rate; }
+function sym(){ return currObj().code; }
+function fmtK(usd){
+  const v=usd*currObj().rate;
+  return v>=1e9?(v/1e9).toFixed(2)+'B':v>=1e6?(v/1e6).toFixed(2)+'M':v>=1000?(v/1000).toFixed(0)+'K':v.toFixed(0);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  STORAGE
+// ═══════════════════════════════════════════════════════════
+function save(){
+  try{
+    localStorage.setItem('waiw2', JSON.stringify({
+      salary:g('salary').value, hours:g('hours').value,
+      age:g('age').value, coffee:g('coffee').value,
+      mode, currency, spend:spendData, invest:investData
+    }));
+  }catch(e){}
+}
+
+function loadSaved(){
+  try{
+    const d=JSON.parse(localStorage.getItem('waiw2')||'{}');
+    if(!d.salary) return false;
+    set('salary',d.salary); set('hours',d.hours||40);
+    set('age',d.age||30); set('coffee',d.coffee||10);
+    if(d.mode) applyMode(d.mode);
+    if(d.currency) applyCurrency(d.currency);
+    if(d.spend) spendData = {...spendData,...d.spend};
+    if(d.invest) {
+      investData = {...investData,...d.invest};
+      set('inv-portfolio', investData.portfolio||'');
+      set('inv-return',    investData.returnPct||7);
+      set('inv-monthly',   investData.monthly||'');
+      set('inv-years',     investData.years||10);
+    }
+    return true;
+  }catch(e){ return false; }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  ONBOARDING
+// ═══════════════════════════════════════════════════════════
+let obCurrentTab = 0;
+function obTab(n){
+  obCurrentTab = n;
+  document.querySelectorAll('.ob-tab').forEach((t,i)=>t.classList.toggle('active',i===n));
+  document.querySelectorAll('.ob-page').forEach((p,i)=>p.classList.toggle('active',i===n));
+}
+
+function startApp(){
+  // Currency first
+  const obCurr = g('ob-currency');
+  if(obCurr && obCurr.value) applyCurrency(obCurr.value);
+
+  // Income
+  const s = parseFloat(g('ob-salary').value)||1000;
+  const h = parseFloat(g('ob-hours').value)||40;
+  const a = parseFloat(g('ob-age').value)||30;
+  const c = parseFloat(g('ob-coffee').value)||10;
+  set('salary',s); set('hours',h); set('age',a); set('coffee',c);
+
+  // Spending
+  SPEND_CATS.forEach(cat=>{
+    const el=g('ob-'+cat.key);
+    if(el && parseFloat(el.value)>0) spendData[cat.key]=parseFloat(el.value);
+  });
+
+  closeOnboarding();
+}
+
+function skipOnboarding(){
+  // Use whatever is already in the hidden fields or defaults
+  closeOnboarding();
+}
+
+function closeOnboarding(){
+  const ob=g('onboarding');
+  ob.style.opacity='0';
+  setTimeout(()=>{ob.style.display='none';},400);
+  save(); recalc(); go();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  MODE & CURRENCY
+// ═══════════════════════════════════════════════════════════
+function setMode(btn,m){
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active'); applyMode(m);
+}
+function applyMode(m){
+  mode=m;
+  document.querySelectorAll('.mode-tab').forEach(t=>{if(t.dataset.mode===m)t.classList.add('active');});
+  hitMilestones.clear(); recalc(); save();
+}
+
+function setCurrencyFromSelect(sel){ applyCurrency(sel.value); }
+function applyCurrency(code){
+  currency=code;
+  ['currencySelect','ob-currency'].forEach(id=>{const el=g(id);if(el)el.value=code;});
+  recalc(); save();
+}
+
+function toggleSettings(){ openEditDrawer(); } // legacy alias
+
+function openEditDrawer(){
+  // Pre-fill income
+  const ed = g('ed-currency');
+  if(ed){ buildEdCurrencySelect(); ed.value = currency; }
+  set('ed-salary',  g('salary').value);
+  set('ed-hours',   g('hours').value);
+  set('ed-age',     g('age').value);
+  set('ed-coffee',  g('coffee').value);
+  // Pre-fill spending
+  SPEND_CATS.forEach(cat=>{
+    const el=g('eds-'+cat.key);
+    if(el) el.value = spendData[cat.key]||'';
+  });
+  edTab(0);
+  g('editDrawer').style.display='block';
+  document.body.style.overflow='hidden';
+}
+
+function closeEditDrawer(){
+  g('editDrawer').style.display='none';
+  document.body.style.overflow='';
+}
+
+function edTab(n){
+  g('ed-tab0').classList.toggle('active',n===0);
+  g('ed-tab1').classList.toggle('active',n===1);
+  g('ed-p0').style.display = n===0?'block':'none';
+  g('ed-p1').style.display = n===1?'block':'none';
+}
+
+function buildEdCurrencySelect(){
+  const opts=CURRENCIES.map(c=>`<option value="${c.code}">${c.code} — ${c.name}</option>`).join('');
+  const el=g('ed-currency'); if(el){el.innerHTML=opts; el.value=currency;}
+}
+
+function syncIncome(){
+  // Live-sync hidden fields and recalc as user types
+  const s=parseFloat(g('ed-salary').value)||0;
+  const h=parseFloat(g('ed-hours').value)||40;
+  const a=parseFloat(g('ed-age').value)||30;
+  const c=parseFloat(g('ed-coffee').value)||0;
+  set('salary',s); set('hours',h); set('age',a); set('coffee',c);
+  save(); recalc();
+}
+
+function applySpendFromDrawer(){
+  SPEND_CATS.forEach(cat=>{
+    const el=g('eds-'+cat.key);
+    if(el) spendData[cat.key]=parseFloat(el.value)||0;
+  });
+  save(); recalc();
+  closeEditDrawer();
+  toast('All changes saved ✓');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RECALC
+// ═══════════════════════════════════════════════════════════
+function recalc(){
+  const salaryLocal = Math.max(0, parseFloat(g('salary').value)||1000);
+  const hours  = Math.max(1, parseFloat(g('hours').value)||40);
+  const age    = Math.max(18, parseFloat(g('age').value)||30);
+  const coffee = Math.max(0, parseFloat(g('coffee').value)||10);
+  const mult   = MULT[mode]||1;
+  const s      = sym();
+
+  // All rates in USD internally
+  const salaryUSD   = toUSD(salaryLocal) * mult;
+  const dailyUSD    = salaryUSD / 30;
+  const hourlyUSD   = dailyUSD / 24;
+  const minuteUSD   = hourlyUSD / 60;
+  perSecUSD         = minuteUSD / 60;
+
+  // Currency label sync
+  if(g('currLabel')) g('currLabel').textContent=`${s} — ticking every frame`;
+  ['perSecCurr','perMinCurr','perHourCurr','perDayCurr'].forEach(id=>{const el=g(id);if(el)el.textContent=s;});
+  if(g('totalEarnedSub')) g('totalEarnedSub').textContent=`${s} lifetime`;
+  if(g('coffeeSub')) g('coffeeSub').textContent=`${s} per year`;
+
+  // Stats
+  if(g('perSec'))  g('perSec').textContent  = toDisp(perSecUSD,4);
+  if(g('perMin'))  g('perMin').textContent  = toDisp(minuteUSD);
+  if(g('perHour')) g('perHour').textContent = toDisp(hourlyUSD);
+  if(g('perDay'))  g('perDay').textContent  = toDisp(dailyUSD);
+  if(g('metaSec')) g('metaSec').textContent = toDisp(perSecUSD,4);
+  if(g('scrollCost')) g('scrollCost').textContent = toDisp(perSecUSD*5,3);
+  if(g('w1'))  g('w1').textContent  = `+${toDisp(perSecUSD*60)} ${s}`;
+  if(g('w10')) g('w10').textContent = `+${toDisp(perSecUSD*600)} ${s}`;
+  if(g('w60')) g('w60').textContent = `+${toDisp(perSecUSD*3600)} ${s}`;
+
+  // Life stats
+  const annualUSD = salaryUSD * 12;
+  const yw = Math.max(0, age-22);
+  const tl = Math.max(0, 80-age);
+  const rl = Math.max(0, 60-age);
+  if(g('totalEarned')) g('totalEarned').textContent = fmtK(yw*annualUSD);
+  if(g('yearsWorking')){ g('yearsWorking').textContent=yw.toFixed(1)+' yrs'; g('workBar').style.width=Math.min(100,(yw/Math.max(age,1))*100)+'%'; }
+  if(g('timeLeft')){ g('timeLeft').textContent=tl+' yrs'; g('lifeBar').style.width=Math.min(100,(age/80)*100)+'%'; }
+  if(g('coffeeCost')) g('coffeeCost').textContent = toDisp(toUSD(coffee)*365);
+  if(g('lifetimeLeft')) g('lifetimeLeft').textContent = fmtK(rl*annualUSD)+' '+s;
+  if(g('lifetimeSub')) g('lifetimeSub').textContent = rl>0?`${rl} working years at current salary until age 60`:'You have reached typical retirement age';
+
+  // Global averages
+  const effUSD = salaryUSD;
+  const maxUSD = Math.max(effUSD,DEVELOPED_AVG_USD,GLOBAL_AVG_USD)*1.2;
+  if(g('avgYourLabel')) g('avgYourLabel').textContent = fmtK(effUSD)+' '+s+'/mo';
+  if(g('avgYourBar')) g('avgYourBar').style.width=Math.min(100,(effUSD/maxUSD)*100)+'%';
+  if(g('avgNatBar'))  g('avgNatBar').style.width=Math.min(100,(GLOBAL_AVG_USD/maxUSD)*100)+'%';
+  if(g('avgDubBar'))  g('avgDubBar').style.width=Math.min(100,(DEVELOPED_AVG_USD/maxUSD)*100)+'%';
+  if(g('avgNatLabel')) g('avgNatLabel').textContent=`~${toDisp(GLOBAL_AVG_USD,0)} ${s}/mo`;
+  if(g('avgDubLabel')) g('avgDubLabel').textContent=`~${toDisp(DEVELOPED_AVG_USD,0)} ${s}/mo`;
+  let insight='';
+  if(effUSD>DEVELOPED_AVG_USD*2) insight=`<strong>Top tier globally.</strong> You earn ${((effUSD/DEVELOPED_AVG_USD-1)*100).toFixed(0)}% above the developed-world average. Your time is genuinely expensive.`;
+  else if(effUSD>DEVELOPED_AVG_USD) insight=`<strong>Above the developed-world average</strong> by ${((effUSD/DEVELOPED_AVG_USD-1)*100).toFixed(0)}%. Well positioned.`;
+  else if(effUSD>GLOBAL_AVG_USD) insight=`<strong>Above the global average</strong> by ${((effUSD/GLOBAL_AVG_USD-1)*100).toFixed(0)}%. Solid — and there's room to grow.`;
+  else insight=`<strong>Room to grow.</strong> The global average is ~${toDisp(GLOBAL_AVG_USD,0)} ${s}/month. Every skill compounds your per-second rate.`;
+  if(g('avgInsight')) g('avgInsight').innerHTML=insight;
+
+  drawDonut(hours);
+  buildCompareDOM();
+  updateRetire();
+  updateSpending(salaryUSD);
+  recalcInvest();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  DONUT
+// ═══════════════════════════════════════════════════════════
+function drawDonut(hoursPerWeek){
+  const wH=Math.min(hoursPerWeek/7,14), sH=7.5;
+  const comH=Math.min(1.5,(24-wH-sH)*0.25);
+  const fH=Math.max(0,24-wH-sH-comH);
+  const slices=[
+    {label:'Working',  h:wH,  color:'#c9a84c'},
+    {label:'Sleeping', h:sH,  color:'#2a2a2a'},
+    {label:'Commuting',h:comH,color:'#383838'},
+    {label:'Free time',h:fH,  color:'#3ecf8e'},
+  ];
+  const total=slices.reduce((s,x)=>s+x.h,0);
+  const cx=70,cy=70,r=54,sw=22,circ=2*Math.PI*r;
+  let off=0,html='';
+  slices.forEach(sl=>{
+    const pct=sl.h/total, dash=pct*circ, gap=circ-dash;
+    html+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${sl.color}" stroke-width="${sw}" stroke-dasharray="${dash.toFixed(2)} ${gap.toFixed(2)}" stroke-dashoffset="${(-(off/total)*circ).toFixed(2)}"/>`;
+    off+=sl.h;
+  });
+  if(g('donutSvg')) g('donutSvg').innerHTML=html;
+  if(g('donutLegend')) g('donutLegend').innerHTML=slices.map(sl=>`<div class="dl-item"><div class="dl-dot" style="background:${sl.color}"></div><div class="dl-label">${sl.label}</div><div class="dl-val">${sl.h.toFixed(1)}h</div></div>`).join('');
+}
+
+// ═══════════════════════════════════════════════════════════
+//  COMPARISONS
+// ═══════════════════════════════════════════════════════════
+function buildCompareDOM(){
+  if(!g('compareList')) return;
+  g('compareList').innerHTML=[...activeItemIds].map(i=>{
+    const item=ALL_ITEMS[i];
+    return `<div class="compare-row"><div class="cmp-left"><span class="cmp-emoji">${item.emoji}</span><div><div class="cmp-name">${item.name}</div><div class="cmp-price">${toDisp(item.usd)} ${sym()} each</div></div></div><div class="cmp-right"><div class="cmp-qty" id="cmpQty${i}">0.0000</div><div class="cmp-qty-label">since page opened</div></div></div>`;
+  }).join('');
+}
+
+function updateCompareLive(earnedUSD){
+  activeItemIds.forEach(i=>{
+    const el=document.getElementById('cmpQty'+i);
+    if(!el) return;
+    const qty=earnedUSD/ALL_ITEMS[i].usd;
+    el.textContent=qty>=1?qty.toFixed(3):qty.toFixed(4);
+  });
+}
+
+// ── PICKER ──
+const CAT_LABELS={food:'🍴 Food',local:'📍 Local',leisure:'🎭 Leisure',tech:'💻 Tech',fashion:'👗 Fashion',luxury:'💎 Luxury',uae:'🇦🇪 UAE',big:'🏠 Big Stuff'};
+function togglePicker(){
+  const p=g('itemPicker'),open=p.style.display==='none'||!p.style.display;
+  p.style.display=open?'block':'none';
+  g('addItemsBtn').textContent=open?'✕ Close':'+ Add items';
+  if(open) renderPicker();
+}
+function renderPicker(){
+  const cats=['all',...new Set(ALL_ITEMS.map(x=>x.cat))];
+  g('pickerCats').innerHTML=cats.map(c=>`<button class="picker-cat ${pickerFilter===c?'active':''}" onclick="setPickerFilter('${c}')">${c==='all'?'⚡ All':CAT_LABELS[c]||c}</button>`).join('');
+  const filtered=ALL_ITEMS.map((item,i)=>({item,i})).filter(({item})=>pickerFilter==='all'||item.cat===pickerFilter);
+  g('pickerGrid').innerHTML=filtered.map(({item,i})=>`<div class="picker-item ${activeItemIds.has(i)?'selected':''}" onclick="toggleItem(${i})" id="pi${i}"><span class="pi-emoji">${item.emoji}</span><div class="pi-info"><div class="pi-name">${item.name}</div><div class="pi-price">${toDisp(item.usd)} ${sym()}</div></div><span class="pi-check">✓</span></div>`).join('');
+}
+function setPickerFilter(c){ pickerFilter=c; renderPicker(); }
+function toggleItem(i){
+  activeItemIds.has(i)?activeItemIds.delete(i):activeItemIds.add(i);
+  const tile=document.getElementById('pi'+i);
+  if(tile){tile.classList.toggle('selected',activeItemIds.has(i));tile.querySelector('.pi-check').style.opacity=activeItemIds.has(i)?'1':'0';}
+  buildCompareDOM();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  RETIREMENT SLIDER
+// ═══════════════════════════════════════════════════════════
+function updateRetire(){
+  if(!g('retireSlider')) return;
+  const age=Math.max(18,parseFloat(g('age').value)||30);
+  const salaryLocal=Math.max(0,parseFloat(g('salary').value)||1000);
+  const mult=MULT[mode]||1;
+  const monthlyUSD=toUSD(salaryLocal)*mult;
+  const s=sym();
+  const slider=g('retireSlider');
+  slider.min=age; slider.max=60;
+  if(parseFloat(slider.value)<=age) slider.value=60;
+  const targetAge=parseFloat(slider.value);
+  const yearsLeft=Math.max(0,targetAge-age);
+  const monthsLeft=yearsLeft*12;
+  const daysLeft=yearsLeft*365;
+  g('retireFromAge').textContent=age;
+  g('retireToAge').textContent=targetAge;
+  g('retireTargetLabel').textContent=targetAge;
+  const totalUSD=monthlyUSD*monthsLeft;
+  g('retireTotal').textContent=fmtK(totalUSD);
+  g('retireUnit').textContent=s;
+  g('retireBreakdown').innerHTML=`
+    <div class="rb-item"><div class="rb-label">Working years</div><div class="rb-val">${yearsLeft.toFixed(1)}</div></div>
+    <div class="rb-item"><div class="rb-label">Working months</div><div class="rb-val">${monthsLeft.toFixed(0)}</div></div>
+    <div class="rb-item"><div class="rb-label">Working days</div><div class="rb-val">${daysLeft.toFixed(0)}</div></div>
+    <div class="rb-item"><div class="rb-label">Per month</div><div class="rb-val">${toDisp(monthlyUSD)} ${s}</div></div>
+    <div class="rb-item"><div class="rb-label">Per day (÷30)</div><div class="rb-val">${toDisp(monthlyUSD/30)} ${s}</div></div>
+    <div class="rb-item"><div class="rb-label">Per year</div><div class="rb-val">${fmtK(monthlyUSD*12)} ${s}</div></div>`;
+  const pct=yearsLeft<=0?0:(yearsLeft/Math.max(60-age,1))*100;
+  slider.style.background=`linear-gradient(to right,#c9a84c 0%,#c9a84c ${pct.toFixed(1)}%,#262626 ${pct.toFixed(1)}%,#262626 100%)`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SPENDING TRACKER
+// ═══════════════════════════════════════════════════════════
+function updateSpending(salaryUSD){
+  if(!g('spendList')) return;
+  const s=sym();
+  const rate=currObj().rate;
+
+  // Convert all spendData (local currency) to USD for math
+  const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const savingsUSD    = toUSD(spendData.savings||0);
+  const leftoverUSD   = salaryUSD - totalSpendUSD;
+
+  const incomeLocal   = salaryUSD * rate;
+  const spendLocal    = totalSpendUSD * rate;
+  const leftoverLocal = leftoverUSD * rate;
+
+  // Summary row
+  const ssI=g('ssIncome'),ssS=g('ssSpend'),ssL=g('ssLeft');
+  if(ssI) ssI.textContent = fmtK(salaryUSD);
+  if(g('ssIncSurr')) g('ssIncSurr').textContent = s+'/month';
+  if(ssS){
+    ssS.textContent = fmtK(totalSpendUSD);
+    const spendPct = salaryUSD>0 ? (totalSpendUSD/salaryUSD*100).toFixed(0)+'%' : '—';
+    if(g('ssSpendSub')) g('ssSpendSub').textContent = spendPct+' of income';
+    ssS.style.color = totalSpendUSD > salaryUSD ? 'var(--red)' : '#e84d4d';
+  }
+  if(ssL){
+    ssL.textContent = leftoverUSD>=0 ? fmtK(leftoverUSD) : '-'+fmtK(Math.abs(leftoverUSD));
+    ssL.style.color = leftoverUSD>=0 ? 'var(--gold)' : 'var(--red)';
+    if(g('ssLeftSub')) g('ssLeftSub').textContent = leftoverUSD>=0 ? s+' left over/mo' : s+' over budget!';
+  }
+
+  // Category rows
+  if(g('spendList')){
+    const rows = SPEND_CATS.filter(c=>c.key!=='savings');
+    g('spendList').innerHTML = rows.map(cat=>{
+      const local = spendData[cat.key]||0;
+      const pct = incomeLocal>0 ? (local/incomeLocal*100).toFixed(0) : 0;
+      if(local===0) return '';
+      return `<div class="spend-item">
+        <span class="spend-icon">${cat.emoji}</span>
+        <div class="spend-info">
+          <div class="spend-name">${cat.label}</div>
+          <div class="spend-freq">per month</div>
+        </div>
+        <div class="spend-amount-wrap">
+          <div>
+            <div class="spend-amount">${(local*rate).toLocaleString('en',{maximumFractionDigits:0})} ${s}</div>
+            <div class="spend-pct">${pct}% of income</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    if(!g('spendList').innerHTML.trim()) g('spendList').innerHTML=`<div style="padding:16px;font-size:12px;color:var(--text3);text-align:center">No spending data yet — tap ✏ Edit to add your expenses</div>`;
+  }
+
+  // Stacked bar
+  if(g('spendBar')){
+    const barCats = SPEND_CATS.filter(c=>c.key!=='savings' && (spendData[c.key]||0)>0);
+    const barTotal = Math.max(totalSpendUSD, salaryUSD*0.01);
+    g('spendBar').innerHTML = barCats.map(cat=>{
+      const pct=Math.max(0,(toUSD(spendData[cat.key]||0)/barTotal)*100);
+      return `<div class="sbar-seg" style="width:${pct.toFixed(1)}%;background:${cat.color}"></div>`;
+    }).join('');
+    g('spendLegend').innerHTML=barCats.map(c=>`<div class="sleg-item"><div class="sleg-dot" style="background:${c.color}"></div>${c.label}</div>`).join('');
+    if(g('spendBarPct')){
+      const pct=salaryUSD>0?(totalSpendUSD/salaryUSD*100).toFixed(0):0;
+      g('spendBarPct').textContent=`${pct}% of salary spent`;
+    }
+  }
+
+  // Savings
+  updateSavings(salaryUSD, totalSpendUSD, savingsUSD);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SAVINGS
+// ═══════════════════════════════════════════════════════════
+function updateSavings(salaryUSD, totalSpendUSD, savingsGoalUSD){
+  if(!g('sSaved')) return;
+  const s = sym();
+  const circ = 2 * Math.PI * 44; // SVG circumference
+
+  const leftoverUSD    = salaryUSD - totalSpendUSD;
+  const actualSavedUSD = Math.max(0, leftoverUSD);
+  const annualSavedUSD = actualSavedUSD * 12;
+  const r = 0.06/12, n = 120;
+  const fv10 = actualSavedUSD > 0 ? actualSavedUSD * ((Math.pow(1+r,n)-1)/r) : 0;
+
+  // ── RING ──
+  // If goal is set: ring shows actual vs goal (goal = full circle)
+  // If no goal: ring shows savings rate vs income (classic mode)
+  const hasGoal = savingsGoalUSD > 0;
+
+  let ringPct, ringColor, ringLabel;
+  if (hasGoal) {
+    ringPct   = Math.min(100, savingsGoalUSD > 0 ? (actualSavedUSD / savingsGoalUSD) * 100 : 0);
+    ringColor = ringPct >= 100 ? '#3ecf8e' : ringPct >= 60 ? '#c9a84c' : '#e84d4d';
+    ringLabel = ringPct.toFixed(0) + '%';
+  } else {
+    ringPct   = salaryUSD > 0 ? Math.min(100, (actualSavedUSD / salaryUSD) * 100) : 0;
+    ringColor = ringPct >= 20 ? '#3ecf8e' : ringPct >= 10 ? '#c9a84c' : '#e84d4d';
+    ringLabel = ringPct.toFixed(0) + '%';
+  }
+
+  // Actual arc
+  const ring = g('savingsRing');
+  if (ring) {
+    const dash = (ringPct / 100) * circ;
+    ring.setAttribute('stroke-dasharray', `${dash.toFixed(2)} ${circ.toFixed(2)}`);
+    ring.setAttribute('stroke', ringColor);
+  }
+
+  // Goal arc (dim gold background showing full goal slice)
+  const goalArc = g('savingsGoalArc');
+  if (goalArc && hasGoal) {
+    const goalPctOfIncome = salaryUSD > 0 ? Math.min(100, (savingsGoalUSD / salaryUSD) * 100) : 0;
+    const goalDash = (goalPctOfIncome / 100) * circ;
+    goalArc.setAttribute('stroke-dasharray', `${goalDash.toFixed(2)} ${circ.toFixed(2)}`);
+  }
+
+  if (g('savingsRingPct')) g('savingsRingPct').textContent = ringLabel;
+
+  // ── GOAL PROGRESS BAR ──
+  const goalRow = g('savingsGoalRow');
+  if (goalRow) {
+    goalRow.style.display = hasGoal ? 'block' : 'none';
+    if (hasGoal) {
+      const maxVal  = Math.max(actualSavedUSD, savingsGoalUSD);
+      const actPct  = (actualSavedUSD / maxVal * 100).toFixed(1);
+      const goalPct = (savingsGoalUSD  / maxVal * 100).toFixed(1);
+      if (g('savingsGoalBar'))    g('savingsGoalBar').style.width    = goalPct + '%';
+      if (g('savingsActualBar'))  g('savingsActualBar').style.width  = actPct  + '%';
+      if (g('savingsGoalLabel'))  g('savingsGoalLabel').textContent  = `${ringPct.toFixed(0)}% of goal reached`;
+      if (g('savingsActualLabel')) g('savingsActualLabel').textContent = fmtK(actualSavedUSD) + ' ' + s;
+      if (g('savingsGoalMax'))    g('savingsGoalMax').textContent    = fmtK(savingsGoalUSD)  + ' ' + s;
+    }
+  }
+
+  // ── INSIGHT ──
+  let insight = '';
+  if (salaryUSD === 0 || totalSpendUSD === 0) {
+    insight = 'Add your spending details to see your savings picture.';
+  } else if (leftoverUSD < 0) {
+    insight = `<strong>Over budget.</strong> Spending exceeds income by <strong>${fmtK(Math.abs(leftoverUSD))} ${s}/mo</strong>. Consider cutting one category.`;
+  } else if (hasGoal) {
+    const shortfallUSD = savingsGoalUSD - actualSavedUSD;
+    if (actualSavedUSD >= savingsGoalUSD) {
+      insight = `<strong>Goal smashed! 🎉</strong> You're saving <strong>${fmtK(actualSavedUSD)} ${s}/mo</strong> — ${fmtK(actualSavedUSD - savingsGoalUSD)} ${s} above your goal. Your 10-yr projection at 6%: <strong>${fmtK(fv10)} ${s}</strong>.`;
+    } else if (ringPct >= 80) {
+      insight = `<strong>Almost there.</strong> You're at ${ringPct.toFixed(0)}% of your <strong>${fmtK(savingsGoalUSD)} ${s}/mo</strong> goal. Cut <strong>${fmtK(shortfallUSD)} ${s}/mo</strong> in spending to hit it.`;
+    } else {
+      insight = `<strong>${ringPct.toFixed(0)}% of your savings goal.</strong> You're saving <strong>${fmtK(actualSavedUSD)} ${s}/mo</strong> toward a <strong>${fmtK(savingsGoalUSD)} ${s}/mo</strong> goal. You're <strong>${fmtK(shortfallUSD)} ${s}/mo</strong> short.`;
+    }
+  } else {
+    // No goal — classic savings rate insight
+    const ratePct = salaryUSD > 0 ? (actualSavedUSD/salaryUSD*100) : 0;
+    if (ratePct < 10) {
+      insight = `<strong>Savings rate: ${ratePct.toFixed(0)}%.</strong> Most planners recommend 20%. Set a savings goal in the Edit panel to track your progress.`;
+    } else if (ratePct < 20) {
+      insight = `<strong>Decent at ${ratePct.toFixed(0)}%.</strong> Set a monthly savings goal to track how close you're getting each month.`;
+    } else {
+      insight = `<strong>Solid saver at ${ratePct.toFixed(0)}%.</strong> Your 10-year projection at 6% growth: <strong>${fmtK(fv10)} ${s}</strong>.`;
+    }
+  }
+  if (g('savingsInsight')) g('savingsInsight').innerHTML = insight;
+
+  // ── STATS ──
+  g('sSaved').textContent     = actualSavedUSD > 0 ? fmtK(actualSavedUSD) : '—';
+  g('sSavedCurr').textContent = s + '/month';
+  g('sAnnual').textContent    = annualSavedUSD > 0 ? fmtK(annualSavedUSD) : '—';
+  g('sAnnualCurr').textContent = s + '/year';
+  g('s10yr').textContent      = fv10 > 0 ? fmtK(fv10) : '—';
+}
+
+// ═══════════════════════════════════════════════════════════
+//  LIVE TICKER
+// ═══════════════════════════════════════════════════════════
+function go(){ if(!running){running=true;requestAnimationFrame(tick);} }
+function tick(){
+  const elSec=(performance.now()-t0)/1000;
+  const earnUSD=perSecUSD*elSec;
+  const earnDisp=earnUSD*currObj().rate;
+  const intPart=Math.floor(earnDisp);
+  const el=g('liveCounter');
+  if(el){
+    if(intPart!==lastInt&&lastInt!==-1){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
+    lastInt=intPart;
+    el.textContent=earnDisp.toFixed(4);
+  }
+  const ss=Math.floor(elSec),mm=Math.floor(ss/60);
+  if(g('metaTime')) g('metaTime').textContent=`${mm}:${String(ss%60).padStart(2,'0')}`;
+  const salaryLocal=parseFloat(g('salary').value)||1000;
+  if(g('metaDay')) g('metaDay').textContent=toDisp(toUSD(salaryLocal)*(MULT[mode]||1)/30);
+  updateCompareLive(earnUSD);
+  MILESTONES.forEach(m=>{if(earnDisp>=m&&!hitMilestones.has(m)){hitMilestones.add(m);milestone(m);}});
+  requestAnimationFrame(tick);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  MILESTONE + CONFETTI
+// ═══════════════════════════════════════════════════════════
+function milestone(amt){
+  const el=g('milestone');
+  el.textContent=`🎉 You just earned ${currObj().sym}${amt} on this page!`;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3500);
+  for(let i=0;i<44;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.cssText=`left:${Math.random()*100}vw;background:${CONFETTI_COLORS[Math.floor(Math.random()*5)]};width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};animation-duration:${1.5+Math.random()*2}s;animation-delay:${Math.random()*.5}s;`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4500);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SHARE
+// ═══════════════════════════════════════════════════════════
+function shareResult(){
+  const pMin=toDisp(perSecUSD*60);
+  const text=`I earn ${pMin} ${sym()} per minute — what's yours? 👇\nhttps://amipoor.com`;
+  if(navigator.share) navigator.share({title:'Am I Poor?',text,url:'https://amipoor.com'}).catch(()=>copy(text));
+  else copy(text);
+}
+
+function challengeFriend(){
+  const s=g('salary').value,h=g('hours').value;
+  copy(`Can you beat my per-second rate? See yours live → https://amipoor.com?c=${s}&h=${h}&cur=${currency}`);
+  toast('Challenge link copied! ⚡');
+}
+
+function generateCard(){
+  const canvas=g('shareCanvas'),ctx=canvas.getContext('2d'),S=1080;
+  const pool=[
+    {name:'coffees',      emoji:'☕', usd:5},
+    {name:'Big Macs',     emoji:'🍔', usd:9},
+    {name:'iPhones',      emoji:'📱', usd:1099},
+    {name:'Rolex watches',emoji:'⌚', usd:9000},
+    {name:'smoothies',    emoji:'🥤', usd:7},
+    {name:'AirPods',      emoji:'🎧', usd:249},
+    {name:'karak teas 🇦🇪',emoji:'🫖',usd:1.4},
+    {name:'abra rides 🇦🇪',emoji:'⛵',usd:0.27},
+    {name:'horses',       emoji:'🐴', usd:5000},
+    {name:'jet hours',    emoji:'🛩️', usd:12000},
+    {name:'Maldives nts', emoji:'🏝️', usd:1200},
+    {name:'Bitcoins',     emoji:'₿',  usd:100000},
+  ];
+  const sorted=[...pool].sort((a,b)=>a.usd-b.usd);
+  const picks=[sorted[0],sorted[Math.floor(sorted.length*0.3)],sorted[Math.floor(sorted.length*0.7)],sorted[sorted.length-1]];
+  const hourlyUSD=perSecUSD*3600,dailyUSD=perSecUSD*86400;
+
+  ctx.fillStyle='#070707'; ctx.fillRect(0,0,S,S);
+  ctx.strokeStyle='rgba(255,255,255,0.016)'; ctx.lineWidth=1;
+  for(let x=0;x<S;x+=54){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,S);ctx.stroke();}
+  for(let y=0;y<S;y+=54){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(S,y);ctx.stroke();}
+  const gTop=ctx.createRadialGradient(S/2,0,0,S/2,0,520);
+  gTop.addColorStop(0,'rgba(201,168,76,0.17)'); gTop.addColorStop(1,'transparent');
+  ctx.fillStyle=gTop; ctx.fillRect(0,0,S,S);
+  const gBot=ctx.createRadialGradient(S,S,0,S,S,400);
+  gBot.addColorStop(0,'rgba(62,207,142,0.09)'); gBot.addColorStop(1,'transparent');
+  ctx.fillStyle=gBot; ctx.fillRect(0,0,S,S);
+  const tl=ctx.createLinearGradient(0,0,S,0);
+  tl.addColorStop(0,'transparent'); tl.addColorStop(0.5,'#c9a84c'); tl.addColorStop(1,'transparent');
+  ctx.strokeStyle=tl; ctx.lineWidth=3;
+  ctx.beginPath(); ctx.moveTo(0,3); ctx.lineTo(S,3); ctx.stroke();
+  ctx.font='bold 32px sans-serif';
+  ctx.fillStyle='#f0ede6'; ctx.fillText('what am i',60,76);
+  ctx.fillStyle='#c9a84c'; ctx.fillText(' worth?',60+ctx.measureText('what am i').width,76);
+  ctx.font='14px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText('amipoor.com',60,100);
+  const mL={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Rich Fantasy ✦'}[mode]||mode;
+  ctx.font='bold 13px sans-serif';
+  const bw=ctx.measureText(mL).width+22;
+  rrCanvas(ctx,S-58-bw,54,bw,30,15);
+  ctx.fillStyle='rgba(201,168,76,0.14)'; ctx.fill();
+  ctx.strokeStyle='rgba(201,168,76,0.35)'; ctx.lineWidth=1; ctx.stroke();
+  ctx.fillStyle='#c9a84c'; ctx.textAlign='center'; ctx.fillText(mL,S-58-bw/2,73); ctx.textAlign='left';
+  ctx.font='bold 50px sans-serif'; ctx.fillStyle='#f0ede6'; ctx.fillText('Every hour,',60,200);
+  ctx.fillStyle='#c9a84c'; ctx.fillText('I earn:',60,260);
+  const hrDisp=(hourlyUSD*currObj().rate).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2});
+  ctx.font='bold 94px monospace'; ctx.fillStyle='#3ecf8e'; ctx.fillText(hrDisp,60,374);
+  ctx.font='19px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText(`${sym()} per hour`,60,410);
+  ctx.strokeStyle='#1c1c1c'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(60,442); ctx.lineTo(S-60,442); ctx.stroke();
+  ctx.font='bold 21px sans-serif'; ctx.fillStyle='#504e4a'; ctx.fillText("That's...",60,488);
+  const tW=(S-60-60-3*16)/4,tH=220,tY=510;
+  picks.forEach((item,i)=>{
+    const tx=60+i*(tW+16);
+    const qph=hourlyUSD/item.usd, qpd=dailyUSD/item.usd;
+    ctx.fillStyle='#0f0f0f'; rrCanvas(ctx,tx,tY,tW,tH,12); ctx.fill();
+    const ac=['#c9a84c','#3ecf8e','#4d9de8','#e84d4d'][i];
+    ctx.strokeStyle=i===0?'rgba(201,168,76,0.3)':'#1c1c1c'; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle=ac; rrCanvas(ctx,tx,tY,tW,3,2); ctx.fill();
+    ctx.font='36px sans-serif'; ctx.textAlign='center'; ctx.fillText(item.emoji,tx+tW/2,tY+56);
+    const qStr=qph>=1000?(qph/1000).toFixed(1)+'K':qph>=1?qph.toFixed(1):qph.toFixed(3);
+    ctx.font='bold 28px monospace'; ctx.fillStyle=ac; ctx.fillText(qStr,tx+tW/2,tY+108);
+    ctx.font='bold 10px sans-serif'; ctx.fillStyle='#f0ede6';
+    const n=item.name.length>11?item.name.slice(0,11)+'…':item.name;
+    ctx.fillText(n,tx+tW/2,tY+130);
+    ctx.font='10px sans-serif'; ctx.fillStyle='#504e4a'; ctx.fillText('per hour',tx+tW/2,tY+150);
+    const dStr=qpd>=1000?(qpd/1000).toFixed(0)+'K':qpd>=1?qpd.toFixed(0):qpd.toFixed(2);
+    ctx.font='bold 11px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText(`${dStr}/day`,tx+tW/2,tY+188);
+    ctx.textAlign='left';
+  });
+  const cY=S-54;
+  ctx.fillStyle='rgba(201,168,76,0.06)'; ctx.fillRect(0,cY-28,S,78);
+  ctx.strokeStyle='rgba(201,168,76,0.14)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,cY-28); ctx.lineTo(S,cY-28); ctx.stroke();
+  ctx.font='bold 17px sans-serif'; ctx.fillStyle='#9a9590'; ctx.textAlign='center';
+  ctx.fillText('What is YOUR time worth?',S/2,cY+2);
+  ctx.font='bold 19px sans-serif'; ctx.fillStyle='#c9a84c';
+  ctx.fillText('amipoor.com  →',S/2,cY+26);
+  ctx.textAlign='left';
+  const link=document.createElement('a');
+  link.download='amipoor-card.png'; link.href=canvas.toDataURL('image/png'); link.click();
+  toast('Share card saved 📸');
+}
+
+function rrCanvas(ctx,x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
+
+function copy(txt){ navigator.clipboard.writeText(txt).then(()=>toast('Copied ✓')).catch(()=>{}); }
+function toast(msg){ const el=g('toast'); el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3000); }
+
+// ── INVESTMENTS ──────────────────────────────────────────────────────────────
+function saveInvest(){
+  investData.portfolio  = parseFloat(g('inv-portfolio').value)||0;
+  investData.returnPct  = parseFloat(g('inv-return').value)||7;
+  investData.monthly    = parseFloat(g('inv-monthly').value)||0;
+  investData.years      = parseFloat(g('inv-years').value)||10;
+  save();
+}
+
+function recalcInvest(){
+  saveInvest();
+  const portfolio  = investData.portfolio;
+  const retPct     = investData.returnPct;
+  const monthlyAdd = investData.monthly;
+  const years      = Math.max(1, investData.years);
+  const s          = sym();
+  const rate       = currObj().rate;
+  const salaryUSD  = toUSD(parseFloat(g('salary').value)||1000) * (MULT[mode]||1);
+
+  const empty = portfolio <= 0;
+  g('investResults').style.display = empty ? 'none' : 'block';
+  g('investEmpty').style.display   = empty ? 'block' : 'none';
+  if (empty) return;
+
+  // Monthly passive income = portfolio × annual_return / 12  (in USD)
+  const annualReturnUSD   = toUSD(portfolio) * (retPct / 100);
+  const monthlyPassiveUSD = annualReturnUSD / 12;
+  const perSecPassiveUSD  = monthlyPassiveUSD / 30 / 24 / 3600;
+
+  // vs salary
+  const pctOfSalary = salaryUSD > 0 ? (monthlyPassiveUSD / salaryUSD) * 100 : 0;
+
+  // Future value: FV of lump sum + FV of monthly contributions
+  const r  = (retPct / 100) / 12;  // monthly rate
+  const n  = years * 12;
+  const fvLump = toUSD(portfolio) * Math.pow(1 + r, n);
+  const fvContrib = monthlyAdd > 0
+    ? toUSD(monthlyAdd) * ((Math.pow(1+r,n)-1)/r)
+    : 0;
+  const fvTotal = fvLump + fvContrib;
+  const fvMonthly = fvTotal * (retPct/100) / 12;
+
+  // FIRE number = 25 × annual expenses (4% withdrawal rule)
+  const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const annualExpenses = totalSpendUSD * 12;
+  const fireNumber = annualExpenses > 0 ? annualExpenses * 25 : null;
+  const pctToFire  = fireNumber ? Math.min(100, (toUSD(portfolio)/fireNumber)*100) : null;
+
+  // ── UI ──
+  // Combined income bar
+  const totalMonthly = salaryUSD + monthlyPassiveUSD;
+  const salaryBarPct  = totalMonthly > 0 ? (salaryUSD / totalMonthly * 100).toFixed(1) : 0;
+  const investBarPct  = totalMonthly > 0 ? (monthlyPassiveUSD / totalMonthly * 100).toFixed(1) : 0;
+  g('invBarSalary').style.width = salaryBarPct + '%';
+  g('invBarInvest').style.width = investBarPct + '%';
+
+  // Stats
+  g('invMonthly').textContent    = fmtK(monthlyPassiveUSD);
+  g('invMonthlySub').textContent = s + '/month passive';
+  g('invPerSec').textContent     = (perSecPassiveUSD * rate).toFixed(6);
+  g('invPerSecSub').textContent  = s + '/sec passive';
+  g('invVsSalary').textContent   = pctOfSalary.toFixed(1) + '%';
+
+  // Projection
+  g('invProjYears').textContent  = years;
+  g('invFutureVal').textContent  = fmtK(fvTotal);
+  g('invFutureSub').textContent  = `${s} portfolio after ${years} yrs at ${retPct}% · then ${fmtK(fvMonthly)}/mo passive`;
+  g('invProjBreakdown').innerHTML = `
+    <div class="ipb-item"><div class="ipb-label">Starting value</div><div class="ipb-val">${fmtK(toUSD(portfolio))} ${s}</div></div>
+    <div class="ipb-item"><div class="ipb-label">Contributions</div><div class="ipb-val">${fmtK(toUSD(monthlyAdd)*n)} ${s}</div></div>
+    <div class="ipb-item"><div class="ipb-label">Interest earned</div><div class="ipb-val">${fmtK(fvTotal - toUSD(portfolio) - toUSD(monthlyAdd)*n)} ${s}</div></div>`;
+
+  // FIRE
+  if (fireNumber && totalSpendUSD > 0) {
+    g('investFire').style.display = 'block';
+    g('invFireVal').textContent   = fmtK(fireNumber);
+    g('invFireSub').textContent   = annualExpenses > 0
+      ? `You're at ${pctToFire.toFixed(1)}% of your FIRE number · need ${fmtK(fireNumber - toUSD(portfolio))} ${s} more`
+      : '25× your annual expenses (4% rule)';
+  } else {
+    g('investFire').style.display = 'none';
+  }
+}
+
+// ── BUG REPORT ───────────────────────────────────────────────────────────────
+function toggleBugReport(){
+  const panel=g('bugPanel'), chevron=g('bugChevron');
+  const open=panel.style.display==='none';
+  panel.style.display=open?'block':'none';
+  chevron.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+  if(open) setTimeout(()=>g('bugText')&&g('bugText').focus(),50);
+}
+
+function submitBug(){
+  const text=(g('bugText').value||'').trim();
+  if(!text){g('bugText').style.borderColor='var(--red)';setTimeout(()=>g('bugText').style.borderColor='var(--border2)',1500);return;}
+  const salary=g('salary').value||'?';
+  const body=encodeURIComponent(`Bug report — amipoor.com\n\nSalary: ${salary} ${currency}\nMode: ${mode}\n\n---\n${text}`);
+  const subject=encodeURIComponent('Bug report — amipoor.com');
+  try{window.open(`mailto:hello@amipoor.com?subject=${subject}&body=${body}`,'_self');}catch(e){}
+  navigator.clipboard.writeText(`Bug: ${text}\nSalary: ${salary} ${currency}, Mode: ${mode}`).catch(()=>{});
+  g('bugConfirm').style.display='block';
+  g('bugText').value='';
+  setTimeout(()=>{g('bugConfirm').style.display='none';},4000);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════════
+buildCurrencySelects();
+buildEdCurrencySelect();
+
+const hasData = loadSaved();
+if(hasData){
+  g('onboarding').style.display='none';
+  recalc(); recalcInvest(); go();
+} else {
+  // Set defaults into hidden fields
+  set('salary',1000); set('hours',40); set('age',30); set('coffee',10);
+}
+
+// Retire slider wire
+const _sl=g('retireSlider');
+if(_sl) _sl.addEventListener('input',updateRetire);
+</script>
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Am I Poor?",
+    "url": "https://amipoor.com",
+    "description": "Real-time salary per second calculator, spending tracker, savings rate tool, and passive investment income calculator. Works in any currency.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Live salary counter ticking every second",
+      "Spending tracker with budget breakdown",
+      "Savings rate calculator with goal tracking",
+      "Investment passive income calculator",
+      "FIRE number calculator",
+      "21 currency support with auto-detection",
+      "Retirement earnings projection slider",
+      "UAE-localized comparisons"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How much do I earn per second?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Enter your monthly salary and Am I Poor? calculates your earnings per second instantly. For example, a salary of $5,000/month equals roughly $0.0019 per second."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a good savings rate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most financial planners recommend saving at least 20% of your income. A savings rate above 40% puts you on a path toward financial independence."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the FIRE number?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Your FIRE (Financial Independence, Retire Early) number is 25 times your annual expenses. If you can withdraw 4% of your portfolio per year, it will theoretically last indefinitely."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is passive investment income calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Monthly passive income = (portfolio value × annual return rate) ÷ 12. For example, a $100,000 portfolio at 7% annual return generates roughly $583/month in passive income."
+        }
+      }
+    ]
+  }
+]
+</script>
+</body>
+</html>
