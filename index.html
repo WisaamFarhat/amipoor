@@ -627,7 +627,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     <div class="mini-grid" style="margin-top:12px">
       <div class="mini-card"><div class="mini-label">Per Second</div><div class="mini-value" id="perSec">—</div><div class="mini-sub" id="perSecCurr">—</div></div>
       <div class="mini-card"><div class="mini-label">Per Minute</div><div class="mini-value" id="perMin">—</div><div class="mini-sub" id="perMinCurr">—</div></div>
-      <div class="mini-card"><div class="mini-label">Per Hour</div><div class="mini-value" id="perHour">—</div><div class="mini-sub" id="perHourCurr">—</div></div>
+      <div class="mini-card"><div class="mini-label">Per Hour (24/7)</div><div class="mini-value" id="perHour">—</div><div class="mini-sub" id="perHourCurr">—</div></div>
       <div class="mini-card"><div class="mini-label">Per Day</div><div class="mini-value" id="perDay">—</div><div class="mini-sub" id="perDayCurr">—</div></div>
     </div>
 
@@ -979,18 +979,22 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   <!-- Bug report -->
   <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
     <div id="bugTrigger" onclick="toggleBugReport()" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);cursor:pointer;transition:color 0.2s" onmouseover="this.style.color='var(--text2)'" onmouseout="this.style.color='var(--text3)'">
-      <span>🐛</span>
-      <span>See a bug? Report it to us</span>
+      <span>💬</span>
+      <span>Found a bug? Have a suggestion? Tell us</span>
       <span id="bugChevron" style="font-size:9px;transition:transform 0.2s">▼</span>
     </div>
 
     <div id="bugPanel" style="display:none;margin-top:14px">
       <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:16px">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.5">Describe what happened — what you expected vs what you saw. Optional: include your salary/currency settings so we can reproduce it.</div>
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <button id="bugTypeBtn" onclick="setBugType('bug')" style="flex:1;padding:7px;border-radius:8px;font-size:11px;font-weight:700;font-family:var(--sans);cursor:pointer;background:var(--gold);color:#070707;border:none">🐛 Bug report</button>
+          <button id="featTypeBtn" onclick="setBugType('feature')" style="flex:1;padding:7px;border-radius:8px;font-size:11px;font-weight:700;font-family:var(--sans);cursor:pointer;background:var(--bg);color:var(--text3);border:1px solid var(--border2)">💡 Feature idea</button>
+        </div>
+        <div id="bugPrompt" style="font-size:11px;color:var(--text3);margin-bottom:10px;line-height:1.5">Describe what happened — what you expected vs what you saw. Optionally include your salary and currency.</div>
         <textarea id="bugText" placeholder="e.g. The per-day figure doesn't match when I switch from AED to USD..." style="width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;color:var(--text);font-family:var(--mono);font-size:13px;resize:vertical;min-height:80px;outline:none;transition:border-color 0.2s;line-height:1.5" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;flex-wrap:wrap;gap:8px">
-          <span style="font-size:10px;color:var(--text3)">Sent anonymously · no account needed</span>
-          <button onclick="submitBug()" style="background:var(--gold);color:#070707;border:none;border-radius:8px;padding:7px 16px;font-family:var(--sans);font-size:11px;font-weight:800;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s" onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">Send report →</button>
+          <span style="font-size:10px;color:var(--text3)">Sent to hello@amipoor.com · no account needed</span>
+          <button onclick="submitBug()" style="background:var(--gold);color:#070707;border:none;border-radius:8px;padding:7px 16px;font-family:var(--sans);font-size:11px;font-weight:800;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s" onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">Send →</button>
         </div>
         <div id="bugConfirm" style="display:none;margin-top:10px;font-size:12px;color:var(--green);font-weight:600">✓ Thanks — we'll look into it!</div>
       </div>
@@ -1069,13 +1073,13 @@ const ALL_ITEMS = [
   { name:'Avocado toast',        emoji:'🥑', usd:14,     cat:'food'    },
   { name:'Parking hour',         emoji:'🅿', usd:3,      cat:'local'   },
   { name:'Pizza slice',          emoji:'🍕', usd:5,      cat:'food'    },
-  { name:'Bubble tea',           emoji:'🧋', usd:6,      cat:'food'    },
+  { name:'Bubble tea',           emoji:'🥤', usd:6,      cat:'food'    },
   { name:'Sushi roll',           emoji:'🍣', usd:12,     cat:'food'    },
   { name:'Burrito',              emoji:'🌯', usd:10,     cat:'food'    },
   { name:'Ramen bowl',           emoji:'🍲', usd:15,     cat:'food'    },
   { name:'Smoothie',             emoji:'🥤', usd:7,      cat:'food'    },
   { name:'Steak dinner',         emoji:'🥩', usd:55,     cat:'food'    },
-  { name:'Karak tea 🇦🇪',        emoji:'🫖', usd:1.4,    cat:'uae'     },
+  { name:'Karak tea 🇦🇪',        emoji:'☕', usd:0.27,   cat:'uae'     },
   { name:'Shawarma 🇦🇪',         emoji:'🌮', usd:3.3,    cat:'uae'     },
   { name:'Abra ride 🇦🇪',        emoji:'⛵', usd:0.27,   cat:'uae'     },
   { name:'Camel milk latte 🇦🇪', emoji:'🐪', usd:8.2,    cat:'uae'     },
@@ -1770,6 +1774,11 @@ function generateCard(){
   const perSec = perSecUSD * rate;
   const hoursPerWeek = parseFloat(g('hours').value)||40;
 
+  // Work hourly rate = monthly salary / (weeks per month × hours per week)
+  // Using 4.333 weeks per month (52 weeks / 12 months)
+  const salaryLocalPerMonth = toUSD(parseFloat(g('salary').value)||0) * (MULT[mode]||1) * rate;
+  const workHourlyRate = salaryLocalPerMonth / (hoursPerWeek * 52 / 12);
+
   // Savings
   const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
   const salaryUSD     = toUSD(parseFloat(g('salary').value)||0) * (MULT[mode]||1);
@@ -1780,7 +1789,7 @@ function generateCard(){
   // ── BUILD 4 QUIP SENTENCES ─────────────────────────────────────────
   // Fixed reference items for quips (always present, not from activeIds)
   const QUIP_ITEMS = {
-    karak:   { name:'karak tea',        emoji:'☕', usd:1.36  },
+    karak:   { name:'karak tea',        emoji:'☕', usd:0.27  }, // ~1 AED
     iphone:  { name:'iPhone 16 Pro Max',emoji:'📱', usd:1199  },
     horse:   { name:'Arabian horse',    emoji:'🐴', usd:30000 },
     bitcoin: { name:'Bitcoin',          emoji:'₿',  usd:100000},
@@ -1791,26 +1800,25 @@ function generateCard(){
     airpods: { name:'AirPods Pro',      emoji:'🎧', usd:249   },
   };
 
-  // Quip 1: X karakات per hour (cheap, funny, UAE-specific)
-  const karakPerHour = hourly / (QUIP_ITEMS.karak.usd * rate);
-  const q1 = `I can buy ${karakPerHour>=1000?(karakPerHour/1000).toFixed(1)+'K':karakPerHour.toFixed(0)} karak teas per hour ☕`;
+  // Quip 1: karak teas per hour (using work hourly rate)
+  const karakPerHour = workHourlyRate / (QUIP_ITEMS.karak.usd * rate);
+  const q1 = `I can buy ${karakPerHour>=1000?(karakPerHour/1000).toFixed(1)+'K':karakPerHour.toFixed(0)} karak teas per work hour ☕`;
 
-  // Quip 2: Hours to buy iPhone
-  const hoursForIphone = (QUIP_ITEMS.iphone.usd * rate) / hourly;
+  // Quip 2: Hours of work to buy iPhone
+  const hoursForIphone = (QUIP_ITEMS.iphone.usd * rate) / workHourlyRate;
   const q2 = hoursForIphone < 1
     ? `I could buy an iPhone 16 Pro Max in ${(hoursForIphone*60).toFixed(0)} minutes of work 📱`
-    : `It takes me ${hoursForIphone.toFixed(1)} hours of work to buy an iPhone 16 Pro Max 📱`;
+    : `I need ${hoursForIphone.toFixed(1)} hours of work to buy an iPhone 16 Pro Max 📱`;
 
-  // Quip 3: Years to buy Arabian horse
-  const hoursForHorse = (QUIP_ITEMS.horse.usd * rate) / hourly;
-  const yearsForHorse = hoursForHorse / hoursPerWeek / 52;
-  const q3 = yearsForHorse < 0.1
-    ? `I could afford an Arabian horse in a single work week 🐴`
-    : yearsForHorse < 1
-      ? `I could buy an Arabian horse in ${(yearsForHorse*12).toFixed(1)} months of salary 🐴`
-      : `It would take ${yearsForHorse.toFixed(1)} years of salary to buy an Arabian horse 🐴`;
+  // Quip 3: Time to buy Arabian horse (in months of salary, not hours)
+  const monthsForHorse = (QUIP_ITEMS.horse.usd * rate) / salaryLocalPerMonth;
+  const q3 = monthsForHorse < 1
+    ? `I could buy an Arabian horse in ${(monthsForHorse*30).toFixed(0)} days of salary 🐴`
+    : monthsForHorse < 12
+      ? `It takes ${monthsForHorse.toFixed(1)} months of my salary to buy an Arabian horse 🐴`
+      : `It would take ${(monthsForHorse/12).toFixed(1)} years of salary to buy an Arabian horse 🐴`;
 
-  // Quip 4: Netflix months per day OR Rolex weeks
+  // Quip 4: Netflix subscriptions per day (using calendar daily rate)
   const netflixPerDay = daily / (QUIP_ITEMS.netflix.usd * rate);
   const q4 = netflixPerDay >= 1
     ? `Every day I earn enough for ${netflixPerDay.toFixed(0)} Netflix subscriptions 📺`
@@ -1980,11 +1988,12 @@ function recalcInvest(){
   const fvTotal = fvLump + fvContrib;
   const fvMonthly = fvTotal * (retPct/100) / 12;
 
-  // FIRE number = 25 × annual expenses (4% withdrawal rule)
-  const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
-  const annualExpenses = totalSpendUSD * 12;
-  const fireNumber = annualExpenses > 0 ? annualExpenses * 25 : null;
-  const pctToFire  = fireNumber ? Math.min(100, (toUSD(portfolio)/fireNumber)*100) : null;
+  // FIRE number = 25 × annual expenses — all computed in USD
+  const totalSpendUSD  = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const annualExpUSD   = totalSpendUSD * 12;
+  const fireNumberUSD  = annualExpUSD > 0 ? annualExpUSD * 25 : null;
+  const portfolioUSD   = toUSD(portfolio);  // portfolio entered in local currency → USD
+  const pctToFire      = fireNumberUSD ? Math.min(100, (portfolioUSD / fireNumberUSD) * 100) : null;
 
   // ── UI ──
   // Combined income bar
@@ -2010,19 +2019,20 @@ function recalcInvest(){
     <div class="ipb-item"><div class="ipb-label">Contributions</div><div class="ipb-val">${fmtK(toUSD(monthlyAdd)*n)} ${s}</div></div>
     <div class="ipb-item"><div class="ipb-label">Interest earned</div><div class="ipb-val">${fmtK(fvTotal - toUSD(portfolio) - toUSD(monthlyAdd)*n)} ${s}</div></div>`;
 
-  // FIRE
-  if (fireNumber && totalSpendUSD > 0) {
+  // FIRE display
+  if (fireNumberUSD && totalSpendUSD > 0) {
     g('investFire').style.display = 'block';
-    g('invFireVal').textContent   = fmtK(fireNumber);
-    g('invFireSub').textContent   = annualExpenses > 0
-      ? `You're at ${pctToFire.toFixed(1)}% of your FIRE number · need ${fmtK(fireNumber - toUSD(portfolio))} ${s} more`
-      : '25× your annual expenses (4% rule)';
-    // Invest FIRE insight
-    const leftUSD = salaryUSD - totalSpendUSD;
+    g('invFireVal').textContent   = fmtK(fireNumberUSD);   // fmtK converts USD→local
+    const stillNeedUSD = Math.max(0, fireNumberUSD - portfolioUSD);
+    g('invFireSub').textContent   = pctToFire >= 100
+      ? `You've reached your FIRE number — your portfolio can sustain your lifestyle at 4% withdrawal`
+      : `You're at ${pctToFire.toFixed(1)}% of your FIRE number · ${fmtK(stillNeedUSD)} ${s} still needed`;
+    // Invest FIRE insight — pass pure USD values, no double-conversion
+    const leftoverUSD = salaryUSD - totalSpendUSD;
     computeInvestFireInsight(
-      toUSD(fireNumber),
-      toUSD(portfolio),
-      Math.max(0, leftUSD),
+      fireNumberUSD,
+      portfolioUSD,
+      Math.max(0, leftoverUSD),
       toUSD(monthlyAdd)
     );
   } else {
@@ -2179,25 +2189,49 @@ function computeInvestFireInsight(fireNumUSD, currentPortfolioUSD, monthlySaving
     showInsight('invFireInsight', tip, 'var(--green)');
   }
 }
+let bugType = 'bug';
+
+function setBugType(type){
+  bugType = type;
+  const isBug = type === 'bug';
+  const bb = g('bugTypeBtn'), fb = g('featTypeBtn'), pr = g('bugPrompt');
+  if(bb){ bb.style.background=isBug?'var(--gold)':'var(--bg)'; bb.style.color=isBug?'#070707':'var(--text3)'; bb.style.border=isBug?'none':'1px solid var(--border2)'; }
+  if(fb){ fb.style.background=!isBug?'var(--blue)':'var(--bg)'; fb.style.color=!isBug?'#070707':'var(--text3)'; fb.style.border=!isBug?'none':'1px solid var(--border2)'; }
+  if(pr) pr.textContent = isBug
+    ? "Describe what happened — what you expected vs what you saw. Optionally include your salary and currency."
+    : "Tell us what you'd love to see — new features, comparisons, improvements, anything at all.";
+  const ta = g('bugText');
+  if(ta) ta.placeholder = isBug
+    ? "e.g. The per-day figure doesn't match when I switch from AED to USD..."
+    : "e.g. I'd love a feature that shows how long until I can afford a house in my city...";
+}
+
 function toggleBugReport(){
   const panel=g('bugPanel'), chevron=g('bugChevron');
   const open=panel.style.display==='none';
   panel.style.display=open?'block':'none';
-  chevron.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+  if(chevron) chevron.style.transform=open?'rotate(180deg)':'rotate(0deg)';
   if(open) setTimeout(()=>g('bugText')&&g('bugText').focus(),50);
 }
 
 function submitBug(){
   const text=(g('bugText').value||'').trim();
-  if(!text){g('bugText').style.borderColor='var(--red)';setTimeout(()=>g('bugText').style.borderColor='var(--border2)',1500);return;}
-  const salary=g('salary').value||'?';
-  const body=encodeURIComponent(`Bug report — amipoor.com\n\nSalary: ${salary} ${currency}\nMode: ${mode}\n\n---\n${text}`);
-  const subject=encodeURIComponent('Bug report — amipoor.com');
-  try{window.open(`mailto:hello@amipoor.com?subject=${subject}&body=${body}`,'_self');}catch(e){}
-  navigator.clipboard.writeText(`Bug: ${text}\nSalary: ${salary} ${currency}, Mode: ${mode}`).catch(()=>{});
-  g('bugConfirm').style.display='block';
+  if(!text){ g('bugText').style.borderColor='var(--red)'; setTimeout(()=>g('bugText').style.borderColor='var(--border2)',1500); return; }
+  const salary = g('salary').value||'?';
+  const typeLabel = bugType==='bug' ? 'Bug Report' : 'Feature Request';
+  const subjectText = `${typeLabel} — amipoor.com`;
+  const bodyText = `${typeLabel} from amipoor.com\n\nSalary: ${salary} ${currency}\nMode: ${mode}\n\n---\n${text}`;
+  // Open mail client with pre-filled content
+  window.location.href = `mailto:hello@amipoor.com?subject=${encodeURIComponent(subjectText)}&body=${encodeURIComponent(bodyText)}`;
+  // Copy to clipboard as fallback
+  navigator.clipboard.writeText(`To: hello@amipoor.com\nSubject: ${subjectText}\n\n${bodyText}`).catch(()=>{});
+  const confirm = g('bugConfirm');
+  if(confirm){
+    confirm.textContent = bugType==='bug' ? '✓ Opening your mail app — thanks for the report!' : '✓ Opening your mail app — love the idea!';
+    confirm.style.display='block';
+    setTimeout(()=>{ confirm.style.display='none'; },5000);
+  }
   g('bugText').value='';
-  setTimeout(()=>{g('bugConfirm').style.display='none';},4000);
 }
 
 // ═══════════════════════════════════════════════════════════
