@@ -671,7 +671,11 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <!-- SECTION 3: Time donut -->
   <div class="section">
-    <div class="section-head"><div class="sec-num">3</div><div><h2 class="sec-title">Where your day actually goes</h2><div class="sec-subtitle">24 hours broken down honestly</div></div></div>
+    <div class="section-head">
+      <div class="sec-num">3</div>
+      <div><h2 class="sec-title">Where your day actually goes</h2><div class="sec-subtitle">24 hours broken down honestly</div></div>
+      <button class="spend-edit-btn" onclick="toggleDonutEdit()">✏ Edit</button>
+    </div>
     <div class="donut-card">
       <div class="donut-wrap">
         <svg width="140" height="140" viewBox="0 0 140 140" id="donutSvg"></svg>
@@ -679,6 +683,21 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
       </div>
       <div class="donut-legend" id="donutLegend"></div>
     </div>
+    <!-- Editable inputs -->
+    <div id="donutEditPanel" style="display:none;margin-top:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <div class="sl">😴 Sleep (hours/night)</div>
+          <input class="inp" id="donut-sleep" type="number" inputmode="decimal" value="7.5" min="4" max="12" step="0.5" oninput="saveDonut();redrawDonut()">
+        </div>
+        <div>
+          <div class="sl">🚗 Commute (hours/day)</div>
+          <input class="inp" id="donut-commute" type="number" inputmode="decimal" value="1" min="0" max="6" step="0.5" oninput="saveDonut();redrawDonut()">
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin-top:10px">Work hours come from your salary settings. Free time is whatever's left.</div>
+    </div>
+    <div id="donutInsight" style="display:none;margin-top:10px;padding:12px 14px;background:var(--bg3);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
   </div>
 
   <hr class="div">
@@ -722,7 +741,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
         <div class="spend-stacked-bar" id="spendBar"></div>
         <div class="spend-legend" id="spendLegend"></div>
       </div>
-
+      <div id="spendInsight" style="display:none;margin:0 16px 16px;padding:12px 14px;background:var(--bg3);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
     </div>
   </div>
 
@@ -777,9 +796,46 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 6: Investments -->
+  <!-- SECTION 6: Life so far -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">6</div><div><h2 class="sec-title">The bigger picture</h2><div class="sec-subtitle">Your lifetime earnings & time left</div></div></div>
+    <div class="life-grid">
+      <div class="life-card"><div class="lc-label">Total Est. Earned</div><div class="lc-val" id="totalEarned">—</div><div class="lc-sub" id="totalEarnedSub">lifetime</div></div>
+      <div class="life-card"><div class="lc-label">Years Working</div><div class="lc-val" id="yearsWorking">—</div><div class="lc-sub">of your life so far</div><div class="bar-track"><div class="bar-fill" id="workBar" style="width:0%;background:var(--gold)"></div></div></div>
+      <div class="life-card"><div class="lc-label">Food / Coffee Habit</div><div class="lc-val" id="coffeeCost">—</div><div class="lc-sub" id="coffeeSub">per year</div></div>
+      <div class="life-card"><div class="lc-label">Time Left (80yr avg)</div><div class="lc-val" id="timeLeft">—</div><div class="lc-sub">years remaining</div><div class="bar-track"><div class="bar-fill" id="lifeBar" style="width:0%;background:var(--red)"></div></div></div>
+    </div>
+    <div class="lifetime-card">
+      <div class="lt-label">Lifetime money still to earn</div>
+      <div class="lt-val" id="lifetimeLeft">—</div>
+      <div class="lt-sub" id="lifetimeSub">Based on current salary until age 60</div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 7: Retirement slider -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">7</div><div><h2 class="sec-title">Your earning potential</h2><div class="sec-subtitle">Drag to see total earnings by retirement age</div></div></div>
+    <div class="retire-card">
+      <div class="retire-label-row"><span>Age <strong id="retireFromAge">—</strong> (now)</span><span>Age <strong id="retireToAge">60</strong></span></div>
+      <input type="range" id="retireSlider" min="18" max="60" value="60" step="1">
+      <div class="retire-ticks"><span>18</span><span>25</span><span>30</span><span>35</span><span>40</span><span>45</span><span>50</span><span>55</span><span>60</span></div>
+      <div class="retire-result">
+        <div class="retire-result-label">Total earnings between now and age <span id="retireTargetLabel">60</span></div>
+        <div class="retire-result-value" id="retireTotal">—</div>
+        <div class="retire-result-currency" id="retireUnit">—</div>
+      </div>
+      <div class="retire-breakdown" id="retireBreakdown"></div>
+      <div id="retireFireInsight" style="display:none;margin-top:14px;padding:12px 14px;background:var(--bg3);border-left:2px solid var(--green);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 8: FIRE / Investments -->
   <div class="section" id="investSection">
-    <div class="section-head"><div class="sec-num">6</div><div><h2 class="sec-title">Your money making money</h2><div class="sec-subtitle">Passive income from investments</div></div></div>
+    <div class="section-head"><div class="sec-num">8</div><div><h2 class="sec-title">How can I become financially free?</h2><div class="sec-subtitle">FIRE calculator — passive income &amp; financial independence</div></div></div>
     <div class="invest-card">
 
       <!-- Inputs row -->
@@ -861,6 +917,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
           <div class="invest-fire-label">🔥 Financial Independence number</div>
           <div class="invest-fire-val" id="invFireVal">—</div>
           <div class="invest-fire-sub" id="invFireSub">25× your annual expenses (4% rule)</div>
+          <div id="invFireInsight" style="display:none;margin-top:10px;padding:10px 12px;background:rgba(62,207,142,0.06);border-left:2px solid var(--green);border-radius:0 8px 8px 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
         </div>
 
       </div>
@@ -870,42 +927,6 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
         Enter your portfolio value above to see your passive income per second.
       </div>
 
-    </div>
-  </div>
-
-  <hr class="div">
-
-  <!-- SECTION 7: Life so far -->
-  <div class="section">
-    <div class="section-head"><div class="sec-num">7</div><div><h2 class="sec-title">The bigger picture</h2><div class="sec-subtitle">Your lifetime earnings & time left</div></div></div>
-    <div class="life-grid">
-      <div class="life-card"><div class="lc-label">Total Est. Earned</div><div class="lc-val" id="totalEarned">—</div><div class="lc-sub" id="totalEarnedSub">lifetime</div></div>
-      <div class="life-card"><div class="lc-label">Years Working</div><div class="lc-val" id="yearsWorking">—</div><div class="lc-sub">of your life so far</div><div class="bar-track"><div class="bar-fill" id="workBar" style="width:0%;background:var(--gold)"></div></div></div>
-      <div class="life-card"><div class="lc-label">Food / Coffee Habit</div><div class="lc-val" id="coffeeCost">—</div><div class="lc-sub" id="coffeeSub">per year</div></div>
-      <div class="life-card"><div class="lc-label">Time Left (80yr avg)</div><div class="lc-val" id="timeLeft">—</div><div class="lc-sub">years remaining</div><div class="bar-track"><div class="bar-fill" id="lifeBar" style="width:0%;background:var(--red)"></div></div></div>
-    </div>
-    <div class="lifetime-card">
-      <div class="lt-label">Lifetime money still to earn</div>
-      <div class="lt-val" id="lifetimeLeft">—</div>
-      <div class="lt-sub" id="lifetimeSub">Based on current salary until age 60</div>
-    </div>
-  </div>
-
-  <hr class="div">
-
-  <!-- SECTION 8: Retirement slider -->
-  <div class="section">
-    <div class="section-head"><div class="sec-num">8</div><div><h2 class="sec-title">Your earning potential</h2><div class="sec-subtitle">Drag to see total earnings by retirement age</div></div></div>
-    <div class="retire-card">
-      <div class="retire-label-row"><span>Age <strong id="retireFromAge">—</strong> (now)</span><span>Age <strong id="retireToAge">60</strong></span></div>
-      <input type="range" id="retireSlider" min="18" max="60" value="60" step="1">
-      <div class="retire-ticks"><span>18</span><span>25</span><span>30</span><span>35</span><span>40</span><span>45</span><span>50</span><span>55</span><span>60</span></div>
-      <div class="retire-result">
-        <div class="retire-result-label">Total earnings between now and age <span id="retireTargetLabel">60</span></div>
-        <div class="retire-result-value" id="retireTotal">—</div>
-        <div class="retire-result-currency" id="retireUnit">—</div>
-      </div>
-      <div class="retire-breakdown" id="retireBreakdown"></div>
     </div>
   </div>
 
@@ -1182,36 +1203,44 @@ function obTab(n){
 }
 
 function startApp(){
-  // Currency first
-  const obCurr = g('ob-currency');
-  if(obCurr && obCurr.value) applyCurrency(obCurr.value);
+  try {
+    // Currency
+    const obCurr = g('ob-currency');
+    if(obCurr && obCurr.value) {
+      currency = obCurr.value;
+      ['currencySelect','ob-currency','ed-currency'].forEach(id=>{const el=g(id);if(el)el.value=currency;});
+    }
 
-  // Income
-  const s = parseFloat(g('ob-salary').value)||1000;
-  const h = parseFloat(g('ob-hours').value)||40;
-  const a = parseFloat(g('ob-age').value)||30;
-  const c = parseFloat(g('ob-coffee').value)||10;
-  set('salary',s); set('hours',h); set('age',a); set('coffee',c);
+    // Income — write directly to hidden fields
+    const s = parseFloat(g('ob-salary').value) || 1000;
+    const h = parseFloat(g('ob-hours').value)  || 40;
+    const a = parseFloat(g('ob-age').value)    || 30;
+    const c = parseFloat(g('ob-coffee').value) || 10;
+    set('salary',s); set('hours',h); set('age',a); set('coffee',c);
 
-  // Spending
-  SPEND_CATS.forEach(cat=>{
-    const el=g('ob-'+cat.key);
-    if(el && parseFloat(el.value)>0) spendData[cat.key]=parseFloat(el.value);
-  });
+    // Spending
+    SPEND_CATS.forEach(cat=>{
+      const el=g('ob-'+cat.key);
+      if(el && parseFloat(el.value)>0) spendData[cat.key]=parseFloat(el.value);
+    });
+  } catch(e) { console.warn('startApp error:', e); }
 
   closeOnboarding();
 }
 
 function skipOnboarding(){
-  // Use whatever is already in the hidden fields or defaults
   closeOnboarding();
 }
 
 function closeOnboarding(){
-  const ob=g('onboarding');
-  ob.style.opacity='0';
-  setTimeout(()=>{ob.style.display='none';},400);
-  save(); recalc(); go();
+  try {
+    const ob=g('onboarding');
+    if(ob){ ob.style.opacity='0'; setTimeout(()=>{ ob.style.display='none'; },400); }
+  } catch(e) {}
+  try { save(); } catch(e) {}
+  try { recalc(); } catch(e) {}
+  try { recalcInvest(); } catch(e) {}
+  try { go(); } catch(e) {}
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1365,9 +1394,12 @@ function recalc(){
 //  DONUT
 // ═══════════════════════════════════════════════════════════
 function drawDonut(hoursPerWeek){
-  const wH=Math.min(hoursPerWeek/7,14), sH=7.5;
-  const comH=Math.min(1.5,(24-wH-sH)*0.25);
-  const fH=Math.max(0,24-wH-sH-comH);
+  // Work hours: spread across 5 days, not 7
+  const workDaysPerWeek = 5;
+  const wH  = Math.min(hoursPerWeek / workDaysPerWeek, 16);
+  const sH  = parseFloat((g('donut-sleep')  && g('donut-sleep').value)  || 7.5);
+  const comH= parseFloat((g('donut-commute')&& g('donut-commute').value) || 1);
+  const fH  = Math.max(0, 24 - wH - sH - comH);
   const slices=[
     {label:'Working',  h:wH,  color:'#c9a84c'},
     {label:'Sleeping', h:sH,  color:'#2a2a2a'},
@@ -1383,7 +1415,35 @@ function drawDonut(hoursPerWeek){
     off+=sl.h;
   });
   if(g('donutSvg')) g('donutSvg').innerHTML=html;
-  if(g('donutLegend')) g('donutLegend').innerHTML=slices.map(sl=>`<div class="dl-item"><div class="dl-dot" style="background:${sl.color}"></div><div class="dl-label">${sl.label}</div><div class="dl-val">${sl.h.toFixed(1)}h</div></div>`).join('');
+  if(g('donutLegend')) g('donutLegend').innerHTML=slices.map(sl=>`<div class="dl-item"><div class="dl-dot" style="background:${sl.color}"></div><div class="dl-label">${sl.label}</div><div class="dl-val">${sl.h.toFixed(1)}h/day</div></div>`).join('');
+  computeDonutInsight(hoursPerWeek);
+}
+
+function toggleDonutEdit(){
+  const p=g('donutEditPanel');
+  p.style.display=p.style.display==='none'?'block':'none';
+}
+
+function saveDonut(){
+  try{
+    localStorage.setItem('waiw_donut', JSON.stringify({
+      sleep:  g('donut-sleep').value,
+      commute:g('donut-commute').value,
+    }));
+  }catch(e){}
+}
+
+function loadDonut(){
+  try{
+    const d=JSON.parse(localStorage.getItem('waiw_donut')||'{}');
+    if(d.sleep)   set('donut-sleep',   d.sleep);
+    if(d.commute) set('donut-commute', d.commute);
+  }catch(e){}
+}
+
+function redrawDonut(){
+  const h=parseFloat(g('hours').value)||40;
+  drawDonut(h);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1460,6 +1520,9 @@ function updateRetire(){
     <div class="rb-item"><div class="rb-label">Per year</div><div class="rb-val">${fmtK(monthlyUSD*12)} ${s}</div></div>`;
   const pct=yearsLeft<=0?0:(yearsLeft/Math.max(60-age,1))*100;
   slider.style.background=`linear-gradient(to right,#c9a84c 0%,#c9a84c ${pct.toFixed(1)}%,#262626 ${pct.toFixed(1)}%,#262626 100%)`;
+  // FIRE insight
+  const sUSD = toUSD(parseFloat(g('salary').value)||0)*(MULT[mode]||1);
+  computeRetireFireInsight(sUSD);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1510,7 +1573,7 @@ function updateSpending(salaryUSD){
         </div>
         <div class="spend-amount-wrap">
           <div>
-            <div class="spend-amount">${(local*rate).toLocaleString('en',{maximumFractionDigits:0})} ${s}</div>
+            <div class="spend-amount">${local.toLocaleString('en',{maximumFractionDigits:0})} ${s}</div>
             <div class="spend-pct">${pct}% of income</div>
           </div>
         </div>
@@ -1536,6 +1599,8 @@ function updateSpending(salaryUSD){
 
   // Savings
   updateSavings(salaryUSD, totalSpendUSD, savingsUSD);
+  // Spend insight
+  computeSpendInsight(salaryUSD, totalSpendUSD);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1696,89 +1761,170 @@ function challengeFriend(){
 }
 
 function generateCard(){
-  const canvas=g('shareCanvas'),ctx=canvas.getContext('2d'),S=1080;
-  const pool=[
-    {name:'coffees',      emoji:'☕', usd:5},
-    {name:'Big Macs',     emoji:'🍔', usd:9},
-    {name:'iPhones',      emoji:'📱', usd:1099},
-    {name:'Rolex watches',emoji:'⌚', usd:9000},
-    {name:'smoothies',    emoji:'🥤', usd:7},
-    {name:'AirPods',      emoji:'🎧', usd:249},
-    {name:'karak teas 🇦🇪',emoji:'🫖',usd:1.4},
-    {name:'abra rides 🇦🇪',emoji:'⛵',usd:0.27},
-    {name:'horses',       emoji:'🐴', usd:5000},
-    {name:'jet hours',    emoji:'🛩️', usd:12000},
-    {name:'Maldives nts', emoji:'🏝️', usd:1200},
-    {name:'Bitcoins',     emoji:'₿',  usd:100000},
-  ];
-  const sorted=[...pool].sort((a,b)=>a.usd-b.usd);
-  const picks=[sorted[0],sorted[Math.floor(sorted.length*0.3)],sorted[Math.floor(sorted.length*0.7)],sorted[sorted.length-1]];
-  const hourlyUSD=perSecUSD*3600,dailyUSD=perSecUSD*86400;
+  const canvas=g('shareCanvas'), ctx=canvas.getContext('2d'), S=1080;
+  const rate   = currObj().rate;
+  const s      = sym();
+  const hourly = perSecUSD * 3600 * rate;
+  const daily  = perSecUSD * 86400 * rate;
+  const monthly= toUSD(parseFloat(g('salary').value)||0) * (MULT[mode]||1) * rate;
+  const perSec = perSecUSD * rate;
+  const hoursPerWeek = parseFloat(g('hours').value)||40;
 
+  // Savings
+  const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const salaryUSD     = toUSD(parseFloat(g('salary').value)||0) * (MULT[mode]||1);
+  const leftoverUSD   = salaryUSD - totalSpendUSD;
+  const savingsPct    = salaryUSD > 0 ? Math.max(0,(leftoverUSD/salaryUSD)*100) : 0;
+  const hasSavings    = totalSpendUSD > 0;
+
+  // ── BUILD 4 QUIP SENTENCES ─────────────────────────────────────────
+  // Fixed reference items for quips (always present, not from activeIds)
+  const QUIP_ITEMS = {
+    karak:   { name:'karak tea',        emoji:'☕', usd:1.36  },
+    iphone:  { name:'iPhone 16 Pro Max',emoji:'📱', usd:1199  },
+    horse:   { name:'Arabian horse',    emoji:'🐴', usd:30000 },
+    bitcoin: { name:'Bitcoin',          emoji:'₿',  usd:100000},
+    rolex:   { name:'Rolex',            emoji:'⌚', usd:9000  },
+    lambo:   { name:'Lamborghini',      emoji:'🏎️', usd:220000},
+    coffee:  { name:'coffee',           emoji:'☕', usd:5     },
+    netflix: { name:'Netflix month',    emoji:'📺', usd:15    },
+    airpods: { name:'AirPods Pro',      emoji:'🎧', usd:249   },
+  };
+
+  // Quip 1: X karakات per hour (cheap, funny, UAE-specific)
+  const karakPerHour = hourly / (QUIP_ITEMS.karak.usd * rate);
+  const q1 = `I can buy ${karakPerHour>=1000?(karakPerHour/1000).toFixed(1)+'K':karakPerHour.toFixed(0)} karak teas per hour ☕`;
+
+  // Quip 2: Hours to buy iPhone
+  const hoursForIphone = (QUIP_ITEMS.iphone.usd * rate) / hourly;
+  const q2 = hoursForIphone < 1
+    ? `I could buy an iPhone 16 Pro Max in ${(hoursForIphone*60).toFixed(0)} minutes of work 📱`
+    : `It takes me ${hoursForIphone.toFixed(1)} hours of work to buy an iPhone 16 Pro Max 📱`;
+
+  // Quip 3: Years to buy Arabian horse
+  const hoursForHorse = (QUIP_ITEMS.horse.usd * rate) / hourly;
+  const yearsForHorse = hoursForHorse / hoursPerWeek / 52;
+  const q3 = yearsForHorse < 0.1
+    ? `I could afford an Arabian horse in a single work week 🐴`
+    : yearsForHorse < 1
+      ? `I could buy an Arabian horse in ${(yearsForHorse*12).toFixed(1)} months of salary 🐴`
+      : `It would take ${yearsForHorse.toFixed(1)} years of salary to buy an Arabian horse 🐴`;
+
+  // Quip 4: Netflix months per day OR Rolex weeks
+  const netflixPerDay = daily / (QUIP_ITEMS.netflix.usd * rate);
+  const q4 = netflixPerDay >= 1
+    ? `Every day I earn enough for ${netflixPerDay.toFixed(0)} Netflix subscriptions 📺`
+    : `My daily earnings cover ${(netflixPerDay*100).toFixed(0)}% of a Netflix subscription 📺`;
+
+  const quips = [q1, q2, q3, q4];
+
+  // ── BACKGROUND ────────────────────────────────────────────────────────
   ctx.fillStyle='#070707'; ctx.fillRect(0,0,S,S);
-  ctx.strokeStyle='rgba(255,255,255,0.016)'; ctx.lineWidth=1;
+  ctx.strokeStyle='rgba(255,255,255,0.018)'; ctx.lineWidth=1;
   for(let x=0;x<S;x+=54){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,S);ctx.stroke();}
   for(let y=0;y<S;y+=54){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(S,y);ctx.stroke();}
-  const gTop=ctx.createRadialGradient(S/2,0,0,S/2,0,520);
-  gTop.addColorStop(0,'rgba(201,168,76,0.17)'); gTop.addColorStop(1,'transparent');
+  const gTop=ctx.createRadialGradient(S/2,-60,0,S/2,-60,700);
+  gTop.addColorStop(0,'rgba(201,168,76,0.14)'); gTop.addColorStop(1,'transparent');
   ctx.fillStyle=gTop; ctx.fillRect(0,0,S,S);
-  const gBot=ctx.createRadialGradient(S,S,0,S,S,400);
-  gBot.addColorStop(0,'rgba(62,207,142,0.09)'); gBot.addColorStop(1,'transparent');
-  ctx.fillStyle=gBot; ctx.fillRect(0,0,S,S);
   const tl=ctx.createLinearGradient(0,0,S,0);
   tl.addColorStop(0,'transparent'); tl.addColorStop(0.5,'#c9a84c'); tl.addColorStop(1,'transparent');
   ctx.strokeStyle=tl; ctx.lineWidth=3;
   ctx.beginPath(); ctx.moveTo(0,3); ctx.lineTo(S,3); ctx.stroke();
-  ctx.font='bold 32px sans-serif';
-  ctx.fillStyle='#f0ede6'; ctx.fillText('what am i',60,76);
-  ctx.fillStyle='#c9a84c'; ctx.fillText(' worth?',60+ctx.measureText('what am i').width,76);
-  ctx.font='14px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText('amipoor.com',60,100);
-  const mL={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Rich Fantasy ✦'}[mode]||mode;
-  ctx.font='bold 13px sans-serif';
-  const bw=ctx.measureText(mL).width+22;
-  rrCanvas(ctx,S-58-bw,54,bw,30,15);
-  ctx.fillStyle='rgba(201,168,76,0.14)'; ctx.fill();
-  ctx.strokeStyle='rgba(201,168,76,0.35)'; ctx.lineWidth=1; ctx.stroke();
-  ctx.fillStyle='#c9a84c'; ctx.textAlign='center'; ctx.fillText(mL,S-58-bw/2,73); ctx.textAlign='left';
-  ctx.font='bold 50px sans-serif'; ctx.fillStyle='#f0ede6'; ctx.fillText('Every hour,',60,200);
-  ctx.fillStyle='#c9a84c'; ctx.fillText('I earn:',60,260);
-  const hrDisp=(hourlyUSD*currObj().rate).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2});
-  ctx.font='bold 94px monospace'; ctx.fillStyle='#3ecf8e'; ctx.fillText(hrDisp,60,374);
-  ctx.font='19px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText(`${sym()} per hour`,60,410);
+
+  // ── LOGO ──────────────────────────────────────────────────────────────
+  ctx.font='800 28px sans-serif';
+  ctx.fillStyle='#f0ede6'; ctx.fillText('am i',60,72);
+  ctx.fillStyle='#c9a84c'; ctx.fillText(' poor?',60+ctx.measureText('am i').width,72);
+  ctx.font='13px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText('amipoor.com',60,98);
+
+  // Mode badge
+  const mLabel={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Delusional ✦'}[mode]||mode;
+  ctx.font='bold 12px sans-serif';
+  const bw=ctx.measureText(mLabel).width+24;
+  rrCanvas(ctx,S-60-bw,50,bw,30,15);
+  ctx.fillStyle='rgba(201,168,76,0.13)'; ctx.fill();
+  ctx.strokeStyle='rgba(201,168,76,0.3)'; ctx.lineWidth=1; ctx.stroke();
+  ctx.fillStyle='#c9a84c'; ctx.textAlign='center';
+  ctx.fillText(mLabel,S-60-bw/2,69); ctx.textAlign='left';
+
+  // ── HERO ──────────────────────────────────────────────────────────────
+  // Big per-second number — the core hook
+  ctx.font='bold 16px sans-serif'; ctx.fillStyle='#504e4a';
+  ctx.fillText('MY SALARY, PER SECOND', 60, 170);
+
+  const psStr = perSec.toFixed(4);
+  ctx.font='bold 100px monospace'; ctx.fillStyle='#3ecf8e';
+  ctx.fillText(psStr, 60, 284);
+  ctx.font='bold 22px monospace'; ctx.fillStyle='#c9a84c';
+  ctx.fillText(s, 60, 318);
+
+  // Secondary stats inline
+  ctx.font='15px monospace'; ctx.fillStyle='#504e4a';
+  const secLine = `${hourly.toLocaleString('en',{maximumFractionDigits:0})} ${s}/hr  ·  ${daily.toLocaleString('en',{maximumFractionDigits:0})} ${s}/day  ·  ${monthly.toLocaleString('en',{maximumFractionDigits:0})} ${s}/mo`;
+  ctx.fillText(secLine, 60, 348);
+
+  // Savings pill (if available)
+  if(hasSavings){
+    const pill = `saving ${savingsPct.toFixed(0)}% of income`;
+    const pw = ctx.measureText(pill).width + 24;
+    rrCanvas(ctx,60,364,pw,28,14);
+    ctx.fillStyle = savingsPct>=20?'rgba(62,207,142,0.12)':'rgba(232,77,77,0.10)'; ctx.fill();
+    ctx.strokeStyle= savingsPct>=20?'rgba(62,207,142,0.3)':'rgba(232,77,77,0.25)'; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle = savingsPct>=20?'#3ecf8e':'#e84d4d';
+    ctx.font='bold 12px sans-serif';
+    ctx.fillText(pill, 60+12, 382);
+  }
+
+  // ── DIVIDER ───────────────────────────────────────────────────────────
+  const divY = hasSavings ? 410 : 382;
   ctx.strokeStyle='#1c1c1c'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(60,442); ctx.lineTo(S-60,442); ctx.stroke();
-  ctx.font='bold 21px sans-serif'; ctx.fillStyle='#504e4a'; ctx.fillText("That's...",60,488);
-  const tW=(S-60-60-3*16)/4,tH=220,tY=510;
-  picks.forEach((item,i)=>{
-    const tx=60+i*(tW+16);
-    const qph=hourlyUSD/item.usd, qpd=dailyUSD/item.usd;
-    ctx.fillStyle='#0f0f0f'; rrCanvas(ctx,tx,tY,tW,tH,12); ctx.fill();
-    const ac=['#c9a84c','#3ecf8e','#4d9de8','#e84d4d'][i];
-    ctx.strokeStyle=i===0?'rgba(201,168,76,0.3)':'#1c1c1c'; ctx.lineWidth=1; ctx.stroke();
-    ctx.fillStyle=ac; rrCanvas(ctx,tx,tY,tW,3,2); ctx.fill();
-    ctx.font='36px sans-serif'; ctx.textAlign='center'; ctx.fillText(item.emoji,tx+tW/2,tY+56);
-    const qStr=qph>=1000?(qph/1000).toFixed(1)+'K':qph>=1?qph.toFixed(1):qph.toFixed(3);
-    ctx.font='bold 28px monospace'; ctx.fillStyle=ac; ctx.fillText(qStr,tx+tW/2,tY+108);
-    ctx.font='bold 10px sans-serif'; ctx.fillStyle='#f0ede6';
-    const n=item.name.length>11?item.name.slice(0,11)+'…':item.name;
-    ctx.fillText(n,tx+tW/2,tY+130);
-    ctx.font='10px sans-serif'; ctx.fillStyle='#504e4a'; ctx.fillText('per hour',tx+tW/2,tY+150);
-    const dStr=qpd>=1000?(qpd/1000).toFixed(0)+'K':qpd>=1?qpd.toFixed(0):qpd.toFixed(2);
-    ctx.font='bold 11px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText(`${dStr}/day`,tx+tW/2,tY+188);
-    ctx.textAlign='left';
+  ctx.beginPath(); ctx.moveTo(60,divY); ctx.lineTo(S-60,divY); ctx.stroke();
+
+  // ── QUIP ROWS ─────────────────────────────────────────────────────────
+  const quipStartY = divY + 36;
+  const quipGap    = 118;
+
+  quips.forEach((quip,i)=>{
+    const qy = quipStartY + i*quipGap;
+    // Row background
+    ctx.fillStyle='#0c0c0c';
+    rrCanvas(ctx,60,qy-34,S-120,100,10); ctx.fill();
+    ctx.strokeStyle='#1a1a1a'; ctx.lineWidth=1; ctx.stroke();
+
+    // Accent dot
+    const dotColors=['#c9a84c','#3ecf8e','#4d9de8','#e84d4d'];
+    ctx.fillStyle=dotColors[i];
+    ctx.beginPath(); ctx.arc(88,qy+16,5,0,Math.PI*2); ctx.fill();
+
+    // Text — wrap if needed
+    ctx.font='bold 18px sans-serif'; ctx.fillStyle='#f0ede6';
+    // Split at numbers to highlight them
+    const parts = quip.split(/(\d[\d,.'KM]*)/g);
+    let tx=106;
+    parts.forEach(part=>{
+      const isNum=/^\d/.test(part);
+      ctx.fillStyle = isNum ? dotColors[i] : '#f0ede6';
+      ctx.font = isNum ? 'bold 22px monospace' : 'bold 17px sans-serif';
+      ctx.fillText(part,tx,qy+22);
+      tx += ctx.measureText(part).width + (isNum?2:0);
+    });
   });
-  const cY=S-54;
-  ctx.fillStyle='rgba(201,168,76,0.06)'; ctx.fillRect(0,cY-28,S,78);
-  ctx.strokeStyle='rgba(201,168,76,0.14)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(0,cY-28); ctx.lineTo(S,cY-28); ctx.stroke();
-  ctx.font='bold 17px sans-serif'; ctx.fillStyle='#9a9590'; ctx.textAlign='center';
-  ctx.fillText('What is YOUR time worth?',S/2,cY+2);
-  ctx.font='bold 19px sans-serif'; ctx.fillStyle='#c9a84c';
-  ctx.fillText('amipoor.com  →',S/2,cY+26);
+
+  // ── FOOTER ────────────────────────────────────────────────────────────
+  const fY=S-52;
+  ctx.fillStyle='rgba(201,168,76,0.05)'; ctx.fillRect(0,fY-24,S,76);
+  ctx.strokeStyle='rgba(201,168,76,0.12)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,fY-24); ctx.lineTo(S,fY-24); ctx.stroke();
+  ctx.textAlign='center';
+  ctx.font='bold 15px sans-serif'; ctx.fillStyle='#9a9590';
+  ctx.fillText('Are YOU poor? Find out →',S/2,fY+2);
+  ctx.font='bold 18px sans-serif'; ctx.fillStyle='#c9a84c';
+  ctx.fillText('amipoor.com',S/2,fY+26);
   ctx.textAlign='left';
+
   const link=document.createElement('a');
   link.download='amipoor-card.png'; link.href=canvas.toDataURL('image/png'); link.click();
-  toast('Share card saved 📸');
+  toast('Card saved — post it! 📸');
 }
 
 function rrCanvas(ctx,x,y,w,h,r){
@@ -1871,12 +2017,168 @@ function recalcInvest(){
     g('invFireSub').textContent   = annualExpenses > 0
       ? `You're at ${pctToFire.toFixed(1)}% of your FIRE number · need ${fmtK(fireNumber - toUSD(portfolio))} ${s} more`
       : '25× your annual expenses (4% rule)';
+    // Invest FIRE insight
+    const leftUSD = salaryUSD - totalSpendUSD;
+    computeInvestFireInsight(
+      toUSD(fireNumber),
+      toUSD(portfolio),
+      Math.max(0, leftUSD),
+      toUSD(monthlyAdd)
+    );
   } else {
     g('investFire').style.display = 'none';
+    showInsight('invFireInsight', null);
   }
 }
 
-// ── BUG REPORT ───────────────────────────────────────────────────────────────
+// ── INSIGHTS ──────────────────────────────────────────────────────────────────
+
+function showInsight(id, html, color){
+  const el = g(id);
+  if(!el) return;
+  if(!html){ el.style.display='none'; return; }
+  el.style.display = 'block';
+  el.style.borderLeftColor = color || 'var(--gold)';
+  el.innerHTML = html;
+}
+
+function computeDonutInsight(hoursPerWeek){
+  const sleep  = parseFloat((g('donut-sleep')  && g('donut-sleep').value)  || 7.5);
+  const commute= parseFloat((g('donut-commute')&& g('donut-commute').value) || 1);
+  const workH  = Math.min(hoursPerWeek/5, 16);
+  const freeH  = Math.max(0, 24 - workH - sleep - commute);
+  const tips = [];
+
+  if(sleep < 6)
+    tips.push(`<strong>You're sleeping ${sleep}h.</strong> Below 7h consistently is linked to reduced focus and productivity — you may be losing more time than you're saving.`);
+  else if(sleep > 9)
+    tips.push(`<strong>You're sleeping ${sleep}h.</strong> More than 9h regularly can signal low energy or health issues worth looking into.`);
+
+  if(commute > 2)
+    tips.push(`<strong>Your commute is ${commute}h/day</strong> — that's ${(commute*5).toFixed(0)} hours a week, or ${(commute*5*52/60).toFixed(0)} days a year spent in transit. Remote or hybrid work could give you that back.`);
+  else if(commute > 1)
+    tips.push(`<strong>${commute}h/day commuting</strong> adds up to ${(commute*5*52).toFixed(0)} hours a year. Even cutting it by half would return weeks of your life.`);
+
+  if(freeH < 3)
+    tips.push(`<strong>Only ${freeH.toFixed(1)}h of free time per day.</strong> That's not much room for rest, relationships, or anything outside work. Something may need to give.`);
+  else if(freeH >= 6)
+    tips.push(`<strong>${freeH.toFixed(1)}h of free time per day</strong> — that's above average. The question is whether you're using it intentionally.`);
+
+  if(workH > 10)
+    tips.push(`<strong>Working ${workH.toFixed(1)}h/day</strong> is intense. Research consistently shows productivity drops sharply after 8–9 hours.`);
+
+  showInsight('donutInsight', tips.length ? tips[0] : null, 'var(--gold)');
+}
+
+function computeSpendInsight(salaryUSD, totalSpendUSD){
+  if(totalSpendUSD === 0){ showInsight('spendInsight', null); return; }
+  const s = sym();
+  const cats = SPEND_CATS.filter(c=>c.key!=='savings');
+  // Find biggest category
+  let topCat = null, topUSD = 0;
+  cats.forEach(cat=>{
+    const v = toUSD(spendData[cat.key]||0);
+    if(v > topUSD){ topUSD = v; topCat = cat; }
+  });
+  const spendPct = salaryUSD > 0 ? (totalSpendUSD/salaryUSD)*100 : 0;
+  const rentUSD  = toUSD(spendData.rent||0);
+  const rentPct  = salaryUSD > 0 ? (rentUSD/salaryUSD)*100 : 0;
+  const leftoverUSD = salaryUSD - totalSpendUSD;
+
+  let tip = '';
+  if(leftoverUSD < 0){
+    tip = `<strong>You're spending ${fmtK(Math.abs(leftoverUSD))} ${s} more than you earn.</strong> Something needs to be cut — start with your largest category: ${topCat ? topCat.label.toLowerCase() : 'your biggest expense'}.`;
+  } else if(spendPct > 90){
+    tip = `<strong>You're spending ${spendPct.toFixed(0)}% of your income.</strong> That leaves almost nothing to save or invest. Even reducing ${topCat ? topCat.label.toLowerCase() : 'your top expense'} by 10–15% would make a meaningful difference.`;
+  } else if(rentPct > 40){
+    tip = `<strong>Housing is ${rentPct.toFixed(0)}% of your income.</strong> The general rule is to keep it under 30%. If that's not possible where you live, offsetting it means cutting elsewhere.`;
+  } else if(spendPct > 70 && topCat){
+    tip = `<strong>${topCat.label} is your biggest expense</strong> at ${((toUSD(spendData[topCat.key]||0)/salaryUSD)*100).toFixed(0)}% of income. If you could reduce it by 20%, you'd free up ${fmtK(toUSD(spendData[topCat.key]||0)*0.2)} ${s}/month.`;
+  } else if(spendPct < 50){
+    tip = `<strong>You're spending ${spendPct.toFixed(0)}% of your income</strong> — that's disciplined. The ${fmtK(leftoverUSD)} ${s}/month left over is your most powerful tool. Put it to work.`;
+  } else {
+    tip = `<strong>Your biggest spend is ${topCat ? topCat.label.toLowerCase() : 'one category'}</strong> at ${topCat ? ((toUSD(spendData[topCat.key]||0)/salaryUSD)*100).toFixed(0)+'%' : '—'} of income. Keep an eye on it as your lifestyle inflates.`;
+  }
+  showInsight('spendInsight', tip, leftoverUSD < 0 ? 'var(--red)' : 'var(--gold)');
+}
+
+function computeRetireFireInsight(salaryUSD){
+  const el = g('retireFireInsight');
+  if(!el) return;
+  const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  if(totalSpendUSD === 0){ showInsight('retireFireInsight', null); return; }
+  const s = sym();
+  const leftoverUSD  = salaryUSD - totalSpendUSD;
+  const annualExpUSD = totalSpendUSD * 12;
+  const fireNumUSD   = annualExpUSD * 25;
+  const currentPortfolioUSD = toUSD(investData.portfolio||0);
+  const alreadyHaveUSD = currentPortfolioUSD;
+  const stillNeedUSD   = Math.max(0, fireNumUSD - alreadyHaveUSD);
+  const monthlySavingsUSD = Math.max(0, leftoverUSD);
+
+  if(monthlySavingsUSD <= 0){
+    showInsight('retireFireInsight', `<strong>At your current spending rate you're not saving anything.</strong> Your FIRE number is ${fmtK(fireNumUSD)} ${s} — but you need to save first to reach it.`, 'var(--red)');
+    return;
+  }
+
+  // Years to FIRE using compound growth: solve for n in FV = PV*(1+r)^n + PMT*((1+r)^n-1)/r
+  const r = (0.07/12); // 7% annual = 0.583%/month
+  let months = 0;
+  let balance = alreadyHaveUSD;
+  while(balance < fireNumUSD && months < 1200){
+    balance = balance*(1+r) + monthlySavingsUSD;
+    months++;
+  }
+  const years = (months/12).toFixed(1);
+
+  let tip = '';
+  if(months >= 1200){
+    tip = `<strong>At your current savings rate, FIRE is out of reach</strong> with these expenses. You'd need to either earn more, spend less, or invest more aggressively.`;
+    showInsight('retireFireInsight', tip, 'var(--red)');
+  } else if(parseFloat(years) <= 5){
+    tip = `<strong>You could reach financial independence in ${years} years</strong> at your current savings rate — saving ${fmtK(monthlySavingsUSD)} ${s}/month and targeting a ${fmtK(fireNumUSD)} ${s} FIRE number.`;
+    showInsight('retireFireInsight', tip, 'var(--green)');
+  } else if(parseFloat(years) <= 15){
+    tip = `<strong>At your current savings rate, you could reach FIRE in ${years} years</strong> — by age ${(parseFloat(g('age').value||30)+parseFloat(years)).toFixed(0)}. Increasing your monthly savings or returns would bring that forward significantly.`;
+    showInsight('retireFireInsight', tip, 'var(--gold)');
+  } else {
+    tip = `<strong>FIRE in ${years} years</strong> at your current rate. To retire earlier, consider: cutting expenses to lower your FIRE number, or putting more of your leftover ${fmtK(monthlySavingsUSD)} ${s}/month into investments.`;
+    showInsight('retireFireInsight', tip, 'var(--gold)');
+  }
+}
+
+function computeInvestFireInsight(fireNumUSD, currentPortfolioUSD, monthlySavingsUSD, monthlyContribUSD){
+  if(!g('invFireInsight')) return;
+  const s = sym();
+  if(fireNumUSD <= 0){ showInsight('invFireInsight', null); return; }
+
+  const stillNeedUSD = Math.max(0, fireNumUSD - currentPortfolioUSD);
+  if(stillNeedUSD <= 0){
+    showInsight('invFireInsight', `<strong>🎉 You've already hit your FIRE number.</strong> Your portfolio can sustain your current lifestyle indefinitely at a 4% withdrawal rate.`, 'var(--green)');
+    return;
+  }
+
+  const totalMonthlyUSD = monthlySavingsUSD + monthlyContribUSD;
+  if(totalMonthlyUSD <= 0){ showInsight('invFireInsight', null); return; }
+
+  const r = 0.07/12;
+  let months = 0, balance = currentPortfolioUSD;
+  while(balance < fireNumUSD && months < 1200){
+    balance = balance*(1+r) + totalMonthlyUSD;
+    months++;
+  }
+  const years = (months/12).toFixed(1);
+  const ageAtFire = (parseFloat(g('age').value||30) + parseFloat(years)).toFixed(0);
+
+  let tip = '';
+  if(months >= 1200){
+    tip = `At your current contribution rate, your portfolio won't reach the FIRE number. <strong>Increase monthly contributions or target a higher return</strong> to close the ${fmtK(stillNeedUSD)} ${s} gap.`;
+    showInsight('invFireInsight', tip, 'var(--red)');
+  } else {
+    tip = `At this contribution rate, <strong>you could reach financial independence in ${years} years</strong> — around age ${ageAtFire}. You're ${fmtK(currentPortfolioUSD)} ${s} of the way toward your ${fmtK(fireNumUSD)} ${s} target.`;
+    showInsight('invFireInsight', tip, 'var(--green)');
+  }
+}
 function toggleBugReport(){
   const panel=g('bugPanel'), chevron=g('bugChevron');
   const open=panel.style.display==='none';
@@ -1903,6 +2205,7 @@ function submitBug(){
 // ═══════════════════════════════════════════════════════════
 buildCurrencySelects();
 buildEdCurrencySelect();
+loadDonut();
 
 const hasData = loadSaved();
 if(hasData){
