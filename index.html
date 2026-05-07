@@ -1000,7 +1000,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
         </div>
         <button onclick="generatePlan()" id="planBtn"
           style="width:100%;background:linear-gradient(135deg,var(--gold),#e8c96e);color:#070707;border:none;border-radius:var(--r);padding:16px;font-family:var(--sans);font-weight:800;font-size:15px;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s;box-shadow:0 4px 20px rgba(201,168,76,0.25)">
-          ✦ Generate My AI Financial Plan (Free)
+          ✦ Generate My Personalized Financial Plan (FREE)
         </button>
         <div style="text-align:center;font-size:10px;color:var(--text3);margin-top:8px">Powered by Claude AI · Downloads as PDF</div>
       </div>
@@ -2346,7 +2346,7 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
     setPlanProgress(25, 'Sending to Claude AI for analysis...');
 
     // Update this URL after you deploy your Worker (see worker.js)
-    const WORKER_URL = 'https://amipoor-api.wisaam-farhat.workers.dev/plan';
+    const WORKER_URL = 'https://amipoor-api.YOUR-SUBDOMAIN.workers.dev/plan';
 
     const response = await fetch(WORKER_URL, {
       method: 'POST',
@@ -2411,303 +2411,441 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
 
   btn.disabled = false;
   btn.style.opacity = '1';
-  btn.textContent = '✦ Generate My AI Financial Plan (Free)';
+  btn.textContent = '✦ Generate My Personalized Financial Plan (FREE)';
 }
 
 function buildPlanPDF(ai, d){
-  // d = pre-computed data object from generatePlan
-  // ai = Claude's JSON analysis (null = fallback mode)
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
-  const W=210,H=297,ml=20,mr=20,cw=W-ml-mr;
+  const W=210,H=297,ml=18,mr=18,cw=W-ml-mr;
   let y=0;
 
-  const GOLD=[180,140,40], GOLD_BG=[253,247,230], GREEN=[30,160,100];
-  const RED=[200,60,60], ACCENT=[40,40,40], BODY=[60,60,60];
-  const MUTED=[130,125,120], RULE=[220,215,210], COVER_BG=[18,18,18];
+  // Palette
+  const GOLD=[170,130,35], GREEN=[25,140,85], RED=[190,55,55];
+  const ACCENT=[30,30,30], BODY=[65,65,65], MUTED=[140,135,130], RULE=[225,220,215];
+  const COVER_BG=[15,15,15], COVER_TEXT=[240,237,230], WARM=[248,245,238];
 
-  // If called from fallback (no d), recompute everything
+  // Data
   const s   = d ? d.s   : sym();
   const rt  = d ? d.rt  : currObj().rate;
-  const disp = d ? d.disp : (usd,dec)=>{ const v=usd*rt; if(dec!==undefined) return v.toFixed(dec); if(v>=1e6) return (v/1e6).toFixed(2)+'M'; if(v>=1000) return (v/1000).toFixed(0)+'K'; return v.toFixed(0); };
+  const disp = d ? d.disp : (usd,dec)=>{
+    const v=usd*rt;
+    if(dec!==undefined) return v.toFixed(dec);
+    if(v>=1e6) return (v/1e6).toFixed(2)+'M';
+    if(v>=1000) return (v/1000).toFixed(1)+'K';
+    return v.toFixed(0);
+  };
   const dispFull = d ? d.dispFull : (usd)=>`${disp(usd)} ${s}`;
 
-  const salaryLocal = parseFloat(g('salary').value)||0;
-  const hours    = d ? d.hours    : parseFloat(g('hours').value)||40;
-  const age      = d ? d.age      : parseFloat(g('age').value)||30;
-  const salaryUSD= d ? d.salaryUSD: toUSD(salaryLocal)*(MULT[mode]||1);
-  const workHourlyUSD = d ? d.workHourlyUSD : salaryUSD/(hours*52/12);
-  const dailyUSD = d ? d.dailyUSD : salaryUSD/30;
-  const totalSpendUSD = d ? d.totalSpendUSD : SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
-  const leftoverUSD   = d ? d.leftoverUSD   : salaryUSD-totalSpendUSD;
-  const savingsPct    = d ? d.savingsPct    : salaryUSD>0?Math.max(0,(leftoverUSD/salaryUSD)*100):0;
-  const annualExpUSD  = d ? d.annualExpUSD  : totalSpendUSD*12;
-  const fireNumUSD    = d ? d.fireNumUSD    : annualExpUSD*25;
-  const portfolioUSD  = d ? d.portfolioUSD  : toUSD(investData.portfolio||0);
-  const retPct        = d ? d.retPct        : investData.returnPct||7;
+  const salaryLocal       = parseFloat(g('salary').value)||0;
+  const hours             = d ? d.hours    : parseFloat(g('hours').value)||40;
+  const age               = d ? d.age      : parseFloat(g('age').value)||30;
+  const salaryUSD         = d ? d.salaryUSD: toUSD(salaryLocal)*(MULT[mode]||1);
+  const workHourlyUSD     = d ? d.workHourlyUSD : salaryUSD/(hours*52/12);
+  const dailyUSD          = d ? d.dailyUSD : salaryUSD/30;
+  const totalSpendUSD     = d ? d.totalSpendUSD : SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const leftoverUSD       = d ? d.leftoverUSD   : salaryUSD-totalSpendUSD;
+  const savingsPct        = d ? d.savingsPct    : salaryUSD>0?Math.max(0,(leftoverUSD/salaryUSD)*100):0;
+  const annualExpUSD      = d ? d.annualExpUSD  : totalSpendUSD*12;
+  const fireNumUSD        = d ? d.fireNumUSD    : annualExpUSD*25;
+  const portfolioUSD      = d ? d.portfolioUSD  : toUSD(investData.portfolio||0);
+  const retPct            = d ? d.retPct        : investData.returnPct||7;
   const monthlyContribUSD = d ? d.monthlyContribUSD : toUSD(investData.monthly||0);
   const monthlySavingsUSD = d ? d.monthlySavingsUSD : Math.max(0,leftoverUSD);
   const totalMonthlyUSD   = d ? d.totalMonthlyUSD   : monthlySavingsUSD+monthlyContribUSD;
-  const fireYears = d ? d.fireYears : null;
-  const fireAge   = d ? d.fireAge   : null;
-  const pctToFire = d ? d.pctToFire : fireNumUSD>0?Math.min(100,(portfolioUSD/fireNumUSD)*100):0;
-  const fv10      = d ? d.fv10      : portfolioUSD;
-  const sleepH    = d ? d.sleepH    : parseFloat((g('donut-sleep')&&g('donut-sleep').value)||7.5);
-  const commuteH  = d ? d.commuteH  : parseFloat((g('donut-commute')&&g('donut-commute').value)||1);
+  const fireYears         = d ? d.fireYears : null;
+  const fireAge           = d ? d.fireAge   : null;
+  const pctToFire         = d ? d.pctToFire : fireNumUSD>0?Math.min(100,(portfolioUSD/fireNumUSD)*100):0;
+  const fv10              = d ? d.fv10      : portfolioUSD;
+  const sleepH            = d ? d.sleepH    : parseFloat((g('donut-sleep')&&g('donut-sleep').value)||7.5);
+  const commuteH          = d ? d.commuteH  : parseFloat((g('donut-commute')&&g('donut-commute').value)||1);
   const r = 0.07/12;
+  const workHday = Math.min(hours/5,16);
+  const freeH    = Math.max(0,24-workHday-sleepH-commuteH);
 
-  // ── Helpers ──────────────────────────────────────────────────────────
+  // Rule-based flavor text (no AI tokens)
+  function flavorIncome(){
+    const wh = workHourlyUSD*rt;
+    const ps = perSecUSD*rt;
+    const items = [];
+    items.push(`Every work hour you earn ${disp(workHourlyUSD)} ${s}. Every second you earn ${ps.toFixed(4)} ${s}.`);
+    const coffeeMin = (5*rt)/wh*60;
+    items.push(`A ${(5*rt).toFixed(0)} ${s} coffee costs you ${coffeeMin.toFixed(1)} minutes of work.`);
+    const iphoneHrs = (1199*rt)/wh;
+    items.push(`An iPhone 16 Pro Max (${disp(1199)} ${s}) takes ${iphoneHrs.toFixed(1)} work hours to earn.`);
+    if(salaryUSD>=DEVELOPED_AVG_USD) items.push(`Your salary is above the developed-world average of ~${disp(DEVELOPED_AVG_USD)} ${s}/month.`);
+    else items.push(`The developed-world average salary is ~${disp(DEVELOPED_AVG_USD)} ${s}/month. Every skill you add compounds your per-second rate.`);
+    return items.join(' ');
+  }
+  function flavorTime(){
+    const items = [];
+    const commuteDays = (commuteH*5*52/8).toFixed(0);
+    if(commuteH>0) items.push(`Your ${commuteH}h/day commute consumes ${commuteDays} working days per year — time you are not paid for.`);
+    items.push(`With ${freeH.toFixed(1)}h of free time per day, you have ${(freeH*365).toFixed(0)} hours annually to invest in skills, health, or relationships.`);
+    if(sleepH>=7&&sleepH<=9) items.push(`Your sleep of ${sleepH}h is within the optimal range. Consistent sleep is one of the highest-leverage investments you can make in productivity.`);
+    return items.join(' ');
+  }
+  function flavorBudget(){
+    if(totalSpendUSD===0) return 'Add your spending details on amipoor.com for a complete budget picture.';
+    const topCat = SPEND_CATS.filter(c=>c.key!=='savings').reduce((mx,c)=>toUSD(spendData[c.key]||0)>toUSD(spendData[mx.key]||0)?c:mx, SPEND_CATS[0]);
+    const topPct = salaryUSD>0?(toUSD(spendData[topCat.key]||0)/salaryUSD*100).toFixed(0):0;
+    const annSpend = totalSpendUSD*12*rt;
+    const items = [];
+    items.push(`Your largest expense is ${topCat.label.toLowerCase()} at ${topPct}% of income.`);
+    items.push(`You spend ${disp(totalSpendUSD)} ${s}/month — ${disp(totalSpendUSD*12)} ${s}/year.`);
+    if(savingsPct>=20) items.push(`A ${savingsPct.toFixed(0)}% savings rate puts you ahead of the vast majority of people.`);
+    else if(savingsPct>0) items.push(`Pushing your savings rate from ${savingsPct.toFixed(0)}% to 20% would add ${disp((salaryUSD*0.2-monthlySavingsUSD)*12)} ${s}/year to your wealth.`);
+    return items.join(' ');
+  }
+  function flavorFire(){
+    if(fireNumUSD===0) return 'Enter your spending data to calculate your FIRE number.';
+    const items = [];
+    const gap = Math.max(0,fireNumUSD-portfolioUSD);
+    items.push(`Your FIRE number is ${dispFull(fireNumUSD)} — 25x your annual expenses of ${dispFull(annualExpUSD)}.`);
+    if(pctToFire>0) items.push(`You are ${pctToFire.toFixed(1)}% there with your current portfolio.`);
+    if(totalMonthlyUSD>0&&fireYears) {
+      const extraMonths = 12; // what if they added 10% more per month
+      items.push(`Each extra ${dispFull(totalMonthlyUSD*0.1)} you invest monthly could shave months off your ${fireYears}-year timeline.`);
+    }
+    return items.join(' ');
+  }
+  function flavorInvest(){
+    if(portfolioUSD===0) return `Starting with even ${dispFull(salaryUSD*0.05)}/month at 7% would grow to ${dispFull(salaryUSD*0.05*((Math.pow(1+r,120)-1)/r))} in 10 years through compounding.`;
+    const fvMonthly = fv10*(retPct/100)/12;
+    const items = [];
+    items.push(`At ${retPct}% annual return, your ${dispFull(portfolioUSD)} portfolio doubles roughly every ${(72/retPct).toFixed(1)} years (Rule of 72).`);
+    if(fvMonthly>=salaryUSD) items.push(`In 10 years, your passive income could exceed your salary — making work truly optional.`);
+    else items.push(`In 10 years, your projected ${dispFull(fvMonthly)}/month passive income covers ${(fvMonthly/salaryUSD*100).toFixed(0)}% of your current salary.`);
+    return items.join(' ');
+  }
+
+  // ── PDF Helpers ──────────────────────────────────────────────────────
   function newPage(){
     doc.addPage(); y=0;
-    doc.setFillColor(245,243,238); doc.rect(0,0,W,11,'F');
-    doc.setFillColor(...GOLD); doc.rect(0,0,W,1.5,'F');
-    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(...MUTED);
-    doc.text('Am I Poor? — AI Financial Plan',ml,8);
-    doc.setFont('helvetica','normal'); doc.text('amipoor.com',W-mr,8,{align:'right'});
-    y=17;
+    // Header bar
+    doc.setFillColor(...WARM); doc.rect(0,0,W,10,'F');
+    doc.setFillColor(...GOLD); doc.rect(0,0,W,1.2,'F');
+    doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(...MUTED);
+    doc.text('Am I Poor? — Personal Financial Plan',ml,7.5);
+    doc.setFont('helvetica','normal'); doc.text('amipoor.com',W-mr,7.5,{align:'right'});
+    y=15;
   }
-  function chk(n){ if(y+n>H-18) newPage(); }
+  function chk(n){ if(y+n>H-15) newPage(); }
+
+  // Section title — compact
   function secTitle(t,sub){
-    chk(20);
-    doc.setFillColor(...GOLD); doc.rect(ml,y,2.5,sub?11:9,'F');
-    doc.setFontSize(13); doc.setFont('helvetica','bold'); doc.setTextColor(...ACCENT);
-    doc.text(t,ml+6,y+7);
-    if(sub){ doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED); doc.text(sub,ml+6,y+13); y+=20; }
-    else{ y+=13; }
+    chk(14);
+    doc.setFillColor(...GOLD); doc.rect(ml,y,2,sub?10:8,'F');
+    doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(...ACCENT);
+    doc.text(t,ml+5,y+6);
+    if(sub){
+      doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+      doc.text(sub,ml+5,y+11); y+=16;
+    } else { y+=11; }
   }
-  function row(lbl,val,valColor){
-    chk(8);
-    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY); doc.text(lbl,ml,y);
-    doc.setFont('helvetica','bold'); doc.setTextColor(...(valColor||ACCENT)); doc.text(val,W-mr,y,{align:'right'});
-    doc.setDrawColor(...RULE); doc.setLineWidth(0.2); doc.line(ml,y+2,W-mr,y+2); y+=8;
+
+  // 2-column stat row pair
+  function row2(l1,v1,l2,v2){
+    chk(7);
+    const col=cw/2;
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+    doc.text(l1,ml,y);
+    doc.setFont('helvetica','bold'); doc.setTextColor(...ACCENT);
+    // truncate value to fit column
+    const v1t=doc.splitTextToSize(String(v1),col-4)[0];
+    doc.text(v1t,ml+col*0.55,y,{align:'right'});
+    if(l2){
+      doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+      doc.text(l2,ml+col+2,y);
+      doc.setFont('helvetica','bold'); doc.setTextColor(...ACCENT);
+      const v2t=doc.splitTextToSize(String(v2),col-4)[0];
+      doc.text(v2t,W-mr,y,{align:'right'});
+    }
+    doc.setDrawColor(...RULE); doc.setLineWidth(0.15); doc.line(ml,y+1.8,W-mr,y+1.8);
+    y+=6.5;
   }
-  function aiBox(text, type){
-    if(!text || !text.trim()) return;
-    chk(24);
-    const lines = doc.splitTextToSize(text, cw-12);
-    const bh = lines.length*5.2+10;
-    const bg     = type==='good'?[235,250,243]:type==='warn'?[252,238,238]:[248,245,232];
-    const border = type==='good'?GREEN:type==='warn'?RED:GOLD;
-    doc.setFillColor(...bg); doc.roundedRect(ml,y,cw,bh,2,2,'F');
-    doc.setDrawColor(...border); doc.setLineWidth(1); doc.line(ml,y,ml,y+bh);
-    // AI label
-    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(...border);
-    doc.text('✦ AI ANALYSIS',ml+5,y+5);
-    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
-    doc.text(lines,ml+5,y+10);
-    y+=bh+5;
+
+  // Single full-width row
+  function row1(lbl,val,valColor){
+    chk(7);
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+    doc.text(lbl,ml,y);
+    doc.setFont('helvetica','bold'); doc.setTextColor(...(valColor||ACCENT));
+    const vt=doc.splitTextToSize(String(val),cw*0.5)[0];
+    doc.text(vt,W-mr,y,{align:'right'});
+    doc.setDrawColor(...RULE); doc.setLineWidth(0.15); doc.line(ml,y+1.8,W-mr,y+1.8);
+    y+=6.5;
   }
-  function ins(text,type){
-    chk(18);
-    const lines=doc.splitTextToSize(text,cw-10);
-    const bh=lines.length*5+8;
-    const bg=type==='good'?[235,250,243]:type==='warn'?[252,238,238]:[248,245,235];
-    const border=type==='good'?GREEN:type==='warn'?RED:GOLD;
-    doc.setFillColor(...bg); doc.roundedRect(ml,y,cw,bh,2,2,'F');
-    doc.setDrawColor(...border); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+bh);
-    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
-    doc.text(lines,ml+5,y+5); y+=bh+5;
-  }
-  function pbar(pct,lbl){
-    chk(12);
-    doc.setFillColor(235,232,228); doc.roundedRect(ml,y,cw,7,2,2,'F');
-    const fw=Math.min(cw,cw*pct/100);
-    if(fw>0){ doc.setFillColor(...(pct>=100?GREEN:pct>=50?GOLD:RED)); doc.roundedRect(ml,y,fw,7,2,2,'F'); }
-    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(...(fw>cw*0.4?[255,255,255]:BODY));
-    doc.text(`${pct.toFixed(0)}%  ${lbl}`,ml+3,y+4.8); y+=11;
-  }
-  function act(n,text){
+
+  // AI analysis box — tight
+  function aiBox(text,type){
+    if(!text||!text.trim()) return;
     chk(16);
-    doc.setFillColor(...GOLD); doc.circle(ml+3.5,y+3.5,3.5,'F');
-    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
-    doc.text(String(n),ml+3.5,y+4.8,{align:'center'});
+    const maxW=cw-8;
+    const lines=doc.splitTextToSize(text,maxW);
+    const bh=lines.length*4.8+8;
+    const bg=type==='good'?[236,251,244]:type==='warn'?[252,239,239]:[250,247,238];
+    const bc=type==='good'?GREEN:type==='warn'?RED:GOLD;
+    doc.setFillColor(...bg); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'F');
+    doc.setDrawColor(...bc); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+bh);
+    doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(...bc);
+    doc.text('AI ANALYSIS',ml+4,y+5);
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
+    doc.text(lines,ml+4,y+10);
+    y+=bh+4;
+  }
+
+  // Flavor text box (rule-based, no AI)
+  function flavorBox(text){
+    if(!text||!text.trim()) return;
+    chk(14);
+    const lines=doc.splitTextToSize(text,cw-8);
+    const bh=lines.length*4.8+6;
+    doc.setFillColor(245,243,238); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'F');
+    doc.setDrawColor(...RULE); doc.setLineWidth(0.5); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'S');
+    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+    doc.text(lines,ml+4,y+5.5);
+    y+=bh+4;
+  }
+
+  // Progress bar — slimmer
+  function pbar(pct,lbl,color){
+    chk(9);
+    const bc=color||(pct>=100?GREEN:pct>=60?GOLD:RED);
+    doc.setFillColor(230,227,222); doc.roundedRect(ml,y,cw,5,1,1,'F');
+    const fw=Math.min(cw,cw*pct/100);
+    if(fw>0){ doc.setFillColor(...bc); doc.roundedRect(ml,y,fw,5,1,1,'F'); }
+    doc.setFontSize(6.5); doc.setFont('helvetica','bold');
+    doc.setTextColor(pct>50?255:50, pct>50?255:50, pct>50?255:50);
+    if(pct<=50) doc.setTextColor(...BODY);
+    doc.text(`${pct.toFixed(0)}%  ${lbl}`,ml+2,y+3.8);
+    y+=8;
+  }
+
+  // Action item
+  function act(n,text){
+    chk(14);
+    doc.setFillColor(...GOLD); doc.circle(ml+3,y+3,3,'F');
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(255,255,255);
+    doc.text(String(n),ml+3,y+4.2,{align:'center'});
     const lines=doc.splitTextToSize(text,cw-10);
     doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
-    doc.text(lines,ml+10,y+4.8); y+=lines.length*5.5+5;
+    doc.text(lines,ml+8,y+4.2);
+    y+=lines.length*5+4;
   }
+
+  // Milestone row
   function mstone(yr,lbl,highlight){
-    chk(9);
-    doc.setFillColor(...(highlight?[230,250,238]:[245,243,238])); doc.rect(ml,y-1,cw,8,'F');
-    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(...(highlight?GREEN:GOLD));
-    doc.text(`Year ${yr}`,ml+3,y+4.5);
+    chk(7);
+    doc.setFillColor(...(highlight?[230,250,238]:WARM)); doc.rect(ml,y-1,cw,7,'F');
+    doc.setFontSize(7.5); doc.setFont('helvetica','bold'); doc.setTextColor(...(highlight?GREEN:GOLD));
+    doc.text(`Yr ${yr}`,ml+2,y+4);
     doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
-    doc.text(lbl,ml+22,y+4.5); y+=9;
+    const lt=doc.splitTextToSize(lbl,cw-20)[0];
+    doc.text(lt,ml+16,y+4);
+    y+=8;
   }
 
-  // ════════════════════════════════════════════════════════
-  //  COVER
-  // ════════════════════════════════════════════════════════
+  // Divider
+  function divider(){ chk(5); y+=2; doc.setDrawColor(...RULE); doc.setLineWidth(0.3); doc.line(ml,y,W-mr,y); y+=4; }
+
+  // ════════════════════════════════
+  //  COVER PAGE
+  // ════════════════════════════════
   doc.setFillColor(...COVER_BG); doc.rect(0,0,W,H,'F');
-  doc.setFillColor(...GOLD); doc.rect(0,0,W,2,'F'); doc.rect(0,H-2,W,2,'F');
-  doc.setFontSize(30); doc.setFont('helvetica','bold');
-  doc.setTextColor(240,237,230); doc.text('am i',ml,46);
-  doc.setTextColor(...GOLD); doc.text(' poor?',ml+doc.getTextWidth('am i'),46);
-  doc.setFontSize(10); doc.setFont('helvetica','normal');
-  doc.setTextColor(130,125,120); doc.text('amipoor.com',ml,55);
-  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(240,237,230);
-  doc.text('Your AI-Powered',ml,85); doc.text('Financial Plan',ml,98);
-  doc.setFillColor(...GOLD); doc.rect(ml,102,50,1.5,'F');
+  doc.setFillColor(...GOLD); doc.rect(0,0,W,1.5,'F'); doc.rect(0,H-1.5,W,1.5,'F');
 
-  // AI headline on cover if available
-  if(ai && ai.headline){
-    doc.setFillColor(28,28,28); doc.roundedRect(ml,110,cw,20,3,3,'F');
-    doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.roundedRect(ml,110,cw,20,3,3,'S');
-    doc.setFontSize(7); doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD); doc.text('✦ AI VERDICT',ml+6,118);
-    doc.setFontSize(10); doc.setFont('helvetica','normal'); doc.setTextColor(240,237,230);
-    const hl = doc.splitTextToSize(ai.headline, cw-12);
-    doc.text(hl, ml+6, 124);
-    doc.setFillColor(28,28,28); doc.roundedRect(ml,134,cw,78,3,3,'F');
-  } else {
-    doc.setFillColor(28,28,28); doc.roundedRect(ml,115,cw,88,3,3,'F');
+  // Logo
+  doc.setFontSize(26); doc.setFont('helvetica','bold');
+  doc.setTextColor(...COVER_TEXT); doc.text('am i',ml,44);
+  doc.setTextColor(...GOLD); doc.text(' poor?',ml+doc.getTextWidth('am i'),44);
+  doc.setFontSize(9); doc.setFont('helvetica','normal');
+  doc.setTextColor(120,115,110); doc.text('amipoor.com',ml,52);
+
+  // Title
+  doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
+  doc.text('Your AI-Powered',ml,78);
+  doc.text('Financial Plan',ml,90);
+  doc.setFillColor(...GOLD); doc.rect(ml,93,38,1,'F');
+
+  // AI headline box on cover
+  if(ai&&ai.headline){
+    doc.setFillColor(26,26,26); doc.roundedRect(ml,100,cw,16,2,2,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,100,cw,16,2,2,'S');
+    doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD);
+    doc.text('AI VERDICT',ml+4,107);
+    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...COVER_TEXT);
+    const hl=doc.splitTextToSize(ai.headline,cw-10);
+    doc.text(hl[0],ml+4,113);
   }
 
-  const boxY = ai&&ai.headline ? 134 : 115;
-  doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.roundedRect(ml,boxY,cw,80,3,3,'S');
-  const sumItems=[
-    ['Monthly salary',dispFull(salaryUSD)],
-    ['Currency',`${s}`],
-    ['Savings rate',totalSpendUSD>0?`${savingsPct.toFixed(0)}%`:'Not entered'],
-    ['Portfolio',portfolioUSD>0?dispFull(portfolioUSD):'Not entered'],
-    ['FIRE target',fireNumUSD>0?dispFull(fireNumUSD):'Enter spending to calculate'],
-    ['FIRE timeline',fireYears?`${fireYears} years (age ${fireAge})`:'—'],
+  // Summary box — 2 columns
+  const boxY=ai&&ai.headline?122:102;
+  doc.setFillColor(24,24,24); doc.roundedRect(ml,boxY,cw,90,2,2,'F');
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,boxY,cw,90,2,2,'S');
+
+  const leftItems=[
+    ['Monthly salary', dispFull(salaryUSD)],
+    ['Work hours/week', `${hours}h`],
+    ['Age', `${age}`],
+    ['Savings rate', totalSpendUSD>0?`${savingsPct.toFixed(0)}%`:'—'],
   ];
-  let sy=boxY+9;
-  sumItems.forEach(([l,v])=>{
-    doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(130,125,120); doc.text(l,ml+8,sy);
-    doc.setFont('helvetica','bold'); doc.setTextColor(240,237,230); doc.text(v,W-mr-8,sy,{align:'right'}); sy+=12;
+  const rightItems=[
+    ['Currency', s],
+    ['Portfolio', portfolioUSD>0?dispFull(portfolioUSD):'—'],
+    ['FIRE target', fireNumUSD>0?dispFull(fireNumUSD):'—'],
+    ['FIRE timeline', fireYears?`${fireYears} yrs (age ${fireAge})`:'—'],
+  ];
+  const colW=cw/2-4;
+  let sy=boxY+10;
+  leftItems.forEach(([l,v],i)=>{
+    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(120,115,110);
+    doc.text(l,ml+4,sy);
+    doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
+    doc.text(doc.splitTextToSize(v,colW)[0],ml+4+colW*0.5,sy,{align:'right'});
+    // Right column
+    const [rl,rv]=rightItems[i];
+    doc.setFont('helvetica','normal'); doc.setTextColor(120,115,110);
+    doc.text(rl,ml+cw/2+4,sy);
+    doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
+    doc.text(doc.splitTextToSize(rv,colW)[0],W-mr-2,sy,{align:'right'});
+    sy+=10;
   });
+
   const mLabel={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Delusional x5'}[mode]||mode;
-  doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(130,125,120);
-  doc.text(`Mode: ${mLabel}   |   ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`,ml,228);
-  doc.text('AI-generated analysis. Not financial advice. Consult a qualified advisor.',ml,235);
+  doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(100,95,90);
+  doc.text(`Mode: ${mLabel}   |   ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`,ml,boxY+96);
+  doc.text('AI-generated analysis. Not financial advice.',ml,boxY+102);
 
-  // ════════════════════════════════════════════════════════
-  //  PAGE 2 — DIAGNOSIS & INCOME
-  // ════════════════════════════════════════════════════════
+  // ════════════════════════════════
+  //  PAGE 2 — DIAGNOSIS + INCOME + TIME
+  // ════════════════════════════════
   newPage();
 
-  // AI diagnosis first — the most valuable part
-  if(ai && ai.diagnosis){
-    secTitle('AI Financial Diagnosis','Your personal financial assessment');
+  // AI diagnosis
+  if(ai&&ai.diagnosis){
+    secTitle('AI Financial Diagnosis','Your personalised assessment');
     aiBox(ai.diagnosis, leftoverUSD<0?'warn':savingsPct>=25?'good':'info');
-    y+=2;
+    divider();
   }
 
-  secTitle('1. Income Breakdown','What your salary looks like at every interval');
-  row('Monthly salary',           dispFull(salaryUSD));
-  row('Per work hour',            dispFull(workHourlyUSD));
-  row('Per calendar hour (24/7)', disp(dailyUSD/24)+' '+s);
-  row('Per day (÷ 30)',           dispFull(dailyUSD));
-  row('Per second',               `${(perSecUSD*rt).toFixed(4)} ${s}`);
-  row('Annual (×12)',             dispFull(salaryUSD*12));
-  y+=6;
+  // Income — 2-col layout
+  secTitle('1. Income Breakdown');
+  row2('Monthly salary',dispFull(salaryUSD),'Annual',dispFull(salaryUSD*12));
+  row2('Per work hour',dispFull(workHourlyUSD),'Per day',dispFull(dailyUSD));
+  row2('Per calendar hour',disp(dailyUSD/24)+' '+s,'Per second',`${(perSecUSD*rt).toFixed(4)} ${s}`);
+  flavorBox(flavorIncome());
+  divider();
 
-  secTitle('2. Time Allocation','Your weekday breakdown');
-  const workHday=Math.min(hours/5,16), freeH=Math.max(0,24-workHday-sleepH-commuteH);
-  row('Working',  `${workHday.toFixed(1)}h/day  (${hours}h/week)`);
-  row('Sleeping', `${sleepH}h/night`);
-  row('Commuting',`${commuteH}h/day  =  ${(commuteH*5*52).toFixed(0)}h/year`);
-  row('Free time',`${freeH.toFixed(1)}h/day`);
-  y+=4;
-  if(sleepH<7)   ins(`${sleepH}h sleep is below the recommended minimum. Chronic deprivation reduces cognitive performance by up to 25%.`,'warn');
-  if(commuteH>1.5) ins(`${commuteH}h/day commute = ${(commuteH*5*52/8).toFixed(0)} working days/year in unpaid transit time.`,'warn');
+  // Time — 2-col
+  secTitle('2. Time Allocation');
+  row2('Working',`${workHday.toFixed(1)}h/day (${hours}h/wk)`,'Free time',`${freeH.toFixed(1)}h/day`);
+  row2('Sleeping',`${sleepH}h/night`,'Commuting',commuteH>0?`${commuteH}h/day`:'None');
+  flavorBox(flavorTime());
 
-  // ════════════════════════════════════════════════════════
-  //  PAGE 3 — BUDGET
-  // ════════════════════════════════════════════════════════
+  // ════════════════════════════════
+  //  PAGE 3 — BUDGET + FIRE
+  // ════════════════════════════════
   newPage();
-  secTitle('3. Monthly Budget','Where your money goes');
+  secTitle('3. Monthly Budget');
   if(totalSpendUSD>0){
-    SPEND_CATS.filter(c=>c.key!=='savings').forEach(cat=>{
-      const v=toUSD(spendData[cat.key]||0);
-      if(v>0) row(cat.label,`${dispFull(v)}  (${salaryUSD>0?(v/salaryUSD*100).toFixed(0):0}%)`);
-    });
-    y+=4;
-    row('Total spend',   dispFull(totalSpendUSD), RED);
-    row('Left over',     `${leftoverUSD<0?'-':''}${dispFull(Math.abs(leftoverUSD))}`, leftoverUSD>=0?GREEN:RED);
-    y+=4;
+    // Spending in 2 columns
+    const cats=SPEND_CATS.filter(c=>c.key!=='savings'&&toUSD(spendData[c.key]||0)>0);
+    for(let i=0;i<cats.length;i+=2){
+      const c1=cats[i], c2=cats[i+1];
+      const v1=toUSD(spendData[c1.key]||0);
+      const p1=salaryUSD>0?(v1/salaryUSD*100).toFixed(0):0;
+      if(c2){
+        const v2=toUSD(spendData[c2.key]||0);
+        const p2=salaryUSD>0?(v2/salaryUSD*100).toFixed(0):0;
+        row2(c1.label,`${dispFull(v1)} (${p1}%)`,c2.label,`${dispFull(v2)} (${p2}%)`);
+      } else {
+        row1(c1.label,`${dispFull(v1)} (${p1}%)`);
+      }
+    }
+    y+=2;
+    row2('Total spend',dispFull(totalSpendUSD),'Left over',`${leftoverUSD<0?'-':''}${dispFull(Math.abs(leftoverUSD))}`);
+    y+=2;
     pbar(Math.min(100,(totalSpendUSD/salaryUSD)*100),'of income spent');
-    pbar(Math.min(100,savingsPct),'savings rate');
-    y+=4;
-    // AI budget analysis
-    if(ai && ai.budget_analysis) aiBox(ai.budget_analysis, leftoverUSD<0?'warn':savingsPct>=25?'good':'info');
+    pbar(Math.min(100,savingsPct),'savings rate',savingsPct>=20?GREEN:savingsPct>=10?GOLD:RED);
+    y+=2;
+    if(ai&&ai.budget_analysis) aiBox(ai.budget_analysis,leftoverUSD<0?'warn':savingsPct>=25?'good':'info');
+    flavorBox(flavorBudget());
   } else {
-    ins('No spending data entered. Add your expenses on amipoor.com for a complete analysis.','info');
+    flavorBox('No spending data entered. Add your expenses on amipoor.com for a complete budget breakdown.');
   }
 
-  // ════════════════════════════════════════════════════════
-  //  PAGE 4 — FIRE & INVESTMENTS
-  // ════════════════════════════════════════════════════════
-  newPage();
-  secTitle('4. Financial Independence (FIRE)','Your number and path to it');
+  divider();
+
+  // FIRE section
+  secTitle('4. Financial Independence (FIRE)');
   if(fireNumUSD>0){
-    row('Annual expenses',    dispFull(annualExpUSD));
-    row('FIRE number (25×)',  dispFull(fireNumUSD));
-    row('Current portfolio',  portfolioUSD>0?dispFull(portfolioUSD):'Not entered');
-    row('Still needed',       dispFull(Math.max(0,fireNumUSD-portfolioUSD)), pctToFire>=100?GREEN:BODY);
-    row('Progress to FIRE',   `${pctToFire.toFixed(1)}%`);
-    y+=4; pbar(pctToFire,'of FIRE number reached'); y+=4;
-    if(ai && ai.fire_analysis) aiBox(ai.fire_analysis, fireYears&&parseFloat(fireYears)<=15?'good':'info');
-    else if(fireYears) ins(`At current rate: FIRE in ${fireYears} years (age ${fireAge}).`,parseFloat(fireYears)<=10?'good':'info');
+    row2('Annual expenses',dispFull(annualExpUSD),'FIRE number (25x)',dispFull(fireNumUSD));
+    row2('Portfolio',portfolioUSD>0?dispFull(portfolioUSD):'—','Still needed',dispFull(Math.max(0,fireNumUSD-portfolioUSD)));
+    row2('Progress',`${pctToFire.toFixed(1)}%`,'Timeline',fireYears?`${fireYears} yrs (age ${fireAge})`:'—');
+    y+=2;
+    pbar(pctToFire,'of FIRE number reached');
+    y+=2;
+    if(ai&&ai.fire_analysis) aiBox(ai.fire_analysis,fireYears&&parseFloat(fireYears)<=15?'good':'info');
+    flavorBox(flavorFire());
   } else {
-    ins('Enter spending data to calculate your FIRE number.','info');
+    flavorBox('Enter your spending data to calculate your FIRE number and timeline.');
   }
 
-  y+=4;
-  secTitle('5. Investment Projection',`${retPct}% return assumption`);
-  if(portfolioUSD>0){
-    row('Current portfolio',     dispFull(portfolioUSD));
-    row('Monthly contributions', monthlyContribUSD>0?dispFull(monthlyContribUSD):'None');
-    row('Monthly savings added', monthlySavingsUSD>0?dispFull(monthlySavingsUSD):'None');
-    row('Portfolio in 10 years', dispFull(fv10), GREEN);
-    row('Monthly passive at yr 10',dispFull(fv10*(retPct/100)/12), GREEN);
-    y+=4;
-    if(ai && ai.investment_take) aiBox(ai.investment_take,'good');
-    else ins(`10-year projection: ${dispFull(fv10)} generating ${dispFull(fv10*(retPct/100)/12)}/month.`,'info');
-  } else {
-    if(ai && ai.investment_take) aiBox(ai.investment_take,'info');
-    else ins('Enter a portfolio value to see your projection.','info');
-  }
-
-  // ════════════════════════════════════════════════════════
-  //  PAGE 5 — ACTIONS & MILESTONES
-  // ════════════════════════════════════════════════════════
+  // ════════════════════════════════
+  //  PAGE 4 — INVESTMENTS + ACTIONS + MILESTONES
+  // ════════════════════════════════
   newPage();
-  secTitle('6. Your Action Plan','What to do this month — personalised to your numbers');
+  secTitle('5. Investment Projection',`${retPct}% annual return assumption`);
+  if(portfolioUSD>0){
+    row2('Current portfolio',dispFull(portfolioUSD),'10-year projection',dispFull(fv10));
+    row2('Monthly contributions',monthlyContribUSD>0?dispFull(monthlyContribUSD):'—','Monthly savings added',monthlySavingsUSD>0?dispFull(monthlySavingsUSD):'—');
+    row1('Monthly passive income at yr 10',dispFull(fv10*(retPct/100)/12),GREEN);
+    y+=2;
+    if(ai&&ai.investment_take) aiBox(ai.investment_take,fv10*(retPct/100)/12>=salaryUSD?'good':'info');
+    flavorBox(flavorInvest());
+  } else {
+    flavorBox(flavorInvest());
+  }
 
-  // Use AI actions if available, otherwise compute
-  const a1 = ai&&ai.action1 ? ai.action1 : (leftoverUSD<0 ? `Cut spending — you are ${dispFull(Math.abs(leftoverUSD))}/mo in deficit` : `Reduce top expense by 15% to save ~${dispFull(totalSpendUSD>0?toUSD(spendData[SPEND_CATS[0].key]||0)*0.15:salaryUSD*0.05)}/mo`);
-  const a2 = ai&&ai.action2 ? ai.action2 : (portfolioUSD===0 ? `Start investing ${dispFull(Math.max(monthlySavingsUSD*0.5,salaryUSD*0.05))}/month` : `Increase monthly contribution to ${dispFull(Math.max(totalMonthlyUSD*1.1,salaryUSD*0.1))}/month`);
-  const a3 = ai&&ai.action3 ? ai.action3 : `Build ${dispFull(salaryUSD*3)}–${dispFull(salaryUSD*6)} emergency fund before aggressive investing`;
+  divider();
 
-  act(1, a1); act(2, a2); act(3, a3);
+  // Action plan
+  secTitle('6. Your Action Plan','Top 3 things to do this month');
+  const a1=ai&&ai.action1?ai.action1:(leftoverUSD<0?`Cut spending — you are ${dispFull(Math.abs(leftoverUSD))}/mo over budget`:`Invest your ${dispFull(monthlySavingsUSD)} monthly surplus instead of letting it sit idle`);
+  const a2=ai&&ai.action2?ai.action2:(portfolioUSD===0?`Start with ${dispFull(salaryUSD*0.1)}/month in a low-cost index fund`:`Increase monthly contributions by 10% to ${dispFull(totalMonthlyUSD*1.1)}`);
+  const a3=ai&&ai.action3?ai.action3:`Build a ${dispFull(salaryUSD*3)}–${dispFull(salaryUSD*6)} emergency fund before aggressive investing`;
+  act(1,a1); act(2,a2); act(3,a3);
 
-  y+=8;
+  // AI closing quote
+  if(ai&&ai.closing){
+    chk(14); y+=3;
+    doc.setFillColor(248,245,238); doc.roundedRect(ml,y,cw,14,1.5,1.5,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.line(ml,y,ml,y+14);
+    const cl=doc.splitTextToSize(ai.closing,cw-10);
+    doc.setFontSize(9); doc.setFont('helvetica','italic'); doc.setTextColor(...ACCENT);
+    doc.text(cl[0],ml+5,y+9);
+    y+=18;
+  }
+
+  divider();
+
+  // Milestones
   secTitle('7. Year-by-Year Milestones');
   const yrs=fireYears?[1,2,3,5,10,15,20].filter(n=>n<=parseFloat(fireYears)+2):[1,3,5,10];
   yrs.forEach(yr=>{
     let b=portfolioUSD; for(let m2=0;m2<yr*12;m2++) b=b*(1+r)+(totalMonthlyUSD||0);
-    const prog=fireNumUSD>0?` | ${(b/fireNumUSD*100).toFixed(0)}% to FIRE`:'';
+    const prog=fireNumUSD>0?`  |  ${(b/fireNumUSD*100).toFixed(0)}% to FIRE`:'';
     mstone(yr,`Portfolio: ${dispFull(b)}${prog}`,false);
   });
-  if(fireYears&&parseFloat(fireYears)<=30) mstone(Math.ceil(parseFloat(fireYears)),`FIRE reached — work becomes optional`,true);
-
-  // AI closing
-  if(ai && ai.closing){
-    y+=6; chk(18);
-    doc.setFillColor(248,245,232); doc.roundedRect(ml,y,cw,16,2,2,'F');
-    doc.setDrawColor(...GOLD); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+16);
-    const cl=doc.splitTextToSize(ai.closing,cw-12);
-    doc.setFontSize(10); doc.setFont('helvetica','italic'); doc.setTextColor(...ACCENT);
-    doc.text(cl,ml+6,y+7); y+=20;
-  }
+  if(fireYears&&parseFloat(fireYears)<=30) mstone(Math.ceil(parseFloat(fireYears)),`FIRE reached — work becomes optional (age ${fireAge})`,true);
 
   // Footer
-  chk(18); y+=6;
-  doc.setDrawColor(...RULE); doc.setLineWidth(0.5); doc.line(ml,y,W-mr,y); y+=5;
-  doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
-  const disc=doc.splitTextToSize('This plan is AI-generated for informational purposes only and does not constitute financial advice. All projections use a 7% annual return assumption and are estimates. Past performance does not guarantee future results. Consult a qualified financial advisor before making investment decisions.',cw);
-  doc.text(disc,ml,y); y+=disc.length*4+4;
+  chk(16); y+=4;
+  doc.setDrawColor(...RULE); doc.setLineWidth(0.4); doc.line(ml,y,W-mr,y); y+=4;
+  doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+  const disc=doc.splitTextToSize('This plan is AI-generated for informational purposes only and does not constitute financial advice. All projections use a 7% annual return assumption and are estimates only. Past performance does not guarantee future results. Consult a qualified financial advisor before making investment decisions.',cw);
+  doc.text(disc,ml,y); y+=disc.length*4+3;
   doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD);
   doc.text('amipoor.com — Are you poor? Now you know.',ml,y);
 
