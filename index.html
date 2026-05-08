@@ -2581,17 +2581,17 @@ function buildPlanPDF(ai, d){
   function aiBox(text,type){
     if(!text||!text.trim()) return;
     chk(16);
-    const maxW=cw-8;
+    const pad=5, maxW=cw-pad*2-2;
     const lines=doc.splitTextToSize(text,maxW);
-    const bh=lines.length*4.8+8;
+    const bh=lines.length*4.8+10;
     const bg=type==='good'?[236,251,244]:type==='warn'?[252,239,239]:[250,247,238];
     const bc=type==='good'?GREEN:type==='warn'?RED:GOLD;
     doc.setFillColor(...bg); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'F');
     doc.setDrawColor(...bc); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+bh);
     doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(...bc);
-    doc.text('AI ANALYSIS',ml+4,y+5);
+    doc.text('AI ANALYSIS',ml+pad,y+5);
     doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
-    doc.text(lines,ml+4,y+10);
+    doc.text(lines,ml+pad,y+10);
     y+=bh+4;
   }
 
@@ -2599,12 +2599,13 @@ function buildPlanPDF(ai, d){
   function flavorBox(text){
     if(!text||!text.trim()) return;
     chk(14);
-    const lines=doc.splitTextToSize(text,cw-8);
-    const bh=lines.length*4.8+6;
+    const pad=4, maxW=cw-pad*2-2;
+    const lines=doc.splitTextToSize(text,maxW);
+    const bh=lines.length*4.8+7;
     doc.setFillColor(245,243,238); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'F');
     doc.setDrawColor(...RULE); doc.setLineWidth(0.5); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'S');
     doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
-    doc.text(lines,ml+4,y+5.5);
+    doc.text(lines,ml+pad,y+5.5);
     y+=bh+4;
   }
 
@@ -2820,12 +2821,13 @@ function buildPlanPDF(ai, d){
   // AI closing quote
   if(ai&&ai.closing){
     chk(14); y+=3;
-    doc.setFillColor(248,245,238); doc.roundedRect(ml,y,cw,14,1.5,1.5,'F');
-    doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.line(ml,y,ml,y+14);
-    const cl=doc.splitTextToSize(ai.closing,cw-10);
+    const clLines=doc.splitTextToSize(ai.closing,cw-12);
+    const clH=clLines.length*5+8;
+    doc.setFillColor(248,245,238); doc.roundedRect(ml,y,cw,clH,1.5,1.5,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.line(ml,y,ml,y+clH);
     doc.setFontSize(9); doc.setFont('helvetica','italic'); doc.setTextColor(...ACCENT);
-    doc.text(cl[0],ml+5,y+9);
-    y+=18;
+    doc.text(clLines,ml+5,y+7);
+    y+=clH+4;
   }
 
   divider();
