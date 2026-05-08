@@ -2466,15 +2466,11 @@ function buildPlanPDF(ai, d){
   // Rule-based flavor text (no AI tokens)
   function flavorIncome(){
     const wh = workHourlyUSD*rt;
-    const ps = perSecUSD*rt;
     const items = [];
-    items.push(`Every work hour you earn ${disp(workHourlyUSD)} ${s}. Every second you earn ${ps.toFixed(4)} ${s}.`);
-    const coffeeMin = (5*rt)/wh*60;
-    items.push(`A ${(5*rt).toFixed(0)} ${s} coffee costs you ${coffeeMin.toFixed(1)} minutes of work.`);
-    const iphoneHrs = (1199*rt)/wh;
-    items.push(`An iPhone 16 Pro Max (${disp(1199)} ${s}) takes ${iphoneHrs.toFixed(1)} work hours to earn.`);
-    if(salaryUSD>=DEVELOPED_AVG_USD) items.push(`Your salary is above the developed-world average of ~${disp(DEVELOPED_AVG_USD)} ${s}/month.`);
-    else items.push(`The developed-world average salary is ~${disp(DEVELOPED_AVG_USD)} ${s}/month. Every skill you add compounds your per-second rate.`);
+    items.push(`At ${disp(workHourlyUSD)} ${s}/hour worked and ${(perSecUSD*rt).toFixed(4)} ${s}/second, your time has measurable monetary value.`);
+    items.push(`Your annual earnings of ${dispFull(salaryUSD*12)} place you ${salaryUSD>=DEVELOPED_AVG_USD?'above':'below'} the developed-world average of ${disp(DEVELOPED_AVG_USD)} ${s}/month.`);
+    const workDaysYear = (hours/8*52).toFixed(0);
+    items.push(`Working ${hours}h/week across approximately ${workDaysYear} days per year, each day of your time is worth ${dispFull(dailyUSD)}.`);
     return items.join(' ');
   }
   function flavorTime(){
@@ -2581,17 +2577,19 @@ function buildPlanPDF(ai, d){
   function aiBox(text,type){
     if(!text||!text.trim()) return;
     chk(16);
-    const pad=5, maxW=cw-pad*2-2;
+    const pad=5, maxW=cw-pad*2-4;
+    // Must set font size BEFORE measuring text
+    doc.setFontSize(8); doc.setFont('helvetica','normal');
     const lines=doc.splitTextToSize(text,maxW);
-    const bh=lines.length*4.8+10;
+    const bh=lines.length*4.8+11;
     const bg=type==='good'?[236,251,244]:type==='warn'?[252,239,239]:[250,247,238];
     const bc=type==='good'?GREEN:type==='warn'?RED:GOLD;
     doc.setFillColor(...bg); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'F');
     doc.setDrawColor(...bc); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+bh);
     doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(...bc);
-    doc.text('AI ANALYSIS',ml+pad,y+5);
+    doc.text('AI ANALYSIS',ml+pad,y+5.5);
     doc.setFontSize(8); doc.setFont('helvetica','normal'); doc.setTextColor(...BODY);
-    doc.text(lines,ml+pad,y+10);
+    doc.text(lines,ml+pad,y+11);
     y+=bh+4;
   }
 
@@ -2599,7 +2597,8 @@ function buildPlanPDF(ai, d){
   function flavorBox(text){
     if(!text||!text.trim()) return;
     chk(14);
-    const pad=4, maxW=cw-pad*2-2;
+    const pad=4, maxW=cw-pad*2-4;
+    doc.setFontSize(8); doc.setFont('helvetica','normal');
     const lines=doc.splitTextToSize(text,maxW);
     const bh=lines.length*4.8+7;
     doc.setFillColor(245,243,238); doc.roundedRect(ml,y,cw,bh,1.5,1.5,'F');
@@ -2657,66 +2656,80 @@ function buildPlanPDF(ai, d){
   doc.setFillColor(...GOLD); doc.rect(0,0,W,1.5,'F'); doc.rect(0,H-1.5,W,1.5,'F');
 
   // Logo
-  doc.setFontSize(26); doc.setFont('helvetica','bold');
-  doc.setTextColor(...COVER_TEXT); doc.text('am i',ml,44);
-  doc.setTextColor(...GOLD); doc.text(' poor?',ml+doc.getTextWidth('am i'),44);
-  doc.setFontSize(9); doc.setFont('helvetica','normal');
-  doc.setTextColor(120,115,110); doc.text('amipoor.com',ml,52);
+  doc.setFontSize(30); doc.setFont('helvetica','bold');
+  doc.setTextColor(...COVER_TEXT); doc.text('am i',ml,46);
+  doc.setTextColor(...GOLD); doc.text(' poor?',ml+doc.getTextWidth('am i'),46);
+  doc.setFontSize(10); doc.setFont('helvetica','normal');
+  doc.setTextColor(120,115,110); doc.text('amipoor.com',ml,55);
 
   // Title
-  doc.setFontSize(20); doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
-  doc.text('Your AI-Powered',ml,78);
-  doc.text('Financial Plan',ml,90);
-  doc.setFillColor(...GOLD); doc.rect(ml,93,38,1,'F');
+  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
+  doc.text('Your AI-Powered',ml,82);
+  doc.text('Financial Plan',ml,95);
+  doc.setFillColor(...GOLD); doc.rect(ml,99,42,1.2,'F');
 
-  // AI headline box on cover
+  // AI headline box — dynamic height
+  let afterHeadline = 107;
   if(ai&&ai.headline){
-    doc.setFillColor(26,26,26); doc.roundedRect(ml,100,cw,16,2,2,'F');
-    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,100,cw,16,2,2,'S');
+    doc.setFontSize(9); doc.setFont('helvetica','normal');
+    const hlLines=doc.splitTextToSize(ai.headline,cw-12);
+    const hlH=hlLines.length*5.5+10;
+    doc.setFillColor(26,26,26); doc.roundedRect(ml,107,cw,hlH,2,2,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,107,cw,hlH,2,2,'S');
     doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD);
-    doc.text('AI VERDICT',ml+4,107);
+    doc.text('AI VERDICT',ml+4,114);
     doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...COVER_TEXT);
-    const hl=doc.splitTextToSize(ai.headline,cw-10);
-    doc.text(hl[0],ml+4,113);
+    doc.text(hlLines,ml+4,120);
+    afterHeadline = 107+hlH+6;
   }
 
-  // Summary box — 2 columns
-  const boxY=ai&&ai.headline?122:102;
-  doc.setFillColor(24,24,24); doc.roundedRect(ml,boxY,cw,90,2,2,'F');
-  doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,boxY,cw,90,2,2,'S');
-
+  // Summary box — sized to content
   const leftItems=[
-    ['Monthly salary', dispFull(salaryUSD)],
+    ['Monthly salary',  dispFull(salaryUSD)],
     ['Work hours/week', `${hours}h`],
-    ['Age', `${age}`],
-    ['Savings rate', totalSpendUSD>0?`${savingsPct.toFixed(0)}%`:'—'],
+    ['Age',             `${age}`],
+    ['Savings rate',    totalSpendUSD>0?`${savingsPct.toFixed(0)}%`:'—'],
   ];
   const rightItems=[
-    ['Currency', s],
-    ['Portfolio', portfolioUSD>0?dispFull(portfolioUSD):'—'],
-    ['FIRE target', fireNumUSD>0?dispFull(fireNumUSD):'—'],
+    ['Currency',      s],
+    ['Portfolio',     portfolioUSD>0?dispFull(portfolioUSD):'—'],
+    ['FIRE target',   fireNumUSD>0?dispFull(fireNumUSD):'—'],
     ['FIRE timeline', fireYears?`${fireYears} yrs (age ${fireAge})`:'—'],
   ];
+
+  const rowH=12, rowPad=8, nRows=leftItems.length;
+  const boxH=nRows*rowH+rowPad*2;
+  const boxY=afterHeadline;
   const colW=cw/2-4;
-  let sy=boxY+10;
+
+  doc.setFillColor(24,24,24); doc.roundedRect(ml,boxY,cw,boxH,2,2,'F');
+  doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,boxY,cw,boxH,2,2,'S');
+
+  let sy=boxY+rowPad+4;
   leftItems.forEach(([l,v],i)=>{
-    doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(120,115,110);
-    doc.text(l,ml+4,sy);
+    doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(140,135,130);
+    doc.text(l,ml+5,sy);
     doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
-    doc.text(doc.splitTextToSize(v,colW)[0],ml+4+colW*0.5,sy,{align:'right'});
-    // Right column
+    doc.text(doc.splitTextToSize(v,colW)[0],ml+5+colW*0.52,sy,{align:'right'});
     const [rl,rv]=rightItems[i];
-    doc.setFont('helvetica','normal'); doc.setTextColor(120,115,110);
-    doc.text(rl,ml+cw/2+4,sy);
+    doc.setFont('helvetica','normal'); doc.setTextColor(140,135,130);
+    doc.text(rl,ml+cw/2+5,sy);
     doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
-    doc.text(doc.splitTextToSize(rv,colW)[0],W-mr-2,sy,{align:'right'});
-    sy+=10;
+    doc.text(doc.splitTextToSize(rv,colW)[0],W-mr-3,sy,{align:'right'});
+    // light divider between rows
+    if(i<nRows-1){
+      doc.setDrawColor(35,35,35); doc.setLineWidth(0.2);
+      doc.line(ml+4,sy+3,W-mr-4,sy+3);
+    }
+    sy+=rowH;
   });
 
+  // Mode + date + disclaimer below box
   const mLabel={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Delusional x5'}[mode]||mode;
-  doc.setFontSize(7); doc.setFont('helvetica','normal'); doc.setTextColor(100,95,90);
-  doc.text(`Mode: ${mLabel}   |   ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`,ml,boxY+96);
-  doc.text('AI-generated analysis. Not financial advice.',ml,boxY+102);
+  const belowBox=boxY+boxH+6;
+  doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(100,95,90);
+  doc.text(`Mode: ${mLabel}   |   ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`,ml,belowBox);
+  doc.text('AI-generated analysis. Not financial advice. Consult a qualified advisor.',ml,belowBox+6);
 
   // ════════════════════════════════
   //  PAGE 2 — DIAGNOSIS + INCOME + TIME
@@ -2821,11 +2834,12 @@ function buildPlanPDF(ai, d){
   // AI closing quote
   if(ai&&ai.closing){
     chk(14); y+=3;
+    doc.setFontSize(9); doc.setFont('helvetica','italic');
     const clLines=doc.splitTextToSize(ai.closing,cw-12);
-    const clH=clLines.length*5+8;
+    const clH=clLines.length*5.2+8;
     doc.setFillColor(248,245,238); doc.roundedRect(ml,y,cw,clH,1.5,1.5,'F');
     doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.line(ml,y,ml,y+clH);
-    doc.setFontSize(9); doc.setFont('helvetica','italic'); doc.setTextColor(...ACCENT);
+    doc.setTextColor(...ACCENT);
     doc.text(clLines,ml+5,y+7);
     y+=clH+4;
   }
