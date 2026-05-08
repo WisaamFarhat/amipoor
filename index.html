@@ -35,7 +35,8 @@
 <!-- ═══ THEME & FAVICON ═══ -->
 <meta name="theme-color" content="#070707">
 <meta name="msapplication-TileColor" content="#070707">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
 
 <!-- ═══ FONTS ═══ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2346,7 +2347,7 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
     setPlanProgress(25, 'Sending to Claude AI for analysis...');
 
     // Update this URL after you deploy your Worker (see worker.js)
-    const WORKER_URL = 'https://amipoor-api.wisaam-farhat.workers.dev/plan';
+    const WORKER_URL = 'https://amipoor-api.YOUR-SUBDOMAIN.workers.dev/plan';
 
     const response = await fetch(WORKER_URL, {
       method: 'POST',
