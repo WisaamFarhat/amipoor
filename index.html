@@ -2356,8 +2356,12 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
 
     // Handle rate limiting gracefully
     if(response.status === 429){
-      const err = await response.json().catch(()=>({}));
-      throw new Error(err.message || 'You can generate up to 3 plans per day. Come back tomorrow!');
+      g('planProgress') && (g('planProgress').style.display='none');
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      btn.textContent = '✦ Generate My Personalized Financial Plan (FREE)';
+      toast("You've used today's AI plan — come back tomorrow for a fresh one!");
+      return;
     }
 
     setPlanProgress(65, 'Claude is writing your analysis...');
