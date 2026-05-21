@@ -567,6 +567,38 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   </div>
 </div>
 
+
+<!-- ═══ EMAIL CAPTURE MODAL ═══ -->
+<div id="emailModal" style="display:none" onclick="if(event.target===this)dismissEmailModal()">
+  <div id="emailModalCard">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px">
+      <div style="font-size:18px;font-weight:800;letter-spacing:-0.3px;color:var(--text)">Your plan is ready 📄</div>
+      <button onclick="dismissEmailModal()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:20px;padding:0;line-height:1;margin-top:2px">×</button>
+    </div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.5">Drop your email and we'll remind you to check back on your progress in 30 days. No spam, ever.</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <input id="emailInput" type="email" inputmode="email" placeholder="your@email.com"
+        style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 0.2s;width:100%"
+        onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"
+        onkeydown="if(event.key==='Enter')submitEmail()">
+      <input id="nameInput" type="text" placeholder="Your name (optional)"
+        style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 0.2s;width:100%"
+        onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"
+        onkeydown="if(event.key==='Enter')submitEmail()">
+      <button onclick="submitEmail()" id="emailSubmitBtn"
+        style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:13px;font-family:var(--sans);font-weight:800;font-size:14px;cursor:pointer;transition:opacity 0.2s"
+        onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+        Remind me in 30 days →
+      </button>
+    </div>
+    <div id="emailConfirm" style="display:none;margin-top:12px;font-size:12px;color:var(--green);font-weight:700;text-align:center">✓ Got it — we'll check in with you in 30 days!</div>
+    <div style="text-align:center;margin-top:10px">
+      <button onclick="dismissEmailModal()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px">No thanks</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ STICKY AI TEASER (appears after 30s) ═══ -->
 <div id="aiTeaser" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:linear-gradient(135deg,#1a1200,#0e0b07);border-top:1px solid var(--gold);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1)">
   <div style="flex:1;min-width:0">
@@ -2741,6 +2773,8 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
 
     setPlanProgress(100, 'Done! Your plan is downloading...');
     setTimeout(()=>{ if(g('planProgress')) g('planProgress').style.display='none'; }, 2000);
+    // Show email capture modal after a short delay
+    setTimeout(()=>showEmailModal(), 2500);
 
     // Refresh social proof counter
     fetch('https://amipoor-api.wisaam-farhat.workers.dev/count')
@@ -3281,6 +3315,62 @@ if(hasData){
 } else {
   // Set defaults into hidden fields
   set('salary',1000); set('hours',40); set('age',30); set('coffee',10);
+}
+
+
+// ── EMAIL CAPTURE ─────────────────────────────────────────────────────────────
+function showEmailModal(){
+  try{ if(sessionStorage.getItem('waiw_email_done')) return; }catch(e){}
+  const modal = g('emailModal');
+  if(!modal) return;
+  modal.style.display = 'flex';
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ modal.classList.add('open'); }); });
+  setTimeout(()=>{ const inp=g('emailInput'); if(inp) inp.focus(); }, 450);
+}
+
+function dismissEmailModal(){
+  const modal = g('emailModal');
+  if(!modal) return;
+  const card = g('emailModalCard');
+  if(card) card.style.transform = 'translateY(100%)';
+  setTimeout(()=>{ modal.style.display='none'; modal.classList.remove('open'); if(card) card.style.transform=''; }, 400);
+}
+
+async function submitEmail(){
+  const emailEl = g('emailInput');
+  const nameEl  = g('nameInput');
+  const btn      = g('emailSubmitBtn');
+  const email    = (emailEl?.value||'').trim();
+  const name     = (nameEl?.value||'').trim();
+
+  if(!email || !email.includes('@')){
+    emailEl.style.borderColor='var(--red)';
+    setTimeout(()=>emailEl.style.borderColor='var(--border2)',1500);
+    return;
+  }
+
+  btn.textContent = 'Saving...';
+  btn.disabled = true;
+
+  try{
+    await fetch('https://amipoor-api.wisaam-farhat.workers.dev/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email, name,
+        currency, salary: g('salary').value,
+        timestamp: new Date().toISOString()
+      })
+    });
+  }catch(e){ console.warn('Email capture failed silently:', e); }
+
+  // Mark as done for this session
+  try{ sessionStorage.setItem('waiw_email_done','1'); }catch(e){}
+
+  // Show confirmation
+  if(g('emailConfirm')) g('emailConfirm').style.display='block';
+  btn.style.display='none';
+  setTimeout(()=>dismissEmailModal(), 2500);
 }
 
 // ── THEME TOGGLE ─────────────────────────────────────────────────────────────
