@@ -45,24 +45,73 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#c9a84c;--gold-light:#e8c96e;--gold-dim:#7a6230;
-  --gold-glow:rgba(201,168,76,0.09);--gold-glow2:rgba(201,168,76,0.20);
-  --bg:#070707;--bg2:#0d0d0d;--bg3:#111111;
-  --card:#0f0f0f;--card2:#141414;
-  --border:#1c1c1c;--border2:#282828;
-  --text:#f0ede6;--text2:#9a9590;--text3:#504e4a;
-  --green:#3ecf8e;--green-bg:rgba(62,207,142,0.08);--green-border:rgba(62,207,142,0.20);
-  --red:#e84d4d;--red-bg:rgba(232,77,77,0.07);--red-border:rgba(232,77,77,0.18);
-  --blue:#4d9de8;
+  --gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;
+  --gold-glow:rgba(232,160,32,0.12);--gold-glow2:rgba(232,160,32,0.25);
+  --bg:#0e0b07;--bg2:#171208;--bg3:#1f180a;
+  --card:#181208;--card2:#201a0c;
+  --border:#2c2310;--border2:#3a2f18;
+  --text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;
+  --green:#2ecc8a;--green-bg:rgba(46,204,138,0.10);--green-border:rgba(46,204,138,0.25);
+  --red:#f05050;--red-bg:rgba(240,80,80,0.08);--red-border:rgba(240,80,80,0.20);
+  --blue:#60b4f8;--amber:#f5a623;
   --mono:'DM Mono',monospace;--sans:'Syne',sans-serif;
   --r:12px;--r2:16px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.013) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.013) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
-.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,0.05),transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+/* ── LIGHT MODE ─────────────────────────────────────────────────── */
+:root[data-theme="light"]{
+  --gold:#b07a10;--gold-light:#d4a030;--gold-dim:#7a5508;
+  --gold-glow:rgba(176,122,16,0.10);--gold-glow2:rgba(176,122,16,0.20);
+  --bg:#faf8f3;--bg2:#f3efe6;--bg3:#ede8dc;
+  --card:#ffffff;--card2:#f7f4ee;
+  --border:#e0d8c8;--border2:#cfc6b0;
+  --text:#1a1510;--text2:#5a4e38;--text3:#8a7a60;
+  --green:#1a9e68;--green-bg:rgba(26,158,104,0.08);--green-border:rgba(26,158,104,0.22);
+  --red:#d04040;--red-bg:rgba(208,64,64,0.07);--red-border:rgba(208,64,64,0.18);
+  --blue:#2980d4;--amber:#c87d10;
+}
+:root[data-theme="light"] body{background:var(--bg)}
+:root[data-theme="light"] .topbar{background:rgba(250,248,243,0.96);border-bottom-color:var(--border)}
+:root[data-theme="light"] body::before{background-image:linear-gradient(rgba(176,122,16,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(176,122,16,0.05) 1px,transparent 1px)}
+:root[data-theme="light"] .glow-orb{background:radial-gradient(circle,rgba(176,122,16,0.07) 0%,rgba(176,122,16,0.02) 40%,transparent 70%)}
+/* Cards that should have a surface */
+:root[data-theme="light"] .counter-card{background:var(--card);box-shadow:0 4px 24px rgba(0,0,0,0.08);border-color:var(--border)}
+:root[data-theme="light"] .mini-card{background:var(--card);border-color:var(--border)}
+:root[data-theme="light"] .ob-card{background:var(--card);border-color:var(--border2)}
+/* Sections — transparent so they flow with page bg, just a subtle border */
+:root[data-theme="light"] .section{background:transparent;border-color:var(--border)}
+:root[data-theme="light"] .invest-card{background:var(--bg2);border-color:var(--border)}
+:root[data-theme="light"] .compare-row{background:var(--bg2);border-color:var(--border)}
+:root[data-theme="light"] .spend-card{background:var(--bg2);border-color:var(--border)}
+:root[data-theme="light"] .life-card{background:var(--bg2);border-color:var(--border)}
+:root[data-theme="light"] .savings-ring-wrap{background:var(--bg2)}
+:root[data-theme="light"] .savings-pct{color:var(--text)}
+:root[data-theme="light"] .savings-pct-label{color:var(--text3)}
+:root[data-theme="light"] .donut-card{background:var(--bg2)}
+/* Edit drawer */
+:root[data-theme="light"] #editDrawer{background:rgba(250,248,243,0.99)}
+/* Inputs */
+:root[data-theme="light"] .ob-inp{background:var(--card);border-color:var(--border2);color:var(--text)}
+:root[data-theme="light"] .curr-select{background:var(--bg2);border-color:var(--border2);color:var(--text2)}
+:root[data-theme="light"] .curr-select option{background:var(--bg2)}
+/* Mode tabs */
+:root[data-theme="light"] .mode-tab{background:var(--bg3);color:var(--text3);border-color:var(--border)}
+:root[data-theme="light"] .mode-tab.active{background:var(--gold);color:#fff}
+/* Misc */
+:root[data-theme="light"] #aiTeaser{background:linear-gradient(135deg,#f5ecd0,#faf8f3);border-top-color:var(--border)}
+:root[data-theme="light"] .hero-title .accent{background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);-webkit-background-clip:text;background-clip:text}
+:root[data-theme="light"] .scroll-cost{background:var(--bg2);border-color:var(--border)}
+:root[data-theme="light"] .icon-btn{background:var(--bg2);border-color:var(--border2);color:var(--text3)}
+:root[data-theme="light"] #clockBadge{background:var(--bg2);border-color:var(--border2)}
+:root[data-theme="light"] .ob-tab{background:var(--bg3);color:var(--text3)}
+:root[data-theme="light"] .ob-tab.active{background:var(--gold);color:#fff}
+:root[data-theme="light"] .mini-grid .mini-card{background:var(--card)}
 
-.topbar{position:sticky;top:0;z-index:200;background:rgba(7,7,7,0.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.10) 0%,rgba(232,160,32,0.04) 40%,transparent 70%);top:-350px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
 .logo{font-size:15px;font-weight:800;letter-spacing:-0.3px}
 .logo span{color:var(--gold)}
 .topbar-right{display:flex;align-items:center;gap:8px}
@@ -111,8 +160,8 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 .main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:32px 24px 0}
 .hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:10px}
-.hero-title{font-size:clamp(28px,6vw,44px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:6px}
-.hero-title .accent{color:var(--gold)}
+.hero-title{font-size:clamp(32px,6.5vw,50px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:6px}
+.hero-title .accent{color:transparent;background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);-webkit-background-clip:text;background-clip:text}
 .hero-sub{font-size:14px;color:var(--text2);margin-bottom:24px}
 
 .sg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -130,7 +179,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 .counter-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:26px 22px;margin-bottom:12px;position:relative;overflow:hidden}
 .counter-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.counter-card::after{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(201,168,76,0.06),transparent 70%);pointer-events:none}
+.counter-card::after{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(232,160,32,0.10),transparent 70%);pointer-events:none}
 .counter-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:10px}
 .counter-amount{font-family:var(--mono);font-size:clamp(40px,9vw,62px);font-weight:500;color:var(--green);letter-spacing:-2px;line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums}
 .counter-amount.flash{animation:cflash 0.18s ease}
@@ -323,6 +372,11 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
 .fade-in{opacity:0;animation:fadeIn 0.5s 0.1s ease forwards}
 @keyframes fadeIn{to{opacity:1}}
+@keyframes planPulse{
+  0%,100%{box-shadow:0 4px 24px rgba(232,160,32,0.30)}
+  50%{box-shadow:0 4px 40px rgba(232,160,32,0.70),0 0 0 6px rgba(232,160,32,0.15)}
+}
+.plan-pulse{animation:planPulse 1.8s ease-in-out 3}
 
 /* ═══ SECTION HEADERS ═══ */
 .section-head{
@@ -397,6 +451,40 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   .invest-input-grid{grid-template-columns:1fr}
   .invest-stats{grid-template-columns:1fr 1fr}
   .invest-proj-breakdown{grid-template-columns:1fr 1fr}
+  /* Topbar */
+  .topbar{padding:0 14px;height:48px}
+  .logo{font-size:16px}
+  #headerScore{display:none!important}
+  #clockBadge{display:none}
+  /* Hero */
+  .hero-title{font-size:clamp(28px,8vw,42px)}
+  .hero-sub{font-size:13px}
+  /* Mode tabs */
+  .mode-tabs{gap:4px}
+  .mode-tab{font-size:11px;padding:7px 8px}
+  /* Counter */
+  .counter-amount{font-size:clamp(36px,10vw,56px)}
+  .mini-grid{grid-template-columns:1fr 1fr}
+  /* Sections */
+  .section{padding:18px 16px}
+  .section-head{gap:8px}
+  .sec-title{font-size:15px}
+  /* Onboarding */
+  .ob-card{padding:24px 16px}
+  .ob-grid{grid-template-columns:1fr}
+  /* Donut */
+  .donut-card{flex-direction:column;align-items:flex-start}
+  /* Compare */
+  .compare-row{flex-wrap:wrap;gap:6px}
+  .cmp-right{margin-left:auto}
+  /* Life grid */
+  .life-grid{grid-template-columns:1fr 1fr}
+  /* Plan teaser */
+  #planTeaser{padding:14px 16px}
+  #wowStat{flex-direction:column;gap:8px}
+  #wowNum{font-size:28px}
+  /* Sticky bar */
+  #aiTeaser{padding:10px 14px;gap:8px;flex-wrap:wrap}
 }
 </style>
 </head>
@@ -407,107 +495,100 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 <div id="onboarding">
   <div class="ob-wrap">
   <div class="ob-card">
-    <div class="ob-step-row">
-      <div class="ob-step">Set up your profile</div>
-      <span class="ob-skip" onclick="skipOnboarding()">Skip with defaults</span>
-    </div>
-    <h1 class="ob-title">What am I <span>worth?</span></h1>
-    <p class="ob-sub">Takes 30 seconds. We'll remember everything for next time.</p>
+    <span class="ob-skip" onclick="skipOnboarding()" style="position:absolute;top:18px;right:20px">Skip →</span>
+    <h1 class="ob-title" style="margin-bottom:6px">Am I <span>poor?</span></h1>
+    <p class="ob-sub" style="margin-bottom:24px">One number to start. Add more detail any time.</p>
 
-    <!-- Tab nav -->
-    <div class="ob-tabs">
-      <div class="ob-tab active" onclick="obTab(0)">💰 Income</div>
-      <div class="ob-tab" onclick="obTab(1)">🏠 Spending</div>
+    <!-- Step indicators -->
+    <div style="display:flex;gap:6px;margin-bottom:24px">
+      <div id="ob-dot0" style="height:3px;flex:1;border-radius:2px;background:var(--gold);transition:background 0.3s"></div>
+      <div id="ob-dot1" style="height:3px;flex:1;border-radius:2px;background:var(--border2);transition:background 0.3s"></div>
+      <div id="ob-dot2" style="height:3px;flex:1;border-radius:2px;background:var(--border2);transition:background 0.3s"></div>
     </div>
 
-    <!-- Page 0: Income -->
-    <div class="ob-page active" id="ob-p0">
-      <div class="ob-section-label">Your currency & income</div>
-      <div class="ob-grid">
-        <div class="ob-field full">
-          <label class="ob-label" for="ob-currency">Currency</label>
-          <select class="ob-inp ob-inp select-inp" id="ob-currency"></select>
-        </div>
+    <!-- Step 0: Just salary -->
+    <div id="ob-p0" class="ob-page active">
+      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:16px">What do you earn?</div>
+      <div class="ob-field full" style="margin-bottom:12px">
+        <label class="ob-label" for="ob-currency">Currency</label>
+        <select class="ob-inp select-inp" id="ob-currency"></select>
+      </div>
+      <div class="ob-field full" style="margin-bottom:0">
+        <label class="ob-label" for="ob-salary">Monthly salary</label>
+        <input class="ob-inp" id="ob-salary" type="number" inputmode="numeric" placeholder="e.g. 15,000" autofocus style="font-size:22px;height:56px">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
         <div class="ob-field">
-          <label class="ob-label" for="ob-salary">Monthly Salary</label>
-          <input class="ob-inp" id="ob-salary" type="number" inputmode="numeric" placeholder="5,000">
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-hours">Work Hours / Week</label>
+          <label class="ob-label" for="ob-hours">Hours / week</label>
           <input class="ob-inp" id="ob-hours" type="number" inputmode="numeric" placeholder="40">
         </div>
         <div class="ob-field">
-          <label class="ob-label" for="ob-age">Your Age</label>
+          <label class="ob-label" for="ob-age">Your age</label>
           <input class="ob-inp" id="ob-age" type="number" inputmode="numeric" placeholder="30">
         </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-coffee">Daily Food / Coffee</label>
-          <input class="ob-inp" id="ob-coffee" type="number" inputmode="numeric" placeholder="10">
-          <span class="ob-hint">Per day, in your currency</span>
-        </div>
       </div>
     </div>
 
-    <!-- Page 1: Spending -->
-    <div class="ob-page" id="ob-p1">
-      <div class="ob-section-label">Monthly spending (optional — leave blank to skip)</div>
+    <!-- Step 1: Spending -->
+    <div id="ob-p1" class="ob-page">
+      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:4px">Monthly spending <span style="font-weight:400;color:var(--text3)">(optional)</span></div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:14px">Skip any category you don't want to track.</div>
       <div class="ob-grid">
-        <div class="ob-field">
-          <label class="ob-label" for="ob-rent">🏠 Rent / Mortgage</label>
-          <input class="ob-inp" id="ob-rent" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">Per month</span>
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-food">🛒 Groceries</label>
-          <input class="ob-inp" id="ob-food" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">Per month</span>
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-transport">🚗 Transport</label>
-          <input class="ob-inp" id="ob-transport" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">Per month</span>
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-utils">⚡ Utilities</label>
-          <input class="ob-inp" id="ob-utils" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">Per month</span>
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-subs">📱 Subscriptions</label>
-          <input class="ob-inp" id="ob-subs" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">Per month</span>
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-leisure">🎭 Leisure / Going out</label>
-          <input class="ob-inp" id="ob-leisure" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">Per month</span>
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-savings">💾 Monthly Savings Goal</label>
-          <input class="ob-inp" id="ob-savings" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">What you aim to save</span>
-        </div>
-        <div class="ob-field">
-          <label class="ob-label" for="ob-other">➕ Other</label>
-          <input class="ob-inp" id="ob-other" type="number" inputmode="numeric" placeholder="0">
-          <span class="ob-hint">Per month</span>
-        </div>
+        <div class="ob-field"><label class="ob-label">🏠 Rent</label><input class="ob-inp" id="ob-rent" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">🛒 Food</label><input class="ob-inp" id="ob-food" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">🚗 Transport</label><input class="ob-inp" id="ob-transport" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">⚡ Utilities</label><input class="ob-inp" id="ob-utils" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">📱 Subscriptions</label><input class="ob-inp" id="ob-subs" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">🎭 Leisure</label><input class="ob-inp" id="ob-leisure" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">💾 Savings goal</label><input class="ob-inp" id="ob-savings" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">➕ Other</label><input class="ob-inp" id="ob-other" type="number" inputmode="numeric" placeholder="0"></div>
       </div>
     </div>
 
-    <div class="ob-actions">
-      <button class="start-btn" onclick="startApp()">Show me the truth →</button>
+    <!-- Step 2: Investments -->
+    <div id="ob-p2" class="ob-page">
+      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:4px">Investments <span style="font-weight:400;color:var(--text3)">(optional)</span></div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:14px">Needed for FIRE calculations and passive income projections.</div>
+      <div class="ob-grid">
+        <div class="ob-field full"><label class="ob-label">💰 Portfolio value</label><input class="ob-inp" id="ob-portfolio" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field"><label class="ob-label">📈 Annual return %</label><input class="ob-inp" id="ob-return" type="number" inputmode="decimal" placeholder="7" step="0.1"></div>
+        <div class="ob-field"><label class="ob-label">➕ Monthly add</label><input class="ob-inp" id="ob-inv-monthly" type="number" inputmode="numeric" placeholder="0"></div>
+        <div class="ob-field full"><label class="ob-label">📅 Time horizon (yrs)</label><input class="ob-inp" id="ob-inv-years" type="number" inputmode="numeric" placeholder="10"></div>
+      </div>
     </div>
+
+    <!-- Actions -->
+    <div class="ob-actions" style="margin-top:20px;display:flex;gap:10px">
+      <button id="ob-back" onclick="obBack()" style="display:none;flex:0 0 auto;background:none;border:1px solid var(--border2);border-radius:var(--r);padding:14px 18px;color:var(--text3);font-family:var(--sans);font-weight:700;font-size:14px;cursor:pointer">← Back</button>
+      <button id="ob-next" onclick="obNext()" class="start-btn" style="flex:1">Start →</button>
+    </div>
+    <div style="text-align:center;margin-top:10px;font-size:10px;color:var(--text3)">You can always update everything via ⚙ Edit</div>
   </div>
   </div>
 </div>
 
+<!-- ═══ STICKY AI TEASER (appears after 30s) ═══ -->
+<div id="aiTeaser" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:linear-gradient(135deg,#1a1200,#0e0b07);border-top:1px solid var(--gold);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1)">
+  <div style="flex:1;min-width:0">
+    <div style="font-size:11px;font-weight:800;color:var(--gold);letter-spacing:0.5px">✦ Your AI Financial Plan is ready</div>
+    <div style="font-size:11px;color:var(--text2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Get your personalised FIRE timeline, budget analysis &amp; 3 action steps — free</div>
+  </div>
+  <button onclick="document.getElementById('planBtn').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>document.getElementById('planBtn').click(),600);dismissTeaser()" style="flex-shrink:0;background:var(--gold);color:#070707;border:none;border-radius:8px;padding:8px 16px;font-family:var(--sans);font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap">Show me when I can retire →</button>
+  <button onclick="dismissTeaser()" style="flex-shrink:0;background:none;border:none;color:var(--text3);cursor:pointer;font-size:18px;padding:0 4px;line-height:1">×</button>
+</div>
+
 <!-- ═══ TOPBAR ═══ -->
 <nav class="topbar">
-  <div class="logo">am i<span> poor?</span></div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="logo">am i<span> poor?</span></div>
+    <div id="headerScore" style="display:none;font-size:10px;font-weight:700;letter-spacing:0.5px;color:var(--text3)">
+      <span id="headerSavings" style="color:var(--green)">—</span> saved · <span id="headerFire" style="color:var(--gold)">—</span> to FIRE
+    </div>
+  </div>
   <div class="topbar-right">
     <select id="currencySelect" class="curr-select" onchange="setCurrencyFromSelect(this)"></select>
-    <div class="live-badge"><div class="live-dot"></div><span class="live-text">Live</span></div>
+    <div id="clockBadge" style="font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text2);letter-spacing:0.5px;padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px">--:--:--</div>
+    <button id="themeToggle" onclick="toggleTheme()" style="background:none;border:1px solid var(--border2);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:14px;color:var(--text2);line-height:1" title="Toggle light/dark mode">☀️</button>
     <button class="icon-btn" onclick="openEditDrawer()">⚙ Edit</button>
   </div>
 </nav>
@@ -524,6 +605,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     <div class="ob-tabs" style="margin-bottom:20px">
       <div class="ob-tab active" id="ed-tab0" onclick="edTab(0)">💰 Income</div>
       <div class="ob-tab" id="ed-tab1" onclick="edTab(1)">🏠 Spending</div>
+      <div class="ob-tab" id="ed-tab2" onclick="edTab(2)">📈 Investments</div>
     </div>
 
     <!-- Income page -->
@@ -541,14 +623,9 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
           <label class="ob-label">Work Hours / Week</label>
           <input class="ob-inp" id="ed-hours" type="number" inputmode="numeric" oninput="syncIncome()">
         </div>
-        <div class="ob-field">
+        <div class="ob-field full">
           <label class="ob-label">Your Age</label>
           <input class="ob-inp" id="ed-age" type="number" inputmode="numeric" oninput="syncIncome()">
-        </div>
-        <div class="ob-field">
-          <label class="ob-label">Daily Food / Coffee</label>
-          <input class="ob-inp" id="ed-coffee" type="number" inputmode="numeric" oninput="syncIncome()">
-          <span class="ob-hint">Per day, in your currency</span>
         </div>
       </div>
     </div>
@@ -562,7 +639,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
           <input class="ob-inp" id="eds-rent" type="number" inputmode="numeric" placeholder="0">
         </div>
         <div class="ob-field">
-          <label class="ob-label">🛒 Groceries</label>
+          <label class="ob-label">🛒 Groceries & Food</label>
           <input class="ob-inp" id="eds-food" type="number" inputmode="numeric" placeholder="0">
         </div>
         <div class="ob-field">
@@ -592,7 +669,38 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
       </div>
       <button class="start-btn" style="margin-top:18px" onclick="applySpendFromDrawer()">Save Spending →</button>
     </div>
+
+    <!-- Investments page -->
+    <div id="ed-p2" style="display:none">
+      <div style="font-size:12px;color:var(--text3);margin-bottom:14px;line-height:1.5">Used for FIRE calculations and passive income projections.</div>
+      <div class="ob-grid">
+        <div class="ob-field full">
+          <label class="ob-label">💰 Total Portfolio Value</label>
+          <input class="ob-inp" id="edi-portfolio" type="number" inputmode="numeric" placeholder="0">
+          <span class="ob-hint">Stocks, ETFs, savings — total invested</span>
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">📈 Annual Return %</label>
+          <input class="ob-inp" id="edi-return" type="number" inputmode="decimal" placeholder="7" step="0.1">
+        </div>
+        <div class="ob-field">
+          <label class="ob-label">➕ Monthly Contribution</label>
+          <input class="ob-inp" id="edi-monthly" type="number" inputmode="numeric" placeholder="0">
+        </div>
+        <div class="ob-field full">
+          <label class="ob-label">📅 Time Horizon (years)</label>
+          <input class="ob-inp" id="edi-years" type="number" inputmode="numeric" placeholder="10">
+        </div>
+      </div>
+      <button class="start-btn" style="margin-top:18px" onclick="applyInvestFromDrawer()">Save Investments →</button>
+    </div>
   </div>
+</div>
+
+<!-- ═══ CURRENCY NOTICE ═══ -->
+<div id="currNotice" style="display:none;background:var(--gold-glow);border-bottom:1px solid var(--gold-glow2);padding:8px 20px;font-size:11px;color:var(--text2);display:flex;align-items:center;justify-content:space-between">
+  <span id="currNoticeText">📍 We detected your location — using <strong id="currNoticeCurr">AED</strong></span>
+  <button onclick="g('currNotice').style.display='none'" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:0 4px">×</button>
 </div>
 
 <!-- ═══ MAIN ═══ -->
@@ -601,21 +709,21 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   <input type="hidden" id="salary" value="1000">
   <input type="hidden" id="hours" value="40">
   <input type="hidden" id="age" value="30">
-  <input type="hidden" id="coffee" value="10">
+  <input type="hidden" id="coffee" value="0">
 
 
-    <p class="hero-eyebrow">The real-time money check · any currency</p>
-    <h1 class="hero-title">Are you actually<br><span class="accent">making money?</span></h1>
-    <p class="hero-sub">Enter your salary. Watch every second of your life convert to real cash — live on screen, right now.</p>
+    <p class="hero-eyebrow">Your money · live · any currency</p>
+    <h1 class="hero-title">Every second<br><span class="accent">counts.</span></h1>
+    <p class="hero-sub">Your salary is ticking right now. See exactly what your time is worth — and get a free AI plan that tells you when you can stop working.</p>
 
     <div class="mode-tabs">
-      <button class="mode-tab active" data-mode="realistic" onclick="setMode(this,'realistic')">Realistic</button>
-      <button class="mode-tab" data-mode="optimistic" onclick="setMode(this,'optimistic')">Glow Up +35%</button>
-      <button class="mode-tab fantasy" data-mode="fantasy" onclick="setMode(this,'fantasy')">Delusional ✦ 5×</button>
+      <button class="mode-tab active" data-mode="realistic" onclick="setMode(this,'realistic')">Today</button>
+      <button class="mode-tab" data-mode="optimistic" onclick="setMode(this,'optimistic')">Promoted</button>
+      <button class="mode-tab fantasy" data-mode="fantasy" onclick="setMode(this,'fantasy')">Made it ✦</button>
     </div>
 
     <div class="counter-card">
-      <div class="counter-label">Earned since you landed here</div>
+      <div class="counter-label" style="display:flex;align-items:center;justify-content:space-between"><span>Earned since you landed here</span><span onclick="document.getElementById('planBtn').scrollIntoView({behavior:'smooth',block:'center'})" style="font-size:10px;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:0.5px;text-decoration:underline;text-underline-offset:3px">Get your free AI plan ↓</span></div>
       <div class="counter-amount" id="liveCounter">0.0000</div>
       <div class="counter-currency" id="currLabel">— ticking every frame</div>
       <div class="counter-meta">
@@ -641,10 +749,21 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   <div class="section">
     <div class="section-head">
       <div class="sec-num">1</div>
-      <div><h2 class="sec-title">This is what your time buys</h2><div class="sec-subtitle">Live count since you opened this tab</div></div>
+      <div><h2 class="sec-title">This is what your time buys</h2><div class="sec-subtitle">Your salary, translated into real things</div></div>
       <button class="add-items-btn" onclick="togglePicker()" id="addItemsBtn">+ Add items</button>
     </div>
+
+    <!-- Wow stat — single big live comparison -->
+    <div id="wowStat" style="background:linear-gradient(135deg,rgba(232,160,32,0.12),rgba(232,160,32,0.03));border:1px solid var(--gold-glow2);border-radius:var(--r2);padding:18px 20px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div style="font-size:13px;color:var(--text2);line-height:1.5" id="wowText">Loading...</div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-family:var(--mono);font-size:36px;font-weight:500;color:var(--gold);letter-spacing:-1px;line-height:1" id="wowNum">—</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:3px" id="wowUnit">—</div>
+      </div>
+    </div>
+
     <div id="compareList"></div>
+    <div id="avgInsight" style="display:none;margin-top:10px;padding:10px 14px;background:var(--bg3);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
     <div id="itemPicker" class="item-picker" style="display:none">
       <div class="picker-header">
         <span class="picker-title">Choose what to compare</span>
@@ -657,56 +776,10 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 2: Salary vs averages -->
-  <div class="section">
-    <div class="section-head"><div class="sec-num">2</div><div><h2 class="sec-title">How you stack up globally</h2><div class="sec-subtitle">Your salary vs world averages</div></div></div>
-    <div class="avg-card">
-      <div class="avg-row"><div class="avg-row-top">Your salary (current mode) <span id="avgYourLabel">—</span></div><div class="avg-track"><div class="avg-fill" id="avgYourBar" style="width:0%;background:var(--gold)"></div></div></div>
-      <div class="avg-row"><div class="avg-row-top">Global average salary <span id="avgNatLabel">~$1,650/mo</span></div><div class="avg-track"><div class="avg-fill" id="avgNatBar" style="width:0%;background:var(--text3)"></div></div></div>
-      <div class="avg-row" style="margin-bottom:0"><div class="avg-row-top">Developed world average <span id="avgDubLabel">~$4,200/mo</span></div><div class="avg-track"><div class="avg-fill" id="avgDubBar" style="width:0%;background:var(--text3)"></div></div></div>
-      <div class="avg-insight" id="avgInsight" style="margin-top:14px">—</div>
-    </div>
-  </div>
-
-  <hr class="div">
-
-  <!-- SECTION 3: Time donut -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-num">3</div>
-      <div><h2 class="sec-title">Where your day actually goes</h2><div class="sec-subtitle">24 hours broken down honestly</div></div>
-      <button class="spend-edit-btn" onclick="toggleDonutEdit()">✏ Edit</button>
-    </div>
-    <div class="donut-card">
-      <div class="donut-wrap">
-        <svg width="140" height="140" viewBox="0 0 140 140" id="donutSvg"></svg>
-        <div class="donut-center"><div class="donut-cv">24h</div><div class="donut-cl">per day</div></div>
-      </div>
-      <div class="donut-legend" id="donutLegend"></div>
-    </div>
-    <!-- Editable inputs -->
-    <div id="donutEditPanel" style="display:none;margin-top:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:16px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div>
-          <div class="sl">😴 Sleep (hours/night)</div>
-          <input class="inp" id="donut-sleep" type="number" inputmode="decimal" value="7.5" min="4" max="12" step="0.5" oninput="saveDonut();redrawDonut()">
-        </div>
-        <div>
-          <div class="sl">🚗 Commute (hours/day)</div>
-          <input class="inp" id="donut-commute" type="number" inputmode="decimal" value="1" min="0" max="6" step="0.5" oninput="saveDonut();redrawDonut()">
-        </div>
-      </div>
-      <div style="font-size:10px;color:var(--text3);margin-top:10px">Work hours come from your salary settings. Free time is whatever's left.</div>
-    </div>
-    <div id="donutInsight" style="display:none;margin-top:10px;padding:12px 14px;background:var(--bg3);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
-  </div>
-
-  <hr class="div">
-
-  <!-- SECTION 4: Spending Tracker -->
+  <!-- SECTION 2: Spending -->
   <div class="section" id="spendingSection">
     <div class="section-head">
-      <div class="sec-num">4</div>
+      <div class="sec-num">2</div>
       <div><h2 class="sec-title">Where it all disappears</h2><div class="sec-subtitle">Monthly spending breakdown</div></div>
       <button class="spend-edit-btn" onclick="openEditDrawer();edTab(1)">✏ Edit</button>
     </div>
@@ -748,16 +821,16 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 5: Savings -->
+  <!-- SECTION 3: Savings -->
   <div class="section" id="savingsSection">
-    <div class="section-head"><div class="sec-num">5</div><div><h2 class="sec-title">Are you actually saving?</h2><div class="sec-subtitle">Savings rate vs your goal</div></div></div>
+    <div class="section-head"><div class="sec-num">3</div><div><h2 class="sec-title">Are you actually saving?</h2><div class="sec-subtitle">Savings rate vs your goal</div></div></div>
     <div class="savings-card">
       <div class="savings-hero">
         <!-- SVG ring — shows actual vs goal -->
         <div class="savings-ring">
           <svg width="110" height="110" viewBox="0 0 110 110">
             <!-- Goal track (dim, full circle) -->
-            <circle cx="55" cy="55" r="44" fill="none" stroke="#1c1c1c" stroke-width="10"/>
+            <circle cx="55" cy="55" r="44" fill="none" stroke="var(--border)" stroke-width="10"/>
             <!-- Goal arc (gold, shows what portion of income the goal represents) -->
             <circle id="savingsGoalArc" cx="55" cy="55" r="44" fill="none" stroke="#c9a84c" stroke-width="10" stroke-opacity="0.25"
               stroke-dasharray="0 276.46" stroke-dashoffset="0" stroke-linecap="round"
@@ -766,8 +839,8 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
             <circle id="savingsRing" cx="55" cy="55" r="44" fill="none" stroke="#3ecf8e" stroke-width="10"
               stroke-dasharray="0 276.46" stroke-dashoffset="0" stroke-linecap="round"
               style="transition:stroke-dasharray 0.8s ease,stroke 0.4s ease;transform-origin:center;transform:rotate(-90deg)"/>
-            <text x="55" y="47" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="#f0ede6" id="savingsRingPct">0%</text>
-            <text x="55" y="63" text-anchor="middle" font-family="Syne,sans-serif" font-size="8" fill="#504e4a" letter-spacing="1">OF GOAL</text>
+            <text x="55" y="47" text-anchor="middle" font-family="DM Mono,monospace" font-size="17" font-weight="500" fill="currentColor" id="savingsRingPct" style="color:var(--text)">0%</text>
+            <text x="55" y="63" text-anchor="middle" font-family="Syne,sans-serif" font-size="8" fill="currentColor" letter-spacing="1" style="color:var(--text3)">OF GOAL</text>
           </svg>
         </div>
         <div class="savings-insight" id="savingsInsight">Enter your spending details to see your savings picture.</div>
@@ -797,15 +870,41 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 6: Life so far -->
-  <div class="section">
-    <div class="section-head"><div class="sec-num">6</div><div><h2 class="sec-title">The bigger picture</h2><div class="sec-subtitle">Your lifetime earnings & time left</div></div></div>
-    <div class="life-grid">
-      <div class="life-card"><div class="lc-label">Total Est. Earned</div><div class="lc-val" id="totalEarned">—</div><div class="lc-sub" id="totalEarnedSub">lifetime</div></div>
-      <div class="life-card"><div class="lc-label">Years Working</div><div class="lc-val" id="yearsWorking">—</div><div class="lc-sub">of your life so far</div><div class="bar-track"><div class="bar-fill" id="workBar" style="width:0%;background:var(--gold)"></div></div></div>
-      <div class="life-card"><div class="lc-label">Food / Coffee Habit</div><div class="lc-val" id="coffeeCost">—</div><div class="lc-sub" id="coffeeSub">per year</div></div>
-      <div class="life-card"><div class="lc-label">Time Left (80yr avg)</div><div class="lc-val" id="timeLeft">—</div><div class="lc-sub">years remaining</div><div class="bar-track"><div class="bar-fill" id="lifeBar" style="width:0%;background:var(--red)"></div></div></div>
+  <!-- AI PLAN TEASER — shown after savings section -->
+  <div id="planTeaser" style="background:linear-gradient(135deg,rgba(232,160,32,0.13),rgba(232,160,32,0.04));border:1.5px solid var(--gold);border-radius:var(--r2);padding:18px 20px;margin-bottom:0;position:relative;overflow:hidden;cursor:pointer" onclick="document.getElementById('planBtn').scrollIntoView({behavior:'smooth',block:'center'})">
+    <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px">✦ Your AI financial plan is ready</div>
+    <!-- Personalised headline — updated by updatePlanTeaser() -->
+    <div id="teaserHeadline" style="font-size:16px;font-weight:800;color:var(--text);letter-spacing:-0.3px;margin-bottom:14px;line-height:1.3">Calculating your financial picture...</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+      <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">FIRE age</div>
+        <div id="teaserFireAge" style="font-family:var(--mono);font-size:26px;font-weight:500;color:var(--gold);transition:filter 0.6s ease;user-select:none">—</div>
+      </div>
+      <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Savings rate</div>
+        <div id="teaserSavings" style="font-family:var(--mono);font-size:26px;font-weight:500;color:var(--green);transition:filter 0.6s ease;user-select:none">—</div>
+      </div>
+      <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:12px;text-align:center">
+        <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Verdict</div>
+        <div id="teaserVerdict" style="font-family:var(--mono);font-size:13px;font-weight:500;color:var(--green);transition:filter 0.6s ease;user-select:none;line-height:1.3">—</div>
+      </div>
     </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div style="font-size:12px;color:var(--text2)">Your full plan with FIRE timeline, budget analysis & 3 action steps is waiting.</div>
+      <div style="flex-shrink:0;background:var(--gold);color:#070707;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:800;font-family:var(--sans);white-space:nowrap">Unlock free →</div>
+    </div>
+  </div>
+
+  <hr class="div">
+
+  <!-- SECTION 4: The bigger picture -->
+  <div class="section">
+    <div class="section-head"><div class="sec-num">4</div><div><h2 class="sec-title">The bigger picture</h2><div class="sec-subtitle">Your lifetime earnings & time left</div></div></div>
+    <div class="life-grid">
+      <div class="life-card"><div class="lc-label">Total Est. Earned</div><div class="lc-val" id="totalEarned">—</div><div class="lc-sub" id="totalEarnedSub">lifetime so far</div></div>
+      <div class="life-card"><div class="lc-label">Time Left (est.)</div><div class="lc-val" id="timeLeft">—</div><div class="lc-sub">years at 65yr est.</div><div class="bar-track"><div class="bar-fill" id="lifeBar" style="width:0%;background:var(--red)"></div></div></div>
+    </div>
+    <div style="display:none"><div class="lc-val" id="yearsWorking"></div><div class="bar-fill" id="workBar"></div></div>
     <div class="lifetime-card">
       <div class="lt-label">Lifetime money still to earn</div>
       <div class="lt-val" id="lifetimeLeft">—</div>
@@ -815,56 +914,61 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 7: Retirement slider -->
+  <!-- SECTION 5: Time donut -->
   <div class="section">
-    <div class="section-head"><div class="sec-num">7</div><div><h2 class="sec-title">Your earning potential</h2><div class="sec-subtitle">Drag to see total earnings by retirement age</div></div></div>
-    <div class="retire-card">
-      <div class="retire-label-row"><span>Age <strong id="retireFromAge">—</strong> (now)</span><span>Age <strong id="retireToAge">60</strong></span></div>
-      <input type="range" id="retireSlider" min="18" max="60" value="60" step="1">
-      <div class="retire-ticks"><span>18</span><span>25</span><span>30</span><span>35</span><span>40</span><span>45</span><span>50</span><span>55</span><span>60</span></div>
-      <div class="retire-result">
-        <div class="retire-result-label">Total earnings between now and age <span id="retireTargetLabel">60</span></div>
-        <div class="retire-result-value" id="retireTotal">—</div>
-        <div class="retire-result-currency" id="retireUnit">—</div>
-      </div>
-      <div class="retire-breakdown" id="retireBreakdown"></div>
-      <div id="retireFireInsight" style="display:none;margin-top:14px;padding:12px 14px;background:var(--bg3);border-left:2px solid var(--green);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
+    <div class="section-head">
+      <div class="sec-num">5</div>
+      <div><h2 class="sec-title">Where your day actually goes</h2><div class="sec-subtitle">24 hours broken down honestly</div></div>
+      <button class="spend-edit-btn" onclick="toggleDonutEdit()">✏ Edit</button>
     </div>
+    <div class="donut-card">
+      <div class="donut-wrap">
+        <svg width="140" height="140" viewBox="0 0 140 140" id="donutSvg"></svg>
+        <div class="donut-center"><div class="donut-cv">24h</div><div class="donut-cl">per day</div></div>
+      </div>
+      <div class="donut-legend" id="donutLegend"></div>
+    </div>
+    <!-- Editable inputs -->
+    <div id="donutEditPanel" style="display:none;margin-top:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <div class="sl">😴 Sleep (hours/night)</div>
+          <input class="inp" id="donut-sleep" type="number" inputmode="decimal" value="7.5" min="4" max="12" step="0.5" oninput="saveDonut();redrawDonut()">
+        </div>
+        <div>
+          <div class="sl">🚗 Commute (hours/day)</div>
+          <input class="inp" id="donut-commute" type="number" inputmode="decimal" value="1" min="0" max="6" step="0.5" oninput="saveDonut();redrawDonut()">
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--text3);margin-top:10px">Work hours come from your salary settings. Free time is whatever's left.</div>
+    </div>
+    <div id="donutInsight" style="display:none;margin-top:10px;padding:12px 14px;background:var(--bg3);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
   </div>
+
 
   <hr class="div">
 
-  <!-- SECTION 8: FIRE / Investments -->
+  <!-- SECTION 6: FIRE / Investments -->
   <div class="section" id="investSection">
-    <div class="section-head"><div class="sec-num">8</div><div><h2 class="sec-title">How can I become financially free?</h2><div class="sec-subtitle">FIRE calculator — passive income &amp; financial independence</div></div></div>
+    <div class="section-head"><div class="sec-num">6</div><div><h2 class="sec-title">How can I become financially free?</h2><div class="sec-subtitle">FIRE calculator — passive income &amp; financial independence</div></div></div>
     <div class="invest-card">
 
-      <!-- Inputs row -->
-      <div class="invest-inputs" id="investInputs">
-        <div style="font-size:10px;color:var(--text3);margin-bottom:12px;line-height:1.5">Add your portfolio to see how investment income compares to your salary — per second.</div>
-        <div class="invest-input-grid">
-          <div class="invest-field">
-            <label class="invest-label">💰 Portfolio Value</label>
-            <input class="ob-inp" id="inv-portfolio" type="number" inputmode="numeric" placeholder="0" oninput="saveInvest();recalcInvest()">
-            <span style="font-size:10px;color:var(--text3);margin-top:2px">Total invested amount</span>
-          </div>
-          <div class="invest-field">
-            <label class="invest-label">📈 Annual Return %</label>
-            <input class="ob-inp" id="inv-return" type="number" inputmode="decimal" placeholder="7" step="0.1" oninput="saveInvest();recalcInvest()">
-            <span style="font-size:10px;color:var(--text3);margin-top:2px">Interest, dividends or growth rate</span>
-          </div>
+      <!-- Hidden inputs — values set via Edit drawer -->
+      <input type="hidden" id="inv-portfolio" value="">
+      <input type="hidden" id="inv-return" value="7">
+      <input type="hidden" id="inv-monthly" value="">
+      <input type="hidden" id="inv-years" value="10">
+
+      <!-- Empty state — shown when no portfolio entered, but still shows FIRE number -->
+      <div id="investEmpty" style="padding:18px 18px">
+        <div id="investEmptyFire" style="display:none;margin-bottom:14px;padding:14px;background:var(--bg3);border-radius:var(--r);border-left:3px solid var(--gold)">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:6px">🔥 Your FIRE number</div>
+          <div style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--text)" id="investEmptyFireNum">—</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:4px">25× your annual expenses · 4% withdrawal rule</div>
         </div>
-        <div class="invest-input-grid" style="margin-top:8px">
-          <div class="invest-field">
-            <label class="invest-label">➕ Monthly Contribution</label>
-            <input class="ob-inp" id="inv-monthly" type="number" inputmode="numeric" placeholder="0" oninput="saveInvest();recalcInvest()">
-            <span style="font-size:10px;color:var(--text3);margin-top:2px">What you add each month</span>
-          </div>
-          <div class="invest-field">
-            <label class="invest-label">📅 Time Horizon (years)</label>
-            <input class="ob-inp" id="inv-years" type="number" inputmode="numeric" placeholder="10" min="1" max="50" oninput="saveInvest();recalcInvest()">
-            <span style="font-size:10px;color:var(--text3);margin-top:2px">How long you plan to hold</span>
-          </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="font-size:13px;color:var(--text2)">Add your portfolio to see your progress, passive income &amp; projections.</div>
+          <button onclick="openEditDrawer();edTab(2)" style="flex-shrink:0;background:var(--gold);color:#070707;border:none;border-radius:8px;padding:8px 16px;font-family:var(--sans);font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap">+ Add investments</button>
         </div>
       </div>
 
@@ -894,7 +998,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
             <div class="invest-stat-sub" id="invMonthlySub">—</div>
           </div>
           <div class="invest-stat">
-            <div class="invest-stat-label">Per second (passive)</div>
+            <div class="invest-stat-label">Annual passive income</div>
             <div class="invest-stat-val" id="invPerSec" style="color:var(--green)">—</div>
             <div class="invest-stat-sub" id="invPerSecSub">—</div>
           </div>
@@ -923,101 +1027,65 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
       </div>
 
-      <!-- Empty state prompt -->
-      <div id="investEmpty" style="padding:24px 0;text-align:center;font-size:13px;color:var(--text3)">
-        Enter your portfolio value above to see your passive income per second.
-      </div>
-
     </div>
   </div>
 
   <hr class="div">
 
-  <!-- SECTION 9: Cost of waiting -->
-  <div class="section">
-    <div class="section-head"><div class="sec-num">9</div><div><h2 class="sec-title">Every minute counts</h2><div class="sec-subtitle">The real cost of procrastinating</div></div></div>
-    <div class="wait-card">
-      <div class="wait-row"><div><div class="wl">Hang around 1 more minute</div><div class="wsl">You'll earn →</div></div><div class="we" id="w1" style="color:var(--green)">—</div></div>
-      <div class="wait-row"><div><div class="wl">Waste 10 more minutes here</div><div class="wsl">You'll earn →</div></div><div class="we" id="w10" style="color:var(--green)">—</div></div>
-      <div class="wait-row"><div><div class="wl">Burn a full hour</div><div class="wsl">You'll earn →</div></div><div class="we" id="w60" style="color:var(--green)">—</div></div>
-      <div class="wait-row verdict"><div><div class="wl">But that time is gone forever</div><div class="wsl">No refunds. No replays.</div></div><div class="we" style="color:var(--red)">priceless</div></div>
-    </div>
-  </div>
-
-  <hr class="div">
-
-  <!-- SECTION 10: Financial Plan -->
+  <!-- SECTION 7: Financial Plan -->
   <div class="section">
     <div class="section-head">
-      <div class="sec-num">10</div>
+      <div class="sec-num">7</div>
       <div>
         <h2 class="sec-title">Your personalized financial plan</h2>
-        <div class="sec-subtitle">A full plan based on your numbers — exportable to PDF</div>
+        <div class="sec-subtitle">AI-powered analysis based on your numbers — exportable to PDF</div>
       </div>
     </div>
 
-    <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden">
+    <div style="background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold);border-radius:var(--r2);padding:22px;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(232,160,32,0.12),transparent 70%);pointer-events:none"></div>
 
-      <!-- Preview of what's in the plan -->
-      <div style="padding:20px 20px 0">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-          <div style="background:var(--bg3);border-radius:var(--r);padding:12px 14px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">What's included</div>
-            <div style="font-size:12px;color:var(--text2);line-height:1.8">
-              ✦ Your income & time breakdown<br>
-              ✦ Monthly budget analysis<br>
-              ✦ Savings rate & target gap<br>
-              ✦ FIRE number & timeline<br>
-              ✦ Investment projection
-            </div>
-          </div>
-          <div style="background:var(--bg3);border-radius:var(--r);padding:12px 14px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Personalised actions</div>
-            <div style="font-size:12px;color:var(--text2);line-height:1.8">
-              ✦ Top 3 things to do this month<br>
-              ✦ Where to cut spending<br>
-              ✦ How to reach FIRE faster<br>
-              ✦ Investment recommendations<br>
-              ✦ Year-by-year milestones
-            </div>
-          </div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px">✦ Most popular feature</div>
+      <div style="font-size:20px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">Get your AI financial plan<br><span style="color:var(--gold)">in 30 seconds. Free.</span></div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Claude AI reads all your numbers and writes a personalised plan — what to cut, how to invest, when you can retire. Downloads as a PDF.</div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px">
+        <span style="font-size:11px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:4px 10px;border-radius:20px;font-weight:700">✓ Personalised to your numbers</span>
+        <span style="font-size:11px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:4px 10px;border-radius:20px;font-weight:700">✓ FIRE timeline</span>
+        <span style="font-size:11px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:4px 10px;border-radius:20px;font-weight:700">✓ 3 action steps</span>
+        <span style="font-size:11px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:4px 10px;border-radius:20px;font-weight:700">✓ PDF download</span>
+      </div>
+
+      <div style="font-size:11px;color:var(--text3);margin-bottom:14px;padding:10px 12px;background:rgba(0,0,0,0.2);border-radius:8px;border-left:2px solid var(--gold)">
+        💡 You get 2 plans per day — make them count. Fill in your spending and investments using ⚙ Edit before generating.
+      </div>
+
+      <!-- Progress indicator -->
+      <div id="planProgress" style="display:none;margin-bottom:14px;padding:14px;background:rgba(0,0,0,0.25);border-radius:var(--r);border:1px solid var(--border2)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div class="live-dot" style="flex-shrink:0"></div>
+          <div style="font-size:12px;font-weight:700;color:var(--text2)" id="planProgressText">Analysing your finances with AI...</div>
         </div>
-        <div style="font-size:11px;color:var(--text3);margin-bottom:16px;padding:10px 12px;background:var(--gold-glow);border-radius:8px;border-left:2px solid var(--gold)">
-          💡 For the best plan, make sure you've filled in your spending and investment details above.
+        <div style="background:var(--border);border-radius:4px;height:3px;overflow:hidden">
+          <div id="planProgressBar" style="height:100%;background:var(--gold);width:0%;transition:width 0.5s ease;border-radius:4px"></div>
         </div>
       </div>
 
-      <!-- Generate button -->
-      <div style="padding:0 20px 20px">
-        <!-- Progress indicator -->
-        <div id="planProgress" style="display:none;margin-bottom:14px;padding:14px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border2)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-            <div class="live-dot" style="flex-shrink:0"></div>
-            <div style="font-size:12px;font-weight:700;color:var(--text2)" id="planProgressText">Analysing your finances with AI...</div>
-          </div>
-          <div style="background:var(--border);border-radius:4px;height:3px;overflow:hidden">
-            <div id="planProgressBar" style="height:100%;background:var(--gold);width:0%;transition:width 0.5s ease;border-radius:4px"></div>
-          </div>
-        </div>
-        <button onclick="generatePlan()" id="planBtn"
-          style="width:100%;background:linear-gradient(135deg,var(--gold),#e8c96e);color:#070707;border:none;border-radius:var(--r);padding:16px;font-family:var(--sans);font-weight:800;font-size:15px;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s;box-shadow:0 4px 20px rgba(201,168,76,0.25)">
-          ✦ Generate My Personalized Financial Plan (FREE)
-        </button>
-        <div style="text-align:center;font-size:10px;color:var(--text3);margin-top:8px">Powered by Claude AI · Downloads as PDF</div>
-      </div>
+      <button onclick="generatePlan()" id="planBtn"
+        style="width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:16px;font-family:var(--sans);font-weight:800;font-size:15px;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s;box-shadow:0 4px 24px rgba(232,160,32,0.30)" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+        ✦ Show me when I can retire →
+      </button>
+      <div style="text-align:center;font-size:10px;color:var(--text3);margin-top:8px">Powered by Claude AI · 2 plans per day · Fill in your details above for the best results</div>
+      <div style="text-align:center;font-size:11px;color:var(--text2);margin-top:6px;font-weight:600" id="planSocialProof">📄 Join thousands who've downloaded their plan</div>
     </div>
   </div>
 
   <hr class="div">
 
-  <!-- SECTION 11: Share -->
+  <!-- SECTION 8: Share -->
   <div class="section">
-    <div class="section-head"><div class="sec-num">11</div><div><h2 class="sec-title">Settle the debate</h2><div class="sec-subtitle">Who earns more — you or your friends?</div></div></div>
-    <div class="share-grid">
-      <button class="sbtn primary" onclick="shareResult()">↗ Send to a friend</button>
-      <button class="sbtn secondary" onclick="challengeFriend()">⚡ Who earns more?</button>
-    </div>
-    <button class="sbtn secondary" style="width:100%" onclick="generateCard()">📸 Make the card</button>
+    <div class="section-head"><div class="sec-num">8</div><div><h2 class="sec-title">Challenge a friend</h2><div class="sec-subtitle">Share your number — who earns more?</div></div></div>
+    <button class="sbtn primary" style="width:100%" onclick="generateCard();setTimeout(()=>shareResult(),1200)">📸 Make &amp; share my card</button>
     <canvas id="shareCanvas" width="1080" height="1080"></canvas>
   </div>
 </main>
@@ -1177,7 +1245,8 @@ const ALL_ITEMS = [
   { name:'Harvard year tuition', emoji:'🎓', usd:59000,  cat:'big'     },
   { name:'Horse (avg)',          emoji:'🐴', usd:5000,   cat:'big'     },
 ];
-const activeItemIds = new Set([0,1,2,3,4,5]);
+// Curated defaults: cheap (karak), daily habit (coffee), aspirational (AirPods), absurd (Arabian horse)
+const activeItemIds = new Set([12, 0, 29, 20]);
 
 // ═══════════════════════════════════════════════════════════
 //  SPENDING CATEGORIES
@@ -1203,7 +1272,7 @@ let t0        = performance.now();
 let lastInt   = -1;
 let hitMilestones = new Set();
 let running   = false;
-const MULT    = { realistic:1, optimistic:1.35, fantasy:5 };
+const MULT    = { realistic:1, optimistic:1.4, fantasy:4 };
 const MILESTONES  = [10,50,100,500,1000];
 const CONFETTI_COLORS = ['#c9a84c','#3ecf8e','#e8c96e','#4d9de8','#f0ede6'];
 const GLOBAL_AVG_USD  = 1650;
@@ -1280,18 +1349,36 @@ function startApp(){
       ['currencySelect','ob-currency','ed-currency'].forEach(id=>{const el=g(id);if(el)el.value=currency;});
     }
 
-    // Income — write directly to hidden fields
+    // Income
     const s = parseFloat(g('ob-salary').value) || 1000;
     const h = parseFloat(g('ob-hours').value)  || 40;
     const a = parseFloat(g('ob-age').value)    || 30;
-    const c = parseFloat(g('ob-coffee').value) || 10;
-    set('salary',s); set('hours',h); set('age',a); set('coffee',c);
+    set('salary',s); set('hours',h); set('age',a);
+    // Keep coffee at a neutral default since field is removed
+    set('coffee', 0);
 
     // Spending
     SPEND_CATS.forEach(cat=>{
       const el=g('ob-'+cat.key);
       if(el && parseFloat(el.value)>0) spendData[cat.key]=parseFloat(el.value);
     });
+
+    // Investments
+    const portfolio  = parseFloat(g('ob-portfolio').value)||0;
+    const retPct     = parseFloat(g('ob-return').value)||7;
+    const invMonthly = parseFloat(g('ob-inv-monthly').value)||0;
+    const invYears   = parseFloat(g('ob-inv-years').value)||10;
+    if(portfolio>0 || invMonthly>0){
+      investData.portfolio  = portfolio;
+      investData.returnPct  = retPct;
+      investData.monthly    = invMonthly;
+      investData.years      = invYears;
+      // Sync to investment input fields
+      set('inv-portfolio', portfolio||'');
+      set('inv-return',    retPct);
+      set('inv-monthly',   invMonthly||'');
+      set('inv-years',     invYears);
+    }
   } catch(e) { console.warn('startApp error:', e); }
 
   closeOnboarding();
@@ -1341,12 +1428,13 @@ function openEditDrawer(){
   set('ed-salary',  g('salary').value);
   set('ed-hours',   g('hours').value);
   set('ed-age',     g('age').value);
-  set('ed-coffee',  g('coffee').value);
   // Pre-fill spending
-  SPEND_CATS.forEach(cat=>{
-    const el=g('eds-'+cat.key);
-    if(el) el.value = spendData[cat.key]||'';
-  });
+  SPEND_CATS.forEach(cat=>{ const el=g('eds-'+cat.key); if(el) el.value=spendData[cat.key]||''; });
+  // Pre-fill investments
+  set('edi-portfolio', investData.portfolio||'');
+  set('edi-return',    investData.returnPct||7);
+  set('edi-monthly',   investData.monthly||'');
+  set('edi-years',     investData.years||10);
   edTab(0);
   g('editDrawer').style.display='block';
   document.body.style.overflow='hidden';
@@ -1358,10 +1446,8 @@ function closeEditDrawer(){
 }
 
 function edTab(n){
-  g('ed-tab0').classList.toggle('active',n===0);
-  g('ed-tab1').classList.toggle('active',n===1);
-  g('ed-p0').style.display = n===0?'block':'none';
-  g('ed-p1').style.display = n===1?'block':'none';
+  ['ed-tab0','ed-tab1','ed-tab2'].forEach((id,i)=>{ const el=g(id); if(el) el.classList.toggle('active',i===n); });
+  ['ed-p0','ed-p1','ed-p2'].forEach((id,i)=>{ const el=g(id); if(el) el.style.display=i===n?'block':'none'; });
 }
 
 function buildEdCurrencySelect(){
@@ -1370,23 +1456,45 @@ function buildEdCurrencySelect(){
 }
 
 function syncIncome(){
-  // Live-sync hidden fields and recalc as user types
   const s=parseFloat(g('ed-salary').value)||0;
   const h=parseFloat(g('ed-hours').value)||40;
   const a=parseFloat(g('ed-age').value)||30;
-  const c=parseFloat(g('ed-coffee').value)||0;
-  set('salary',s); set('hours',h); set('age',a); set('coffee',c);
+  set('salary',s); set('hours',h); set('age',a);
   save(); recalc();
 }
 
 function applySpendFromDrawer(){
-  SPEND_CATS.forEach(cat=>{
-    const el=g('eds-'+cat.key);
-    if(el) spendData[cat.key]=parseFloat(el.value)||0;
-  });
-  save(); recalc();
-  closeEditDrawer();
-  toast('All changes saved ✓');
+  try {
+    SPEND_CATS.forEach(cat=>{
+      const el=g('eds-'+cat.key);
+      if(el) spendData[cat.key]=parseFloat(el.value)||0;
+    });
+    save(); recalc();
+    closeEditDrawer();
+    toast('Spending saved ✓');
+  } catch(e) {
+    console.error('applySpendFromDrawer error:', e);
+    toast('Error saving — try again');
+  }
+}
+
+function applyInvestFromDrawer(){
+  try {
+    investData.portfolio = parseFloat(g('edi-portfolio').value)||0;
+    investData.returnPct = parseFloat(g('edi-return').value)||7;
+    investData.monthly   = parseFloat(g('edi-monthly').value)||0;
+    investData.years     = parseFloat(g('edi-years').value)||10;
+    set('inv-portfolio', investData.portfolio||'');
+    set('inv-return',    investData.returnPct);
+    set('inv-monthly',   investData.monthly||'');
+    set('inv-years',     investData.years);
+    save(); recalc(); recalcInvest();
+    closeEditDrawer();
+    toast('Investments saved ✓');
+  } catch(e) {
+    console.error('applyInvestFromDrawer error:', e);
+    toast('Error saving — try again');
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1402,10 +1510,12 @@ function recalc(){
 
   // All rates in USD internally
   const salaryUSD   = toUSD(salaryLocal) * mult;
-  const dailyUSD    = salaryUSD / 30;
-  const hourlyUSD   = dailyUSD / 24;
-  const minuteUSD   = hourlyUSD / 60;
-  perSecUSD         = minuteUSD / 60;
+  const dailyUSD    = salaryUSD / 30;             // calendar day (for per-day display)
+  const hoursPerWk  = parseFloat(g('hours').value)||40;
+  const workHourUSD = salaryUSD / (hoursPerWk * 52/12); // work hourly rate
+  const hourlyUSD   = workHourUSD;               // used for per-hour display
+  const minuteUSD   = workHourUSD / 60;
+  perSecUSD         = workHourUSD / 3600;         // work seconds — matches wow stat
 
   // Currency label sync
   if(g('currLabel')) g('currLabel').textContent=`${s} — ticking every frame`;
@@ -1427,11 +1537,11 @@ function recalc(){
   // Life stats
   const annualUSD = salaryUSD * 12;
   const yw = Math.max(0, age-22);
-  const tl = Math.max(0, 80-age);
+  const tl = Math.max(0, 65-age);
   const rl = Math.max(0, 60-age);
   if(g('totalEarned')) g('totalEarned').textContent = fmtK(yw*annualUSD);
   if(g('yearsWorking')){ g('yearsWorking').textContent=yw.toFixed(1)+' yrs'; g('workBar').style.width=Math.min(100,(yw/Math.max(age,1))*100)+'%'; }
-  if(g('timeLeft')){ g('timeLeft').textContent=tl+' yrs'; g('lifeBar').style.width=Math.min(100,(age/80)*100)+'%'; }
+  if(g('timeLeft')){ g('timeLeft').textContent=tl+' yrs'; g('lifeBar').style.width=Math.min(100,(age/65)*100)+'%'; }
   if(g('coffeeCost')) g('coffeeCost').textContent = toDisp(toUSD(coffee)*365);
   if(g('lifetimeLeft')) g('lifetimeLeft').textContent = fmtK(rl*annualUSD)+' '+s;
   if(g('lifetimeSub')) g('lifetimeSub').textContent = rl>0?`${rl} working years at current salary until age 60`:'You have reached typical retirement age';
@@ -1457,6 +1567,107 @@ function recalc(){
   updateRetire();
   updateSpending(salaryUSD);
   recalcInvest();
+  updatePlanTeaser(age, salaryUSD);
+  updateWowStat(0);
+}
+
+let _teaserFlashed = false;
+
+function updatePlanTeaser(age, salaryUSD){
+  const totalSpendUSD     = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const fireNumUSD        = totalSpendUSD>0 ? totalSpendUSD*12*25 : 0;
+  const monthlySavingsUSD = Math.max(0, salaryUSD - totalSpendUSD);
+  const monthlyContrib    = toUSD(investData.monthly||0);
+  const totalMonthly      = monthlySavingsUSD + monthlyContrib;
+  const portfolioUSD      = toUSD(investData.portfolio||0);
+  const savingsPct        = salaryUSD>0 ? Math.max(0,(monthlySavingsUSD/salaryUSD)*100) : 0;
+  const r = 0.07/12;
+  const s = sym();
+
+  // Calculate FIRE age
+  let fireAge = null, fireYears = null;
+  if(fireNumUSD>0 && totalMonthly>0){
+    let months=0, bal=portfolioUSD;
+    while(bal<fireNumUSD && months<1200){ bal=bal*(1+r)+totalMonthly; months++; }
+    if(months<1200){ fireYears=months/12; fireAge=(age+fireYears).toFixed(0); }
+  }
+
+  // Personalised headline
+  let headline = '';
+  if(salaryUSD===0){
+    headline = 'Enter your salary to unlock your financial picture.';
+  } else if(totalSpendUSD===0){
+    headline = 'Add your spending to see when you can stop working.';
+  } else if(!fireAge){
+    headline = 'At your current rate, FIRE is a long way off — your plan shows how to change that.';
+  } else if(parseFloat(fireAge) <= age+10){
+    headline = `You could retire in ${fireYears.toFixed(1)} years — at age ${fireAge}. Your plan shows exactly how.`;
+  } else if(parseFloat(fireAge) <= age+20){
+    headline = `Retire at ${fireAge} is realistic — but one change could bring it forward by years.`;
+  } else {
+    headline = `You're on track to retire at ${fireAge}. Your plan identifies the biggest levers to pull.`;
+  }
+
+  // Verdict based on savings rate
+  let verdict = '', verdictColor = 'var(--green)';
+  if(totalSpendUSD===0){ verdict='—'; verdictColor='var(--text3)'; }
+  else if(savingsPct>=30){ verdict='On track'; verdictColor='var(--green)'; }
+  else if(savingsPct>=15){ verdict='Needs work'; verdictColor='var(--gold)'; }
+  else if(savingsPct>0){ verdict='At risk'; verdictColor='var(--red)'; }
+  else { verdict='Over budget'; verdictColor='var(--red)'; }
+
+  // Update headline
+  const hl = g('teaserHeadline');
+  if(hl) hl.textContent = headline;
+
+  // Update verdict colour
+  const tv = g('teaserVerdict');
+  if(tv){ tv.textContent = verdict; tv.style.color = verdictColor; }
+
+  // Savings rate display
+  const ts = g('teaserSavings');
+  if(ts){ ts.textContent = totalSpendUSD>0 ? savingsPct.toFixed(0)+'%' : '—'; }
+
+  // Flash-then-blur: unblur for 2s on first load, then re-blur
+  const tfa = g('teaserFireAge');
+  if(tfa){
+    tfa.textContent = fireAge || '?';
+    if(!_teaserFlashed && fireAge){
+      _teaserFlashed = true;
+      // Start blurred
+      tfa.style.filter = 'blur(6px)';
+      if(ts) ts.style.filter = 'blur(5px)';
+      if(tv) tv.style.filter = 'blur(5px)';
+      // Flash clear after 1.5s
+      setTimeout(()=>{
+        tfa.style.filter = 'blur(0px)';
+        if(ts) ts.style.filter = 'blur(0px)';
+        if(tv) tv.style.filter = 'blur(0px)';
+        // Re-blur after 2s
+        setTimeout(()=>{
+          tfa.style.filter = 'blur(6px)';
+          if(ts) ts.style.filter = 'blur(5px)';
+          if(tv) tv.style.filter = 'blur(5px)';
+        }, 2000);
+      }, 1500);
+    } else if(_teaserFlashed) {
+      // Already flashed — keep blurred
+      tfa.style.filter = 'blur(6px)';
+      if(ts) ts.style.filter = 'blur(5px)';
+      if(tv) tv.style.filter = 'blur(5px)';
+    }
+  }
+
+  // Social proof — fetch real count from Worker
+  const sp = g('planSocialProof');
+  if(sp){
+    fetch('https://amipoor-api.wisaam-farhat.workers.dev/count')
+      .then(r=>r.json())
+      .then(d=>{
+        if(d.count) sp.textContent = `📄 ${d.count.toLocaleString()} people have downloaded their plan`;
+      })
+      .catch(()=>{ sp.textContent = '📄 Thousands have downloaded their plan'; });
+  }
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1518,11 +1729,23 @@ function redrawDonut(){
 // ═══════════════════════════════════════════════════════════
 //  COMPARISONS
 // ═══════════════════════════════════════════════════════════
+// Track which items have been celebrated (crossed a whole number)
+const celebratedItems = {};
+
 function buildCompareDOM(){
   if(!g('compareList')) return;
+  const salaryUSD2     = toUSD(parseFloat(g('salary').value)||0)*(MULT[mode]||1);
+  const workHourlyUSD2 = salaryUSD2/((parseFloat(g('hours').value)||40)*52/12);
+  const workPerSec2    = workHourlyUSD2/3600;
   g('compareList').innerHTML=[...activeItemIds].map(i=>{
     const item=ALL_ITEMS[i];
-    return `<div class="compare-row"><div class="cmp-left"><span class="cmp-emoji">${item.emoji}</span><div><div class="cmp-name">${item.name}</div><div class="cmp-price">${toDisp(item.usd)} ${sym()} each</div></div></div><div class="cmp-right"><div class="cmp-qty" id="cmpQty${i}">0.0000</div><div class="cmp-qty-label">since page opened</div></div></div>`;
+    const secsToEarn = workPerSec2 > 0 ? item.usd / workPerSec2 : 0;
+    const timeCost = workPerSec2 <= 0 ? '—'
+      : secsToEarn < 60    ? `${secsToEarn.toFixed(0)}s work`
+      : secsToEarn < 3600  ? `${(secsToEarn/60).toFixed(0)}min work`
+      : secsToEarn < 28800 ? `${(secsToEarn/3600).toFixed(1)}hr work`
+      : `${(secsToEarn/28800).toFixed(1)} work days`;
+    return `<div class="compare-row" id="cmpRow${i}"><div class="cmp-left"><span class="cmp-emoji">${item.emoji}</span><div><div class="cmp-name">${item.name}</div><div class="cmp-price">${toDisp(item.usd)} ${sym()} · <span style="color:var(--text3)">${timeCost}</span></div></div></div><div class="cmp-right"><div class="cmp-qty" id="cmpQty${i}">0.0000</div><div class="cmp-qty-label">since page opened</div></div></div>`;
   }).join('');
 }
 
@@ -1531,8 +1754,53 @@ function updateCompareLive(earnedUSD){
     const el=document.getElementById('cmpQty'+i);
     if(!el) return;
     const qty=earnedUSD/ALL_ITEMS[i].usd;
-    el.textContent=qty>=1?qty.toFixed(3):qty.toFixed(4);
+    const prev = celebratedItems[i] || 0;
+    const whole = Math.floor(qty);
+    // Milestone flash when crossing a new whole number (1, 2, 3...)
+    if(whole > prev && whole > 0){
+      celebratedItems[i] = whole;
+      const row = document.getElementById('cmpRow'+i);
+      if(row){
+        row.style.transition='background 0.15s ease';
+        row.style.background='rgba(232,160,32,0.18)';
+        setTimeout(()=>{ row.style.background=''; }, 600);
+      }
+    }
+    el.textContent = qty>=100 ? qty.toFixed(1) : qty>=1 ? qty.toFixed(2) : qty.toFixed(4);
   });
+  updateWowStat(earnedUSD);
+}
+
+function updateWowStat(earnedUSD){
+  const wowText = g('wowText');
+  const wowNum  = g('wowNum');
+  const wowUnit = g('wowUnit');
+  if(!wowText||!wowNum||!wowUnit) return;
+
+  // Use work hourly rate for wow stat — matches user's intuition ("17 seconds of work")
+  const salaryUSD2    = toUSD(parseFloat(g('salary').value)||0)*(MULT[mode]||1);
+  const workHourlyUSD2 = salaryUSD2 / ((parseFloat(g('hours').value)||40)*52/12);
+  if(workHourlyUSD2 <= 0) return;
+  const workPerSec = workHourlyUSD2/3600;
+
+  const karakUSD  = 0.27;
+  const karakSecs = karakUSD / workPerSec;
+
+  if(karakSecs < 60){
+    wowText.textContent = 'You earn a karak tea every';
+    wowNum.textContent  = karakSecs.toFixed(0);
+    wowUnit.textContent = 'seconds of work';
+  } else if(karakSecs < 3600){
+    wowText.textContent = 'You earn a karak tea every';
+    wowNum.textContent  = (karakSecs/60).toFixed(1);
+    wowUnit.textContent = 'minutes of work';
+  } else {
+    const coffeeUSD  = 5;
+    const coffeeSecs = coffeeUSD / workPerSec;
+    wowText.textContent = 'You earn a coffee every';
+    wowNum.textContent  = coffeeSecs < 3600 ? (coffeeSecs/60).toFixed(0) : (coffeeSecs/3600).toFixed(1);
+    wowUnit.textContent = coffeeSecs < 3600 ? 'minutes of work' : 'hours of work';
+  }
 }
 
 // ── PICKER ──
@@ -1670,6 +1938,9 @@ function updateSpending(salaryUSD){
   updateSavings(salaryUSD, totalSpendUSD, savingsUSD);
   // Spend insight
   computeSpendInsight(salaryUSD, totalSpendUSD);
+  // Header score
+  const sp2 = salaryUSD>0?Math.max(0,(leftoverUSD/salaryUSD)*100):0;
+  updateHeaderScore(sp2, 0);
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -1773,6 +2044,19 @@ function updateSavings(salaryUSD, totalSpendUSD, savingsGoalUSD){
 }
 
 // ═══════════════════════════════════════════════════════════
+// ── CLOCK ────────────────────────────────────────────────────────────────────
+function updateClock(){
+  const el=g('clockBadge');
+  if(!el) return;
+  const now=new Date();
+  const h=String(now.getHours()).padStart(2,'0');
+  const m=String(now.getMinutes()).padStart(2,'0');
+  const s=String(now.getSeconds()).padStart(2,'0');
+  el.textContent=`${h}:${m}:${s}`;
+}
+updateClock();
+setInterval(updateClock,1000);
+
 //  LIVE TICKER
 // ═══════════════════════════════════════════════════════════
 function go(){ if(!running){running=true;requestAnimationFrame(tick);} }
@@ -1831,173 +2115,213 @@ function challengeFriend(){
 
 function generateCard(){
   const canvas=g('shareCanvas'), ctx=canvas.getContext('2d'), S=1080;
-  const rate   = currObj().rate;
-  const s      = sym();
-  const hourly = perSecUSD * 3600 * rate;
-  const daily  = perSecUSD * 86400 * rate;
-  const monthly= toUSD(parseFloat(g('salary').value)||0) * (MULT[mode]||1) * rate;
-  const perSec = perSecUSD * rate;
-  const hoursPerWeek = parseFloat(g('hours').value)||40;
+  const rate=currObj().rate, s=sym();
 
-  // Work hourly rate = monthly salary / (weeks per month × hours per week)
-  // Using 4.333 weeks per month (52 weeks / 12 months)
-  const salaryLocalPerMonth = toUSD(parseFloat(g('salary').value)||0) * (MULT[mode]||1) * rate;
-  const workHourlyRate = salaryLocalPerMonth / (hoursPerWeek * 52 / 12);
+  // ── DATA ─────────────────────────────────────────────────────────────────
+  const salaryUSD     = toUSD(parseFloat(g('salary').value)||0)*(MULT[mode]||1);
+  const hours         = parseFloat(g('hours').value)||40;
+  const age           = parseFloat(g('age').value)||30;
+  const workHourlyUSD = salaryUSD/(hours*52/12);
+  const workPerSecUSD = workHourlyUSD/3600;
+  const dailyUSD      = salaryUSD/30;
 
-  // Savings
-  const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
-  const salaryUSD     = toUSD(parseFloat(g('salary').value)||0) * (MULT[mode]||1);
-  const leftoverUSD   = salaryUSD - totalSpendUSD;
-  const savingsPct    = salaryUSD > 0 ? Math.max(0,(leftoverUSD/salaryUSD)*100) : 0;
-  const hasSavings    = totalSpendUSD > 0;
+  const totalSpendUSD2 = SPEND_CATS.filter(c=>c.key!=='savings').reduce((s,c)=>s+toUSD(spendData[c.key]||0),0);
+  const leftoverUSD2   = salaryUSD-totalSpendUSD2;
+  const savingsPct2    = salaryUSD>0?Math.max(0,(leftoverUSD2/salaryUSD)*100):0;
+  const fireNumUSD2    = totalSpendUSD2>0?totalSpendUSD2*12*25:0;
+  const portfolioUSD2  = toUSD(investData.portfolio||0);
+  const pctToFire2     = fireNumUSD2>0?Math.min(100,(portfolioUSD2/fireNumUSD2)*100):0;
 
-  // ── BUILD 4 QUIP SENTENCES ─────────────────────────────────────────
-  // Fixed reference items for quips (always present, not from activeIds)
-  const QUIP_ITEMS = {
-    karak:   { name:'karak tea',        emoji:'☕', usd:0.27  }, // ~1 AED
-    iphone:  { name:'iPhone 16 Pro Max',emoji:'📱', usd:1199  },
-    horse:   { name:'Arabian horse',    emoji:'🐴', usd:30000 },
-    bitcoin: { name:'Bitcoin',          emoji:'₿',  usd:100000},
-    rolex:   { name:'Rolex',            emoji:'⌚', usd:9000  },
-    lambo:   { name:'Lamborghini',      emoji:'🏎️', usd:220000},
-    coffee:  { name:'coffee',           emoji:'☕', usd:5     },
-    netflix: { name:'Netflix month',    emoji:'📺', usd:15    },
-    airpods: { name:'AirPods Pro',      emoji:'🎧', usd:249   },
-  };
+  const r2=0.07/12;
+  const monthlySav2=Math.max(0,leftoverUSD2);
+  const monthlyContrib2=toUSD(investData.monthly||0);
+  const totalMo2=monthlySav2+monthlyContrib2;
+  let fireMonths2=0, bal2=portfolioUSD2;
+  if(totalMo2>0&&fireNumUSD2>0){while(bal2<fireNumUSD2&&fireMonths2<1200){bal2=bal2*(1+r2)+totalMo2;fireMonths2++;}}
+  const fireYrs2=fireMonths2>0&&fireMonths2<1200?(fireMonths2/12).toFixed(1):null;
+  const fireAge2=fireYrs2?(age+parseFloat(fireYrs2)).toFixed(0):null;
 
-  // Quip 1: karak teas per hour (using work hourly rate)
-  const karakPerHour = workHourlyRate / (QUIP_ITEMS.karak.usd * rate);
-  const q1 = `I can buy ${karakPerHour>=1000?(karakPerHour/1000).toFixed(1)+'K':karakPerHour.toFixed(0)} karak teas per work hour ☕`;
+  function d(usd){const v=usd*rate;if(v>=1e6)return(v/1e6).toFixed(2)+'M';if(v>=1000)return(v/1000).toFixed(1)+'K';return v.toFixed(0);}
+  function f(usd){return d(usd)+' '+s;}
 
-  // Quip 2: Hours of work to buy iPhone
-  const hoursForIphone = (QUIP_ITEMS.iphone.usd * rate) / workHourlyRate;
-  const q2 = hoursForIphone < 1
-    ? `I could buy an iPhone 16 Pro Max in ${(hoursForIphone*60).toFixed(0)} minutes of work 📱`
-    : `I need ${hoursForIphone.toFixed(1)} hours of work to buy an iPhone 16 Pro Max 📱`;
+  // ── COLOURS ─────────────────────────────────────────────────────────────
+  const BG='#0e0b07',CARD='#181208',CARD2='#1e1710';
+  const BD='#2c2310',BD2='#3a2f18';
+  const GOLD='#e8a020',GREEN='#2ecc8a',RED='#f05050',BLUE='#60b4f8';
+  const WHITE='#fdf6e3',DIM='#c4a96a',MUTED='#7a6030';
 
-  // Quip 3: Time to buy Arabian horse (in months of salary, not hours)
-  const monthsForHorse = (QUIP_ITEMS.horse.usd * rate) / salaryLocalPerMonth;
-  const q3 = monthsForHorse < 1
-    ? `I could buy an Arabian horse in ${(monthsForHorse*30).toFixed(0)} days of salary 🐴`
-    : monthsForHorse < 12
-      ? `It takes ${monthsForHorse.toFixed(1)} months of my salary to buy an Arabian horse 🐴`
-      : `It would take ${(monthsForHorse/12).toFixed(1)} years of salary to buy an Arabian horse 🐴`;
-
-  // Quip 4: Netflix subscriptions per day (using calendar daily rate)
-  const netflixPerDay = daily / (QUIP_ITEMS.netflix.usd * rate);
-  const q4 = netflixPerDay >= 1
-    ? `Every day I earn enough for ${netflixPerDay.toFixed(0)} Netflix subscriptions 📺`
-    : `My daily earnings cover ${(netflixPerDay*100).toFixed(0)}% of a Netflix subscription 📺`;
-
-  const quips = [q1, q2, q3, q4];
-
-  // ── BACKGROUND ────────────────────────────────────────────────────────
-  ctx.fillStyle='#070707'; ctx.fillRect(0,0,S,S);
-  ctx.strokeStyle='rgba(255,255,255,0.018)'; ctx.lineWidth=1;
+  // ── BACKGROUND ──────────────────────────────────────────────────────────
+  ctx.fillStyle=BG; ctx.fillRect(0,0,S,S);
+  ctx.strokeStyle='rgba(232,160,32,0.035)'; ctx.lineWidth=1;
   for(let x=0;x<S;x+=54){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,S);ctx.stroke();}
   for(let y=0;y<S;y+=54){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(S,y);ctx.stroke();}
-  const gTop=ctx.createRadialGradient(S/2,-60,0,S/2,-60,700);
-  gTop.addColorStop(0,'rgba(201,168,76,0.14)'); gTop.addColorStop(1,'transparent');
-  ctx.fillStyle=gTop; ctx.fillRect(0,0,S,S);
-  const tl=ctx.createLinearGradient(0,0,S,0);
-  tl.addColorStop(0,'transparent'); tl.addColorStop(0.5,'#c9a84c'); tl.addColorStop(1,'transparent');
-  ctx.strokeStyle=tl; ctx.lineWidth=3;
-  ctx.beginPath(); ctx.moveTo(0,3); ctx.lineTo(S,3); ctx.stroke();
+  const gl=ctx.createRadialGradient(S/2,-50,0,S/2,-50,700);
+  gl.addColorStop(0,'rgba(232,160,32,0.14)');gl.addColorStop(1,'transparent');
+  ctx.fillStyle=gl;ctx.fillRect(0,0,S,S);
+  // Gold top line
+  const tg=ctx.createLinearGradient(0,0,S,0);
+  tg.addColorStop(0,'transparent');tg.addColorStop(0.5,GOLD);tg.addColorStop(1,'transparent');
+  ctx.strokeStyle=tg;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(0,2);ctx.lineTo(S,2);ctx.stroke();
 
-  // ── LOGO ──────────────────────────────────────────────────────────────
-  ctx.font='800 28px sans-serif';
-  ctx.fillStyle='#f0ede6'; ctx.fillText('am i',60,72);
-  ctx.fillStyle='#c9a84c'; ctx.fillText(' poor?',60+ctx.measureText('am i').width,72);
-  ctx.font='13px monospace'; ctx.fillStyle='#504e4a'; ctx.fillText('amipoor.com',60,98);
+  // ── HEADER ROW ──────────────────────────────────────────────────────────
+  ctx.font='800 24px sans-serif';ctx.textAlign='left';
+  ctx.fillStyle=WHITE;ctx.fillText('am i',60,56);
+  ctx.fillStyle=GOLD;ctx.fillText(' poor?',60+ctx.measureText('am i').width,56);
+  ctx.font='11px monospace';ctx.fillStyle=MUTED;ctx.fillText('amipoor.com',60,74);
+  // Date top-right
+  ctx.font='11px monospace';ctx.textAlign='right';ctx.fillStyle=MUTED;
+  ctx.fillText(new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),S-60,56);
+  ctx.textAlign='left';
 
-  // Mode badge
-  const mLabel={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Delusional ✦'}[mode]||mode;
-  ctx.font='bold 12px sans-serif';
-  const bw=ctx.measureText(mLabel).width+24;
-  rrCanvas(ctx,S-60-bw,50,bw,30,15);
-  ctx.fillStyle='rgba(201,168,76,0.13)'; ctx.fill();
-  ctx.strokeStyle='rgba(201,168,76,0.3)'; ctx.lineWidth=1; ctx.stroke();
-  ctx.fillStyle='#c9a84c'; ctx.textAlign='center';
-  ctx.fillText(mLabel,S-60-bw/2,69); ctx.textAlign='left';
+  // ── HERO STAT BLOCK ─────────────────────────────────────────────────────
+  // Full-width card: big salary + secondary stats
+  ctx.fillStyle=CARD;rrCanvas(ctx,60,92,S-120,200,14);ctx.fill();
+  ctx.strokeStyle=BD2;ctx.lineWidth=1;ctx.stroke();
+  // Gold left accent
+  ctx.fillStyle=GOLD;rrCanvas(ctx,60,92,4,200,2);ctx.fill();
 
-  // ── HERO ──────────────────────────────────────────────────────────────
-  // Big per-second number — the core hook
-  ctx.font='bold 16px sans-serif'; ctx.fillStyle='#504e4a';
-  ctx.fillText('MY SALARY, PER SECOND', 60, 170);
-
-  const psStr = perSec.toFixed(4);
-  ctx.font='bold 100px monospace'; ctx.fillStyle='#3ecf8e';
-  ctx.fillText(psStr, 60, 284);
-  ctx.font='bold 22px monospace'; ctx.fillStyle='#c9a84c';
-  ctx.fillText(s, 60, 318);
-
-  // Secondary stats inline
-  ctx.font='15px monospace'; ctx.fillStyle='#504e4a';
-  const secLine = `${hourly.toLocaleString('en',{maximumFractionDigits:0})} ${s}/hr  ·  ${daily.toLocaleString('en',{maximumFractionDigits:0})} ${s}/day  ·  ${monthly.toLocaleString('en',{maximumFractionDigits:0})} ${s}/mo`;
-  ctx.fillText(secLine, 60, 348);
-
-  // Savings pill (if available)
-  if(hasSavings){
-    const pill = `saving ${savingsPct.toFixed(0)}% of income`;
-    const pw = ctx.measureText(pill).width + 24;
-    rrCanvas(ctx,60,364,pw,28,14);
-    ctx.fillStyle = savingsPct>=20?'rgba(62,207,142,0.12)':'rgba(232,77,77,0.10)'; ctx.fill();
-    ctx.strokeStyle= savingsPct>=20?'rgba(62,207,142,0.3)':'rgba(232,77,77,0.25)'; ctx.lineWidth=1; ctx.stroke();
-    ctx.fillStyle = savingsPct>=20?'#3ecf8e':'#e84d4d';
-    ctx.font='bold 12px sans-serif';
-    ctx.fillText(pill, 60+12, 382);
-  }
-
-  // ── DIVIDER ───────────────────────────────────────────────────────────
-  const divY = hasSavings ? 410 : 382;
-  ctx.strokeStyle='#1c1c1c'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(60,divY); ctx.lineTo(S-60,divY); ctx.stroke();
-
-  // ── QUIP ROWS ─────────────────────────────────────────────────────────
-  const quipStartY = divY + 36;
-  const quipGap    = 118;
-
-  quips.forEach((quip,i)=>{
-    const qy = quipStartY + i*quipGap;
-    // Row background
-    ctx.fillStyle='#0c0c0c';
-    rrCanvas(ctx,60,qy-34,S-120,100,10); ctx.fill();
-    ctx.strokeStyle='#1a1a1a'; ctx.lineWidth=1; ctx.stroke();
-
-    // Accent dot
-    const dotColors=['#c9a84c','#3ecf8e','#4d9de8','#e84d4d'];
-    ctx.fillStyle=dotColors[i];
-    ctx.beginPath(); ctx.arc(88,qy+16,5,0,Math.PI*2); ctx.fill();
-
-    // Text — wrap if needed
-    ctx.font='bold 18px sans-serif'; ctx.fillStyle='#f0ede6';
-    // Split at numbers to highlight them
-    const parts = quip.split(/(\d[\d,.'KM]*)/g);
-    let tx=106;
-    parts.forEach(part=>{
-      const isNum=/^\d/.test(part);
-      ctx.fillStyle = isNum ? dotColors[i] : '#f0ede6';
-      ctx.font = isNum ? 'bold 22px monospace' : 'bold 17px sans-serif';
-      ctx.fillText(part,tx,qy+22);
-      tx += ctx.measureText(part).width + (isNum?2:0);
-    });
+  ctx.font='700 11px sans-serif';ctx.fillStyle=MUTED;ctx.textAlign='left';
+  ctx.fillText('MONTHLY SALARY',80,120);
+  ctx.font='700 72px monospace';ctx.fillStyle=WHITE;
+  ctx.fillText(f(salaryUSD),80,202);
+  // 3 secondary stats inline
+  ctx.font='700 13px monospace';ctx.fillStyle=DIM;
+  const secStats=[
+    `${f(workHourlyUSD)}/hr`,
+    `${f(dailyUSD)}/day`,
+    `${(workPerSecUSD*rate).toFixed(4)} ${s}/sec`,
+  ];
+  let sx=80;
+  secStats.forEach((st,i)=>{
+    if(i>0){ctx.fillStyle=BD2;ctx.fillRect(sx,256,1,16);sx+=12;}
+    ctx.fillStyle=DIM;ctx.fillText(st,sx,268);
+    sx+=ctx.measureText(st).width+24;
   });
 
-  // ── FOOTER ────────────────────────────────────────────────────────────
-  const fY=S-52;
-  ctx.fillStyle='rgba(201,168,76,0.05)'; ctx.fillRect(0,fY-24,S,76);
-  ctx.strokeStyle='rgba(201,168,76,0.12)'; ctx.lineWidth=1;
-  ctx.beginPath(); ctx.moveTo(0,fY-24); ctx.lineTo(S,fY-24); ctx.stroke();
+  // ── 3 STAT CARDS ROW ────────────────────────────────────────────────────
+  const cY=316, cH=168, cW=(S-120-24)/3;
+  const cards2=[
+    {
+      label:'SAVINGS RATE',
+      value:totalSpendUSD2>0?savingsPct2.toFixed(0)+'%':'—',
+      sub:totalSpendUSD2>0?(savingsPct2>=20?'On track':'Needs attention'):'Add spending data',
+      color:savingsPct2>=20?GREEN:savingsPct2>0?GOLD:RED
+    },
+    {
+      label:fireAge2?'RETIRE AT AGE':'FIRE NUMBER',
+      value:fireAge2||( fireNumUSD2>0?f(fireNumUSD2):'Add spending'),
+      sub:fireAge2?`in ${fireYrs2} years`:(fireNumUSD2>0?`${pctToFire2.toFixed(0)}% reached`:'4% rule · 25× expenses'),
+      color:fireAge2?(parseInt(fireAge2)<=50?GREEN:GOLD):GOLD
+    },
+    {
+      label:'PORTFOLIO',
+      value:portfolioUSD2>0?f(portfolioUSD2):'Not set',
+      sub:portfolioUSD2>0&&fireNumUSD2>0?`${pctToFire2.toFixed(1)}% of FIRE target`:'Add via ⚙ Edit',
+      color:BLUE
+    },
+  ];
+  cards2.forEach((card,i)=>{
+    const cx=60+i*(cW+12);
+    ctx.fillStyle=CARD2;rrCanvas(ctx,cx,cY,cW,cH,12);ctx.fill();
+    ctx.strokeStyle=BD;ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle=card.color;rrCanvas(ctx,cx,cY,cW,3,2);ctx.fill();
+    ctx.font='700 10px sans-serif';ctx.textAlign='center';ctx.fillStyle=MUTED;
+    ctx.fillText(card.label,cx+cW/2,cY+26);
+    const valSize=card.value.length>9?26:card.value.length>6?32:38;
+    ctx.font=`700 ${valSize}px monospace`;ctx.fillStyle=card.color;
+    ctx.fillText(card.value,cx+cW/2,cY+86);
+    ctx.font='700 12px sans-serif';ctx.fillStyle=MUTED;
+    ctx.fillText(card.sub,cx+cW/2,cY+114);
+    ctx.textAlign='left';
+  });
+
+  // ── 4 DATA ROWS ─────────────────────────────────────────────────────────
+  const rowStartY=508, rowH=116, rowGap=12;
+  const rows=[
+    // Row 1: karak & coffee time cost
+    (()=>{
+      const karakSecs=0.27/workPerSecUSD;
+      const t=karakSecs<60?karakSecs.toFixed(0)+'s':(karakSecs/60).toFixed(0)+'min';
+      const coffeeSecs=5/workPerSecUSD;
+      const ct=coffeeSecs<3600?(coffeeSecs/60).toFixed(0)+'min':(coffeeSecs/3600).toFixed(1)+'hr';
+      return {label:'TIME COST OF EVERYDAY THINGS',text:`Karak tea (1 AED) → ${t} of work   ·   Coffee → ${ct} of work`,color:GOLD};
+    })(),
+    // Row 2: spending breakdown or iPhone
+    (()=>{
+      if(totalSpendUSD2>0){
+        const topCat=SPEND_CATS.filter(c=>c.key!=='savings').reduce((mx,c)=>toUSD(spendData[c.key]||0)>toUSD(spendData[mx.key]||0)?c:mx,SPEND_CATS[0]);
+        const topPct=salaryUSD>0?(toUSD(spendData[topCat.key]||0)/salaryUSD*100).toFixed(0):'—';
+        return {label:'MONTHLY SPENDING',text:`Total: ${f(totalSpendUSD2)} (${(totalSpendUSD2/salaryUSD*100).toFixed(0)}% of salary)   ·   Biggest: ${topCat.label} at ${topPct}%`,color:leftoverUSD2<0?RED:GOLD};
+      } else {
+        const iphSecs=(1199*rate)/workPerSecUSD;
+        const it=iphSecs<28800?`${(iphSecs/3600).toFixed(1)} hours`:`${(iphSecs/28800).toFixed(0)} work days`;
+        return {label:'BUYING POWER',text:`iPhone 16 Pro Max (${d(1199)} ${s}) → ${it} of work   ·   Arabian Horse → ${(30000*rate/workHourlyUSD/8).toFixed(0)} work days`,color:GOLD};
+      }
+    })(),
+    // Row 3: left over / savings
+    (()=>{
+      if(totalSpendUSD2>0){
+        const surplusMonth=leftoverUSD2;
+        const surplusYear=surplusMonth*12;
+        const sign=surplusMonth>=0?'left over':'over budget';
+        return {label:'MONTHLY SURPLUS',text:`${f(Math.abs(surplusMonth))} ${sign} each month   ·   ${f(Math.abs(surplusYear))} per year`,color:surplusMonth>=0?GREEN:RED};
+      } else {
+        return {label:'ANNUAL EARNINGS',text:`${f(salaryUSD*12)} per year   ·   ${f(salaryUSD*40*12)} over 40-year career`,color:GOLD};
+      }
+    })(),
+    // Row 4: FIRE or investment
+    (()=>{
+      if(fireAge2){
+        return {label:'FINANCIAL INDEPENDENCE',text:`FIRE target: ${f(fireNumUSD2)}   ·   On current trajectory: retire at age ${fireAge2} in ${fireYrs2} years`,color:GREEN};
+      } else if(portfolioUSD2>0){
+        const annual=portfolioUSD2*((investData.returnPct||7)/100);
+        return {label:'INVESTMENT INCOME',text:`Portfolio: ${f(portfolioUSD2)}   ·   Annual return at ${investData.returnPct||7}%: ${f(annual)} (${f(annual/12)}/month)`,color:BLUE};
+      } else {
+        const workdays=(salaryUSD/workHourlyUSD/8).toFixed(0);
+        return {label:'YOUR TIME VALUE',text:`Monthly salary = ${workdays} days of work   ·   At ${(perSecUSD*rate).toFixed(4)} ${s}/sec, your clock never stops`,color:DIM};
+      }
+    })(),
+  ];
+
+  rows.forEach((row,i)=>{
+    const ry=rowStartY+i*(rowH+rowGap);
+    ctx.fillStyle=CARD;rrCanvas(ctx,60,ry,S-120,rowH,10);ctx.fill();
+    ctx.strokeStyle=BD;ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle=row.color;rrCanvas(ctx,60,ry,3,rowH,2);ctx.fill();
+    ctx.font='700 10px sans-serif';ctx.fillStyle=MUTED;
+    ctx.fillText(row.label,80,ry+24);
+    // Wrap text
+    ctx.font='700 18px sans-serif';ctx.fillStyle=WHITE;
+    const wlines=[];let cur='';
+    row.text.split(' ').forEach(w=>{
+      const test=cur?cur+' '+w:w;
+      if(ctx.measureText(test).width>S-180&&cur){wlines.push(cur);cur=w;}
+      else cur=test;
+    });
+    if(cur)wlines.push(cur);
+    let ty=ry+54;
+    wlines.slice(0,2).forEach(l=>{ctx.fillText(l,80,ty);ty+=26;});
+  });
+
+  // ── FOOTER ──────────────────────────────────────────────────────────────
+  const fY=S-56;
+  ctx.fillStyle='rgba(232,160,32,0.06)';ctx.fillRect(0,fY-4,S,60);
+  ctx.strokeStyle='rgba(232,160,32,0.18)';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,fY-4);ctx.lineTo(S,fY-4);ctx.stroke();
   ctx.textAlign='center';
-  ctx.font='bold 15px sans-serif'; ctx.fillStyle='#9a9590';
-  ctx.fillText('Are YOU poor? Find out →',S/2,fY+2);
-  ctx.font='bold 18px sans-serif'; ctx.fillStyle='#c9a84c';
-  ctx.fillText('amipoor.com',S/2,fY+26);
+  ctx.font='700 13px sans-serif';ctx.fillStyle=MUTED;ctx.fillText('Are you poor? Find out free at',S/2,fY+16);
+  ctx.font='800 20px sans-serif';ctx.fillStyle=GOLD;ctx.fillText('amipoor.com',S/2,fY+40);
   ctx.textAlign='left';
 
   const link=document.createElement('a');
-  link.download='amipoor-card.png'; link.href=canvas.toDataURL('image/png'); link.click();
-  toast('Card saved — post it! 📸');
+  link.download='amipoor-card.png';link.href=canvas.toDataURL('image/png');link.click();
+  toast('Card saved — share it! 📸');
+}
+
+function splitText(ctx,text,maxW){
+  const words=text.split(' '),lines=[];let cur='';
+  words.forEach(w=>{const test=cur?cur+' '+w:w;if(ctx.measureText(test).width>maxW&&cur){lines.push(cur);cur=w;}else cur=test;});
+  if(cur)lines.push(cur);return lines;
 }
 
 function rrCanvas(ctx,x,y,w,h,r){
@@ -2030,9 +2354,24 @@ function recalcInvest(){
   const rate       = currObj().rate;
   const salaryUSD  = toUSD(parseFloat(g('salary').value)||1000) * (MULT[mode]||1);
 
+  // Compute FIRE numbers first — needed by both empty and results states
+  const totalSpendUSD  = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+  const annualExpUSD   = totalSpendUSD * 12;
+  const fireNumberUSD  = annualExpUSD > 0 ? annualExpUSD * 25 : null;
+  const portfolioUSD   = toUSD(portfolio);
+  const pctToFire      = fireNumberUSD ? Math.min(100, (portfolioUSD / fireNumberUSD) * 100) : null;
+
   const empty = portfolio <= 0;
   g('investResults').style.display = empty ? 'none' : 'block';
-  g('investEmpty').style.display   = empty ? 'block' : 'none';
+  g('investEmpty').style.display   = empty ? 'flex' : 'none';
+  // Show FIRE number even when no portfolio
+  const emptyFire = g('investEmptyFire'), emptyFireNum = g('investEmptyFireNum');
+  if(emptyFire && emptyFireNum && totalSpendUSD > 0){
+    emptyFire.style.display = 'block';
+    emptyFireNum.textContent = fmtK(fireNumberUSD);
+  } else if(emptyFire){
+    emptyFire.style.display = 'none';
+  }
   if (empty) return;
 
   // Monthly passive income = portfolio × annual_return / 12  (in USD)
@@ -2053,12 +2392,7 @@ function recalcInvest(){
   const fvTotal = fvLump + fvContrib;
   const fvMonthly = fvTotal * (retPct/100) / 12;
 
-  // FIRE number = 25 × annual expenses — all computed in USD
-  const totalSpendUSD  = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
-  const annualExpUSD   = totalSpendUSD * 12;
-  const fireNumberUSD  = annualExpUSD > 0 ? annualExpUSD * 25 : null;
-  const portfolioUSD   = toUSD(portfolio);  // portfolio entered in local currency → USD
-  const pctToFire      = fireNumberUSD ? Math.min(100, (portfolioUSD / fireNumberUSD) * 100) : null;
+  // FIRE number already computed above — use directly
 
   // ── UI ──
   // Combined income bar
@@ -2071,8 +2405,8 @@ function recalcInvest(){
   // Stats
   g('invMonthly').textContent    = fmtK(monthlyPassiveUSD);
   g('invMonthlySub').textContent = s + '/month passive';
-  g('invPerSec').textContent     = (perSecPassiveUSD * rate).toFixed(6);
-  g('invPerSecSub').textContent  = s + '/sec passive';
+  g('invPerSec').textContent     = fmtK(annualReturnUSD);
+  g('invPerSecSub').textContent  = s + '/year passive';
   g('invVsSalary').textContent   = pctOfSalary.toFixed(1) + '%';
 
   // Projection
@@ -2100,6 +2434,9 @@ function recalcInvest(){
       Math.max(0, leftoverUSD),
       toUSD(monthlyAdd)
     );
+    // Update header score
+    const savPct = salaryUSD>0?Math.max(0,(leftoverUSD/salaryUSD)*100):0;
+    updateHeaderScore(savPct, pctToFire);
   } else {
     g('investFire').style.display = 'none';
     showInsight('invFireInsight', null);
@@ -2361,7 +2698,7 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
       btn.disabled = false;
       btn.style.opacity = '1';
       btn.textContent = '✦ Generate My Personalized Financial Plan (FREE)';
-      toast("You've used today's AI plan — come back tomorrow for a fresh one!");
+      toast("You've used both plans for today — come back tomorrow for a fresh analysis!");
       return;
     }
 
@@ -2404,6 +2741,12 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
 
     setPlanProgress(100, 'Done! Your plan is downloading...');
     setTimeout(()=>{ if(g('planProgress')) g('planProgress').style.display='none'; }, 2000);
+
+    // Refresh social proof counter
+    fetch('https://amipoor-api.wisaam-farhat.workers.dev/count')
+      .then(r=>r.json())
+      .then(d=>{ const sp=g('planSocialProof'); if(sp&&d.count) sp.textContent=`📄 ${d.count.toLocaleString()} people have downloaded their plan`; })
+      .catch(()=>{});
 
   } catch(err) {
     console.error('Plan generation error:', err);
@@ -2730,7 +3073,7 @@ function buildPlanPDF(ai, d){
   });
 
   // Mode + date + disclaimer below box
-  const mLabel={realistic:'Realistic',optimistic:'Glow Up +35%',fantasy:'Delusional x5'}[mode]||mode;
+  const mLabel={realistic:'Today',optimistic:'Promoted (+40%)',fantasy:'Made it (×4)'}[mode]||mode;
   const belowBox=boxY+boxH+6;
   doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(100,95,90);
   doc.text(`Mode: ${mLabel}   |   ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`,ml,belowBox);
@@ -2924,6 +3267,12 @@ function submitBug(){
 buildCurrencySelects();
 buildEdCurrencySelect();
 loadDonut();
+// Show currency notice on first visit
+try{
+  if(!localStorage.getItem('waiw2')){
+    setTimeout(()=>showCurrencyNotice(currency), 1200);
+  }
+}catch(e){}
 
 const hasData = loadSaved();
 if(hasData){
@@ -2933,6 +3282,81 @@ if(hasData){
   // Set defaults into hidden fields
   set('salary',1000); set('hours',40); set('age',30); set('coffee',10);
 }
+
+// ── THEME TOGGLE ─────────────────────────────────────────────────────────────
+function toggleTheme(){
+  const root=document.documentElement;
+  const isLight=root.getAttribute('data-theme')==='light';
+  root.setAttribute('data-theme',isLight?'dark':'light');
+  const btn=g('themeToggle'); if(btn) btn.textContent=isLight?'☀️':'🌙';
+  try{localStorage.setItem('waiw_theme',isLight?'dark':'light');}catch(e){}
+}
+function loadTheme(){
+  try{
+    const t=localStorage.getItem('waiw_theme')||'dark';
+    document.documentElement.setAttribute('data-theme',t);
+    const btn=g('themeToggle'); if(btn) btn.textContent=t==='light'?'🌙':'☀️';
+  }catch(e){}
+}
+loadTheme();
+
+// ── ONBOARDING STEP NAV ───────────────────────────────────────────────────────
+let obStep=0;
+function obNext(){
+  if(obStep<2){ obStep++; obGoTo(obStep); }
+  else{ startApp(); }
+}
+function obBack(){
+  if(obStep>0){ obStep--; obGoTo(obStep); }
+}
+function obGoTo(n){
+  [0,1,2].forEach(i=>{
+    const p=g('ob-p'+i); if(p) p.classList.toggle('active',i===n);
+    const d=g('ob-dot'+i); if(d) d.style.background=i<=n?'var(--gold)':'var(--border2)';
+  });
+  const back=g('ob-back'),next=g('ob-next');
+  if(back) back.style.display=n>0?'block':'none';
+  if(next) next.textContent=n<2?'Next →':'Show me the truth →';
+}
+
+// ── HEADER SCORE ─────────────────────────────────────────────────────────────
+function updateHeaderScore(savingsPct,pctToFire){
+  const el=g('headerScore'); if(!el) return;
+  if(savingsPct<=0&&pctToFire<=0){el.style.display='none';return;}
+  el.style.display='flex';
+  const hs=g('headerSavings'),hf=g('headerFire');
+  if(hs){hs.textContent=savingsPct>0?savingsPct.toFixed(0)+'%':'—';hs.style.color=savingsPct>=20?'var(--green)':savingsPct>0?'var(--gold)':'var(--red)';}
+  if(hf) hf.textContent=pctToFire>0?pctToFire.toFixed(0)+'%':'—';
+}
+
+// ── CURRENCY DETECTION NOTICE ─────────────────────────────────────────────────
+function showCurrencyNotice(currCode){
+  const el=g('currNotice'),txt=g('currNoticeCurr'); if(!el||!txt) return;
+  txt.textContent=currCode; el.style.display='flex';
+  setTimeout(()=>{el.style.display='none';},6000);
+}
+
+// ── MOBILE: iOS viewport fix ──────────────────────────────────────────────────
+function setVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*0.01+'px');}
+setVH(); window.addEventListener('resize',setVH);
+
+// ── TEASER BAR ──
+let _teaserDismissed = false;
+
+// Pulse the plan button after 10 seconds to draw attention
+setTimeout(()=>{
+  const btn = g('planBtn');
+  if(btn){
+    btn.classList.add('plan-pulse');
+    btn.addEventListener('animationend', ()=> btn.classList.remove('plan-pulse'), {once:true});
+  }
+}, 10000);
+function dismissTeaser(){ _teaserDismissed=true; const t=document.getElementById('aiTeaser'); if(t){t.style.transform='translateY(100%)'; setTimeout(()=>t.style.display='none',400);} }
+setTimeout(()=>{
+  if(_teaserDismissed) return;
+  const t=document.getElementById('aiTeaser');
+  if(t){ t.style.display='flex'; requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ t.style.transform='translateY(0)'; }); }); }
+}, 30000);
 
 // Retire slider wire
 const _sl=g('retireSlider');
