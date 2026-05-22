@@ -41,7 +41,7 @@
 <!-- ═══ FONTS ═══ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -54,7 +54,7 @@
   --green:#2ecc8a;--green-bg:rgba(46,204,138,0.10);--green-border:rgba(46,204,138,0.25);
   --red:#f05050;--red-bg:rgba(240,80,80,0.08);--red-border:rgba(240,80,80,0.20);
   --blue:#60b4f8;--amber:#f5a623;
-  --mono:'DM Mono',monospace;--sans:'Syne',sans-serif;
+  --mono:'Inter',sans-serif;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;
   --r:12px;--r2:16px;
 }
 html{scroll-behavior:smooth}
@@ -112,7 +112,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .glow-orb{position:fixed;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.10) 0%,rgba(232,160,32,0.04) 40%,transparent 70%);top:-350px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
 
 .topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-size:15px;font-weight:800;letter-spacing:-0.3px}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-0.2px}
 .logo span{color:var(--gold)}
 .topbar-right{display:flex;align-items:center;gap:8px}
 .curr-select{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 8px;color:var(--text2);font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;outline:none;max-width:140px}
@@ -160,7 +160,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 .main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:32px 24px 0}
 .hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
-.hero-title{font-size:clamp(36px,9vw,56px);font-weight:800;line-height:1.08;letter-spacing:-1px;margin-bottom:10px}
+.hero-title{font-family:var(--display);font-size:clamp(36px,9vw,54px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:10px}
 .hero-title .accent{color:transparent;background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);-webkit-background-clip:text;background-clip:text}
 .hero-sub{font-size:15px;line-height:1.6;color:var(--text2);margin-bottom:28px}
 
@@ -444,87 +444,126 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 :root[data-theme="light"] #emailModal{background:var(--bg2);border-top-color:var(--border);box-shadow:0 -8px 24px rgba(0,0,0,0.1)}
 
 /* ═══ RESPONSIVE ═══ */
-@media(max-width:480px){
-  /* Layout */
-  .main{padding:20px 14px 0}
-  /* Topbar — hide clock on mobile, tight spacing */
+@media(max-width:430px){
+  /* ── Layout */
+  .main{padding:16px 14px 0}
+
+  /* ── Topbar */
   .topbar{padding:0 12px;height:46px}
-  .logo{font-size:15px}
+  .logo{font-size:14px}
   #headerScore{display:none!important}
   #clockBadge{display:none!important}
-  .topbar-right{gap:5px}
-  .curr-select{max-width:72px;font-size:10px;padding:3px 4px}
-  #themeToggle{padding:4px 7px;font-size:13px}
-  .icon-btn{padding:4px 9px;font-size:10px}
-  /* Hero */
-  .hero-eyebrow{font-size:9px;margin-bottom:8px;letter-spacing:1.5px}
-  .hero-title{font-size:clamp(30px,8.5vw,44px);letter-spacing:-0.5px;line-height:1.1;margin-bottom:8px}
-  .hero-sub{font-size:13px;line-height:1.5;margin-bottom:20px}
-  /* Mode tabs */
+  .topbar-currency{display:none!important}
+  .topbar-right{gap:6px}
+  #themeToggle{padding:4px 8px;font-size:13px}
+  .icon-btn{padding:5px 10px;font-size:11px}
+
+  /* ── Hero */
+  .hero-eyebrow{font-size:9px;margin-bottom:6px;letter-spacing:1.5px}
+  .hero-title{font-size:clamp(28px,8vw,40px);letter-spacing:-0.3px;line-height:1.12;margin-bottom:8px}
+  .hero-sub{font-size:13px;line-height:1.5;margin-bottom:18px}
+
+  /* ── Mode tabs — wrap naturally */
   .mode-tabs{gap:4px;margin-bottom:14px}
   .mode-tab{font-size:10px;padding:6px 10px;letter-spacing:0}
-  /* Counter */
+
+  /* ── Counter card */
   .counter-card{padding:16px 14px}
-  .counter-amount{font-size:clamp(32px,9vw,50px)}
-  .counter-label{font-size:11px}
-  .mini-grid{grid-template-columns:1fr 1fr;gap:8px}
-  .mini-card{padding:10px 10px}
-  .mini-label{font-size:9px}
-  .mini-value{font-size:18px}
-  /* Sections */
-  .section{padding:16px 14px;margin-bottom:24px}
-  .section-head{gap:6px;margin-bottom:14px;flex-wrap:wrap}
-  .sec-num{width:24px;height:24px;font-size:9px}
-  .sec-title{font-size:14px}
+  .counter-label{flex-direction:column;align-items:flex-start;gap:4px}
+  .counter-amount{font-size:clamp(30px,8vw,46px);letter-spacing:-1px}
+  .mini-grid{grid-template-columns:1fr 1fr;gap:6px}
+  .mini-card{padding:9px 10px}
+  .mini-label{font-size:8px}
+  .mini-value{font-size:16px}
+  .mini-sub{font-size:9px}
+
+  /* ── Sections */
+  .section{padding:14px 12px;margin-bottom:20px;border-radius:12px}
+  .section-head{gap:6px;margin-bottom:12px;flex-wrap:nowrap;align-items:flex-start}
+  .sec-num{width:22px;height:22px;font-size:8px;flex-shrink:0;margin-top:3px}
+  .sec-title{font-size:14px;line-height:1.2}
   .sec-subtitle{font-size:10px}
-  /* Onboarding */
-  .ob-card{padding:20px 14px;border-radius:16px}
-  .ob-title{font-size:22px}
-  .ob-grid{grid-template-columns:1fr}
-  .ob-field.full{grid-column:span 1}
-  .ob-inp{font-size:14px}
-  /* Compare */
-  .compare-row{padding:10px 12px;gap:8px}
-  .cmp-emoji{font-size:20px}
-  .cmp-name{font-size:12px}
-  .cmp-price{font-size:10px}
-  .cmp-qty{font-size:20px}
-  #wowStat{flex-direction:column;align-items:flex-start;gap:6px;padding:14px}
-  #wowNum{font-size:32px}
-  /* Spending */
-  .spend-summary{grid-template-columns:1fr}
+  .spend-edit-btn,.add-items-btn{font-size:10px;padding:4px 8px}
+
+  /* ── Wow stat */
+  #wowStat{flex-direction:column;align-items:flex-start;gap:4px;padding:12px}
+  #wowText{font-size:12px}
+  #wowNum{font-size:30px}
+  #wowUnit{font-size:10px}
+
+  /* ── Compare rows */
+  .compare-row{padding:10px 12px;gap:8px;flex-wrap:nowrap}
+  .cmp-emoji{font-size:18px}
+  .cmp-name{font-size:11px}
+  .cmp-price{font-size:9px}
+  .cmp-qty{font-size:18px}
+  .cmp-qty-label{font-size:9px}
+
+  /* ── Spending */
+  .spend-summary{grid-template-columns:1fr 1fr}
   .spend-sum-item{border-right:none;border-bottom:1px solid var(--border)}
   .spend-sum-item:last-child{border-bottom:none}
-  .spend-card{padding:14px}
-  /* Savings */
+  .spend-card{padding:12px}
+  .spend-stacked-bar{height:10px}
+  .spend-edit-grid{grid-template-columns:1fr}
+
+  /* ── Savings */
   .savings-hero{flex-direction:column;gap:12px}
   .savings-stats{grid-template-columns:1fr 1fr}
-  .savings-insight{padding-left:0;font-size:12px}
-  /* Picker */
+  .savings-insight{padding-left:0;font-size:11px}
+
+  /* ── Picker */
   .picker-grid{grid-template-columns:1fr 1fr}
-  /* Life */
+
+  /* ── Life (bigger picture) */
   .life-grid{grid-template-columns:1fr 1fr}
-  /* Donut */
-  .donut-card{flex-direction:column;align-items:flex-start;gap:12px}
-  /* Invest */
-  .invest-input-grid{grid-template-columns:1fr}
+  .life-card{padding:12px}
+  .lc-val{font-size:22px}
+
+  /* ── Donut */
+  .donut-card{flex-direction:column;align-items:flex-start;gap:10px}
+
+  /* ── Invest */
   .invest-stats{grid-template-columns:1fr 1fr}
   .invest-proj-breakdown{grid-template-columns:1fr 1fr}
-  /* Plan teaser */
-  #planTeaser{padding:14px}
-  #planTeaser .teaser-grid{grid-template-columns:1fr 1fr}
-  /* Sticky bars */
-  #aiTeaser{padding:10px 12px;gap:8px}
-  #aiTeaser button:first-of-type{font-size:11px;padding:7px 10px}
-  #emailModal{padding:12px 14px 22px;gap:8px}
-  /* Retire */
-  .retire-breakdown{grid-template-columns:1fr 1fr}
-  /* Spend edit */
-  .spend-edit-grid{grid-template-columns:1fr}
-  /* Edit drawer */
+  .invest-fire-val{font-size:20px}
+
+  /* ── Onboarding */
+  .ob-card{padding:20px 14px;border-radius:16px}
+  .ob-title{font-size:20px}
+  .ob-sub{font-size:12px}
+  .ob-grid{grid-template-columns:1fr}
+  .ob-field.full{grid-column:span 1}
+  .ob-inp{font-size:14px;padding:10px 12px}
+  .ob-tabs{gap:4px}
+  .ob-tab{font-size:10px;padding:7px 6px}
+
+  /* ── Edit drawer */
   #editDrawer .ob-grid{grid-template-columns:1fr}
-  /* Progress bar text */
+  #editDrawer{padding:0 0 60px}
+
+  /* ── Plan teaser */
+  #planTeaser{padding:12px}
+  #planTeaser > div:first-child{font-size:9px}
+  #teaserHeadline{font-size:13px}
+  #wowNum{font-size:30px}
+
+  /* ── AI plan section */
+  #planProgress{padding:10px 12px}
   #planProgressText{font-size:11px}
+
+  /* ── Sticky bars */
+  #aiTeaser{padding:10px 12px;gap:6px}
+  #emailModal{padding:12px 14px 24px;gap:8px}
+
+  /* ── Retire breakdown */
+  .retire-breakdown{grid-template-columns:1fr 1fr}
+
+  /* ── Share section */
+  .sbtn{padding:12px;font-size:13px}
+
+  /* ── Insights */
+  #donutInsight,#spendInsight,#retireFireInsight,#invFireInsight{font-size:11px}
 }
 </style>
 </head>
@@ -660,7 +699,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     </div>
   </div>
   <div class="topbar-right">
-    <select id="currencySelect" class="curr-select" onchange="setCurrencyFromSelect(this)"></select>
+    <select id="currencySelect" class="curr-select topbar-currency" onchange="setCurrencyFromSelect(this)"></select>
     <div id="clockBadge" style="font-family:var(--mono);font-size:12px;font-weight:500;color:var(--text2);letter-spacing:0.5px;padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px">--:--:--</div>
     <button id="themeToggle" onclick="toggleTheme()" style="background:none;border:1px solid var(--border2);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:14px;color:var(--text2);line-height:1" title="Toggle light/dark mode">☀️</button>
     <button class="icon-btn" onclick="openEditDrawer()">⚙ Edit</button>
@@ -787,7 +826,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
 
     <p class="hero-eyebrow">Your money · live · any currency</p>
-    <h1 class="hero-title">Every second<br><span class="accent">counts.</span></h1>
+    <h1 class="hero-title">Every second <span class="accent">counts.</span></h1>
     <p class="hero-sub">Your salary is ticking right now. See exactly what your time is worth — and get a free AI plan that tells you when you can stop working.</p>
 
     <div class="mode-tabs">
@@ -1120,7 +1159,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
       <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(232,160,32,0.12),transparent 70%);pointer-events:none"></div>
 
       <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px">✦ Most popular feature</div>
-      <div style="font-size:20px;font-weight:800;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2">Get your AI financial plan<br><span style="color:var(--gold)">in 30 seconds. Free.</span></div>
+      <div style="font-size:19px;font-weight:800;color:var(--text);letter-spacing:-0.4px;margin-bottom:6px;line-height:1.3">Get your <span style="color:var(--gold)">free AI financial plan</span> in 30 seconds.</div>
       <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Claude AI reads all your numbers and writes a personalised plan — what to cut, how to invest, when you can retire. Downloads as a PDF.</div>
 
       <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px">
