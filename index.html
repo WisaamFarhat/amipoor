@@ -2662,38 +2662,72 @@ function computeInvestFireInsight(fireNumUSD, currentPortfolioUSD, monthlySaving
 }
 // ── FINANCIAL PLAN PDF (AI-powered) ──────────────────────────────────────────
 // ── PLAN PROGRESS ────────────────────────────────────────────────────────────
-let _progressTarget = 0;
-let _progressCurrent = 0;
 let _progressRaf = null;
+let _progressCrawling = false;
+let _progressStart = 0;
 
 function setPlanProgress(pct, text){
-  const bar  = g('planProgressBar');
-  const txt  = g('planProgressText');
+  // Only update the text label — bar is driven by the crawl
   const prog = g('planProgress');
+  const txt  = g('planProgressText');
   if(prog) prog.style.display = 'block';
   if(txt && text) txt.textContent = text;
+}
 
-  _progressTarget = pct;
+function startPlanProgress(){
+  _progressCrawling = true;
+  _progressStart = performance.now();
+  const bar = g('planProgressBar');
+  if(bar){ bar.style.transition=''; bar.style.width='0%'; }
 
-  // Animate smoothly toward target
+  // Ease-out curve over 28s: fast at start, decelerates toward 95%
+  const DURATION = 28000;
   if(_progressRaf) cancelAnimationFrame(_progressRaf);
-  function crawl(){
-    const diff = _progressTarget - _progressCurrent;
-    if(Math.abs(diff) < 0.3){
-      _progressCurrent = _progressTarget;
-      if(bar) bar.style.width = _progressCurrent + '%';
-      // If not at 100, keep slowly inching forward toward target
-      if(_progressCurrent < 100){
-        _progressRaf = requestAnimationFrame(crawl);
-      }
-      return;
-    }
-    // Move faster when gap is large, slower as we approach target
-    _progressCurrent += diff * 0.04;
-    if(bar) bar.style.width = _progressCurrent.toFixed(1) + '%';
-    _progressRaf = requestAnimationFrame(crawl);
+
+  function frame(now){
+    if(!_progressCrawling) return;
+    const b = g('planProgressBar');
+    if(!b) return;
+    const t = Math.min((now - _progressStart) / DURATION, 1);
+    // easeOutQuart — rushes to ~60% quickly, then slows way down
+    const eased = 1 - Math.pow(1 - t, 3);
+    const pct = 95 * eased;
+    b.style.width = pct.toFixed(2) + '%';
+    if(t < 1) _progressRaf = requestAnimationFrame(frame);
   }
-  crawl();
+  _progressRaf = requestAnimationFrame(frame);
+
+  // Text messages — timed to feel natural with the curve
+  const messages = [
+    { at: 800,   text: 'Gathering your financial data...' },
+    { at: 3000,  text: 'Claude is reading your numbers...' },
+    { at: 7000,  text: 'Analysing your spending patterns...' },
+    { at: 11000, text: 'Calculating your FIRE timeline...' },
+    { at: 15000, text: 'Writing your personalised analysis...' },
+    { at: 20000, text: 'Almost there...' },
+  ];
+  const timers = messages.map(m => setTimeout(() => {
+    const txt = g('planProgressText'); if(txt) txt.textContent = m.text;
+  }, m.at));
+
+  return function cancel(){
+    _progressCrawling = false;
+    if(_progressRaf){ cancelAnimationFrame(_progressRaf); _progressRaf = null; }
+    timers.forEach(clearTimeout);
+  };
+}
+
+function finishProgress(){
+  _progressCrawling = false;
+  if(_progressRaf){ cancelAnimationFrame(_progressRaf); _progressRaf = null; }
+  const bar = g('planProgressBar');
+  if(bar){
+    bar.style.transition = 'width 0.5s ease';
+    bar.style.width = '100%';
+    setTimeout(()=>{ bar.style.transition=''; }, 600);
+  }
+  const txt = g('planProgressText');
+  if(txt) txt.textContent = 'Done! Your plan is downloading...';
 }
 
 async function generatePlan(){
@@ -2702,9 +2736,13 @@ async function generatePlan(){
   btn.style.opacity = '0.7';
   btn.textContent = '⏳ Generating...';
 
+  // Show progress bar and start continuous crawl
+  const prog = g('planProgress');
+  if(prog) prog.style.display = 'block';
+  const cancelProgress = startPlanProgress();
+
   try {
-    // ── Step 1: Build financial snapshot
-    setPlanProgress(10, 'Gathering your financial data...');
+    // ── Build financial snapshot
     const s           = sym();
     const rt          = currObj().rate;
     const salaryLocal = parseFloat(g('salary').value)||0;
@@ -2736,15 +2774,11 @@ async function generatePlan(){
     function disp(usd,d){ const v=usd*rt; if(d!==undefined) return v.toFixed(d); if(v>=1e6) return (v/1e6).toFixed(2)+'M'; if(v>=1000) return (v/1000).toFixed(0)+'K'; return v.toFixed(0); }
     function dispFull(usd){ return `${disp(usd)} ${s}`; }
 
-    // Build spending breakdown string
     const spendBreakdown = SPEND_CATS.filter(c=>c.key!=='savings').map(cat=>{
       const v=toUSD(spendData[cat.key]||0);
       if(v===0) return null;
       return `${cat.label}: ${dispFull(v)}/mo (${salaryUSD>0?(v/salaryUSD*100).toFixed(0):0}% of income)`;
     }).filter(Boolean).join(', ');
-
-    // ── Step 2: Call Claude API
-    setPlanProgress(25, 'Sending to Claude AI for analysis...');
 
     const prompt = `You are a frank, direct personal finance advisor. A user has shared their complete financial data. Write a personalised financial plan analysis. Be specific, honest, and use their actual numbers throughout.
 
@@ -2777,67 +2811,38 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
   "closing": "One motivating but realistic closing sentence. Reference their specific FIRE age or timeline."
 }`;
 
-    // ── Step 2: Call Claude via Cloudflare Worker (keeps API key secret)
+    // ── Call Worker
     const WORKER_URL = 'https://amipoor-api.wisaam-farhat.workers.dev/plan';
-    setPlanProgress(25, 'Sending your data to Claude AI...');
-
-    // Slowly crawl the bar and rotate messages while waiting for Claude
-    const waitMessages = [
-      'Claude is reading your financial data...',
-      'Analysing your spending patterns...',
-      'Calculating your FIRE timeline...',
-      'Writing your personalised analysis...',
-      'Almost there...',
-    ];
-    let waitMsgIdx = 0;
-    setPlanProgress(30, waitMessages[0]);
-    const waitInterval = setInterval(()=>{
-      if(waitMsgIdx < waitMessages.length - 1){
-        waitMsgIdx++;
-        const txt = g('planProgressText');
-        if(txt) txt.textContent = waitMessages[waitMsgIdx];
-        if(_progressTarget < 75) setPlanProgress(_progressTarget + 6, null);
-      }
-      // Once at last message, stop cycling — just let the bar sit and wait
-    }, 2800);
-
     const response = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt })
     });
 
-    clearInterval(waitInterval);
-
-    // Handle rate limiting gracefully
+    // Handle rate limiting
     if(response.status === 429){
-      g('planProgress') && (g('planProgress').style.display='none');
-      btn.disabled = false;
-      btn.style.opacity = '1';
+      cancelProgress();
+      if(prog) prog.style.display='none';
+      btn.disabled = false; btn.style.opacity='1';
       btn.textContent = '✦ Generate My Personalized Financial Plan (FREE)';
       toast("You've used both plans for today — come back tomorrow for a fresh analysis!");
       return;
     }
 
-    setPlanProgress(65, 'Claude is writing your analysis...');
-
     if(!response.ok) throw new Error(`API error: ${response.status}`);
     const data = await response.json();
     const rawText = data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
 
-    // Parse JSON response
     let aiContent;
     try {
       const cleaned = rawText.replace(/```json|```/g,'').trim();
       aiContent = JSON.parse(cleaned);
     } catch(e) {
-      console.warn('JSON parse failed, using raw text');
+      console.warn('JSON parse failed, using fallback');
       aiContent = {
         headline: 'Your Personal Financial Analysis',
         diagnosis: rawText.slice(0,300),
-        budget_analysis: '',
-        fire_analysis: '',
-        investment_take: '',
+        budget_analysis: '', fire_analysis: '', investment_take: '',
         action1: 'Review your spending breakdown above',
         action2: 'Set a monthly investment contribution',
         action3: 'Track your savings rate monthly',
@@ -2845,8 +2850,9 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
       };
     }
 
-    // ── Step 3: Build PDF with AI content
-    setPlanProgress(80, 'Building your PDF...');
+    // ── Build PDF
+    cancelProgress();
+    finishProgress();
     await buildPlanPDF(aiContent, {
       s, rt, disp, dispFull,
       salaryUSD, workHourlyUSD, dailyUSD, hours, age,
@@ -2856,9 +2862,7 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
       pctToFire, fv10, sleepH, commuteH
     });
 
-    setPlanProgress(100, 'Done! Your plan is downloading...');
-    setTimeout(()=>{ if(g('planProgress')) g('planProgress').style.display='none'; }, 2000);
-    // Show email capture modal after a short delay
+    setTimeout(()=>{ if(prog) prog.style.display='none'; }, 2000);
     setTimeout(()=>showEmailModal(), 2500);
 
     // Refresh social proof counter
@@ -2868,12 +2872,11 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
       .catch(()=>{});
 
   } catch(err) {
-    if(typeof waitInterval !== 'undefined') clearInterval(waitInterval);
+    cancelProgress();
+    if(prog) prog.style.display='none';
     console.error('Plan generation error:', err);
     const msg = err.message && err.message.length < 100 ? err.message : 'Could not reach AI — generating basic plan instead';
     toast(msg);
-    g('planProgress') && (g('planProgress').style.display='none');
-    // Fallback to basic plan
     try { await buildPlanPDF(null, null); } catch(e2) { console.error(e2); }
   }
 
@@ -2881,6 +2884,38 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
   btn.style.opacity = '1';
   btn.textContent = '✦ Generate My Personalized Financial Plan (FREE)';
 }
+    const rt          = currObj().rate;
+    const salaryLocal = parseFloat(g('salary').value)||0;
+    const hours       = parseFloat(g('hours').value)||40;
+    const age         = parseFloat(g('age').value)||30;
+    const salaryUSD   = toUSD(salaryLocal)*(MULT[mode]||1);
+    const workHourlyUSD = salaryUSD/(hours*52/12);
+    const dailyUSD    = salaryUSD/30;
+    const totalSpendUSD = SPEND_CATS.filter(c=>c.key!=='savings').reduce((sum,c)=>sum+toUSD(spendData[c.key]||0),0);
+    const leftoverUSD = salaryUSD - totalSpendUSD;
+    const savingsPct  = salaryUSD>0?Math.max(0,(leftoverUSD/salaryUSD)*100):0;
+    const annualExpUSD= totalSpendUSD*12;
+    const fireNumUSD  = annualExpUSD*25;
+    const portfolioUSD= toUSD(investData.portfolio||0);
+    const retPct      = investData.returnPct||7;
+    const monthlyContribUSD = toUSD(investData.monthly||0);
+    const monthlySavingsUSD = Math.max(0,leftoverUSD);
+    const totalMonthlyUSD   = monthlySavingsUSD + monthlyContribUSD;
+    const r=0.07/12;
+    let fireMonths=0, bal=portfolioUSD;
+    if(totalMonthlyUSD>0&&fireNumUSD>0){ while(bal<fireNumUSD&&fireMonths<1200){bal=bal*(1+r)+totalMonthlyUSD;fireMonths++;} }
+    const fireYears = fireMonths>0&&fireMonths<1200?(fireMonths/12).toFixed(1):null;
+    const fireAge   = fireYears?(age+parseFloat(fireYears)).toFixed(0):null;
+    const pctToFire = fireNumUSD>0?Math.min(100,(portfolioUSD/fireNumUSD)*100):0;
+    let fv10=portfolioUSD; for(let m2=0;m2<120;m2++) fv10=fv10*(1+r)+(totalMonthlyUSD||0);
+    const sleepH    = parseFloat((g('donut-sleep')&&g('donut-sleep').value)||7.5);
+    const commuteH  = parseFloat((g('donut-commute')&&g('donut-commute').value)||1);
+
+    function disp(usd,d){ const v=usd*rt; if(d!==undefined) return v.toFixed(d); if(v>=1e6) return (v/1e6).toFixed(2)+'M'; if(v>=1000) return (v/1000).toFixed(0)+'K'; return v.toFixed(0); }
+    function dispFull(usd){ return `${disp(usd)} ${s}`; }
+
+    // Build spending breakdown string
+
 
 function buildPlanPDF(ai, d){
   const {jsPDF}=window.jspdf;
