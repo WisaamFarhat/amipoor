@@ -159,10 +159,10 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .ob-page.active{display:block}
 
 .main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:32px 24px 0}
-.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:10px}
-.hero-title{font-size:clamp(32px,6.5vw,50px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;margin-bottom:6px}
+.hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.hero-title{font-size:clamp(36px,9vw,56px);font-weight:800;line-height:1.08;letter-spacing:-1px;margin-bottom:10px}
 .hero-title .accent{color:transparent;background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);-webkit-background-clip:text;background-clip:text}
-.hero-sub{font-size:14px;color:var(--text2);margin-bottom:24px}
+.hero-sub{font-size:15px;line-height:1.6;color:var(--text2);margin-bottom:28px}
 
 .sg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .sl{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--text3);text-transform:uppercase;margin-bottom:5px}
@@ -438,53 +438,88 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 .invest-fire-val{font-family:var(--mono);font-size:26px;font-weight:500;color:var(--green);letter-spacing:-1px;margin-bottom:4px;font-variant-numeric:tabular-nums}
 .invest-fire-sub{font-size:11px;color:var(--text3)}
 
+/* ── EMAIL CAPTURE BAR ───────────────────────────────────────────── */
+#emailModal{position:fixed;bottom:0;left:0;right:0;z-index:600;background:var(--bg2);border-top:1px solid var(--border2);padding:18px 20px 28px;display:none;flex-direction:column;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 -8px 32px rgba(0,0,0,0.4)}
+#emailModal.open{display:flex;transform:translateY(0)}
+:root[data-theme="light"] #emailModal{background:var(--bg2);border-top-color:var(--border);box-shadow:0 -8px 24px rgba(0,0,0,0.1)}
+
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:480px){
-  .main{padding:24px 16px 0}
-  .picker-grid{grid-template-columns:1fr 1fr}
+  /* Layout */
+  .main{padding:20px 14px 0}
+  /* Topbar */
+  .topbar{padding:0 12px;height:46px}
+  .logo{font-size:15px}
+  #headerScore{display:none!important}
+  #clockBadge{display:none}
+  .icon-btn{padding:4px 8px;font-size:10px}
+  #themeToggle{padding:4px 6px;font-size:12px}
+  .curr-select{max-width:80px;font-size:10px}
+  /* Hero */
+  .hero-eyebrow{font-size:9px;margin-bottom:8px}
+  .hero-title{font-size:clamp(30px,8.5vw,44px);letter-spacing:-0.5px;line-height:1.1;margin-bottom:8px}
+  .hero-sub{font-size:13px;line-height:1.5;margin-bottom:20px}
+  /* Mode tabs */
+  .mode-tabs{gap:4px;margin-bottom:14px}
+  .mode-tab{font-size:10px;padding:6px 10px;letter-spacing:0}
+  /* Counter */
+  .counter-card{padding:16px 14px}
+  .counter-amount{font-size:clamp(32px,9vw,50px)}
+  .counter-label{font-size:11px}
+  .counter-meta{gap:8px}
+  .cmeta{font-size:10px}
+  .mini-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .mini-card{padding:10px 10px}
+  .mini-label{font-size:9px}
+  .mini-value{font-size:18px}
+  /* Sections */
+  .section{padding:16px 14px;margin-bottom:24px}
+  .section-head{gap:6px;margin-bottom:14px}
+  .sec-num{font-size:9px;padding:3px 7px}
+  .sec-title{font-size:14px}
+  .sec-subtitle{font-size:10px}
+  /* Onboarding */
+  .ob-card{padding:20px 14px;border-radius:16px}
+  .ob-title{font-size:22px}
+  .ob-grid{grid-template-columns:1fr}
+  .ob-field.full{grid-column:span 1}
+  /* Compare */
+  .compare-row{padding:10px 12px;gap:8px}
+  .cmp-emoji{font-size:20px}
+  .cmp-name{font-size:12px}
+  .cmp-price{font-size:10px}
+  .cmp-qty{font-size:20px}
+  #wowStat{flex-direction:column;align-items:flex-start;gap:6px;padding:14px}
+  #wowNum{font-size:32px}
+  /* Spending */
   .spend-summary{grid-template-columns:1fr}
   .spend-sum-item{border-right:none;border-bottom:1px solid var(--border)}
   .spend-sum-item:last-child{border-bottom:none}
+  .spend-card{padding:14px}
+  /* Savings */
+  .savings-hero{flex-direction:column;gap:12px}
   .savings-stats{grid-template-columns:1fr 1fr}
-  .savings-hero{flex-direction:column;gap:16px}
-  .savings-insight{padding-left:0}
+  .savings-insight{padding-left:0;font-size:12px}
+  /* Picker */
+  .picker-grid{grid-template-columns:1fr 1fr}
+  /* Life */
+  .life-grid{grid-template-columns:1fr 1fr}
+  /* Donut */
+  .donut-card{flex-direction:column;align-items:flex-start;gap:12px}
+  /* Invest */
   .invest-input-grid{grid-template-columns:1fr}
   .invest-stats{grid-template-columns:1fr 1fr}
   .invest-proj-breakdown{grid-template-columns:1fr 1fr}
-  /* Topbar */
-  .topbar{padding:0 14px;height:48px}
-  .logo{font-size:16px}
-  #headerScore{display:none!important}
-  #clockBadge{display:none}
-  /* Hero */
-  .hero-title{font-size:clamp(28px,8vw,42px)}
-  .hero-sub{font-size:13px}
-  /* Mode tabs */
-  .mode-tabs{gap:4px}
-  .mode-tab{font-size:11px;padding:7px 8px}
-  /* Counter */
-  .counter-amount{font-size:clamp(36px,10vw,56px)}
-  .mini-grid{grid-template-columns:1fr 1fr}
-  /* Sections */
-  .section{padding:18px 16px}
-  .section-head{gap:8px}
-  .sec-title{font-size:15px}
-  /* Onboarding */
-  .ob-card{padding:24px 16px}
-  .ob-grid{grid-template-columns:1fr}
-  /* Donut */
-  .donut-card{flex-direction:column;align-items:flex-start}
-  /* Compare */
-  .compare-row{flex-wrap:wrap;gap:6px}
-  .cmp-right{margin-left:auto}
-  /* Life grid */
-  .life-grid{grid-template-columns:1fr 1fr}
   /* Plan teaser */
-  #planTeaser{padding:14px 16px}
-  #wowStat{flex-direction:column;gap:8px}
-  #wowNum{font-size:28px}
-  /* Sticky bar */
-  #aiTeaser{padding:10px 14px;gap:8px;flex-wrap:wrap}
+  #planTeaser{padding:14px}
+  /* Sticky bars */
+  #aiTeaser{padding:10px 12px;gap:8px}
+  #aiTeaser button:first-of-type{font-size:11px;padding:7px 10px}
+  #emailModal{padding:12px 14px 20px;gap:8px}
+  /* Retire */
+  .retire-breakdown{grid-template-columns:1fr 1fr}
+  /* Spend edit */
+  .spend-edit-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -568,35 +603,37 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 </div>
 
 
-<!-- ═══ EMAIL CAPTURE MODAL ═══ -->
-<div id="emailModal" style="display:none" onclick="if(event.target===this)dismissEmailModal()">
-  <div id="emailModalCard">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px">
-      <div style="font-size:18px;font-weight:800;letter-spacing:-0.3px;color:var(--text)">Your plan is ready 📄</div>
-      <button onclick="dismissEmailModal()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:20px;padding:0;line-height:1;margin-top:2px">×</button>
-    </div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.5">Drop your email and we'll remind you to check back on your progress in 30 days. No spam, ever.</p>
+<!-- ═══ EMAIL CAPTURE BAR ═══ -->
+<div id="emailModal" style="display:none">
+  <!-- Gold top accent line -->
+  <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
 
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <input id="emailInput" type="email" inputmode="email" placeholder="your@email.com"
-        style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 0.2s;width:100%"
-        onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"
-        onkeydown="if(event.key==='Enter')submitEmail()">
-      <input id="nameInput" type="text" placeholder="Your name (optional)"
-        style="background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:12px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;transition:border-color 0.2s;width:100%"
-        onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"
-        onkeydown="if(event.key==='Enter')submitEmail()">
-      <button onclick="submitEmail()" id="emailSubmitBtn"
-        style="background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:13px;font-family:var(--sans);font-weight:800;font-size:14px;cursor:pointer;transition:opacity 0.2s"
-        onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
-        Remind me in 30 days →
-      </button>
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+    <!-- Left: icon + copy -->
+    <div style="display:flex;align-items:flex-start;gap:12px;flex:1;min-width:0">
+      <div style="flex-shrink:0;width:40px;height:40px;background:linear-gradient(135deg,rgba(232,160,32,0.2),rgba(232,160,32,0.05));border:1px solid rgba(232,160,32,0.3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">📄</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:14px;font-weight:800;color:var(--text);letter-spacing:-0.2px;margin-bottom:2px">Your plan is ready — want a reminder?</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.4">We'll check in with you in 30 days to see how you're tracking. No spam, unsubscribe any time.</div>
+      </div>
     </div>
-    <div id="emailConfirm" style="display:none;margin-top:12px;font-size:12px;color:var(--green);font-weight:700;text-align:center">✓ Got it — we'll check in with you in 30 days!</div>
-    <div style="text-align:center;margin-top:10px">
-      <button onclick="dismissEmailModal()" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:11px;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px">No thanks</button>
-    </div>
+    <button onclick="dismissEmailModal()" style="flex-shrink:0;background:none;border:none;color:var(--text3);cursor:pointer;font-size:18px;padding:0;line-height:1;margin-top:2px;opacity:0.7" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">×</button>
   </div>
+
+  <!-- Input row -->
+  <div style="display:flex;gap:8px;margin-top:12px">
+    <input id="emailInput" type="email" inputmode="email" placeholder="your@email.com"
+      style="flex:1;min-width:0;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color 0.2s"
+      onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"
+      onkeydown="if(event.key==='Enter')submitEmail()">
+    <button onclick="submitEmail()" id="emailSubmitBtn"
+      style="flex-shrink:0;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:11px 18px;font-family:var(--sans);font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap;box-shadow:0 2px 12px rgba(232,160,32,0.25);transition:opacity 0.2s"
+      onmouseover="this.style.opacity=0.88" onmouseout="this.style.opacity=1">
+      Remind me →
+    </button>
+  </div>
+
+  <div id="emailConfirm" style="display:none;margin-top:10px;font-size:12px;color:var(--green);font-weight:700;text-align:center;padding:8px;background:var(--green-bg);border-radius:8px;border:1px solid var(--green-border)">✓ Done — we'll check in with you in 30 days!</div>
 </div>
 
 <!-- ═══ STICKY AI TEASER (appears after 30s) ═══ -->
@@ -1099,7 +1136,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
           <div style="font-size:12px;font-weight:700;color:var(--text2)" id="planProgressText">Analysing your finances with AI...</div>
         </div>
         <div style="background:var(--border);border-radius:4px;height:3px;overflow:hidden">
-          <div id="planProgressBar" style="height:100%;background:var(--gold);width:0%;transition:width 0.5s ease;border-radius:4px"></div>
+          <div id="planProgressBar" style="height:100%;background:var(--gold);width:0%;border-radius:4px"></div>
         </div>
       </div>
 
@@ -2624,11 +2661,39 @@ function computeInvestFireInsight(fireNumUSD, currentPortfolioUSD, monthlySaving
   }
 }
 // ── FINANCIAL PLAN PDF (AI-powered) ──────────────────────────────────────────
+// ── PLAN PROGRESS ────────────────────────────────────────────────────────────
+let _progressTarget = 0;
+let _progressCurrent = 0;
+let _progressRaf = null;
+
 function setPlanProgress(pct, text){
-  const bar = g('planProgressBar'), txt = g('planProgressText'), prog = g('planProgress');
+  const bar  = g('planProgressBar');
+  const txt  = g('planProgressText');
+  const prog = g('planProgress');
   if(prog) prog.style.display = 'block';
-  if(bar)  bar.style.width = pct + '%';
   if(txt && text) txt.textContent = text;
+
+  _progressTarget = pct;
+
+  // Animate smoothly toward target
+  if(_progressRaf) cancelAnimationFrame(_progressRaf);
+  function crawl(){
+    const diff = _progressTarget - _progressCurrent;
+    if(Math.abs(diff) < 0.3){
+      _progressCurrent = _progressTarget;
+      if(bar) bar.style.width = _progressCurrent + '%';
+      // If not at 100, keep slowly inching forward toward target
+      if(_progressCurrent < 100){
+        _progressRaf = requestAnimationFrame(crawl);
+      }
+      return;
+    }
+    // Move faster when gap is large, slower as we approach target
+    _progressCurrent += diff * 0.04;
+    if(bar) bar.style.width = _progressCurrent.toFixed(1) + '%';
+    _progressRaf = requestAnimationFrame(crawl);
+  }
+  crawl();
 }
 
 async function generatePlan(){
@@ -2713,16 +2778,36 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
 }`;
 
     // ── Step 2: Call Claude via Cloudflare Worker (keeps API key secret)
-    setPlanProgress(25, 'Sending to Claude AI for analysis...');
-
-    // Update this URL after you deploy your Worker (see worker.js)
     const WORKER_URL = 'https://amipoor-api.wisaam-farhat.workers.dev/plan';
+    setPlanProgress(25, 'Sending your data to Claude AI...');
+
+    // Slowly crawl the bar and rotate messages while waiting for Claude
+    const waitMessages = [
+      'Claude is reading your financial data...',
+      'Analysing your spending patterns...',
+      'Calculating your FIRE timeline...',
+      'Writing your personalised analysis...',
+      'Almost there...',
+    ];
+    let waitMsgIdx = 0;
+    setPlanProgress(30, waitMessages[0]);
+    const waitInterval = setInterval(()=>{
+      if(waitMsgIdx < waitMessages.length - 1){
+        waitMsgIdx++;
+        const txt = g('planProgressText');
+        if(txt) txt.textContent = waitMessages[waitMsgIdx];
+        if(_progressTarget < 75) setPlanProgress(_progressTarget + 6, null);
+      }
+      // Once at last message, stop cycling — just let the bar sit and wait
+    }, 2800);
 
     const response = await fetch(WORKER_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt })
     });
+
+    clearInterval(waitInterval);
 
     // Handle rate limiting gracefully
     if(response.status === 429){
@@ -2783,6 +2868,7 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
       .catch(()=>{});
 
   } catch(err) {
+    if(typeof waitInterval !== 'undefined') clearInterval(waitInterval);
     console.error('Plan generation error:', err);
     const msg = err.message && err.message.length < 100 ? err.message : 'Could not reach AI — generating basic plan instead';
     toast(msg);
@@ -3321,27 +3407,26 @@ if(hasData){
 // ── EMAIL CAPTURE ─────────────────────────────────────────────────────────────
 function showEmailModal(){
   try{ if(sessionStorage.getItem('waiw_email_done')) return; }catch(e){}
-  const modal = g('emailModal');
+  const modal=g('emailModal');
   if(!modal) return;
-  modal.style.display = 'flex';
-  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ modal.classList.add('open'); }); });
+  modal.style.display='flex';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ modal.classList.add('open'); }));
   setTimeout(()=>{ const inp=g('emailInput'); if(inp) inp.focus(); }, 450);
 }
 
 function dismissEmailModal(){
-  const modal = g('emailModal');
+  const modal=g('emailModal');
   if(!modal) return;
-  const card = g('emailModalCard');
-  if(card) card.style.transform = 'translateY(100%)';
-  setTimeout(()=>{ modal.style.display='none'; modal.classList.remove('open'); if(card) card.style.transform=''; }, 400);
+  modal.classList.remove('open');
+  modal.style.transform='translateY(100%)';
+  setTimeout(()=>{ modal.style.display='none'; modal.style.transform=''; }, 400);
 }
 
 async function submitEmail(){
   const emailEl = g('emailInput');
-  const nameEl  = g('nameInput');
   const btn      = g('emailSubmitBtn');
   const email    = (emailEl?.value||'').trim();
-  const name     = (nameEl?.value||'').trim();
+  const name     = '';
 
   if(!email || !email.includes('@')){
     emailEl.style.borderColor='var(--red)';
@@ -3357,7 +3442,7 @@ async function submitEmail(){
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        email, name,
+        email,
         currency, salary: g('salary').value,
         timestamp: new Date().toISOString()
       })
