@@ -447,16 +447,17 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 @media(max-width:480px){
   /* Layout */
   .main{padding:20px 14px 0}
-  /* Topbar */
+  /* Topbar — hide clock on mobile, tight spacing */
   .topbar{padding:0 12px;height:46px}
   .logo{font-size:15px}
   #headerScore{display:none!important}
-  #clockBadge{display:none}
-  .icon-btn{padding:4px 8px;font-size:10px}
-  #themeToggle{padding:4px 6px;font-size:12px}
-  .curr-select{max-width:80px;font-size:10px}
+  #clockBadge{display:none!important}
+  .topbar-right{gap:5px}
+  .curr-select{max-width:72px;font-size:10px;padding:3px 4px}
+  #themeToggle{padding:4px 7px;font-size:13px}
+  .icon-btn{padding:4px 9px;font-size:10px}
   /* Hero */
-  .hero-eyebrow{font-size:9px;margin-bottom:8px}
+  .hero-eyebrow{font-size:9px;margin-bottom:8px;letter-spacing:1.5px}
   .hero-title{font-size:clamp(30px,8.5vw,44px);letter-spacing:-0.5px;line-height:1.1;margin-bottom:8px}
   .hero-sub{font-size:13px;line-height:1.5;margin-bottom:20px}
   /* Mode tabs */
@@ -466,16 +467,14 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   .counter-card{padding:16px 14px}
   .counter-amount{font-size:clamp(32px,9vw,50px)}
   .counter-label{font-size:11px}
-  .counter-meta{gap:8px}
-  .cmeta{font-size:10px}
   .mini-grid{grid-template-columns:1fr 1fr;gap:8px}
   .mini-card{padding:10px 10px}
   .mini-label{font-size:9px}
   .mini-value{font-size:18px}
   /* Sections */
   .section{padding:16px 14px;margin-bottom:24px}
-  .section-head{gap:6px;margin-bottom:14px}
-  .sec-num{font-size:9px;padding:3px 7px}
+  .section-head{gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .sec-num{width:24px;height:24px;font-size:9px}
   .sec-title{font-size:14px}
   .sec-subtitle{font-size:10px}
   /* Onboarding */
@@ -483,6 +482,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   .ob-title{font-size:22px}
   .ob-grid{grid-template-columns:1fr}
   .ob-field.full{grid-column:span 1}
+  .ob-inp{font-size:14px}
   /* Compare */
   .compare-row{padding:10px 12px;gap:8px}
   .cmp-emoji{font-size:20px}
@@ -512,14 +512,19 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   .invest-proj-breakdown{grid-template-columns:1fr 1fr}
   /* Plan teaser */
   #planTeaser{padding:14px}
+  #planTeaser .teaser-grid{grid-template-columns:1fr 1fr}
   /* Sticky bars */
   #aiTeaser{padding:10px 12px;gap:8px}
   #aiTeaser button:first-of-type{font-size:11px;padding:7px 10px}
-  #emailModal{padding:12px 14px 20px;gap:8px}
+  #emailModal{padding:12px 14px 22px;gap:8px}
   /* Retire */
   .retire-breakdown{grid-template-columns:1fr 1fr}
   /* Spend edit */
   .spend-edit-grid{grid-template-columns:1fr}
+  /* Edit drawer */
+  #editDrawer .ob-grid{grid-template-columns:1fr}
+  /* Progress bar text */
+  #planProgressText{font-size:11px}
 }
 </style>
 </head>
