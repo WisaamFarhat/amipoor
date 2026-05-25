@@ -648,6 +648,46 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 </div>
 
 
+<!-- ═══ PAYWALL MODAL ═══ -->
+<div id="paywallModal" style="display:none;position:fixed;inset:0;z-index:700;background:rgba(7,7,7,0.88);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:32px 28px;max-width:440px;width:100%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.6)">
+    <!-- Gold top line -->
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:20px 20px 0 0"></div>
+
+    <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:12px">✦ You've used your free plan</div>
+    <h2 style="font-family:var(--display);font-size:24px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:10px;letter-spacing:-0.3px">Get unlimited AI plans for <span style="color:var(--gold)">$4.99</span></h2>
+    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px">One payment. Unlimited personalised plans, whenever your numbers change. Takes 30 seconds to unlock.</p>
+
+    <!-- What you get -->
+    <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:14px 16px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">What you get</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> Unlimited AI financial plans</div>
+        <div style="font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> FIRE timeline & retirement age</div>
+        <div style="font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> Budget analysis & spending breakdown</div>
+        <div style="font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> 3 personalised action steps</div>
+        <div style="font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--green)">✓</span> PDF download every time</div>
+      </div>
+    </div>
+
+    <a href="" id="paywallBtn" target="_blank" onclick="handlePaywallClick()"
+      style="display:block;width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:15px;font-family:var(--sans);font-weight:800;font-size:15px;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 4px 24px rgba(232,160,32,0.30);transition:opacity 0.2s;margin-bottom:10px"
+      onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+      Unlock for $4.99 →
+    </a>
+
+    <div style="text-align:center;font-size:11px;color:var(--text3);margin-bottom:16px">Secure payment via Gumroad · One-time payment · No subscription</div>
+
+    <!-- Already paid -->
+    <div style="border-top:1px solid var(--border);padding-top:14px;text-align:center">
+      <div style="font-size:12px;color:var(--text3);margin-bottom:8px">Already paid?</div>
+      <button onclick="checkPaidAndGenerate()" style="background:none;border:1px solid var(--border2);border-radius:8px;padding:7px 16px;color:var(--text2);font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border2)'">I've paid — generate my plan</button>
+    </div>
+
+    <button onclick="dismissPaywall()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:20px;padding:4px;line-height:1;opacity:0.7" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">×</button>
+  </div>
+</div>
+
 <!-- ═══ EMAIL CAPTURE BAR ═══ -->
 <div id="emailModal" style="display:none">
   <!-- Gold top accent line -->
@@ -1126,7 +1166,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
         style="width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:16px;font-family:var(--sans);font-weight:800;font-size:15px;cursor:pointer;letter-spacing:0.3px;transition:opacity 0.2s;box-shadow:0 4px 24px rgba(232,160,32,0.30)" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
         ✦ Show me when I can retire →
       </button>
-      <div style="text-align:center;font-size:10px;color:var(--text3);margin-top:8px">Powered by Claude AI · 2 plans per day · Fill in your details above for the best results</div>
+      <div style="text-align:center;font-size:10px;color:var(--text3);margin-top:8px">First plan free · then $4.99 for unlimited · Powered by Claude AI</div>
       <div style="text-align:center;font-size:11px;color:var(--text2);margin-top:6px;font-weight:600" id="planSocialProof">📄 Join thousands who've downloaded their plan</div>
     </div>
   </div>
@@ -2746,7 +2786,48 @@ function finishProgress(){
   if(txt) txt.textContent = 'Done! Your plan is downloading...';
 }
 
+const GUMROAD_URL = 'https://amipoor.gumroad.com/l/amipoor';
+
+function hasPlanAccess(){
+  // First plan ever is free — check localStorage
+  try {
+    const used = parseInt(localStorage.getItem('waiw_plans_used')||'0');
+    return used < 1; // 1 free plan
+  } catch(e){ return true; }
+}
+
+function recordPlanUsed(){
+  try {
+    const used = parseInt(localStorage.getItem('waiw_plans_used')||'0');
+    localStorage.setItem('waiw_plans_used', String(used+1));
+  } catch(e){}
+}
+
+function hasPaidAccess(){
+  // Check URL param from Gumroad redirect or stored token
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if(params.get('paid') === '1'){
+      localStorage.setItem('waiw_paid', '1');
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+      return true;
+    }
+    return localStorage.getItem('waiw_paid') === '1';
+  } catch(e){ return false; }
+}
+
 async function generatePlan(){
+  // ── PAYWALL CHECK ─────────────────────────────────────────────────
+  const paid    = hasPaidAccess();
+  const freePlan = hasPlanAccess();
+
+  if(!paid && !freePlan){
+    // Show paywall modal instead of generating
+    showPaywall();
+    return;
+  }
+
   const btn = g('planBtn');
   btn.disabled = true;
   btn.style.opacity = '0.7';
@@ -2877,6 +2958,9 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
       monthlySavingsUSD, totalMonthlyUSD, fireYears, fireAge,
       pctToFire, fv10, sleepH, commuteH
     });
+
+    // Record usage for paywall
+    recordPlanUsed();
 
     setTimeout(()=>{ if(prog) prog.style.display='none'; }, 2000);
     setTimeout(()=>showEmailModal(), 2500);
@@ -3568,6 +3652,57 @@ function showCurrencyNotice(currCode){
 // ── MOBILE: iOS viewport fix ──────────────────────────────────────────────────
 function setVH(){document.documentElement.style.setProperty('--vh',window.innerHeight*0.01+'px');}
 setVH(); window.addEventListener('resize',setVH);
+
+// ── PAYWALL ───────────────────────────────────────────────────────────────────
+function showPaywall(){
+  const modal = g('paywallModal');
+  if(!modal) return;
+  // Build return URL with ?paid=1 so Gumroad can redirect back
+  const returnUrl = encodeURIComponent(window.location.origin + window.location.pathname + '?paid=1');
+  const btn = g('paywallBtn');
+  if(btn) btn.href = GUMROAD_URL + '?wanted=true&redirect=' + returnUrl;
+  modal.style.display = 'flex';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ modal.style.opacity='1'; }));
+}
+
+function dismissPaywall(){
+  const modal = g('paywallModal');
+  if(modal){ modal.style.display='none'; }
+  // Re-enable plan button
+  const btn = g('planBtn');
+  if(btn){ btn.disabled=false; btn.style.opacity='1'; btn.textContent='✦ Show me when I can retire →'; }
+}
+
+function handlePaywallClick(){
+  // After they click pay, poll for return with ?paid=1
+  // Store intent so "I've paid" button works
+  try{ localStorage.setItem('waiw_pay_intent','1'); }catch(e){}
+}
+
+function checkPaidAndGenerate(){
+  // User says they've paid — trust them and give access
+  // In production you'd verify with Gumroad API, but this is good enough for MVP
+  try{ localStorage.setItem('waiw_paid','1'); }catch(e){}
+  dismissPaywall();
+  setTimeout(()=>generatePlan(), 300);
+}
+
+// Check for Gumroad redirect on page load
+(function checkGumroadReturn(){
+  try{
+    const params = new URLSearchParams(window.location.search);
+    if(params.get('paid')==='1'){
+      localStorage.setItem('waiw_paid','1');
+      window.history.replaceState({},'',' ');
+      // Auto-trigger plan generation
+      setTimeout(()=>{
+        const btn = g('planBtn');
+        if(btn) btn.scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(()=>generatePlan(), 800);
+      }, 1000);
+    }
+  }catch(e){}
+})();
 
 // ── TEASER BAR ──
 let _teaserDismissed = false;
