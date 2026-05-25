@@ -574,29 +574,30 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 <div id="onboarding">
   <div class="ob-wrap">
   <div class="ob-card">
-    <span class="ob-skip" onclick="skipOnboarding()" style="position:absolute;top:18px;right:20px">Skip →</span>
-    <h1 class="ob-title" style="margin-bottom:6px">Am I <span>poor?</span></h1>
-    <p class="ob-sub" style="margin-bottom:24px">One number to start. Add more detail any time.</p>
+    <!-- No skip. Intentional. -->
 
-    <!-- Step indicators -->
-    <div style="display:flex;gap:6px;margin-bottom:24px">
-      <div id="ob-dot0" style="height:3px;flex:1;border-radius:2px;background:var(--gold);transition:background 0.3s"></div>
-      <div id="ob-dot1" style="height:3px;flex:1;border-radius:2px;background:var(--border2);transition:background 0.3s"></div>
-      <div id="ob-dot2" style="height:3px;flex:1;border-radius:2px;background:var(--border2);transition:background 0.3s"></div>
-    </div>
-
-    <!-- Step 0: Just salary -->
+    <!-- Step 0: The hook -->
     <div id="ob-p0" class="ob-page active">
-      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:16px">What do you earn?</div>
-      <div class="ob-field full" style="margin-bottom:12px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:16px">amipoor.com</div>
+      <h2 style="font-family:var(--display);font-size:clamp(22px,5vw,28px);font-weight:800;line-height:1.15;letter-spacing:-0.5px;color:var(--text);margin-bottom:10px">Every second, your money is either working for you or against you.</h2>
+      <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:24px">Enter your salary and find out — then get a free AI plan that tells you exactly when you can stop working.</p>
+
+      <!-- Progress dots -->
+      <div style="display:flex;gap:6px;margin-bottom:20px">
+        <div id="ob-dot0" style="height:3px;flex:1;border-radius:2px;background:var(--gold);transition:background 0.3s"></div>
+        <div id="ob-dot1" style="height:3px;flex:1;border-radius:2px;background:var(--border2);transition:background 0.3s"></div>
+        <div id="ob-dot2" style="height:3px;flex:1;border-radius:2px;background:var(--border2);transition:background 0.3s"></div>
+      </div>
+
+      <div class="ob-field full" style="margin-bottom:10px">
         <label class="ob-label" for="ob-currency">Currency</label>
         <select class="ob-inp select-inp" id="ob-currency"></select>
       </div>
-      <div class="ob-field full" style="margin-bottom:0">
+      <div class="ob-field full" style="margin-bottom:10px">
         <label class="ob-label" for="ob-salary">Monthly salary</label>
         <input class="ob-inp" id="ob-salary" type="number" inputmode="numeric" placeholder="e.g. 15,000" autofocus style="font-size:22px;height:56px">
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
         <div class="ob-field">
           <label class="ob-label" for="ob-hours">Hours / week</label>
           <input class="ob-inp" id="ob-hours" type="number" inputmode="numeric" placeholder="40">
@@ -825,9 +826,26 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   <input type="hidden" id="coffee" value="0">
 
 
-    <p class="hero-eyebrow">Your money · live · any currency</p>
-    <h1 class="hero-title">Every second <span class="accent">counts.</span></h1>
-    <p class="hero-sub">Your salary is ticking right now. See exactly what your time is worth — and get a free AI plan that tells you when you can stop working.</p>
+    <!-- Hero -->
+    <div style="margin-bottom:28px">
+      <p class="hero-eyebrow">Financial independence · live · any currency</p>
+      <h1 class="hero-title">Do you know what your <span class="accent">time is worth?</span></h1>
+      <p class="hero-sub">Your salary is ticking every second. See exactly where it's going — and get a free AI plan that tells you when you can stop working for good.</p>
+
+      <!-- Social proof inline -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:6px">
+          <div style="display:flex">
+            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#e8a020);border:2px solid var(--bg);margin-right:-6px"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#3ecf8e,#2ecc8a);border:2px solid var(--bg);margin-right:-6px"></div>
+            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#60b4f8,#4d9de8);border:2px solid var(--bg)"></div>
+          </div>
+          <span id="heroSocialProof" style="font-size:12px;color:var(--text2)">Thousands have found their FIRE date</span>
+        </div>
+        <div style="width:1px;height:16px;background:var(--border2)"></div>
+        <span style="font-size:12px;color:var(--text2)">Free · No account needed</span>
+      </div>
+    </div>
 
     <div class="mode-tabs">
       <button class="mode-tab active" data-mode="realistic" onclick="setMode(this,'realistic')">Today</button>
@@ -836,7 +854,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     </div>
 
     <div class="counter-card">
-      <div class="counter-label" style="display:flex;align-items:center;justify-content:space-between"><span>Earned since you landed here</span><span onclick="document.getElementById('planBtn').scrollIntoView({behavior:'smooth',block:'center'})" style="font-size:10px;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:0.5px;text-decoration:underline;text-underline-offset:3px">Get your free AI plan ↓</span></div>
+      <div class="counter-label" style="display:flex;align-items:center;justify-content:space-between"><span>Your salary — ticking live</span><span onclick="document.getElementById('planBtn').scrollIntoView({behavior:'smooth',block:'center'})" style="font-size:10px;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:0.5px;text-decoration:underline;text-underline-offset:3px">Get your free AI plan ↓</span></div>
       <div class="counter-amount" id="liveCounter">0.0000</div>
       <div class="counter-currency" id="currLabel">— ticking every frame</div>
       <div class="counter-meta">
@@ -858,42 +876,13 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
       <div class="sc-value" id="scrollCost">—</div>
     </div>
 
-  <!-- SECTION 1: Comparisons -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-num">1</div>
-      <div><h2 class="sec-title">This is what your time buys</h2><div class="sec-subtitle">Your salary, translated into real things</div></div>
-      <button class="add-items-btn" onclick="togglePicker()" id="addItemsBtn">+ Add items</button>
-    </div>
-
-    <!-- Wow stat — single big live comparison -->
-    <div id="wowStat" style="background:linear-gradient(135deg,rgba(232,160,32,0.12),rgba(232,160,32,0.03));border:1px solid var(--gold-glow2);border-radius:var(--r2);padding:16px 20px;margin-bottom:10px">
-      <div style="font-size:12px;color:var(--text2);line-height:1.4;margin-bottom:6px" id="wowText">Loading...</div>
-      <div style="display:flex;align-items:baseline;gap:8px">
-        <div style="font-family:var(--mono);font-size:40px;font-weight:500;color:var(--gold);letter-spacing:-1px;line-height:1" id="wowNum">—</div>
-        <div style="font-size:13px;color:var(--text3)" id="wowUnit">—</div>
-      </div>
-    </div>
-
-    <div id="compareList"></div>
-    <div id="avgInsight" style="display:none;margin-top:10px;padding:10px 14px;background:var(--bg3);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
-    <div id="itemPicker" class="item-picker" style="display:none">
-      <div class="picker-header">
-        <span class="picker-title">Choose what to compare</span>
-        <button class="picker-close" onclick="togglePicker()">✕</button>
-      </div>
-      <div class="picker-cats" id="pickerCats"></div>
-      <div class="picker-grid" id="pickerGrid"></div>
-    </div>
-  </div>
-
   <hr class="div">
 
-  <!-- SECTION 2: Spending -->
+  <!-- SECTION 1: Spending -->
   <div class="section" id="spendingSection">
     <div class="section-head">
       <div class="sec-num">2</div>
-      <div><h2 class="sec-title">Where it all disappears</h2><div class="sec-subtitle">Monthly spending breakdown</div></div>
+      <div><h2 class="sec-title">Where your money goes</h2><div class="sec-subtitle">Monthly spending breakdown</div></div>
       <button class="spend-edit-btn" onclick="openEditDrawer();edTab(1)">✏ Edit</button>
     </div>
     <div class="spend-card">
@@ -934,9 +923,9 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 3: Savings -->
+  <!-- SECTION 2: Savings -->
   <div class="section" id="savingsSection">
-    <div class="section-head"><div class="sec-num">3</div><div><h2 class="sec-title">Are you actually saving?</h2><div class="sec-subtitle">Savings rate vs your goal</div></div></div>
+    <div class="section-head"><div class="sec-num">2</div><div><h2 class="sec-title">Are you building wealth or just surviving?</h2><div class="sec-subtitle">The number that determines your future</div></div></div>
     <div class="savings-card">
       <div class="savings-hero">
         <!-- SVG ring — shows actual vs goal -->
@@ -1010,60 +999,9 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 4: The bigger picture -->
-  <div class="section">
-    <div class="section-head"><div class="sec-num">4</div><div><h2 class="sec-title">The bigger picture</h2><div class="sec-subtitle">Your lifetime earnings & time left</div></div></div>
-    <div class="life-grid">
-      <div class="life-card"><div class="lc-label">Total Est. Earned</div><div class="lc-val" id="totalEarned">—</div><div class="lc-sub" id="totalEarnedSub">lifetime so far</div></div>
-      <div class="life-card"><div class="lc-label">Time Left (est.)</div><div class="lc-val" id="timeLeft">—</div><div class="lc-sub">years at 65yr est.</div><div class="bar-track"><div class="bar-fill" id="lifeBar" style="width:0%;background:var(--red)"></div></div></div>
-    </div>
-    <div style="display:none"><div class="lc-val" id="yearsWorking"></div><div class="bar-fill" id="workBar"></div></div>
-    <div class="lifetime-card">
-      <div class="lt-label">Lifetime money still to earn</div>
-      <div class="lt-val" id="lifetimeLeft">—</div>
-      <div class="lt-sub" id="lifetimeSub">Based on current salary until age 60</div>
-    </div>
-  </div>
-
-  <hr class="div">
-
-  <!-- SECTION 5: Time donut -->
-  <div class="section">
-    <div class="section-head">
-      <div class="sec-num">5</div>
-      <div><h2 class="sec-title">Where your day actually goes</h2><div class="sec-subtitle">24 hours broken down honestly</div></div>
-      <button class="spend-edit-btn" onclick="toggleDonutEdit()">✏ Edit</button>
-    </div>
-    <div class="donut-card">
-      <div class="donut-wrap">
-        <svg width="140" height="140" viewBox="0 0 140 140" id="donutSvg"></svg>
-        <div class="donut-center"><div class="donut-cv">24h</div><div class="donut-cl">per day</div></div>
-      </div>
-      <div class="donut-legend" id="donutLegend"></div>
-    </div>
-    <!-- Editable inputs -->
-    <div id="donutEditPanel" style="display:none;margin-top:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:16px">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div>
-          <div class="sl">😴 Sleep (hours/night)</div>
-          <input class="inp" id="donut-sleep" type="number" inputmode="decimal" value="7.5" min="4" max="12" step="0.5" oninput="saveDonut();redrawDonut()">
-        </div>
-        <div>
-          <div class="sl">🚗 Commute (hours/day)</div>
-          <input class="inp" id="donut-commute" type="number" inputmode="decimal" value="1" min="0" max="6" step="0.5" oninput="saveDonut();redrawDonut()">
-        </div>
-      </div>
-      <div style="font-size:10px;color:var(--text3);margin-top:10px">Work hours come from your salary settings. Free time is whatever's left.</div>
-    </div>
-    <div id="donutInsight" style="display:none;margin-top:10px;padding:12px 14px;background:var(--bg3);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;font-size:12px;color:var(--text2);line-height:1.6"></div>
-  </div>
-
-
-  <hr class="div">
-
-  <!-- SECTION 6: FIRE / Investments -->
+  <!-- SECTION 3: FIRE -->
   <div class="section" id="investSection">
-    <div class="section-head"><div class="sec-num">6</div><div><h2 class="sec-title">How can I become financially free?</h2><div class="sec-subtitle">FIRE calculator — passive income &amp; financial independence</div></div></div>
+    <div class="section-head"><div class="sec-num">3</div><div><h2 class="sec-title">Your path to financial freedom</h2><div class="sec-subtitle">The exact number you need to never work again</div></div></div>
     <div class="invest-card">
 
       <!-- Hidden inputs — values set via Edit drawer -->
@@ -1145,10 +1083,10 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
   <hr class="div">
 
-  <!-- SECTION 7: Financial Plan -->
+  <!-- SECTION 4: Financial Plan -->
   <div class="section">
     <div class="section-head">
-      <div class="sec-num">7</div>
+      <div class="sec-num">4</div>
       <div>
         <h2 class="sec-title">Your personalized financial plan</h2>
         <div class="sec-subtitle">AI-powered analysis based on your numbers — exportable to PDF</div>
@@ -1158,9 +1096,9 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     <div style="background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold);border-radius:var(--r2);padding:22px;position:relative;overflow:hidden">
       <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;background:radial-gradient(circle,rgba(232,160,32,0.12),transparent 70%);pointer-events:none"></div>
 
-      <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px">✦ Most popular feature</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px">✦ The whole point of this page</div>
       <div style="font-size:19px;font-weight:800;color:var(--text);letter-spacing:-0.4px;margin-bottom:6px;line-height:1.3">Get your <span style="color:var(--gold)">free AI financial plan</span> in 30 seconds.</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Claude AI reads all your numbers and writes a personalised plan — what to cut, how to invest, when you can retire. Downloads as a PDF.</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">You've seen your numbers. Now get a brutally honest AI analysis — what to cut, how to invest, and the exact age you can stop working. Takes 30 seconds.</div>
 
       <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px">
         <span style="font-size:11px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:4px 10px;border-radius:20px;font-weight:700">✓ Personalised to your numbers</span>
@@ -1193,15 +1131,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     </div>
   </div>
 
-  <hr class="div">
-
-  <!-- SECTION 8: Share -->
-  <div class="section">
-    <div class="section-head"><div class="sec-num">8</div><div><h2 class="sec-title">Challenge a friend</h2><div class="sec-subtitle">Share your number — who earns more?</div></div></div>
-    <button class="sbtn primary" style="width:100%" onclick="generateCard();setTimeout(()=>shareResult(),1200)">📸 Make &amp; share my card</button>
-    <canvas id="shareCanvas" width="1080" height="1080"></canvas>
-  </div>
-</main>
+  </main>
 
 <footer>
   <div class="ft-logo">What Am I <span>Worth?</span></div>
@@ -2912,7 +2842,10 @@ Respond ONLY with a valid JSON object, no markdown, no explanation outside the J
     // Refresh social proof counter
     fetch('https://amipoor-api.wisaam-farhat.workers.dev/count')
       .then(r=>r.json())
-      .then(d=>{ const sp=g('planSocialProof'); if(sp&&d.count) sp.textContent=`📄 ${d.count.toLocaleString()} people have downloaded their plan`; })
+      .then(d=>{
+        const sp=g('planSocialProof'); if(sp&&d.count) sp.textContent=`📄 ${d.count.toLocaleString()} people have downloaded their plan`;
+        const hs=g('heroSocialProof'); if(hs&&d.count) hs.textContent=`${d.count.toLocaleString()} people have found their FIRE date`;
+      })
       .catch(()=>{});
 
   } catch(err) {
