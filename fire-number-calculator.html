@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIRE Number Calculator — The 4% Rule Explained | amipoor.com</title>
+<meta name="description" content="Calculate your FIRE number instantly. The 4% rule explained clearly — find out exactly how much you need invested to achieve financial independence and retire early.">
+<meta name="keywords" content="FIRE number calculator, 4% rule calculator, financial independence number, how to calculate FIRE number, what is FIRE number, 25x expenses rule, financial independence calculator">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://amipoor.com/fire-number-calculator.html">
+<meta property="og:title" content="FIRE Number Calculator — The 4% Rule Explained">
+<meta property="og:description" content="Find your exact FIRE number. The 4% rule explained clearly, with a free calculator.">
+<meta property="og:url" content="https://amipoor.com/fire-number-calculator.html">
+<meta property="og:site_name" content="Am I Poor?">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;--gold-glow2:rgba(232,160,32,0.25);--bg:#0e0b07;--bg2:#171208;--card:#181208;--border:#2c2310;--border2:#3a2f18;--text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;--green:#2ecc8a;--red:#f05050;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;--r:12px;--r2:16px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.08) 0%,transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;color:var(--text);text-decoration:none}.logo span{color:var(--gold)}
+.topbar-cta{background:var(--gold);color:#070707;border-radius:var(--r);padding:7px 14px;font-weight:700;font-size:12px;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero{padding:56px 0 36px}
+.breadcrumb{font-size:11px;color:var(--text3);margin-bottom:16px}.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--gold)}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.page-title{font-family:var(--display);font-size:clamp(26px,5.5vw,44px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px}.page-title .accent{color:var(--gold)}
+.page-intro{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px;max-width:600px}
+.calc-widget{background:linear-gradient(135deg,rgba(232,160,32,0.12),rgba(232,160,32,0.03));border:1.5px solid rgba(232,160,32,0.3);border-radius:var(--r2);padding:28px 24px;margin:28px 0}
+.calc-title{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:18px}
+.input-row{display:flex;gap:12px;margin-bottom:14px}
+.inp-field{flex:1;display:flex;flex-direction:column;gap:6px}
+.inp-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px}
+.inp{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s;width:100%}.inp:focus{border-color:var(--gold)}
+.sel{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;width:100%}
+.big-result{text-align:center;background:rgba(0,0,0,0.4);border-radius:var(--r);padding:24px 16px;margin-top:16px;border:1px solid rgba(232,160,32,0.2)}
+.big-result-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:10px}
+.big-result-num{font-size:52px;font-weight:700;color:var(--gold);letter-spacing:-2px;line-height:1;margin-bottom:6px}
+.big-result-sub{font-size:13px;color:var(--text2)}
+.mini-results{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px}
+.mr{background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;text-align:center}
+.mr-val{font-size:16px;font-weight:700;color:var(--text);margin-bottom:2px}
+.mr-lbl{font-size:9px;font-weight:600;letter-spacing:1px;color:var(--text3);text-transform:uppercase}
+.progress-bar-wrap{margin-top:16px}
+.pb-label{font-size:11px;color:var(--text3);margin-bottom:6px;display:flex;justify-content:space-between}
+.pb-track{background:rgba(0,0,0,0.4);border-radius:4px;height:8px;overflow:hidden}
+.pb-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:4px;transition:width 0.5s ease}
+.cta-banner{background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold-glow2);border-radius:var(--r2);padding:24px;margin:32px 0;text-align:center}
+.cta-banner h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.cta-banner p{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.5}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border-radius:var(--r);padding:13px 28px;font-weight:800;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(232,160,32,0.25);transition:opacity 0.2s}.btn-gold:hover{opacity:0.9}
+.content-section{margin:36px 0}
+.content-section h2{font-size:21px;font-weight:700;margin-bottom:12px}
+.content-section h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text2);margin-top:20px}
+.content-section p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:14px}
+.content-section ul{padding-left:18px;margin-bottom:14px}
+.content-section li{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:6px}
+.formula-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;font-size:14px;color:var(--text2)}
+.formula-box strong{color:var(--text);display:block;margin-bottom:6px}
+.faq{margin:36px 0}.faq h2{font-size:21px;font-weight:700;margin-bottom:18px}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.7}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.page-footer{border-top:1px solid var(--border);padding:28px 0;margin-top:56px;text-align:center}
+.page-footer p{font-size:11px;color:var(--text3);margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{font-size:11px;color:var(--text3);text-decoration:none}.footer-links a:hover{color:var(--gold)}
+@media(max-width:480px){.topbar{padding:0 14px;height:46px}.page-hero{padding:32px 0 20px}.input-row{flex-direction:column}.mini-results{grid-template-columns:1fr 1fr}.wrap{padding:0 14px}.big-result-num{font-size:38px}}
+</style>
+</head>
+<body>
+<div class="glow-orb"></div>
+<nav class="topbar">
+  <a class="logo" href="/">am i<span> poor?</span></a>
+  <a class="topbar-cta" href="/">Full tool →</a>
+</nav>
+<div class="wrap">
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="/">amipoor.com</a> › FIRE Number Calculator</div>
+    <div class="eyebrow">The 4% Rule · Financial Independence</div>
+    <h1 class="page-title">FIRE Number <span class="accent">Calculator</span></h1>
+    <p class="page-intro">Your FIRE number is the amount of money you need invested to never work again. It's calculated using the 4% rule — one of the most well-studied principles in personal finance. Here's yours.</p>
+  </div>
+
+  <div class="calc-widget">
+    <div class="calc-title">Find your FIRE number</div>
+    <div class="input-row">
+      <div class="inp-field">
+        <label class="inp-label">Monthly Expenses</label>
+        <input class="inp" id="expInp" type="number" placeholder="e.g. 5,000" oninput="calc()">
+      </div>
+      <div class="inp-field">
+        <label class="inp-label">Currency</label>
+        <select class="sel" id="currInp" onchange="calc()">
+          <option value="$">USD $</option>
+          <option value="AED " selected>AED</option>
+          <option value="£">GBP £</option>
+          <option value="€">EUR €</option>
+          <option value="SAR ">SAR</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="inp-field">
+        <label class="inp-label">Current Portfolio</label>
+        <input class="inp" id="portInp" type="number" placeholder="0" oninput="calc()">
+      </div>
+      <div class="inp-field">
+        <label class="inp-label">Withdrawal Rate</label>
+        <select class="sel" id="rateInp" onchange="calc()">
+          <option value="0.04">4% — standard (30yr retirement)</option>
+          <option value="0.035">3.5% — conservative (40yr)</option>
+          <option value="0.03">3% — very conservative (50yr)</option>
+        </select>
+      </div>
+    </div>
+    <div id="bigResult" style="display:none">
+      <div class="big-result">
+        <div class="big-result-label">🔥 Your FIRE number</div>
+        <div class="big-result-num" id="fireNumBig">—</div>
+        <div class="big-result-sub" id="fireSubBig">—</div>
+      </div>
+      <div class="mini-results">
+        <div class="mr"><div class="mr-val" id="mrAnnual">—</div><div class="mr-lbl">Annual spend</div></div>
+        <div class="mr"><div class="mr-val" id="mrProgress">—</div><div class="mr-lbl">Progress</div></div>
+        <div class="mr"><div class="mr-val" id="mrRemaining">—</div><div class="mr-lbl">Still needed</div></div>
+      </div>
+      <div class="progress-bar-wrap" id="pbWrap" style="display:none">
+        <div class="pb-label"><span>Portfolio progress toward FIRE</span><span id="pbPct">0%</span></div>
+        <div class="pb-track"><div class="pb-fill" id="pbFill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <p id="calcHint2" style="font-size:13px;color:var(--text3);margin-top:14px;text-align:center">Enter your monthly expenses to calculate your FIRE number</p>
+  </div>
+
+  <div class="cta-banner">
+    <h3>Get your full FIRE timeline</h3>
+    <p>See how long until you reach your FIRE number — based on your actual salary, savings rate, and monthly contributions. Plus a free AI financial plan.</p>
+    <a class="btn-gold" href="/">Calculate my FIRE timeline →</a>
+  </div>
+
+  <div class="content-section">
+    <h2>What is the 4% rule?</h2>
+    <p>The 4% rule comes from the Trinity Study — a 1998 analysis of historical market returns that found a diversified portfolio could sustain withdrawals of 4% per year without running out of money over a 30-year period in 95%+ of historical scenarios.</p>
+    <p>In simple terms: if you have $1,000,000 invested, you can spend $40,000 per year indefinitely (assuming average market returns continue). If your annual expenses are $40,000, your FIRE number is $1,000,000.</p>
+
+    <div class="formula-box">
+      <strong>FIRE Number = Annual Expenses ÷ Withdrawal Rate</strong>
+      At 4%: $40,000 ÷ 0.04 = $1,000,000 (same as 25× annual expenses)<br>
+      At 3.5%: $40,000 ÷ 0.035 = $1,142,857 (≈ 28× annual expenses)<br>
+      At 3%: $40,000 ÷ 0.03 = $1,333,333 (≈ 33× annual expenses)
+    </div>
+
+    <h3>Is the 4% rule still valid?</h3>
+    <p>The 4% rule was calculated using US market data and assumes a portfolio of roughly 60% stocks and 40% bonds. It has been both supported and challenged by subsequent research. The key criticisms for early retirees are: it was designed for 30-year retirements, not 40–50 year ones; current bond yields are lower than historical averages; and it doesn't account for sequence-of-returns risk (retiring into a bear market).</p>
+    <p>For early retirees, most financial planners recommend a 3–3.5% withdrawal rate — meaning 28–33× annual expenses. This gives significantly more margin.</p>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>FIRE number by expenses — quick reference</h2>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="border-bottom:1px solid var(--border)">
+          <th style="text-align:left;padding:10px 8px;color:var(--text3);font-weight:600">Monthly expenses</th>
+          <th style="text-align:right;padding:10px 8px;color:var(--text3);font-weight:600">4% rule (25×)</th>
+          <th style="text-align:right;padding:10px 8px;color:var(--text3);font-weight:600">3.5% rule (28×)</th>
+          <th style="text-align:right;padding:10px 8px;color:var(--text3);font-weight:600">3% rule (33×)</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 8px;color:var(--text2)">$2,000/mo</td><td style="padding:10px 8px;text-align:right;color:var(--gold)">$600K</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">$672K</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">$792K</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 8px;color:var(--text2)">$4,000/mo</td><td style="padding:10px 8px;text-align:right;color:var(--gold)">$1.2M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">$1.34M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">$1.58M</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 8px;color:var(--text2)">$6,000/mo</td><td style="padding:10px 8px;text-align:right;color:var(--gold)">$1.8M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">$2.02M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">$2.38M</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 8px;color:var(--text2)">AED 10,000/mo</td><td style="padding:10px 8px;text-align:right;color:var(--gold)">AED 3M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">AED 3.36M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">AED 3.96M</td></tr>
+          <tr style="border-bottom:1px solid var(--border)"><td style="padding:10px 8px;color:var(--text2)">AED 20,000/mo</td><td style="padding:10px 8px;text-align:right;color:var(--gold)">AED 6M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">AED 6.72M</td><td style="padding:10px 8px;text-align:right;color:var(--text2)">AED 7.92M</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Does my FIRE number include my home?</div>
+      <div class="faq-a">No. Your FIRE number should be in liquid invested assets — stocks, bonds, index funds. Your home is a liability (costs money to maintain) unless it generates rental income. Many FIRE advocates own their home outright in retirement, but the FIRE number itself is calculated separately from home equity.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What investment return should I assume?</div>
+      <div class="faq-a">The 4% rule assumes a 7% nominal return (roughly 5% real, after inflation) from a diversified portfolio of global equities and bonds. If you invest in a global equity index fund, 7% is a reasonable long-term assumption — though past returns don't guarantee future results.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Should I use my current expenses or my expected retirement expenses?</div>
+      <div class="faq-a">Use your expected retirement expenses — what you'll actually spend when you stop working. For many people, this is lower than current expenses (no commuting, work clothes, childcare if kids are grown). For others it's higher (more travel, healthcare). Think carefully about what your retired life actually costs.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I track progress toward my FIRE number?</div>
+      <div class="faq-a">The simplest way: divide your current portfolio value by your FIRE number. If you need $1.5M and have $300K, you're 20% of the way there. The <a href="/" style="color:var(--gold)">amipoor.com tool</a> calculates this live and shows your projected FIRE date based on your savings rate and investment returns.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related tools</h2>
+    <ul>
+      <li><a href="/how-much-to-retire-early.html" style="color:var(--gold)">How Much Do I Need to Retire Early?</a></li>
+      <li><a href="/fire-calculator-uae.html" style="color:var(--gold)">FIRE Calculator UAE — AED</a></li>
+      <li><a href="/am-i-saving-enough.html" style="color:var(--gold)">Am I Saving Enough?</a></li>
+      <li><a href="/salary-per-second.html" style="color:var(--gold)">Salary Per Second Calculator</a></li>
+      <li><a href="/" style="color:var(--gold)">Full Financial Independence Tool — amipoor.com</a></li>
+    </ul>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/fire-calculator-uae.html">FIRE Calculator UAE</a>
+      <a href="/salary-per-second.html">Salary Per Second</a>
+      <a href="/how-much-to-retire-early.html">How Much to Retire Early</a>
+      <a href="/fire-number-calculator.html">FIRE Number Calculator</a>
+      <a href="/am-i-saving-enough.html">Am I Saving Enough?</a>
+    </div>
+    <p>© 2026 amipoor.com · Not financial advice · All calculations are estimates</p>
+  </div>
+</footer>
+
+<script>
+function fmt(n,sym){if(n>=1e6)return sym+(n/1e6).toFixed(2)+'M';if(n>=1000)return sym+(n/1000).toFixed(0)+'K';return sym+Math.round(n).toLocaleString();}
+function calc(){
+  const exp  = parseFloat(document.getElementById('expInp').value)||0;
+  const sym  = document.getElementById('currInp').value;
+  const port = parseFloat(document.getElementById('portInp').value)||0;
+  const rate = parseFloat(document.getElementById('rateInp').value)||0.04;
+  const hint = document.getElementById('calcHint2');
+  const res  = document.getElementById('bigResult');
+  if(!exp){res.style.display='none';hint.style.display='block';return;}
+  const annual  = exp*12;
+  const fireNum = annual/rate;
+  const pct     = port>0?Math.min(100,(port/fireNum)*100):0;
+  const remain  = Math.max(0,fireNum-port);
+  document.getElementById('fireNumBig').textContent = fmt(fireNum,sym);
+  document.getElementById('fireSubBig').textContent = `${(1/rate).toFixed(0)}× your annual expenses · ${(rate*100).toFixed(1)}% withdrawal rate`;
+  document.getElementById('mrAnnual').textContent   = fmt(annual,sym);
+  document.getElementById('mrProgress').textContent = pct.toFixed(1)+'%';
+  document.getElementById('mrRemaining').textContent= fmt(remain,sym);
+  const pbWrap = document.getElementById('pbWrap');
+  if(port>0){
+    pbWrap.style.display='block';
+    document.getElementById('pbPct').textContent = pct.toFixed(1)+'%';
+    document.getElementById('pbFill').style.width = pct+'%';
+  } else { pbWrap.style.display='none'; }
+  res.style.display='block'; hint.style.display='none';
+}
+</script>
+</body>
+</html>

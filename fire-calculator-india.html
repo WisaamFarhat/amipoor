@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIRE Calculator India — Financial Independence in INR | amipoor.com</title>
+<meta name="description" content="Free FIRE calculator for India. Calculate your financial independence number in INR, find your retirement date, and get a personalised AI plan. Built for India residents.">
+<meta name="keywords" content="FIRE calculator India, financial independence India, retire early India, FIRE number INR, early retirement India, financial independence calculator India">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://amipoor.com/fire-calculator-india.html">
+<meta property="og:title" content="FIRE Calculator India — Retire Early in INR">
+<meta property="og:description" content="Free FIRE calculator built for India. Find your exact retirement date based on your INR salary and spending.">
+<meta property="og:url" content="https://amipoor.com/fire-calculator-india.html">
+<meta property="og:site_name" content="Am I Poor?">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;--gold-glow:rgba(232,160,32,0.12);--gold-glow2:rgba(232,160,32,0.25);--bg:#0e0b07;--bg2:#171208;--bg3:#1f180a;--card:#181208;--border:#2c2310;--border2:#3a2f18;--text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;--green:#2ecc8a;--red:#f05050;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;--r:12px;--r2:16px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.08) 0%,transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-0.2px;color:var(--text);text-decoration:none}.logo span{color:var(--gold)}
+.topbar-cta{background:var(--gold);color:#070707;border:none;border-radius:var(--r);padding:7px 14px;font-family:var(--sans);font-weight:700;font-size:12px;cursor:pointer;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero{padding:56px 0 36px}
+.breadcrumb{font-size:11px;color:var(--text3);margin-bottom:16px}.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--gold)}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.page-title{font-family:var(--display);font-size:clamp(28px,6vw,46px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px}.page-title .accent{color:var(--gold)}
+.page-intro{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px;max-width:600px}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;text-align:center}
+.stat-val{font-size:26px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.stat-lbl{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--text3);text-transform:uppercase;line-height:1.4}
+.cta-banner{background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold-glow2);border-radius:var(--r2);padding:28px 24px;margin:32px 0;text-align:center}
+.cta-banner h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.cta-banner p{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.5}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:14px 32px;font-family:var(--sans);font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;box-shadow:0 4px 20px rgba(232,160,32,0.25);transition:opacity 0.2s}.btn-gold:hover{opacity:0.9}
+.content-section{margin:36px 0}
+.content-section h2{font-size:21px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.content-section h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text2);margin-top:20px}
+.content-section p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:14px}
+.content-section ul{padding-left:18px;margin-bottom:14px}
+.content-section li{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:6px}
+.formula-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;font-size:14px;color:var(--text2)}
+.formula-box strong{color:var(--text);display:block;margin-bottom:6px}
+.faq{margin:36px 0}.faq h2{font-size:21px;font-weight:700;margin-bottom:18px}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.7}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.page-footer{border-top:1px solid var(--border);padding:28px 0;margin-top:56px}
+.page-footer p{font-size:11px;color:var(--text3);margin-bottom:8px;text-align:center}
+.footer-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.footer-links a{font-size:11px;color:var(--text3);text-decoration:none}.footer-links a:hover{color:var(--gold)}
+@media(max-width:480px){.topbar{padding:0 14px;height:46px}.page-hero{padding:32px 0 20px}.stat-grid{grid-template-columns:1fr 1fr}.wrap{padding:0 14px}}</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What is a realistic FIRE number in India?","acceptedAnswer":{"@type":"Answer","text":"It depends heavily on where you plan to live. A comfortable lifestyle in a Tier-2 city might cost ₹50,000/month (₹600,000/year), requiring a FIRE number of ₹1.5 crore. A metro lifestyle at ₹1,50,000/month needs ₹4.5 crore. Many Indian FIRE seekers target ₹2–5 crore depending on their lifestyle and location."}},
+    {"@type":"Question","name":"How should Indian FIRE investors account for inflation?","acceptedAnswer":{"@type":"Answer","text":"India's historical inflation rate of 5–6% is higher than the Western rates the 4% rule was calibrated for. Many Indian FIRE planners use a 3–3.5% withdrawal rate (FIRE number of 28–33× annual expenses) to provide a larger buffer. Keeping a portion of the portfolio in equity index funds that have historically outpaced inflation is also important."}},
+    {"@type":"Question","name":"Can NRIs (Non-Resident Indians) use this FIRE calculator?","acceptedAnswer":{"@type":"Answer","text":"Yes — NRIs working abroad can use amipoor.com in any currency and then switch to INR to calculate their India retirement scenario. The key consideration for NRIs is tax residency: once you return to India, global income becomes taxable. Most NRI FIRE planners maintain investments in both India (NRE/NRO accounts) and their country of residence."}}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="glow-orb"></div>
+<nav class="topbar">
+  <a class="logo" href="/">am i<span> poor?</span></a>
+  <a class="topbar-cta" href="/">Try the free tool →</a>
+</nav>
+<div class="wrap">
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="/">amipoor.com</a> › FIRE Calculator India</div>
+    <div class="eyebrow">🇮🇳 Financial Independence · India</div>
+    <h1 class="page-title">FIRE Calculator <span class="accent">India</span></h1>
+    <p class="page-intro">Everything you need to calculate your financial independence number in INR — your FIRE date, your savings target, and a personalised AI plan based on your actual income and spending.</p>
+
+    <div class="cta-banner">
+      <h3>Find your India FIRE date — free</h3>
+      <p>Enter your salary in INR, your monthly spending, and your current portfolio. Get your FIRE number and a personalised AI plan in 30 seconds.</p>
+      <a class="btn-gold" href="/">Open the FIRE Calculator →</a>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-val">₹</div>
+      <div class="stat-lbl">INR · India currency</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">25×</div>
+      <div class="stat-lbl">Annual expenses = FIRE number</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">4%</div>
+      <div class="stat-lbl">Safe withdrawal rate</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>FIRE in India — what you need to know</h2>
+    <p>India has a rapidly growing FIRE movement, particularly among tech professionals and those who have worked abroad. The combination of relatively low cost of living outside major cities and strong equity market performance (Nifty 50 has historically returned ~12% annually) makes FIRE more achievable than in many Western countries. The key challenge is inflation — India's inflation rate has historically been 5–6%, higher than Western countries, requiring a more conservative withdrawal rate.</p>
+    <p><strong>Tax:</strong> India has a progressive income tax up to 30%. Long-term capital gains tax on equity investments held over 1 year is 10% on gains above ₹1 lakh annually. ELSS (Equity Linked Savings Schemes) offer tax deductions under Section 80C.</p>
+    <p><strong>Pension:</strong> The National Pension Scheme (NPS) and EPF (Employee Provident Fund) form the state retirement framework. Many FIRE seekers supplement these aggressively with index funds through direct mutual fund investing via platforms like Zerodha Coin or Groww.</p>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>How to calculate your FIRE number in INR</h2>
+    <p>The FIRE number formula is the same everywhere in the world — only the currency changes.</p>
+    <div class="formula-box">
+      <strong>FIRE Number = Monthly Expenses × 12 × 25</strong>
+      Example: ₹50,000/month spending → ₹600,000/year → FIRE number: ₹15,000,000
+    </div>
+    <p>This is based on the 4% rule — the research finding that a diversified portfolio can sustain annual withdrawals of 4% indefinitely. 25 × annual expenses is mathematically equivalent to dividing by 0.04.</p>
+
+    <h3>Where to invest in India</h3>
+    <p>To reach your FIRE number, your savings need to be invested — not sitting in a bank account. In India, the most commonly used platforms are Zerodha (largest discount broker) or Groww and Parag Parikh Flexi Cap Fund or Nifty 50 index funds. A globally diversified index fund portfolio has historically returned 7–10% annually over long periods.</p>
+  </div>
+
+  <hr>
+
+  <div class="cta-banner">
+    <h3>Calculate your exact India FIRE date</h3>
+    <p>The full tool shows your FIRE timeline, investment projections, savings rate, and generates a personalised AI financial plan. Free, any currency.</p>
+    <a class="btn-gold" href="/">Calculate my FIRE date →</a>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item"><div class="faq-q">What is a realistic FIRE number in India?</div><div class="faq-a">It depends heavily on where you plan to live. A comfortable lifestyle in a Tier-2 city might cost ₹50,000/month (₹600,000/year), requiring a FIRE number of ₹1.5 crore. A metro lifestyle at ₹1,50,000/month needs ₹4.5 crore. Many Indian FIRE seekers target ₹2–5 crore depending on their lifestyle and location.</div></div>
+    <div class="faq-item"><div class="faq-q">How should Indian FIRE investors account for inflation?</div><div class="faq-a">India's historical inflation rate of 5–6% is higher than the Western rates the 4% rule was calibrated for. Many Indian FIRE planners use a 3–3.5% withdrawal rate (FIRE number of 28–33× annual expenses) to provide a larger buffer. Keeping a portion of the portfolio in equity index funds that have historically outpaced inflation is also important.</div></div>
+    <div class="faq-item"><div class="faq-q">Can NRIs (Non-Resident Indians) use this FIRE calculator?</div><div class="faq-a">Yes — NRIs working abroad can use amipoor.com in any currency and then switch to INR to calculate their India retirement scenario. The key consideration for NRIs is tax residency: once you return to India, global income becomes taxable. Most NRI FIRE planners maintain investments in both India (NRE/NRO accounts) and their country of residence.</div></div>
+    <div class="faq-item">
+      <div class="faq-q">How does the 4% rule work for India residents?</div>
+      <div class="faq-a">The 4% rule works the same in every country — you need 25× your annual expenses invested in a diversified portfolio. The variables that differ by country are: tax treatment of investment returns, available investment accounts (ISA, RRSP, etc.), state pension entitlements that reduce the amount you need to withdraw, and local inflation rates.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related tools</h2>
+    <ul>
+      <li><a href="/fire-number-calculator.html" style="color:var(--gold)">FIRE Number Calculator — The 4% Rule Explained</a></li>
+      <li><a href="/how-much-to-retire-early.html" style="color:var(--gold)">How Much Do I Need to Retire Early?</a></li>
+      <li><a href="/am-i-saving-enough.html" style="color:var(--gold)">Am I Saving Enough?</a></li>
+      <li><a href="/fire-calculator-uae.html" style="color:var(--gold)">FIRE Calculator UAE</a></li>
+      <li><a href="/" style="color:var(--gold)">Full Financial Independence Tool — amipoor.com</a></li>
+    </ul>
+  </div>
+</div>
+<footer class="page-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/fire-calculator-uae.html">UAE</a>
+      <a href="/fire-calculator-uk.html">UK</a>
+      <a href="/fire-calculator-india.html">India</a>
+      <a href="/fire-calculator-canada.html">Canada</a>
+      <a href="/fire-calculator-singapore.html">Singapore</a>
+      <a href="/fire-calculator-brazil.html">Brazil</a>
+      <a href="/fire-calculator-south-korea.html">South Korea</a>
+      <a href="/fire-calculator-france.html">France</a>
+      <a href="/fire-calculator-japan.html">Japan</a>
+    </div>
+    <div class="footer-links" style="margin-top:8px">
+      <a href="/fire-number-calculator.html">FIRE Number</a>
+      <a href="/how-much-to-retire-early.html">How Much to Retire</a>
+      <a href="/am-i-saving-enough.html">Am I Saving Enough?</a>
+      <a href="/salary-per-second.html">Salary Per Second</a>
+      <a href="/what-is-the-4-percent-rule.html">The 4% Rule</a>
+      <a href="/retire-at-40.html">Retire at 40</a>
+      <a href="/retire-at-50.html">Retire at 50</a>
+      <a href="/how-long-to-save-1-million.html">Save $1 Million</a>
+    </div>
+    <p style="margin-top:12px">© 2026 amipoor.com · Not financial advice · All calculations are estimates</p>
+  </div>
+</footer>
+</body>
+</html>

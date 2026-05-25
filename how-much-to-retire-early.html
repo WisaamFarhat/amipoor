@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Much Do I Need to Retire Early? — Early Retirement Calculator | amipoor.com</title>
+<meta name="description" content="Find out exactly how much money you need to retire early. Free early retirement calculator based on the 4% rule. Enter your expenses and see your target number instantly.">
+<meta name="keywords" content="how much do I need to retire early, early retirement calculator, how much to retire at 40, how much to retire at 50, retire early savings goal, financial independence number, how much savings to retire">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://amipoor.com/how-much-to-retire-early.html">
+<meta property="og:title" content="How Much Do I Need to Retire Early?">
+<meta property="og:description" content="Free calculator. Enter your monthly expenses and see exactly how much you need invested to retire early — at any age.">
+<meta property="og:url" content="https://amipoor.com/how-much-to-retire-early.html">
+<meta property="og:site_name" content="Am I Poor?">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;--gold-glow2:rgba(232,160,32,0.25);--bg:#0e0b07;--bg2:#171208;--card:#181208;--border:#2c2310;--border2:#3a2f18;--text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;--green:#2ecc8a;--red:#f05050;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;--r:12px;--r2:16px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.08) 0%,transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;color:var(--text);text-decoration:none}.logo span{color:var(--gold)}
+.topbar-cta{background:var(--gold);color:#070707;border-radius:var(--r);padding:7px 14px;font-weight:700;font-size:12px;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero{padding:56px 0 36px}
+.breadcrumb{font-size:11px;color:var(--text3);margin-bottom:16px}.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--gold)}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.page-title{font-family:var(--display);font-size:clamp(26px,5.5vw,44px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px}.page-title .accent{color:var(--gold)}
+.page-intro{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px;max-width:600px}
+.calc-widget{background:linear-gradient(135deg,rgba(232,160,32,0.12),rgba(232,160,32,0.03));border:1.5px solid rgba(232,160,32,0.3);border-radius:var(--r2);padding:28px 24px;margin:28px 0}
+.calc-title{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:18px}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+.calc-field{display:flex;flex-direction:column;gap:6px}
+.calc-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px}
+.calc-input{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s}.calc-input:focus{border-color:var(--gold)}
+.calc-select{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none}
+.result-box{background:rgba(0,0,0,0.4);border-radius:var(--r);padding:20px;text-align:center;border:1px solid rgba(232,160,32,0.2)}
+.result-label{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.result-num{font-size:42px;font-weight:700;color:var(--gold);letter-spacing:-1px;margin-bottom:4px}
+.result-sub{font-size:12px;color:var(--text3)}
+.result-breakdown{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px}
+.rb-card{background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;text-align:center}
+.rb-val{font-size:16px;font-weight:700;color:var(--text);margin-bottom:2px}
+.rb-lbl{font-size:9px;font-weight:600;letter-spacing:1px;color:var(--text3);text-transform:uppercase}
+.cta-banner{background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold-glow2);border-radius:var(--r2);padding:24px;margin:32px 0;text-align:center}
+.cta-banner h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.cta-banner p{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.5}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border-radius:var(--r);padding:13px 28px;font-weight:800;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(232,160,32,0.25);transition:opacity 0.2s}.btn-gold:hover{opacity:0.9}
+.content-section{margin:36px 0}
+.content-section h2{font-size:21px;font-weight:700;margin-bottom:12px}
+.content-section h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text2);margin-top:20px}
+.content-section p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:14px}
+.content-section ul{padding-left:18px;margin-bottom:14px}
+.content-section li{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:6px}
+.formula-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;font-size:14px;color:var(--text2)}
+.formula-box strong{color:var(--text);display:block;margin-bottom:6px}
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+.scenario-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.sc-title{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.sc-val{font-size:22px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.sc-desc{font-size:12px;color:var(--text3);line-height:1.5}
+.faq{margin:36px 0}.faq h2{font-size:21px;font-weight:700;margin-bottom:18px}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.7}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.page-footer{border-top:1px solid var(--border);padding:28px 0;margin-top:56px;text-align:center}
+.page-footer p{font-size:11px;color:var(--text3);margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{font-size:11px;color:var(--text3);text-decoration:none}.footer-links a:hover{color:var(--gold)}
+@media(max-width:480px){.topbar{padding:0 14px;height:46px}.page-hero{padding:32px 0 20px}.calc-grid{grid-template-columns:1fr}.result-breakdown{grid-template-columns:1fr 1fr}.scenario-grid{grid-template-columns:1fr}.wrap{padding:0 14px}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How much do I need to retire at 40?","acceptedAnswer":{"@type":"Answer","text":"Using the 4% rule: multiply your annual expenses by 25. If you spend $40,000/year, you need $1,000,000 invested. If you spend $60,000/year, you need $1,500,000. The earlier you retire, the more conservative you should be — many advisors suggest 3.5% for retirements over 40 years, which means 28× expenses."}},{"@type":"Question","name":"What is the 4% rule for early retirement?","acceptedAnswer":{"@type":"Answer","text":"The 4% rule states that you can withdraw 4% of your portfolio annually without running out of money over a 30-year period, assuming a diversified investment portfolio. For early retirement (40+ years), a 3-3.5% withdrawal rate is safer, meaning you need 28-33× your annual expenses."}}]}</script>
+</head>
+<body>
+<div class="glow-orb"></div>
+<nav class="topbar">
+  <a class="logo" href="/">am i<span> poor?</span></a>
+  <a class="topbar-cta" href="/">Full tool →</a>
+</nav>
+<div class="wrap">
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="/">amipoor.com</a> › How Much to Retire Early</div>
+    <div class="eyebrow">Early Retirement Calculator</div>
+    <h1 class="page-title">How much do I need to <span class="accent">retire early?</span></h1>
+    <p class="page-intro">The answer is simpler than most people think. Enter your monthly expenses below and find out your exact retirement number — the amount you need invested to never work again.</p>
+  </div>
+
+  <div class="calc-widget">
+    <div class="calc-title">Your early retirement number</div>
+    <div class="calc-grid">
+      <div class="calc-field">
+        <label class="calc-label">Monthly Expenses</label>
+        <input class="calc-input" id="expInput" type="number" placeholder="e.g. 5,000" oninput="calcFire()">
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">Currency</label>
+        <select class="calc-select" id="currSel" onchange="calcFire()">
+          <option value="$">USD $</option>
+          <option value="AED " selected>AED</option>
+          <option value="£">GBP £</option>
+          <option value="€">EUR €</option>
+          <option value="SAR ">SAR</option>
+          <option value="₹">INR ₹</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">Withdrawal Rate</label>
+        <select class="calc-select" id="rateSel" onchange="calcFire()">
+          <option value="25">4% rule (25× expenses) — 30yr retirement</option>
+          <option value="28">3.5% rule (28× expenses) — 40yr retirement</option>
+          <option value="33">3% rule (33× expenses) — 50yr retirement</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">Current Age</label>
+        <input class="calc-input" id="ageInput" type="number" placeholder="30" oninput="calcFire()">
+      </div>
+    </div>
+    <div id="resultBox" style="display:none">
+      <div class="result-box">
+        <div class="result-label">Your retirement number</div>
+        <div class="result-num" id="fireNum">—</div>
+        <div class="result-sub" id="fireSub">—</div>
+      </div>
+      <div class="result-breakdown">
+        <div class="rb-card"><div class="rb-val" id="rbAnnual">—</div><div class="rb-lbl">Annual expenses</div></div>
+        <div class="rb-card"><div class="rb-val" id="rbMultiple">25×</div><div class="rb-lbl">Multiplier used</div></div>
+        <div class="rb-card"><div class="rb-val" id="rbWithdraw">—</div><div class="rb-lbl">Annual withdrawal</div></div>
+      </div>
+    </div>
+    <p id="calcHint" style="font-size:13px;color:var(--text3);margin-top:14px;text-align:center">Enter your monthly expenses to see your number</p>
+  </div>
+
+  <div class="cta-banner">
+    <h3>See how long until you get there</h3>
+    <p>The full tool calculates your FIRE timeline based on your salary, savings rate, and current portfolio. Plus a free AI plan.</p>
+    <a class="btn-gold" href="/">Calculate my timeline →</a>
+  </div>
+
+  <div class="content-section">
+    <h2>The honest answer to "how much do I need?"</h2>
+    <p>The number most people need to retire early is between 20× and 33× their annual expenses, depending on how long their retirement needs to last and how conservative they want to be.</p>
+    <p>The most widely used rule is <strong>25× annual expenses</strong> — based on the 4% rule from the Trinity Study, which found that a diversified portfolio can sustain a 4% annual withdrawal indefinitely under most historical market conditions.</p>
+    <p>If you plan to retire at 40 and live to 90, you need your money to last 50 years — which is longer than the 30 years the original study modelled. Most early retirees use a 3–3.5% withdrawal rate (28–33× expenses) to give themselves more margin.</p>
+
+    <h3>The formula</h3>
+    <div class="formula-box">
+      <strong>Retirement Number = Annual Expenses × Multiplier</strong>
+      4% rule: Annual expenses × 25<br>
+      3.5% rule: Annual expenses × 28<br>
+      3% rule: Annual expenses × 33
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>How much to retire early — common scenarios</h2>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="sc-title">Lean lifestyle · $2,500/mo</div>
+        <div class="sc-val">$750,000</div>
+        <div class="sc-desc">Annual spend: $30,000 · 4% rule · Achievable for most in 10-15 years of serious saving</div>
+      </div>
+      <div class="scenario-card">
+        <div class="sc-title">Comfortable · $5,000/mo</div>
+        <div class="sc-val">$1,500,000</div>
+        <div class="sc-desc">Annual spend: $60,000 · 4% rule · The most common FIRE target for professionals</div>
+      </div>
+      <div class="scenario-card">
+        <div class="sc-title">Comfortable UAE · AED 15,000/mo</div>
+        <div class="sc-val">AED 4,500,000</div>
+        <div class="sc-desc">Annual spend: AED 180,000 · 4% rule · Realistic for Dubai/Abu Dhabi professionals</div>
+      </div>
+      <div class="scenario-card">
+        <div class="sc-title">Fat FIRE · $10,000/mo</div>
+        <div class="sc-val">$3,000,000</div>
+        <div class="sc-desc">Annual spend: $120,000 · 4% rule · For those who don't want to reduce lifestyle at all</div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>What counts toward your retirement number?</h2>
+    <p>Your retirement number should be in <strong>liquid, invested assets</strong> — not your home equity, not cash savings earning 0%, not your car. The reason: the 4% rule assumes your money is invested in a diversified portfolio generating returns. Cash sitting in a bank doesn't compound.</p>
+
+    <h3>What counts</h3>
+    <ul>
+      <li>Stock and bond index funds (ISA, 401k, brokerage accounts)</li>
+      <li>REITs (real estate investment trusts) that generate passive income</li>
+      <li>Dividend portfolios with predictable yield</li>
+    </ul>
+
+    <h3>What doesn't count (directly)</h3>
+    <ul>
+      <li>Your primary residence — you can't withdraw 4% from a house you live in</li>
+      <li>Cash in a current account</li>
+      <li>Illiquid investments (private equity, some property)</li>
+    </ul>
+
+    <p>This doesn't mean property doesn't help — rental income can reduce your withdrawal rate and lower the portfolio you need. But the FIRE number calculation starts with liquid invested assets.</p>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Is the 4% rule safe for very early retirement?</div>
+      <div class="faq-a">For retirements starting at 65 and lasting 30 years, the 4% rule has historically succeeded in over 95% of scenarios. For retirements starting at 40 lasting 50+ years, success rates drop — most early retirement researchers suggest 3–3.5% as a more conservative withdrawal rate. Our calculator lets you choose.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What if I have other income in retirement — pension, side projects, rental income?</div>
+      <div class="faq-a">Any guaranteed income reduces the amount you need to withdraw from your portfolio. If you'll receive $1,000/month from a pension, subtract that from your monthly expenses before calculating your FIRE number. A $5,000/month lifestyle with $1,000 in pension income only needs a $4,000/month withdrawal — requiring $1,200,000 instead of $1,500,000.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Should I account for inflation?</div>
+      <div class="faq-a">The 4% rule already accounts for inflation — the original Trinity Study used inflation-adjusted withdrawals. So your retirement number is in today's money, and the 4% rule assumes you'll increase withdrawals each year with inflation. What you should think about is whether your expenses in retirement will be higher or lower than today — children leaving home, mortgage paying off, healthcare costs rising.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How long does it take to reach the number?</div>
+      <div class="faq-a">It depends entirely on your savings rate and investment returns. At a 50% savings rate with 7% annual returns starting from zero, most people reach 25× annual expenses in roughly 15–17 years. The <a href="/" style="color:var(--gold)">amipoor.com calculator</a> shows your specific timeline based on your actual salary, spending, and current portfolio.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related tools</h2>
+    <ul>
+      <li><a href="/fire-number-calculator.html" style="color:var(--gold)">FIRE Number Calculator — The 4% Rule Explained</a></li>
+      <li><a href="/fire-calculator-uae.html" style="color:var(--gold)">FIRE Calculator UAE</a></li>
+      <li><a href="/am-i-saving-enough.html" style="color:var(--gold)">Am I Saving Enough?</a></li>
+      <li><a href="/salary-per-second.html" style="color:var(--gold)">Salary Per Second Calculator</a></li>
+      <li><a href="/" style="color:var(--gold)">Full FIRE & Financial Independence Tool</a></li>
+    </ul>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/fire-calculator-uae.html">FIRE Calculator UAE</a>
+      <a href="/salary-per-second.html">Salary Per Second</a>
+      <a href="/how-much-to-retire-early.html">How Much to Retire Early</a>
+      <a href="/fire-number-calculator.html">FIRE Number Calculator</a>
+      <a href="/am-i-saving-enough.html">Am I Saving Enough?</a>
+    </div>
+    <p>© 2026 amipoor.com · Not financial advice · All calculations are estimates</p>
+  </div>
+</footer>
+
+<script>
+function fmtNum(n,sym){
+  if(n>=1e6) return sym+(n/1e6).toFixed(2)+'M';
+  if(n>=1000) return sym+(n/1000).toFixed(0)+'K';
+  return sym+n.toFixed(0);
+}
+function calcFire(){
+  const exp = parseFloat(document.getElementById('expInput').value)||0;
+  const sym = document.getElementById('currSel').value;
+  const mult = parseInt(document.getElementById('rateSel').value)||25;
+  const age  = parseInt(document.getElementById('ageInput').value)||0;
+  const rb = document.getElementById('resultBox');
+  const hint = document.getElementById('calcHint');
+  if(!exp){ rb.style.display='none'; hint.style.display='block'; return; }
+  const annual = exp*12;
+  const fireNum = annual*mult;
+  const withdraw = fireNum*(1/mult);
+  document.getElementById('fireNum').textContent = fmtNum(fireNum,sym);
+  document.getElementById('fireSub').textContent = age ? `For someone aged ${age}, this supports retirement for ${50-(age-40)} years or more` : '25× your annual expenses · safe withdrawal rate';
+  document.getElementById('rbAnnual').textContent = fmtNum(annual,sym);
+  document.getElementById('rbMultiple').textContent = mult+'×';
+  document.getElementById('rbWithdraw').textContent = fmtNum(withdraw,sym)+'/yr';
+  rb.style.display='block'; hint.style.display='none';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salary Per Second Calculator — How Much Do You Earn Every Second? | amipoor.com</title>
+<meta name="description" content="Find out exactly how much you earn per second, per minute, and per hour. Free salary per second calculator for any currency. See your time in a completely new way.">
+<meta name="keywords" content="salary per second calculator, how much do I earn per second, earnings per second, salary per minute calculator, income per second, time value of money calculator, how much is my time worth">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://amipoor.com/salary-per-second.html">
+<meta property="og:title" content="Salary Per Second Calculator — How Much Do You Earn Every Second?">
+<meta property="og:description" content="Your salary expressed as a live per-second rate. Find out how much your time is really worth.">
+<meta property="og:url" content="https://amipoor.com/salary-per-second.html">
+<meta property="og:site_name" content="Am I Poor?">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;--gold-glow:rgba(232,160,32,0.12);--gold-glow2:rgba(232,160,32,0.25);--bg:#0e0b07;--bg2:#171208;--card:#181208;--border:#2c2310;--border2:#3a2f18;--text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;--green:#2ecc8a;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;--r:12px;--r2:16px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.08) 0%,transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;color:var(--text);text-decoration:none}.logo span{color:var(--gold)}
+.topbar-cta{background:var(--gold);color:#070707;border-radius:var(--r);padding:7px 14px;font-weight:700;font-size:12px;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero{padding:56px 0 36px}
+.breadcrumb{font-size:11px;color:var(--text3);margin-bottom:16px}.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--gold)}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.page-title{font-family:var(--display);font-size:clamp(28px,6vw,46px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px}.page-title .accent{color:var(--gold)}
+.page-intro{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px;max-width:600px}
+/* Live calculator widget */
+.calc-widget{background:linear-gradient(135deg,rgba(232,160,32,0.12),rgba(232,160,32,0.03));border:1.5px solid rgba(232,160,32,0.3);border-radius:var(--r2);padding:28px 24px;margin:28px 0}
+.calc-title{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:18px}
+.calc-row{display:flex;gap:12px;margin-bottom:14px;align-items:flex-end}
+.calc-field{flex:1}
+.calc-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;display:block}
+.calc-input{width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s}
+.calc-input:focus{border-color:var(--gold)}
+.calc-select{width:100%;background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.result-card{background:rgba(0,0,0,0.3);border-radius:var(--r);padding:14px;text-align:center}
+.result-val{font-size:22px;font-weight:700;color:var(--gold);margin-bottom:3px;font-variant-numeric:tabular-nums}
+.result-lbl{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--text3);text-transform:uppercase}
+.cta-banner{background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold-glow2);border-radius:var(--r2);padding:24px;margin:32px 0;text-align:center}
+.cta-banner h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.cta-banner p{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.5}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border-radius:var(--r);padding:13px 28px;font-weight:800;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(232,160,32,0.25);transition:opacity 0.2s}
+.btn-gold:hover{opacity:0.9}
+.content-section{margin:36px 0}
+.content-section h2{font-size:21px;font-weight:700;margin-bottom:12px}
+.content-section h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text2);margin-top:20px}
+.content-section p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:14px}
+.content-section ul{padding-left:18px;margin-bottom:14px}
+.content-section li{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:6px}
+.formula-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;font-size:14px;color:var(--text2)}
+.formula-box strong{color:var(--text);display:block;margin-bottom:6px}
+.faq{margin:36px 0}.faq h2{font-size:21px;font-weight:700;margin-bottom:18px}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.7}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.page-footer{border-top:1px solid var(--border);padding:28px 0;margin-top:56px;text-align:center}
+.page-footer p{font-size:11px;color:var(--text3);margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{font-size:11px;color:var(--text3);text-decoration:none}.footer-links a:hover{color:var(--gold)}
+@media(max-width:480px){.topbar{padding:0 14px;height:46px}.page-hero{padding:32px 0 20px}.calc-row{flex-direction:column}.result-grid{grid-template-columns:1fr 1fr}.wrap{padding:0 14px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"How do I calculate my salary per second?","acceptedAnswer":{"@type":"Answer","text":"Divide your monthly salary by 30 (days) × 24 (hours) × 3600 (seconds). For example, a 10,000/month salary equals 0.003858 per second. Our calculator does this instantly for any currency."}},
+    {"@type":"Question","name":"Why is salary per second a useful metric?","acceptedAnswer":{"@type":"Answer","text":"Expressing your salary as a per-second rate makes the cost of time tangible. When you see that a 5-minute meeting costs you the equivalent of a coffee, or a bad 30-minute decision costs an hour of work, it changes how you value your time."}}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="glow-orb"></div>
+<nav class="topbar">
+  <a class="logo" href="/">am i<span> poor?</span></a>
+  <a class="topbar-cta" href="/">Full tool →</a>
+</nav>
+<div class="wrap">
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="/">amipoor.com</a> › Salary Per Second Calculator</div>
+    <div class="eyebrow">Time is money · literally</div>
+    <h1 class="page-title">Salary <span class="accent">Per Second</span> Calculator</h1>
+    <p class="page-intro">Your salary is ticking every second, whether you're at your desk or asleep. This calculator converts any monthly salary into a live per-second, per-minute, and per-hour rate — then shows you what that really means.</p>
+  </div>
+
+  <!-- Interactive calculator -->
+  <div class="calc-widget">
+    <div class="calc-title">Calculate your rate</div>
+    <div class="calc-row">
+      <div class="calc-field" style="flex:2">
+        <label class="calc-label">Monthly Salary</label>
+        <input class="calc-input" id="salInput" type="number" placeholder="10,000" oninput="calcRates()">
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">Currency</label>
+        <select class="calc-select" id="currSelect" onchange="calcRates()">
+          <option value="USD" data-sym="$">USD $</option>
+          <option value="AED" data-sym="AED" selected>AED</option>
+          <option value="GBP" data-sym="£">GBP £</option>
+          <option value="EUR" data-sym="€">EUR €</option>
+          <option value="SAR" data-sym="SAR">SAR</option>
+          <option value="INR" data-sym="₹">INR ₹</option>
+          <option value="SGD" data-sym="SGD">SGD</option>
+        </select>
+      </div>
+    </div>
+    <div class="result-grid" id="results" style="display:none">
+      <div class="result-card"><div class="result-val" id="rSec">—</div><div class="result-lbl">Per Second</div></div>
+      <div class="result-card"><div class="result-val" id="rMin">—</div><div class="result-lbl">Per Minute</div></div>
+      <div class="result-card"><div class="result-val" id="rHour">—</div><div class="result-lbl">Per Work Hour</div></div>
+      <div class="result-card"><div class="result-val" id="rDay">—</div><div class="result-lbl">Per Day</div></div>
+    </div>
+    <p id="calcPrompt" style="font-size:13px;color:var(--text3);margin-top:14px;text-align:center">Enter your monthly salary above to see your rates</p>
+  </div>
+
+  <div class="cta-banner">
+    <h3>See your salary tick live</h3>
+    <p>Watch your earnings accumulate in real time, track your spending, and get a free AI plan that tells you exactly when you can stop working.</p>
+    <a class="btn-gold" href="/">Open the live tool →</a>
+  </div>
+
+  <div class="content-section">
+    <h2>How to calculate salary per second</h2>
+    <p>Converting a monthly salary to a per-second rate is straightforward once you choose what kind of "second" you mean.</p>
+
+    <h3>Calendar seconds (every second of every day)</h3>
+    <div class="formula-box">
+      <strong>Per second = Monthly salary ÷ (30 × 24 × 3600)</strong>
+      A 10,000/month salary = 10,000 ÷ 2,592,000 = 0.00386 per second
+    </div>
+
+    <h3>Work seconds (only during working hours)</h3>
+    <div class="formula-box">
+      <strong>Per work second = Monthly salary ÷ (weekly hours × 52/12 × 3600)</strong>
+      At 40 hours/week: 10,000 ÷ (40 × 4.33 × 3600) = 0.016 per work second
+    </div>
+    <p>The work-second rate is roughly 4× higher than the calendar rate — which is why meeting costs feel so different when calculated on "time you're actually working" rather than "time that passes."</p>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>Why your per-second rate matters</h2>
+    <p>Seeing your income as a per-second rate does something to your relationship with time that monthly or annual figures don't. When you know you earn 0.04 per second of work, a 30-minute meeting that could have been an email cost you 72. A 10-minute scroll on your phone during work cost you 24.</p>
+    <p>More practically, it makes the cost of bad financial decisions tangible. If you're considering a monthly subscription for 50, you can ask: how many minutes of work is that? At a typical professional salary, it's less than an hour. That's a different question than "is 50 a month reasonable?"</p>
+    <p>The per-second rate is also the foundation of FIRE calculations. Your financial independence number is the point at which your investment income per second exceeds your salary per second — at which point you no longer need to work.</p>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>Salary per second at common salary levels</h2>
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border)">
+            <th style="text-align:left;padding:10px 8px;color:var(--text3);font-weight:600">Monthly salary</th>
+            <th style="text-align:right;padding:10px 8px;color:var(--text3);font-weight:600">Per second</th>
+            <th style="text-align:right;padding:10px 8px;color:var(--text3);font-weight:600">Per minute</th>
+            <th style="text-align:right;padding:10px 8px;color:var(--text3);font-weight:600">Per work hour</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Does this calculator use calendar time or work time?</div>
+      <div class="faq-a">Both. The per-second and per-minute rates use calendar time (all 86,400 seconds in a day) because your salary accrues whether you're working or sleeping. The per work hour rate uses your actual working hours, which gives a more intuitive sense of what your time costs an employer.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Why is it useful to know my salary per second?</div>
+      <div class="faq-a">It changes how you think about decisions. A 5-minute phone call, a 20-minute commute, a meeting that ran long — expressing these in money makes the cost of wasted time concrete. It's also useful for freelancers setting rates, or for understanding the true cost of any recurring expense.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is salary per second different from an hourly rate?</div>
+      <div class="faq-a">An hourly rate is typically your work hourly rate — total salary divided by hours worked. Salary per second (calendar basis) is your salary divided by all seconds in a month, including nights and weekends. The calendar rate is lower but more interesting — it represents the rate at which time is passing and income is accruing regardless of what you're doing.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related calculators</h2>
+    <ul>
+      <li><a href="/fire-calculator-uae.html" style="color:var(--gold)">FIRE Calculator UAE</a></li>
+      <li><a href="/how-much-to-retire-early.html" style="color:var(--gold)">How Much Do I Need to Retire Early?</a></li>
+      <li><a href="/fire-number-calculator.html" style="color:var(--gold)">FIRE Number Calculator</a></li>
+      <li><a href="/am-i-saving-enough.html" style="color:var(--gold)">Am I Saving Enough?</a></li>
+      <li><a href="/" style="color:var(--gold)">Live salary counter — amipoor.com</a></li>
+    </ul>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/fire-calculator-uae.html">FIRE Calculator UAE</a>
+      <a href="/salary-per-second.html">Salary Per Second</a>
+      <a href="/how-much-to-retire-early.html">How Much to Retire Early</a>
+      <a href="/fire-number-calculator.html">FIRE Number Calculator</a>
+      <a href="/am-i-saving-enough.html">Am I Saving Enough?</a>
+    </div>
+    <p>© 2026 amipoor.com · Not financial advice</p>
+  </div>
+</footer>
+
+<script>
+const SALARIES = [5000,10000,15000,20000,30000,50000,100000];
+const CURRENCY_SYM = {USD:'$',AED:'AED ',GBP:'£',EUR:'€',SAR:'SAR ',INR:'₹',SGD:'SGD '};
+
+function fmt(n){
+  if(n<0.01) return n.toFixed(5);
+  if(n<1) return n.toFixed(4);
+  if(n<100) return n.toFixed(2);
+  return n.toLocaleString('en',{maximumFractionDigits:0});
+}
+
+function calcRates(){
+  const sal = parseFloat(document.getElementById('salInput').value)||0;
+  const curr = document.getElementById('currSelect').value;
+  const sym = CURRENCY_SYM[curr]||'';
+  const results = document.getElementById('results');
+  const prompt = document.getElementById('calcPrompt');
+  if(!sal){ results.style.display='none'; prompt.style.display='block'; buildTable(curr,sym); return; }
+  const perSec  = sal/30/24/3600;
+  const perMin  = perSec*60;
+  const perHour = sal/(40*52/12);
+  const perDay  = sal/30;
+  document.getElementById('rSec').textContent  = sym+fmt(perSec);
+  document.getElementById('rMin').textContent  = sym+fmt(perMin);
+  document.getElementById('rHour').textContent = sym+fmt(perHour);
+  document.getElementById('rDay').textContent  = sym+fmt(perDay);
+  results.style.display='grid';
+  prompt.style.display='none';
+  buildTable(curr,sym);
+}
+
+function buildTable(curr,sym){
+  const tb = document.getElementById('tableBody');
+  tb.innerHTML = SALARIES.map(sal=>{
+    const perSec  = sal/30/24/3600;
+    const perMin  = perSec*60;
+    const perHour = sal/(40*52/12);
+    return `<tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:10px 8px;color:var(--text2)">${sym}${sal.toLocaleString()}/mo</td>
+      <td style="padding:10px 8px;text-align:right;color:var(--gold)">${sym}${fmt(perSec)}</td>
+      <td style="padding:10px 8px;text-align:right;color:var(--text2)">${sym}${fmt(perMin)}</td>
+      <td style="padding:10px 8px;text-align:right;color:var(--text2)">${sym}${fmt(perHour)}</td>
+    </tr>`;
+  }).join('');
+}
+
+buildTable('AED','AED ');
+</script>
+</body>
+</html>

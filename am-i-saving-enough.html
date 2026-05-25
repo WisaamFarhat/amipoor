@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Am I Saving Enough? — Free Savings Rate Calculator | amipoor.com</title>
+<meta name="description" content="Find out if you're saving enough money to retire early. Free savings rate calculator — see how your savings rate compares and how long until you reach financial independence.">
+<meta name="keywords" content="am I saving enough, savings rate calculator, how much should I save, savings rate for financial independence, how much to save each month, savings calculator, personal savings rate">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://amipoor.com/am-i-saving-enough.html">
+<meta property="og:title" content="Am I Saving Enough? Free Savings Rate Calculator">
+<meta property="og:description" content="Enter your salary and spending. Find out your savings rate, how it compares, and when you can retire early.">
+<meta property="og:url" content="https://amipoor.com/am-i-saving-enough.html">
+<meta property="og:site_name" content="Am I Poor?">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;--gold-glow2:rgba(232,160,32,0.25);--bg:#0e0b07;--bg2:#171208;--card:#181208;--border:#2c2310;--border2:#3a2f18;--text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;--green:#2ecc8a;--red:#f05050;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;--r:12px;--r2:16px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.08) 0%,transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;color:var(--text);text-decoration:none}.logo span{color:var(--gold)}
+.topbar-cta{background:var(--gold);color:#070707;border-radius:var(--r);padding:7px 14px;font-weight:700;font-size:12px;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero{padding:56px 0 36px}
+.breadcrumb{font-size:11px;color:var(--text3);margin-bottom:16px}.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--gold)}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.page-title{font-family:var(--display);font-size:clamp(26px,5.5vw,44px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px}.page-title .accent{color:var(--gold)}
+.page-intro{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px;max-width:600px}
+.calc-widget{background:linear-gradient(135deg,rgba(232,160,32,0.12),rgba(232,160,32,0.03));border:1.5px solid rgba(232,160,32,0.3);border-radius:var(--r2);padding:28px 24px;margin:28px 0}
+.calc-title{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:18px}
+.inp-row{display:flex;gap:12px;margin-bottom:12px}
+.inp-field{flex:1;display:flex;flex-direction:column;gap:6px}
+.inp-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px}
+.inp{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s;width:100%}.inp:focus{border-color:var(--gold)}
+.sel{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;width:100%}
+.verdict-box{background:rgba(0,0,0,0.4);border-radius:var(--r);padding:20px;margin-top:16px;border:1px solid rgba(232,160,32,0.2);text-align:center}
+.verdict-rate{font-size:56px;font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:6px}
+.verdict-label{font-size:14px;font-weight:600;margin-bottom:4px}
+.verdict-desc{font-size:12px;color:var(--text3);margin-bottom:14px}
+.verdict-bar-track{background:rgba(0,0,0,0.5);border-radius:4px;height:8px;overflow:hidden;margin-bottom:6px}
+.verdict-bar-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
+.verdict-bar-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3)}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.st{background:rgba(0,0,0,0.3);border-radius:8px;padding:12px;text-align:center}
+.st-val{font-size:16px;font-weight:700;color:var(--text);margin-bottom:2px}
+.st-lbl{font-size:9px;font-weight:600;letter-spacing:1px;color:var(--text3);text-transform:uppercase}
+.fire-insight{background:rgba(46,204,138,0.07);border:1px solid rgba(46,204,138,0.2);border-radius:var(--r);padding:14px 16px;margin-top:14px;font-size:13px;color:var(--text2);line-height:1.6;border-left:3px solid var(--green)}
+.cta-banner{background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold-glow2);border-radius:var(--r2);padding:24px;margin:32px 0;text-align:center}
+.cta-banner h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.cta-banner p{font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.5}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border-radius:var(--r);padding:13px 28px;font-weight:800;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(232,160,32,0.25);transition:opacity 0.2s}.btn-gold:hover{opacity:0.9}
+.rate-table{width:100%;border-collapse:collapse;margin:20px 0}
+.rate-table th{text-align:left;padding:10px 8px;color:var(--text3);font-weight:600;font-size:12px;border-bottom:1px solid var(--border)}
+.rate-table td{padding:10px 8px;font-size:13px;border-bottom:1px solid var(--border);color:var(--text2)}
+.rate-table td:first-child{font-weight:600;color:var(--gold)}
+.content-section{margin:36px 0}
+.content-section h2{font-size:21px;font-weight:700;margin-bottom:12px}
+.content-section h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text2);margin-top:20px}
+.content-section p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:14px}
+.content-section ul{padding-left:18px;margin-bottom:14px}
+.content-section li{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:6px}
+.faq{margin:36px 0}.faq h2{font-size:21px;font-weight:700;margin-bottom:18px}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.7}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.page-footer{border-top:1px solid var(--border);padding:28px 0;margin-top:56px;text-align:center}
+.page-footer p{font-size:11px;color:var(--text3);margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{font-size:11px;color:var(--text3);text-decoration:none}.footer-links a:hover{color:var(--gold)}
+@media(max-width:480px){.topbar{padding:0 14px;height:46px}.page-hero{padding:32px 0 20px}.inp-row{flex-direction:column}.stats-row{grid-template-columns:1fr 1fr}.wrap{padding:0 14px}.verdict-rate{font-size:42px}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is a good savings rate?","acceptedAnswer":{"@type":"Answer","text":"A savings rate of 20% is the commonly recommended minimum. For financial independence, 40-50% is the target — at 50% savings you can retire in approximately 17 years from zero. At 70%+ savings you can reach FIRE in under 9 years."}},{"@type":"Question","name":"How do I calculate my savings rate?","acceptedAnswer":{"@type":"Answer","text":"Savings rate = (Income - Expenses) ÷ Income × 100. If you earn $5,000/month and spend $3,500, your savings rate is ($5,000 - $3,500) ÷ $5,000 = 30%."}}]}</script>
+</head>
+<body>
+<div class="glow-orb"></div>
+<nav class="topbar">
+  <a class="logo" href="/">am i<span> poor?</span></a>
+  <a class="topbar-cta" href="/">Full tool →</a>
+</nav>
+<div class="wrap">
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="/">amipoor.com</a> › Am I Saving Enough?</div>
+    <div class="eyebrow">Savings Rate Calculator</div>
+    <h1 class="page-title">Am I saving <span class="accent">enough?</span></h1>
+    <p class="page-intro">Your savings rate is the single most important number in personal finance. It determines how long until you're financially free — and it's the one thing you have direct control over. Find yours below.</p>
+  </div>
+
+  <div class="calc-widget">
+    <div class="calc-title">Your savings rate</div>
+    <div class="inp-row">
+      <div class="inp-field">
+        <label class="inp-label">Monthly Income</label>
+        <input class="inp" id="incInp" type="number" placeholder="e.g. 10,000" oninput="calcSavings()">
+      </div>
+      <div class="inp-field">
+        <label class="inp-label">Currency</label>
+        <select class="sel" id="currInp" onchange="calcSavings()">
+          <option value="$">USD $</option>
+          <option value="AED " selected>AED</option>
+          <option value="£">GBP £</option>
+          <option value="€">EUR €</option>
+          <option value="SAR ">SAR</option>
+        </select>
+      </div>
+    </div>
+    <div class="inp-row">
+      <div class="inp-field">
+        <label class="inp-label">Monthly Expenses</label>
+        <input class="inp" id="expInp" type="number" placeholder="e.g. 6,000" oninput="calcSavings()">
+      </div>
+      <div class="inp-field">
+        <label class="inp-label">Current Age</label>
+        <input class="inp" id="ageInp" type="number" placeholder="30" oninput="calcSavings()">
+      </div>
+    </div>
+    <div id="verdictBox" style="display:none">
+      <div class="verdict-box">
+        <div class="verdict-rate" id="verdictRate">0%</div>
+        <div class="verdict-label" id="verdictLabel">Savings Rate</div>
+        <div class="verdict-desc" id="verdictDesc">—</div>
+        <div class="verdict-bar-track"><div class="verdict-bar-fill" id="verdictBar" style="width:0%"></div></div>
+        <div class="verdict-bar-labels"><span>0%</span><span>20% (minimum)</span><span>50% (FIRE target)</span><span>70%+</span></div>
+      </div>
+      <div class="stats-row">
+        <div class="st"><div class="st-val" id="stSaved">—</div><div class="st-lbl">Monthly saved</div></div>
+        <div class="st"><div class="st-val" id="stAnnual">—</div><div class="st-lbl">Annual savings</div></div>
+        <div class="st"><div class="st-val" id="stFire">—</div><div class="st-lbl">Years to FIRE*</div></div>
+      </div>
+      <div class="fire-insight" id="fireInsight" style="display:none"></div>
+    </div>
+    <p id="calcHint3" style="font-size:13px;color:var(--text3);margin-top:14px;text-align:center">Enter your income and expenses to see your savings rate</p>
+    <p style="font-size:10px;color:var(--text3);margin-top:8px;text-align:center">*Years to FIRE assumes saving compounds at 7%/year and you need 25× annual expenses</p>
+  </div>
+
+  <div class="cta-banner">
+    <h3>Get your personalised savings plan</h3>
+    <p>Enter your full financial picture and get a free AI analysis — what to cut, how much to invest, and your exact FIRE date.</p>
+    <a class="btn-gold" href="/">Get my free AI plan →</a>
+  </div>
+
+  <div class="content-section">
+    <h2>Savings rates and what they mean</h2>
+    <table class="rate-table">
+      <thead><tr><th>Savings rate</th><th>Assessment</th><th>Years to FIRE (from zero)</th></tr></thead>
+      <tbody>
+        <tr><td>Under 10%</td><td>Financially fragile — one emergency away from debt</td><td>40+ years</td></tr>
+        <tr><td>10–20%</td><td>Below the minimum recommended — retirement pushed out significantly</td><td>30–40 years</td></tr>
+        <tr><td>20–30%</td><td>On track for conventional retirement at 65</td><td>25–30 years</td></tr>
+        <tr><td>30–40%</td><td>Good — early retirement possible in your 50s</td><td>18–25 years</td></tr>
+        <tr><td>40–50%</td><td>FIRE territory — retire in your 40s if you start early</td><td>14–18 years</td></tr>
+        <tr><td>50–70%</td><td>Aggressive FIRE — retire in your late 30s to early 40s</td><td>9–14 years</td></tr>
+        <tr><td>70%+</td><td>Extreme FIRE — financial independence in under a decade</td><td>Under 9 years</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px;color:var(--text3)">*Years to FIRE assumes 7% annual investment returns and a 4% withdrawal rate. Starting from zero savings.</p>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>The maths behind savings rates and FIRE</h2>
+    <p>The relationship between savings rate and time to financial independence is dramatic and non-linear. Going from a 20% savings rate to a 30% savings rate doesn't just save you 10% more — it cuts your working years by nearly a decade.</p>
+    <p>The reason: when you save more, two things happen simultaneously. You accumulate wealth faster, and you lower your target (because your expenses are lower, your FIRE number is smaller). Both effects compound.</p>
+
+    <h3>Why the UAE is the best place to build a high savings rate</h3>
+    <p>In most countries, a 50% savings rate requires either a very high income or a very frugal lifestyle — because 30–50% of income disappears in taxes before you even see it. In the UAE, you keep every dirham. A professional earning AED 20,000/month who spends AED 10,000 has a genuine 50% savings rate. In the UK or US, the same gross income might yield a post-tax savings rate of 25–30% after the government takes its share.</p>
+    <p>This is the single biggest financial advantage UAE residents have — and most don't use it. They expand lifestyle to match income instead of banking the difference.</p>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Should I include employer pension contributions in my savings rate?</div>
+      <div class="faq-a">Yes — if your employer contributes to a pension on your behalf, that's real savings even if you don't see it in your bank account. Include it in your savings rate calculation. For UAE employees, gratuity is the equivalent — though as noted above, it's not a reliable retirement fund on its own.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What's the difference between saving and investing?</div>
+      <div class="faq-a">Saving means keeping money in low or no-interest accounts — it doesn't grow meaningfully. Investing means putting money to work in assets that generate returns (stocks, index funds, property). For FIRE, your savings need to be invested. Cash sitting in a current account earning 0% doesn't compound toward financial independence.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How do I actually increase my savings rate?</div>
+      <div class="faq-a">There are only two levers: earn more or spend less. Spending is usually faster to act on. The highest-impact categories to reduce are housing (can you get a cheaper flat or a flatshare?), dining out and takeaway, and subscription creep (how many subscriptions are you actually using?). Track every dirham for one month — most people are genuinely surprised.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">I'm saving 20% — is that enough?</div>
+      <div class="faq-a">It depends on when you started and when you want to retire. At 20%, starting from zero at age 25 and assuming 7% returns, you'll reach financial independence (25× expenses) at roughly age 60. If you want to retire at 45, you need closer to 45–50%. The full <a href="/" style="color:var(--gold)">amipoor.com tool</a> shows your specific timeline.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related tools</h2>
+    <ul>
+      <li><a href="/fire-number-calculator.html" style="color:var(--gold)">FIRE Number Calculator — The 4% Rule Explained</a></li>
+      <li><a href="/how-much-to-retire-early.html" style="color:var(--gold)">How Much Do I Need to Retire Early?</a></li>
+      <li><a href="/fire-calculator-uae.html" style="color:var(--gold)">FIRE Calculator UAE</a></li>
+      <li><a href="/salary-per-second.html" style="color:var(--gold)">Salary Per Second Calculator</a></li>
+      <li><a href="/" style="color:var(--gold)">Full Financial Independence Tool — amipoor.com</a></li>
+    </ul>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/fire-calculator-uae.html">FIRE Calculator UAE</a>
+      <a href="/salary-per-second.html">Salary Per Second</a>
+      <a href="/how-much-to-retire-early.html">How Much to Retire Early</a>
+      <a href="/fire-number-calculator.html">FIRE Number Calculator</a>
+      <a href="/am-i-saving-enough.html">Am I Saving Enough?</a>
+    </div>
+    <p>© 2026 amipoor.com · Not financial advice · All calculations are estimates</p>
+  </div>
+</footer>
+
+<script>
+function fmt(n,sym){if(n>=1e6)return sym+(n/1e6).toFixed(2)+'M';if(n>=1000)return sym+(n/1000).toFixed(0)+'K';return sym+Math.round(n).toLocaleString();}
+function calcFire(savingsPct){
+  if(savingsPct<=0) return null;
+  const r=0.07/12, mult=25;
+  const spendRate=1-savingsPct/100;
+  let months=0,bal=0;
+  while(months<600){
+    const income=1;
+    const spend=income*spendRate;
+    const save=income-spend;
+    bal=bal*(1+r)+save;
+    months++;
+    if(bal>=spend*12*mult) break;
+  }
+  return months<600?Math.round(months/12):null;
+}
+function calcSavings(){
+  const inc = parseFloat(document.getElementById('incInp').value)||0;
+  const exp = parseFloat(document.getElementById('expInp').value)||0;
+  const age = parseFloat(document.getElementById('ageInp').value)||0;
+  const sym = document.getElementById('currInp').value;
+  const hint = document.getElementById('calcHint3');
+  const box  = document.getElementById('verdictBox');
+  if(!inc||!exp){box.style.display='none';hint.style.display='block';return;}
+  const saved = Math.max(0,inc-exp);
+  const pct   = Math.round((saved/inc)*100);
+  const annual= saved*12;
+  const yearsToFire = calcFire(pct);
+  const retAge = age>0&&yearsToFire?age+yearsToFire:null;
+
+  let color='var(--red)',label='Savings rate',desc='';
+  if(pct<=0){color='var(--red)';desc='Spending more than you earn. This is the most urgent thing to fix.';}
+  else if(pct<10){color='var(--red)';desc='Below 10%. One financial shock could derail everything. Aim for 20% as a minimum.';}
+  else if(pct<20){color='#f5a623';desc='Getting there — but below the recommended minimum. Push to 20%+ to start building real security.';}
+  else if(pct<35){color='var(--gold)';desc='Solid. You\'re building wealth. To retire early, aim to push this toward 40–50%.';}
+  else if(pct<50){color='var(--gold)';desc='Strong savings rate. You\'re on a clear path to financial independence.';}
+  else if(pct<70){color='var(--green)';desc='Excellent. This is FIRE territory. Keep going — you\'re compounding your way to freedom.';}
+  else{color='var(--green)';desc='Outstanding. At this rate, financial independence is close. Make sure your savings are invested, not sitting in cash.';}
+
+  document.getElementById('verdictRate').textContent=pct+'%';
+  document.getElementById('verdictRate').style.color=color;
+  document.getElementById('verdictLabel').textContent='Savings rate';
+  document.getElementById('verdictDesc').textContent=desc;
+  const barPct=Math.min(100,pct/70*100);
+  document.getElementById('verdictBar').style.width=barPct+'%';
+  document.getElementById('verdictBar').style.background=color;
+  document.getElementById('stSaved').textContent=fmt(saved,sym);
+  document.getElementById('stAnnual').textContent=fmt(annual,sym);
+  document.getElementById('stFire').textContent=yearsToFire?yearsToFire+'yrs':'40+';
+
+  const insight=document.getElementById('fireInsight');
+  if(yearsToFire&&pct>0){
+    const retText=retAge?` That means retiring at <strong>age ${retAge}</strong>.`:'';
+    insight.innerHTML=`At a ${pct}% savings rate, you reach financial independence in roughly <strong>${yearsToFire} years</strong>.${retText} Increasing your savings rate to ${Math.min(pct+10,70)}% would save you approximately ${Math.max(0,(calcFire(pct)||0)-(calcFire(Math.min(pct+10,70))||0))} years.`;
+    insight.style.display='block';
+  } else { insight.style.display='none'; }
+
+  box.style.display='block'; hint.style.display='none';
+}
+</script>
+</body>
+</html>

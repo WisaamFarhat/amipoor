@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIRE Calculator UAE — Find Your Retirement Date in AED | amipoor.com</title>
+<meta name="description" content="Free FIRE calculator for UAE residents. Calculate your financial independence number in AED, see when you can retire early, and get a personalised AI plan. Works with any UAE salary.">
+<meta name="keywords" content="FIRE calculator UAE, financial independence UAE, retire early UAE, FIRE number AED, early retirement calculator Dubai, financial independence Abu Dhabi, FIRE movement UAE, retire early expat UAE">
+<meta name="robots" content="index, follow">
+<meta name="author" content="AmiPoor">
+<link rel="canonical" href="https://amipoor.com/fire-calculator-uae.html">
+<meta property="og:title" content="FIRE Calculator UAE — Find Your Retirement Date in AED">
+<meta property="og:description" content="Free FIRE calculator built for UAE residents. Enter your salary in AED and find out exactly when you can stop working.">
+<meta property="og:url" content="https://amipoor.com/fire-calculator-uae.html">
+<meta property="og:site_name" content="Am I Poor?">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23070707'/><text y='75' x='50' text-anchor='middle' font-size='60' font-family='Arial'>%F0%9F%92%B0</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;--gold-glow:rgba(232,160,32,0.12);--gold-glow2:rgba(232,160,32,0.25);--bg:#0e0b07;--bg2:#171208;--bg3:#1f180a;--card:#181208;--border:#2c2310;--border2:#3a2f18;--text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;--green:#2ecc8a;--red:#f05050;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;--r:12px;--r2:16px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.08) 0%,transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;letter-spacing:-0.2px;color:var(--text);text-decoration:none}.logo span{color:var(--gold)}
+.topbar-cta{background:var(--gold);color:#070707;border:none;border-radius:var(--r);padding:7px 14px;font-family:var(--sans);font-weight:700;font-size:12px;cursor:pointer;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero{padding:56px 0 36px}
+.breadcrumb{font-size:11px;color:var(--text3);margin-bottom:16px}
+.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--gold)}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.page-title{font-family:var(--display);font-size:clamp(28px,6vw,46px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px}
+.page-title .accent{color:var(--gold)}
+.page-intro{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px;max-width:600px}
+.cta-banner{background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold-glow2);border-radius:var(--r2);padding:28px 24px;margin:32px 0;text-align:center}
+.cta-banner h3{font-size:20px;font-weight:800;margin-bottom:8px}
+.cta-banner p{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.5}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:var(--r);padding:14px 32px;font-family:var(--sans);font-weight:800;font-size:14px;cursor:pointer;text-decoration:none;box-shadow:0 4px 20px rgba(232,160,32,0.25);transition:opacity 0.2s}
+.btn-gold:hover{opacity:0.9}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;text-align:center}
+.stat-val{font-size:26px;font-weight:700;color:var(--gold);margin-bottom:4px}
+.stat-lbl{font-size:10px;font-weight:600;letter-spacing:1px;color:var(--text3);text-transform:uppercase;line-height:1.4}
+.content-section{margin:36px 0}
+.content-section h2{font-size:21px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.content-section h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--text2);margin-top:20px}
+.content-section p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:14px}
+.content-section ul{padding-left:18px;margin-bottom:14px}
+.content-section li{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:6px}
+.formula-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);border-left:3px solid var(--gold);padding:16px 20px;margin:20px 0;font-size:14px;color:var(--text2)}
+.formula-box strong{color:var(--text);display:block;margin-bottom:6px}
+.faq{margin:36px 0}
+.faq h2{font-size:21px;font-weight:700;margin-bottom:18px}
+.faq-item{border-bottom:1px solid var(--border);padding:16px 0}.faq-item:last-child{border-bottom:none}
+.faq-q{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px}
+.faq-a{font-size:13px;color:var(--text2);line-height:1.7}
+hr{border:none;border-top:1px solid var(--border);margin:28px 0}
+.page-footer{border-top:1px solid var(--border);padding:28px 0;margin-top:56px;text-align:center}
+.page-footer p{font-size:11px;color:var(--text3);margin-bottom:8px}
+.footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.footer-links a{font-size:11px;color:var(--text3);text-decoration:none}.footer-links a:hover{color:var(--gold)}
+@media(max-width:480px){.topbar{padding:0 14px;height:46px}.page-hero{padding:32px 0 20px}.stat-grid{grid-template-columns:1fr 1fr}.wrap{padding:0 14px}}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "name": "FIRE Calculator UAE",
+      "description": "Free FIRE calculator for UAE residents. Calculate your financial independence number in AED.",
+      "url": "https://amipoor.com/fire-calculator-uae.html"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a FIRE number in the UAE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your FIRE number is 25 times your annual expenses — the amount you need invested so a 4% annual withdrawal covers your living costs indefinitely. For example, if you spend 10,000 AED per month (120,000 AED/year), your FIRE number is 3,000,000 AED."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is FIRE realistic for expats in the UAE?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — the UAE's tax-free income makes it one of the best places in the world to build wealth quickly. With no income tax, a high savings rate is achievable for most professionals. The key challenge is that UAE pensions don't apply to expats, making personal investment planning especially important."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What savings rate do I need to retire early?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A 50% savings rate gets you to financial independence in roughly 17 years from zero. A 70% savings rate cuts that to under 9 years. In the UAE, where income is tax-free, a 40-50% savings rate is realistic for many professionals."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="glow-orb"></div>
+
+<nav class="topbar">
+  <a class="logo" href="/">am i<span> poor?</span></a>
+  <a class="topbar-cta" href="/">Try the free tool →</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="/">amipoor.com</a> › FIRE Calculator UAE</div>
+    <div class="eyebrow">Financial Independence · UAE</div>
+    <h1 class="page-title">FIRE Calculator <span class="accent">UAE</span></h1>
+    <p class="page-intro">The UAE's tax-free income makes it one of the best places in the world to reach financial independence early. Find out exactly when you can retire — calculated in AED, for your actual life costs.</p>
+
+    <div class="cta-banner">
+      <h3>Calculate your UAE FIRE date — free</h3>
+      <p>Enter your salary in AED, your monthly spending, and your current portfolio. Get your FIRE number and a personalised AI plan instantly.</p>
+      <a class="btn-gold" href="/?currency=AED">Open the FIRE Calculator →</a>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-val">0%</div>
+      <div class="stat-lbl">Income tax in the UAE</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">25×</div>
+      <div class="stat-lbl">Annual expenses = FIRE number</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">4%</div>
+      <div class="stat-lbl">Safe withdrawal rate</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>What is FIRE and why does it matter in the UAE?</h2>
+    <p>FIRE stands for Financial Independence, Retire Early. The movement is built on a simple idea: if you can accumulate enough invested assets to cover your living expenses through investment returns, you no longer need to work for money. Work becomes a choice, not a requirement.</p>
+    <p>For UAE residents — particularly the large expat professional community — FIRE is uniquely achievable. There is no income tax, salaries are among the highest in the region, and the cost of living, while not cheap, is predictable. The main risk is that most expats don't plan for the absence of a state pension. If you leave the UAE without a personal investment portfolio, you leave with nothing.</p>
+    <p>The best time to start calculating your FIRE number was when you arrived in the UAE. The second best time is now.</p>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>How to calculate your FIRE number in AED</h2>
+    <p>The FIRE number formula is straightforward:</p>
+
+    <div class="formula-box">
+      <strong>FIRE Number = Annual Expenses × 25</strong>
+      This is based on the 4% rule — the finding that a portfolio can sustain a 4% annual withdrawal indefinitely, assuming a diversified investment mix.
+    </div>
+
+    <h3>Step 1 — Calculate your annual expenses</h3>
+    <p>Add up everything you spend in a month: rent, food, transport, utilities, subscriptions, leisure. Multiply by 12. This is your annual expense figure. Be honest — most people underestimate by 15–20%.</p>
+
+    <h3>Step 2 — Multiply by 25</h3>
+    <p>If you spend 15,000 AED/month, your annual expenses are 180,000 AED. Your FIRE number is 4,500,000 AED. That's the amount you need invested, not in cash, not in property equity — in liquid, invested assets generating returns.</p>
+
+    <h3>Step 3 — Calculate how long it takes</h3>
+    <p>This depends on your savings rate and investment returns. In the UAE, with tax-free income, a 40–50% savings rate is achievable for many professionals. At 7% annual returns and a 50% savings rate, most people reach financial independence within 15–20 years of starting to invest consistently.</p>
+
+    <div class="formula-box">
+      <strong>Example: 30-year-old earning 25,000 AED/month</strong>
+      Monthly spend: 12,000 AED → Annual: 144,000 AED → FIRE number: 3,600,000 AED<br>
+      Monthly savings: 13,000 AED → At 7% returns → FIRE in approximately 12 years, age 42.
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="content-section">
+    <h2>FIRE strategies that work in the UAE</h2>
+
+    <h3>Maximise your savings rate while costs are low</h3>
+    <p>Many UAE residents find their costs rise significantly with lifestyle inflation — larger apartments, frequent travel, dining out. The most effective FIRE strategy is to lock in a savings rate early and increase it as your salary grows, rather than letting spending expand with income.</p>
+
+    <h3>Invest in globally diversified index funds</h3>
+    <p>UAE residents can access global markets through platforms like Saxo Bank, Interactive Brokers, or local options like Sarwa. A simple portfolio of global equity index funds (tracking the MSCI World or S&P 500) has historically returned 7–10% annually over long periods.</p>
+
+    <h3>Account for repatriation</h3>
+    <p>If you plan to return to your home country, factor in that your living costs will likely change significantly. Your FIRE number should reflect where you plan to live in retirement, not where you live now. For many expats, retiring to a lower cost-of-living country is itself a FIRE strategy — it reduces the number you need to hit.</p>
+
+    <h3>Gratuity is not a pension</h3>
+    <p>UAE end-of-service gratuity (typically 21 days per year of service) is often misunderstood as a retirement fund. It isn't. At most salaries, gratuity covers 1–2 years of expenses. A full FIRE portfolio needs to be built independently.</p>
+  </div>
+
+  <hr>
+
+  <div class="cta-banner">
+    <h3>Find your exact FIRE date</h3>
+    <p>Enter your salary, spending, and portfolio into our free tool. Get your FIRE number in AED, your projected retirement age, and a personalised AI plan.</p>
+    <a class="btn-gold" href="/">Calculate my FIRE date →</a>
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">What is a realistic FIRE number for someone living in Dubai?</div>
+      <div class="faq-a">It depends entirely on your lifestyle. A modest lifestyle (10,000 AED/month) requires a 3,000,000 AED portfolio. A comfortable lifestyle (20,000 AED/month) requires 6,000,000 AED. Most FIRE-focused Dubai professionals aim for 3–5 million AED, often planning to retire to a lower cost-of-living country where the same portfolio goes further.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is FIRE achievable on a typical UAE expat salary?</div>
+      <div class="faq-a">Yes, for most professional salaries. The UAE's biggest advantage is zero income tax — every dirham you earn is yours to keep or invest. A professional earning 20,000–30,000 AED/month who maintains a 40% savings rate and invests consistently can realistically reach financial independence within 15–20 years.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Where should UAE residents invest for FIRE?</div>
+      <div class="faq-a">UAE residents have access to international brokerages like Interactive Brokers, Saxo Bank, and regional platforms like Sarwa (a robo-advisor built for UAE investors). Most FIRE investors use low-cost index funds tracking global equities. Avoid high-fee investment products often sold by UAE financial advisors — fees of 1–2% annually compound dramatically over 20 years.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Does the 4% rule apply in the UAE?</div>
+      <div class="faq-a">The 4% rule is based on US market data and is designed for a 30-year retirement. If you plan to retire early (20+ years of retirement), many financial planners suggest using 3–3.5% instead, which means a FIRE number of 28–33× annual expenses rather than 25×. Our calculator uses 25× as the baseline — conservative enough for most scenarios.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What happens to my investments if I leave the UAE?</div>
+      <div class="faq-a">If you invest through an international brokerage (Interactive Brokers, Saxo), your investments stay with you regardless of where you live. UAE-based investment platforms may have restrictions — check the terms before investing. This is one reason many FIRE-focused UAE residents prefer international platforms even if there are more accessible local options.</div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related tools</h2>
+    <ul>
+      <li><a href="/fire-number-calculator.html" style="color:var(--gold)">FIRE Number Calculator — The 4% Rule Explained</a></li>
+      <li><a href="/how-much-to-retire-early.html" style="color:var(--gold)">How Much Do I Need to Retire Early?</a></li>
+      <li><a href="/am-i-saving-enough.html" style="color:var(--gold)">Am I Saving Enough?</a></li>
+      <li><a href="/salary-per-second.html" style="color:var(--gold)">Salary Per Second Calculator</a></li>
+      <li><a href="/" style="color:var(--gold)">Full Financial Independence Tool — amipoor.com</a></li>
+    </ul>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/fire-calculator-uae.html">FIRE Calculator UAE</a>
+      <a href="/salary-per-second.html">Salary Per Second</a>
+      <a href="/how-much-to-retire-early.html">How Much to Retire Early</a>
+      <a href="/fire-number-calculator.html">FIRE Number Calculator</a>
+      <a href="/am-i-saving-enough.html">Am I Saving Enough?</a>
+    </div>
+    <p>© 2026 amipoor.com · Not financial advice · All calculations are estimates</p>
+  </div>
+</footer>
+</body>
+</html>
