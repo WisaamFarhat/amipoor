@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Take-Home Pay Calculator — 20 Countries | amipoor.com</title>
+<meta name="description" content="Free take-home pay calculator for 20 countries. Enter your gross salary, select your country, and see exactly how much you keep after tax. UAE, UK, US, Singapore, Germany, Canada and more.">
+<meta name="keywords" content="take home pay calculator, salary after tax calculator, net salary calculator, how much do I take home, gross to net salary, salary calculator UK, salary calculator UAE, salary calculator by country">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://amipoor.com/take-home-pay-calculator.html">
+<meta property="og:title" content="Take-Home Pay Calculator — 20 Countries">
+<meta property="og:description" content="See exactly how much of your salary you actually keep after tax — for 20 countries.">
+<meta property="og:url" content="https://amipoor.com/take-home-pay-calculator.html">
+<meta property="og:site_name" content="Am I Poor?">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#e8a020;--gold-light:#f5c84a;--gold-dim:#9a6510;--gold-glow2:rgba(232,160,32,0.25);--bg:#0e0b07;--bg2:#171208;--bg3:#1f180a;--card:#181208;--border:#2c2310;--border2:#3a2f18;--text:#fdf6e3;--text2:#c4a96a;--text3:#7a6030;--green:#2ecc8a;--red:#f05050;--sans:'Inter',sans-serif;--display:'Playfair Display',Georgia,serif;--r:12px;--r2:16px}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden;line-height:1.6}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(232,160,32,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,160,32,0.04) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+.glow-orb{position:fixed;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.08) 0%,transparent 70%);top:-300px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0}
+.topbar{position:sticky;top:0;z-index:200;background:rgba(14,11,7,0.94);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-size:16px;font-weight:700;color:var(--text);text-decoration:none}.logo span{color:var(--gold)}
+.topbar-cta{background:var(--gold);color:#070707;border-radius:var(--r);padding:7px 14px;font-weight:700;font-size:12px;text-decoration:none}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.page-hero{padding:56px 0 32px}
+.breadcrumb{font-size:11px;color:var(--text3);margin-bottom:16px}.breadcrumb a{color:var(--text3);text-decoration:none}.breadcrumb a:hover{color:var(--gold)}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
+.page-title{font-family:var(--display);font-size:clamp(28px,6vw,46px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px}.page-title .accent{color:var(--gold)}
+.page-intro{font-size:15px;color:var(--text2);line-height:1.75;margin-bottom:28px;max-width:600px}
+/* Calculator */
+.calc-card{background:linear-gradient(135deg,rgba(232,160,32,0.1),rgba(232,160,32,0.02));border:1.5px solid rgba(232,160,32,0.28);border-radius:var(--r2);padding:28px;margin-bottom:28px}
+.calc-title{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:18px}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px}
+.inp{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:16px;outline:none;transition:border-color 0.2s;width:100%}.inp:focus{border-color:var(--gold)}
+.sel{background:rgba(0,0,0,0.3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 14px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;width:100%}
+/* Result */
+.result-hero{text-align:center;background:rgba(0,0,0,0.35);border-radius:var(--r);padding:22px;border:1px solid rgba(232,160,32,0.18);margin-top:4px}
+.result-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
+.result-num{font-size:52px;font-weight:700;color:var(--gold);letter-spacing:-2px;line-height:1;margin-bottom:4px}
+.result-sub{font-size:13px;color:var(--text2)}
+/* Breakdown donut-style */
+.breakdown-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+.breakdown-card{background:rgba(0,0,0,0.25);border-radius:10px;padding:13px;text-align:center}
+.breakdown-val{font-size:18px;font-weight:700;margin-bottom:3px}
+.breakdown-lbl{font-size:9px;font-weight:600;letter-spacing:1px;color:var(--text3);text-transform:uppercase;line-height:1.3}
+/* Visual bar */
+.salary-bar{height:28px;border-radius:8px;overflow:hidden;display:flex;margin:16px 0;gap:2px}
+.bar-take-home{background:var(--gold);transition:width 0.5s ease}
+.bar-tax{background:var(--red);opacity:0.7;transition:width 0.5s ease}
+.bar-ni{background:#c0392b;opacity:0.6;transition:width 0.5s ease}
+.bar-labels{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+.bar-label{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
+.bar-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+/* Country table */
+.country-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:14px}
+.country-table th{text-align:left;padding:10px 8px;color:var(--text3);font-weight:600;font-size:11px;border-bottom:1px solid var(--border)}
+.country-table td{padding:10px 8px;border-bottom:1px solid var(--border);color:var(--text2)}
+.country-table tr:hover td{background:rgba(232,160,32,0.04)}
+/* Content */
+.cs{margin:32px 0}.cs h2{font-size:20px;font-weight:700;margin-bottom:10px}
+.cs h3{font-size:15px;font-weight:700;margin-bottom:7px;color:var(--text2);margin-top:16px}
+.cs p{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:12px}
+.cs ul{padding-left:18px;margin-bottom:12px}.cs li{font-size:14px;color:var(--text2);line-height:1.75;margin-bottom:5px}
+.cta-banner{background:linear-gradient(135deg,rgba(232,160,32,0.14),rgba(232,160,32,0.04));border:1.5px solid var(--gold-glow2);border-radius:var(--r2);padding:22px;margin:28px 0;text-align:center}
+.cta-banner h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.cta-banner p{font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.5}
+.btn-gold{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border-radius:var(--r);padding:12px 28px;font-weight:800;font-size:14px;text-decoration:none;box-shadow:0 4px 20px rgba(232,160,32,0.25);transition:opacity 0.2s}.btn-gold:hover{opacity:0.9}
+hr{border:none;border-top:1px solid var(--border);margin:24px 0}
+.page-footer{border-top:1px solid var(--border);padding:24px 0;margin-top:48px}
+.page-footer p{font-size:11px;color:var(--text3);margin-bottom:7px;text-align:center}
+.footer-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.footer-links a{font-size:11px;color:var(--text3);text-decoration:none}.footer-links a:hover{color:var(--gold)}
+.hint{font-size:12px;color:var(--text3);margin-top:12px;text-align:center}
+@media(max-width:480px){.topbar{padding:0 14px;height:46px}.page-hero{padding:30px 0 18px}.inp-row{grid-template-columns:1fr}.breakdown-grid{grid-template-columns:1fr 1fr}.result-num{font-size:38px}.wrap{padding:0 14px}}
+</style>
+</head>
+<body>
+<div class="glow-orb"></div>
+<nav class="topbar">
+  <a class="logo" href="/">am i<span> poor?</span></a>
+  <a class="topbar-cta" href="/">Full FIRE tool →</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="/">amipoor.com</a> › Take-Home Pay Calculator</div>
+    <div class="eyebrow">Gross to net · 20 countries</div>
+    <h1 class="page-title">Take-home pay <span class="accent">calculator</span></h1>
+    <p class="page-intro">Enter your gross salary and country. See exactly how much you take home after income tax, social contributions, and other deductions — then find out how that compares globally.</p>
+  </div>
+
+  <div class="calc-card">
+    <div class="calc-title">Calculate your take-home pay</div>
+    <div class="inp-row">
+      <div class="fld">
+        <label>Gross monthly salary</label>
+        <input class="inp" id="gross" type="number" placeholder="e.g. 5,000" oninput="calc()">
+      </div>
+      <div class="fld">
+        <label>Country</label>
+        <select class="sel" id="country" onchange="calc()">
+          <option value="">Select country</option>
+          <option value="uae">🇦🇪 UAE (Dubai / Abu Dhabi)</option>
+          <option value="uk">🇬🇧 United Kingdom</option>
+          <option value="us">🇺🇸 United States (federal avg)</option>
+          <option value="sg">🇸🇬 Singapore</option>
+          <option value="de">🇩🇪 Germany</option>
+          <option value="fr">🇫🇷 France</option>
+          <option value="ca">🇨🇦 Canada (Ontario)</option>
+          <option value="au">🇦🇺 Australia</option>
+          <option value="ch">🇨🇭 Switzerland (Zurich)</option>
+          <option value="nl">🇳🇱 Netherlands</option>
+          <option value="jp">🇯🇵 Japan</option>
+          <option value="kr">🇰🇷 South Korea</option>
+          <option value="in">🇮🇳 India</option>
+          <option value="br">🇧🇷 Brazil</option>
+          <option value="my">🇲🇾 Malaysia</option>
+          <option value="se">🇸🇪 Sweden</option>
+          <option value="dk">🇩🇰 Denmark</option>
+          <option value="es">🇪🇸 Spain</option>
+          <option value="it">🇮🇹 Italy</option>
+          <option value="us_fl">🇺🇸 United States (Florida — no state tax)</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="result" style="display:none">
+      <div class="result-hero">
+        <div class="result-label">Monthly take-home pay</div>
+        <div class="result-num" id="rNet">—</div>
+        <div class="result-sub" id="rSub">—</div>
+      </div>
+
+      <!-- Visual bar -->
+      <div style="margin-top:16px">
+        <div class="bar-labels">
+          <div class="bar-label"><div class="bar-dot" style="background:var(--gold)"></div>Take-home</div>
+          <div class="bar-label"><div class="bar-dot" style="background:var(--red);opacity:0.8"></div>Income tax</div>
+          <div class="bar-label"><div class="bar-dot" style="background:#c0392b;opacity:0.7"></div>Social contributions</div>
+        </div>
+        <div class="salary-bar">
+          <div class="bar-take-home" id="barHome" style="width:70%"></div>
+          <div class="bar-tax" id="barTax" style="width:20%"></div>
+          <div class="bar-ni" id="barNI" style="width:10%"></div>
+        </div>
+      </div>
+
+      <div class="breakdown-grid">
+        <div class="breakdown-card">
+          <div class="breakdown-val" id="rTakeHome" style="color:var(--gold)">—</div>
+          <div class="breakdown-lbl">Take-home</div>
+        </div>
+        <div class="breakdown-card">
+          <div class="breakdown-val" id="rTax" style="color:var(--red)">—</div>
+          <div class="breakdown-lbl">Income tax</div>
+        </div>
+        <div class="breakdown-card">
+          <div class="breakdown-val" id="rNI" style="color:#e67e73">—</div>
+          <div class="breakdown-lbl">Social / NI</div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;background:rgba(0,0,0,0.2);border-radius:10px;padding:14px">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:10px">Annual figures</div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;color:var(--text2)">Gross annual salary</span><span style="font-size:13px;font-weight:700;color:var(--text)" id="aGross">—</span></div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:13px;color:var(--text2)">Annual take-home</span><span style="font-size:13px;font-weight:700;color:var(--gold)" id="aNet">—</span></div>
+        <div style="display:flex;justify-content:space-between"><span style="font-size:13px;color:var(--text2)">Total deductions</span><span style="font-size:13px;font-weight:700;color:var(--red)" id="aDeduct">—</span></div>
+      </div>
+
+      <div id="rNote" style="font-size:11px;color:var(--text3);margin-top:10px;line-height:1.5;text-align:center"></div>
+    </div>
+    <p class="hint" id="hint">Select your country and enter your gross salary</p>
+  </div>
+
+  <div class="cta-banner">
+    <h3>See how your take-home maps to financial independence</h3>
+    <p>The full tool shows your FIRE date, savings rate, and generates a personalised AI plan based on your actual take-home pay.</p>
+    <a class="btn-gold" href="/">Calculate my FIRE date →</a>
+  </div>
+
+  <div class="cs">
+    <h2>Take-home pay comparison — same $5,000 gross salary</h2>
+    <p>What $5,000/month gross salary actually puts in your pocket, country by country. The differences are striking.</p>
+    <div style="overflow-x:auto">
+      <table class="country-table" id="compTable">
+        <thead><tr>
+          <th>Country</th>
+          <th style="text-align:right">Gross</th>
+          <th style="text-align:right">Take-home</th>
+          <th style="text-align:right">% kept</th>
+          <th style="text-align:right">Lost to tax</th>
+        </tr></thead>
+        <tbody id="compBody"></tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--text3);margin-top:8px">All figures converted to USD for comparison at approximate exchange rates. Effective rates are estimates — actual amounts vary by personal circumstances, deductions, and local rules.</p>
+  </div>
+
+  <hr>
+
+  <div class="cs">
+    <h2>Why take-home pay matters more than gross salary</h2>
+    <p>When comparing job offers across countries, gross salary is almost meaningless. A £60,000 salary in London and a $70,000 salary in New York sound similar — but after UK income tax and National Insurance vs US federal tax, you might take home almost identical amounts despite very different gross figures.</p>
+    <p>The only number that matters for your actual lifestyle and wealth building is what hits your bank account. That's what determines your savings rate, your cost of living coverage, and ultimately your path to financial independence.</p>
+
+    <h3>The UAE advantage</h3>
+    <p>The UAE's zero income tax means gross salary = take-home salary. A professional earning AED 20,000/month keeps all AED 20,000. In the UK, an equivalent earner would keep roughly 65-70% after income tax and National Insurance. Over a 20-year career, this compounding difference is enormous.</p>
+
+    <h3>Social contributions vs income tax</h3>
+    <p>Many people focus on income tax but forget social contributions — National Insurance (UK), Social Security (US), pension contributions (Germany, France), CPF (Singapore). In France, total employee contributions can exceed 22% of gross salary on top of income tax. Germany's combined deductions (Lohnsteuer + Solidaritätszuschlag + Krankenversicherung + Rentenversicherung + Pflegeversicherung) typically take 35-45% of a mid-range salary.</p>
+  </div>
+
+  <div class="cs">
+    <h2>Related tools</h2>
+    <ul>
+      <li><a href="/salary-enough-tool.html" style="color:var(--gold)">Is my salary enough? — 15 city comparison</a></li>
+      <li><a href="/cost-of-living-comparison.html" style="color:var(--gold)">City vs city cost of living comparison</a></li>
+      <li><a href="/am-i-saving-enough.html" style="color:var(--gold)">Am I saving enough?</a></li>
+      <li><a href="/fire-number-calculator.html" style="color:var(--gold)">FIRE number calculator</a></li>
+      <li><a href="/" style="color:var(--gold)">Full financial independence tool</a></li>
+    </ul>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="/">Home</a><a href="/salary-enough-tool.html">Salary Tool</a>
+      <a href="/cost-of-living-comparison.html">City Comparison</a>
+      <a href="/fire-number-calculator.html">FIRE Number</a>
+      <a href="/am-i-saving-enough.html">Am I Saving Enough?</a>
+      <a href="/compound-interest-calculator.html">Compound Interest</a>
+    </div>
+    <p>© 2026 amipoor.com · Tax estimates only — consult a tax professional for personal advice · Not financial advice</p>
+  </div>
+</footer>
+
+<script>
+// Tax data: [income_tax_rate, social_contributions_rate, currency_sym, note]
+const TAX = {
+  uae:   [0,    0,    'AED ', 'No income tax or social contributions for expats in the UAE. Gross = take-home.'],
+  uk:    [20,   12,   '£',    'Basic rate income tax (20%) + National Insurance (12%). Higher earners pay 40-45%.'],
+  us:    [22,   7.65, '$',    'Federal income tax (22% effective for mid-range) + Social Security/Medicare (7.65%).'],
+  sg:    [11.5, 20,   'S$',   'Income tax (~11.5% effective) + CPF employee contribution (20% for under 55). CPF is your own savings.'],
+  de:    [25,   20.5, '€',    'Income tax + solidarity surcharge (~25% effective) + social contributions (~20.5%).'],
+  fr:    [14,   22,   '€',    'Income tax (~14% effective) + employee social contributions (~22%). France has the highest contributions in this list.'],
+  ca:    [20.5, 8.5,  'CA$',  'Federal + Ontario provincial income tax (~20.5% combined effective) + CPP/EI (~8.5%).'],
+  au:    [19,   0,    'A$',   'Income tax (~19% effective on mid salary). 11% superannuation paid by employer on top (not deducted from salary).'],
+  ch:    [15,   13,   'CHF ', 'Swiss income tax varies by canton (~15% Zurich effective) + social contributions (~13%).'],
+  nl:    [37,   0,    '€',    'Netherlands income tax box 1 (~37% effective for mid earners). Social premiums included in the tax rate.'],
+  jp:    [15,   15,   '¥',    'Income tax + resident tax (~15% combined effective) + social insurance (~15%). NISA investment income is tax-free.'],
+  kr:    [15,   9,    '₩',    'Income tax (~15% effective) + National Pension + health insurance (~9% combined employee).'],
+  in:    [20,   12,   '₹',    'Income tax (~20% effective for mid earners) + PF employee contribution (12%). Section 80C reduces tax.'],
+  br:    [15,   9,    'R$',   'Income tax (~15% effective) + INSS social security (~9% capped).'],
+  my:    [13,   11,   'RM',   'Income tax (~13% effective) + EPF employee contribution (11%). No capital gains tax on equities.'],
+  se:    [32,   7,    'kr',   'Swedish income tax (~32% effective for mid earners) + pension contribution (~7%). High but comprehensive social benefits.'],
+  dk:    [37,   8,    'kr',   'Danish income tax (~37% effective) + ATP pension. Denmark has some of the highest rates globally.'],
+  es:    [24,   6.35, '€',    'Spanish income tax (~24% effective) + social security employee contribution (~6.35%).'],
+  it:    [27,   9.19, '€',    'Italian income tax (~27% effective) + INPS social contribution (~9.19%).'],
+  us_fl: [22,   7.65, '$',    'Federal income tax (22% effective) + Social Security/Medicare (7.65%). No Florida state income tax — saves ~5% vs NY/CA.'],
+};
+
+// Exchange rates to USD (approximate)
+const FX = {uae:0.272,uk:1.27,us:1,sg:0.74,de:1.09,fr:1.09,ca:0.74,au:0.65,ch:1.12,nl:1.09,jp:0.0067,kr:0.00075,in:0.012,br:0.20,my:0.22,se:0.096,dk:0.146,es:1.09,it:1.09,us_fl:1};
+const CURR = {uae:'AED ',uk:'£',us:'$',sg:'S$',de:'€',fr:'€',ca:'CA$',au:'A$',ch:'CHF ',nl:'€',jp:'¥',kr:'₩',in:'₹',br:'R$',my:'RM',se:'kr',dk:'kr',es:'€',it:'€',us_fl:'$'};
+
+function fmt(n, sym) {
+  if(Math.abs(n) >= 1e6) return sym + (n/1e6).toFixed(2) + 'M';
+  if(Math.abs(n) >= 1000) return sym + Math.round(n).toLocaleString();
+  return sym + Math.round(n).toLocaleString();
+}
+
+function calc() {
+  const gross = parseFloat(document.getElementById('gross').value) || 0;
+  const country = document.getElementById('country').value;
+  const res = document.getElementById('result');
+  const hint = document.getElementById('hint');
+  if (!gross || !country) { res.style.display='none'; hint.style.display='block'; buildTable(); return; }
+
+  const [itRate, niRate, sym, note] = TAX[country];
+  const incomeTax = gross * itRate / 100;
+  const ni = gross * niRate / 100;
+  const net = gross - incomeTax - ni;
+  const totalDeduct = incomeTax + ni;
+  const pctKept = (net/gross*100).toFixed(0);
+
+  document.getElementById('rNet').textContent = fmt(net, sym);
+  document.getElementById('rSub').textContent = `${pctKept}% of gross salary · ${itRate}% income tax + ${niRate}% social contributions`;
+  document.getElementById('rTakeHome').textContent = fmt(net, sym);
+  document.getElementById('rTax').textContent = fmt(incomeTax, sym);
+  document.getElementById('rNI').textContent = niRate > 0 ? fmt(ni, sym) : '—';
+  document.getElementById('rNote').textContent = note;
+
+  // Bar widths
+  document.getElementById('barHome').style.width = (net/gross*100) + '%';
+  document.getElementById('barTax').style.width = (incomeTax/gross*100) + '%';
+  document.getElementById('barNI').style.width = (ni/gross*100) + '%';
+
+  // Annual
+  document.getElementById('aGross').textContent = fmt(gross*12, sym);
+  document.getElementById('aNet').textContent = fmt(net*12, sym);
+  document.getElementById('aDeduct').textContent = '-' + fmt(totalDeduct*12, sym);
+
+  res.style.display = 'block';
+  hint.style.display = 'none';
+  buildTable(gross, country);
+}
+
+function buildTable(userGross, userCountry) {
+  const BENCH = 5000; // benchmark $5000 gross in USD
+  const tbody = document.getElementById('compBody');
+  const countries = Object.keys(TAX);
+  const rows = countries.map(c => {
+    const [it, ni, sym] = TAX[c];
+    const fx = FX[c];
+    const localGross = BENCH / fx;
+    const localNet = localGross * (1 - it/100 - ni/100);
+    const netUSD = localNet * fx;
+    const pct = (100 - it - ni);
+    return { c, localGross, localNet, sym, netUSD, pct, it, ni };
+  }).sort((a,b) => b.pct - a.pct);
+
+  tbody.innerHTML = rows.map(({c, localGross, localNet, sym, netUSD, pct}) => {
+    const flag = document.querySelector(`option[value="${c}"]`)?.textContent.slice(0,2) || '';
+    const name = document.querySelector(`option[value="${c}"]`)?.textContent.slice(3) || c;
+    const highlight = c === userCountry ? 'background:rgba(232,160,32,0.06);' : '';
+    return `<tr style="${highlight}">
+      <td style="padding:10px 8px">${flag} ${name.split('(')[0].trim()}</td>
+      <td style="padding:10px 8px;text-align:right;color:var(--text3)">$5,000</td>
+      <td style="padding:10px 8px;text-align:right;font-weight:700;color:var(--gold)">$${Math.round(netUSD).toLocaleString()}</td>
+      <td style="padding:10px 8px;text-align:right;color:${pct>=90?'var(--green)':pct>=70?'var(--gold)':'var(--red)'};font-weight:700">${pct.toFixed(0)}%</td>
+      <td style="padding:10px 8px;text-align:right;color:var(--red)">-$${Math.round(5000-netUSD).toLocaleString()}</td>
+    </tr>`;
+  }).join('');
+}
+
+buildTable();
+</script>
+</body>
+</html>
