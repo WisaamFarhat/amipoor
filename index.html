@@ -3653,100 +3653,69 @@ function buildPlanPDF(ai, d){
   function divider(){ chk(5); y+=2; doc.setDrawColor(...RULE); doc.setLineWidth(0.3); doc.line(ml,y,W-mr,y); y+=4; }
 
   // ════════════════════════════════
-  //  COVER PAGE
+  //  COMPACT HEADER BAND (not a full page)
   // ════════════════════════════════
-  doc.setFillColor(...COVER_BG); doc.rect(0,0,W,H,'F');
-  doc.setFillColor(...GOLD); doc.rect(0,0,W,1.5,'F'); doc.rect(0,H-1.5,W,1.5,'F');
-
+  // Dark header strip — brochure style
+  const hdrH = 30;
+  doc.setFillColor(...COVER_BG); doc.rect(0,0,W,hdrH,'F');
+  doc.setFillColor(...GOLD); doc.rect(0,0,W,1.2,'F');
   // Logo
-  doc.setFontSize(30); doc.setFont('helvetica','bold');
-  doc.setTextColor(...COVER_TEXT); doc.text('am i',ml,46);
-  doc.setTextColor(...GOLD); doc.text(' poor?',ml+doc.getTextWidth('am i'),46);
-  doc.setFontSize(10); doc.setFont('helvetica','normal');
-  doc.setTextColor(120,115,110); doc.text('amipoor.com',ml,55);
+  doc.setFontSize(16); doc.setFont('helvetica','bold');
+  doc.setTextColor(...COVER_TEXT); doc.text('am i',ml,13);
+  doc.setTextColor(...GOLD); doc.text(' poor?',ml+doc.getTextWidth('am i'),13);
+  doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
+  doc.text('Personal Financial Plan',ml,21);
+  // Right side: date + mode
+  const mLabel={realistic:'Today',optimistic:'Promoted (+40%)',fantasy:'Made it (x4)'}[mode]||mode;
+  doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(150,145,138);
+  doc.text('amipoor.com',W-mr,11,{align:'right'});
+  doc.text(new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),W-mr,16,{align:'right'});
+  doc.text('Mode: '+mLabel,W-mr,21,{align:'right'});
+  y = hdrH + 6;
 
-  // Title
-  doc.setFontSize(24); doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
-  doc.text('Your AI-Powered',ml,82);
-  doc.text('Financial Plan',ml,95);
-  doc.setFillColor(...GOLD); doc.rect(ml,99,42,1.2,'F');
-
-  // AI headline box — dynamic height
-  let afterHeadline = 107;
+  // AI verdict — compact inline box right under header
   if(ai&&ai.headline){
-    doc.setFontSize(9); doc.setFont('helvetica','normal');
-    const hlLines=doc.splitTextToSize(ai.headline,cw-12);
-    const hlH=hlLines.length*5.5+10;
-    doc.setFillColor(26,26,26); doc.roundedRect(ml,107,cw,hlH,2,2,'F');
-    doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,107,cw,hlH,2,2,'S');
+    doc.setFontSize(8.5); doc.setFont('helvetica','normal');
+    const hlLines=doc.splitTextToSize(ai.headline,cw-10);
+    const hlH=hlLines.length*4.6+8;
+    doc.setFillColor(...WARM); doc.roundedRect(ml,y,cw,hlH,1.5,1.5,'F');
+    doc.setDrawColor(...GOLD); doc.setLineWidth(0.8); doc.line(ml,y,ml,y+hlH);
     doc.setFontSize(6.5); doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD);
-    doc.text('AI VERDICT',ml+4,114);
-    doc.setFontSize(9); doc.setFont('helvetica','normal'); doc.setTextColor(...COVER_TEXT);
-    doc.text(hlLines,ml+4,120);
-    afterHeadline = 107+hlH+6;
+    doc.text('AI VERDICT',ml+5,y+5);
+    doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(...ACCENT);
+    doc.text(hlLines,ml+5,y+10);
+    y += hlH + 5;
   }
 
-  // Summary box — sized to content
-  const leftItems=[
-    ['Monthly salary',  dispFull(salaryUSD)],
-    ['Work hours/week', `${hours}h`],
-    ['Age',             `${age}`],
-    ['Savings rate',    totalSpendUSD>0?`${savingsPct.toFixed(0)}%`:'—'],
+  // Snapshot — compact 4-column grid (no big box, just tight stat cells)
+  const snap = [
+    ['Salary', dispFull(salaryUSD)],
+    ['Savings rate', totalSpendUSD>0?savingsPct.toFixed(0)+'%':'—'],
+    ['FIRE target', fireNumUSD>0?dispFull(fireNumUSD):'—'],
+    ['FIRE timeline', fireYears?fireYears+'y (age '+fireAge+')':'—'],
   ];
-  const rightItems=[
-    ['Currency',      s],
-    ['Portfolio',     portfolioUSD>0?dispFull(portfolioUSD):'—'],
-    ['FIRE target',   fireNumUSD>0?dispFull(fireNumUSD):'—'],
-    ['FIRE timeline', fireYears?`${fireYears} yrs (age ${fireAge})`:'—'],
-  ];
-
-  const rowH=12, rowPad=8, nRows=leftItems.length;
-  const boxH=nRows*rowH+rowPad*2;
-  const boxY=afterHeadline;
-  const colW=cw/2-4;
-
-  doc.setFillColor(24,24,24); doc.roundedRect(ml,boxY,cw,boxH,2,2,'F');
-  doc.setDrawColor(...GOLD); doc.setLineWidth(0.4); doc.roundedRect(ml,boxY,cw,boxH,2,2,'S');
-
-  let sy=boxY+rowPad+4;
-  leftItems.forEach(([l,v],i)=>{
-    doc.setFontSize(8.5); doc.setFont('helvetica','normal'); doc.setTextColor(140,135,130);
-    doc.text(l,ml+5,sy);
-    doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
-    doc.text(doc.splitTextToSize(v,colW)[0],ml+5+colW*0.52,sy,{align:'right'});
-    const [rl,rv]=rightItems[i];
-    doc.setFont('helvetica','normal'); doc.setTextColor(140,135,130);
-    doc.text(rl,ml+cw/2+5,sy);
-    doc.setFont('helvetica','bold'); doc.setTextColor(...COVER_TEXT);
-    doc.text(doc.splitTextToSize(rv,colW)[0],W-mr-3,sy,{align:'right'});
-    // light divider between rows
-    if(i<nRows-1){
-      doc.setDrawColor(35,35,35); doc.setLineWidth(0.2);
-      doc.line(ml+4,sy+3,W-mr-4,sy+3);
-    }
-    sy+=rowH;
+  const sc = cw/4;
+  doc.setFillColor(...WARM); doc.roundedRect(ml,y,cw,15,1.5,1.5,'F');
+  snap.forEach(([l,v],i)=>{
+    const cx = ml + sc*i + sc/2;
+    doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+    doc.text(l,cx,y+5,{align:'center'});
+    doc.setFontSize(11); doc.setFont('helvetica','bold'); doc.setTextColor(...ACCENT);
+    doc.text(String(v),cx,y+11.5,{align:'center'});
+    if(i>0){ doc.setDrawColor(...RULE); doc.setLineWidth(0.2); doc.line(ml+sc*i,y+2.5,ml+sc*i,y+12.5); }
   });
+  y += 20;
 
-  // Mode + date + disclaimer below box
-  const mLabel={realistic:'Today',optimistic:'Promoted (+40%)',fantasy:'Made it (×4)'}[mode]||mode;
-  const belowBox=boxY+boxH+6;
-  doc.setFontSize(7.5); doc.setFont('helvetica','normal'); doc.setTextColor(100,95,90);
-  doc.text(`Mode: ${mLabel}   |   ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`,ml,belowBox);
-  doc.text('AI-generated analysis. Not financial advice. Consult a qualified advisor.',ml,belowBox+6);
-
-  // ════════════════════════════════
-  //  PAGE 2 — DIAGNOSIS + INCOME + TIME
-  // ════════════════════════════════
-  newPage();
+  // ── CONTENT FLOWS CONTINUOUSLY — page breaks only when full ──
 
   // AI diagnosis
   if(ai&&ai.diagnosis){
-    secTitle('AI Financial Diagnosis','Your personalised assessment');
+    secTitle('AI Financial Diagnosis');
     aiBox(ai.diagnosis, leftoverUSD<0?'warn':savingsPct>=25?'good':'info');
     divider();
   }
 
-  // Income — 2-col layout
+  // Income
   secTitle('1. Income Breakdown');
   row2('Monthly salary',dispFull(salaryUSD),'Annual',dispFull(salaryUSD*12));
   row2('Per work hour',dispFull(workHourlyUSD),'Per day',dispFull(dailyUSD));
@@ -3754,19 +3723,16 @@ function buildPlanPDF(ai, d){
   flavorBox(flavorIncome());
   divider();
 
-  // Time — 2-col
+  // Time
   secTitle('2. Time Allocation');
   row2('Working',`${workHday.toFixed(1)}h/day (${hours}h/wk)`,'Free time',`${freeH.toFixed(1)}h/day`);
   row2('Sleeping',`${sleepH}h/night`,'Commuting',commuteH>0?`${commuteH}h/day`:'None');
   flavorBox(flavorTime());
+  divider();
 
-  // ════════════════════════════════
-  //  PAGE 3 — BUDGET + FIRE
-  // ════════════════════════════════
-  newPage();
+  // Budget
   secTitle('3. Monthly Budget');
   if(totalSpendUSD>0){
-    // Spending in 2 columns
     const cats=SPEND_CATS.filter(c=>c.key!=='savings'&&toUSD(spendData[c.key]||0)>0);
     for(let i=0;i<cats.length;i+=2){
       const c1=cats[i], c2=cats[i+1];
@@ -3780,51 +3746,47 @@ function buildPlanPDF(ai, d){
         row1(c1.label,`${dispFull(v1)} (${p1}%)`);
       }
     }
-    y+=2;
+    y+=1.5;
     row2('Total spend',dispFull(totalSpendUSD),'Left over',`${leftoverUSD<0?'-':''}${dispFull(Math.abs(leftoverUSD))}`);
-    y+=2;
+    y+=1.5;
     pbar(Math.min(100,(totalSpendUSD/salaryUSD)*100),'of income spent');
     pbar(Math.min(100,savingsPct),'savings rate',savingsPct>=20?GREEN:savingsPct>=10?GOLD:RED);
-    y+=2;
+    y+=1.5;
     if(ai&&ai.budget_analysis) aiBox(ai.budget_analysis,leftoverUSD<0?'warn':savingsPct>=25?'good':'info');
     flavorBox(flavorBudget());
   } else {
     flavorBox('No spending data entered. Add your expenses on amipoor.com for a complete budget breakdown.');
   }
-
   divider();
 
-  // FIRE section
+  // FIRE
   secTitle('4. Financial Independence (FIRE)');
   if(fireNumUSD>0){
     row2('Annual expenses',dispFull(annualExpUSD),'FIRE number (25x)',dispFull(fireNumUSD));
     row2('Portfolio',portfolioUSD>0?dispFull(portfolioUSD):'—','Still needed',dispFull(Math.max(0,fireNumUSD-portfolioUSD)));
     row2('Progress',`${pctToFire.toFixed(1)}%`,'Timeline',fireYears?`${fireYears} yrs (age ${fireAge})`:'—');
-    y+=2;
+    y+=1.5;
     pbar(pctToFire,'of FIRE number reached');
-    y+=2;
+    y+=1.5;
     if(ai&&ai.fire_analysis) aiBox(ai.fire_analysis,fireYears&&parseFloat(fireYears)<=15?'good':'info');
     flavorBox(flavorFire());
   } else {
     flavorBox('Enter your spending data to calculate your FIRE number and timeline.');
   }
+  divider();
 
-  // ════════════════════════════════
-  //  PAGE 4 — INVESTMENTS + ACTIONS + MILESTONES
-  // ════════════════════════════════
-  newPage();
+  // Investments
   secTitle('5. Investment Projection',`${retPct}% annual return assumption`);
   if(portfolioUSD>0){
     row2('Current portfolio',dispFull(portfolioUSD),'10-year projection',dispFull(fv10));
     row2('Monthly contributions',monthlyContribUSD>0?dispFull(monthlyContribUSD):'—','Monthly savings added',monthlySavingsUSD>0?dispFull(monthlySavingsUSD):'—');
     row1('Monthly passive income at yr 10',dispFull(fv10*(retPct/100)/12),GREEN);
-    y+=2;
+    y+=1.5;
     if(ai&&ai.investment_take) aiBox(ai.investment_take,fv10*(retPct/100)/12>=salaryUSD?'good':'info');
     flavorBox(flavorInvest());
   } else {
     flavorBox(flavorInvest());
   }
-
   divider();
 
   // Action plan
@@ -3834,19 +3796,17 @@ function buildPlanPDF(ai, d){
   const a3=ai&&ai.action3?ai.action3:`Build a ${dispFull(salaryUSD*3)}–${dispFull(salaryUSD*6)} emergency fund before aggressive investing`;
   act(1,a1); act(2,a2); act(3,a3);
 
-  // AI closing quote
   if(ai&&ai.closing){
-    chk(14); y+=3;
-    doc.setFontSize(9); doc.setFont('helvetica','italic');
-    const clLines=doc.splitTextToSize(ai.closing,cw-12);
-    const clH=clLines.length*5.2+8;
-    doc.setFillColor(248,245,238); doc.roundedRect(ml,y,cw,clH,1.5,1.5,'F');
+    chk(14); y+=2;
+    doc.setFontSize(8.5); doc.setFont('helvetica','italic');
+    const clLines=doc.splitTextToSize(ai.closing,cw-10);
+    const clH=clLines.length*4.6+7;
+    doc.setFillColor(...WARM); doc.roundedRect(ml,y,cw,clH,1.5,1.5,'F');
     doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.line(ml,y,ml,y+clH);
     doc.setTextColor(...ACCENT);
-    doc.text(clLines,ml+5,y+7);
-    y+=clH+4;
+    doc.text(clLines,ml+5,y+6);
+    y+=clH+3;
   }
-
   divider();
 
   // Milestones
@@ -3860,11 +3820,11 @@ function buildPlanPDF(ai, d){
   if(fireYears&&parseFloat(fireYears)<=30) mstone(Math.ceil(parseFloat(fireYears)),`FIRE reached — work becomes optional (age ${fireAge})`,true);
 
   // Footer
-  chk(16); y+=4;
-  doc.setDrawColor(...RULE); doc.setLineWidth(0.4); doc.line(ml,y,W-mr,y); y+=4;
-  doc.setFontSize(6.5); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
-  const disc=doc.splitTextToSize('This plan is AI-generated for informational purposes only and does not constitute financial advice. All projections use a 7% annual return assumption and are estimates only. Past performance does not guarantee future results. Consult a qualified financial advisor before making investment decisions.',cw);
-  doc.text(disc,ml,y); y+=disc.length*4+3;
+  chk(16); y+=3;
+  doc.setDrawColor(...RULE); doc.setLineWidth(0.4); doc.line(ml,y,W-mr,y); y+=3.5;
+  doc.setFontSize(6); doc.setFont('helvetica','normal'); doc.setTextColor(...MUTED);
+  const disc=doc.splitTextToSize('This plan is AI-generated for informational purposes only and does not constitute financial advice. All projections use a 7% annual return assumption and are estimates only. Consult a qualified financial advisor before making investment decisions.',cw);
+  doc.text(disc,ml,y); y+=disc.length*3.4+2;
   doc.setFont('helvetica','bold'); doc.setTextColor(...GOLD);
   doc.text('amipoor.com — Are you poor? Now you know.',ml,y);
 
