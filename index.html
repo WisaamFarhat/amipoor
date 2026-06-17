@@ -808,6 +808,99 @@ main.main{opacity:1!important}
   .stat-cell{border-right:none;border-bottom:1px solid var(--border)}
   .stat-cell:last-child{border-bottom:none}
 }
+
+/* ── HERO PDF PREVIEW (classy document mockup) ── */
+.pdf-preview{position:relative;width:100%;max-width:430px;perspective:1400px}
+.pdf-paper{
+  background:#fdfbf7;border-radius:8px;overflow:hidden;position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,0.55),0 0 0 1px rgba(232,160,32,0.12);
+  transform:rotateY(-9deg) rotateX(2deg);
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.pdf-preview:hover .pdf-paper{transform:rotateY(-3deg) rotateX(1deg) translateY(-4px)}
+.pdf-paper::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);z-index:2}
+.pdf-hdr{background:#111;padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start}
+.pdf-logo{font-family:var(--display);font-size:17px;font-weight:800;color:#fdfbf7}
+.pdf-logo span{color:var(--gold)}
+.pdf-logo-sub{font-size:9px;font-weight:700;color:#fdfbf7;margin-top:4px;letter-spacing:0.3px}
+.pdf-hdr-meta{text-align:right;font-size:7px;color:#888;line-height:1.6}
+.pdf-body{padding:16px 18px 0}
+.pdf-verdict{background:#faf6ec;border-left:2.5px solid var(--gold);border-radius:0 4px 4px 0;padding:8px 10px;margin-bottom:12px}
+.pdf-verdict-tag{font-size:6.5px;font-weight:800;letter-spacing:1px;color:var(--gold-dim);margin-bottom:3px}
+.pdf-verdict-txt{font-size:9px;line-height:1.4;color:#2a2a2a}
+.pdf-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:#faf6ec;border-radius:5px;padding:9px 0;margin-bottom:14px}
+.pdf-stats > div{text-align:center;border-right:1px solid #e8e2d4}
+.pdf-stats > div:last-child{border-right:none}
+.pdf-stat-l{font-size:6px;color:#999;text-transform:uppercase;letter-spacing:0.5px}
+.pdf-stat-v{font-size:13px;font-weight:800;color:#1a1a1a;margin-top:2px}
+.pdf-sec{display:flex;align-items:center;gap:5px;margin:12px 0 7px}
+.pdf-sec-bar{width:2.5px;height:11px;background:var(--gold);border-radius:1px}
+.pdf-sec-t{font-size:10px;font-weight:800;color:#1a1a1a}
+.pdf-lines{display:flex;flex-direction:column;gap:4px;margin-bottom:4px}
+.pdf-lines > div{height:3px;background:#e2ddd0;border-radius:2px}
+.pdf-rows{display:flex;flex-direction:column;gap:0}
+.pdf-rows > div{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #eee7d8;font-size:8.5px}
+.pdf-rows span{color:#888}
+.pdf-rows b{color:#1a1a1a}
+.pdf-action{display:flex;align-items:center;gap:7px;margin-top:7px}
+.pdf-action span{width:13px;height:13px;border-radius:50%;background:var(--gold);color:#fff;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pdf-action i{height:4px;background:#e2ddd0;border-radius:2px;display:block}
+.pdf-fade{position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(transparent,#fdfbf7)}
+.pdf-badge{
+  position:absolute;bottom:-12px;right:18px;z-index:3;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;
+  font-size:11px;font-weight:800;padding:8px 16px;border-radius:20px;
+  box-shadow:0 8px 24px rgba(232,160,32,0.4);
+}
+@media(max-width:780px){
+  .pdf-paper{transform:none}
+  .pdf-preview:hover .pdf-paper{transform:translateY(-4px)}
+}
+
+/* ── HERO SHOWCASE CAROUSEL ── */
+.show-carousel{position:relative;width:100%;max-width:430px}
+.show-track{display:flex;overflow:hidden;border-radius:16px}
+.show-slide{min-width:100%;box-sizing:border-box;padding:4px}
+.show-card{
+  background:linear-gradient(165deg,var(--card2),var(--card));
+  border:1px solid var(--gold-glow2);border-radius:16px;padding:24px;
+  box-shadow:0 24px 70px rgba(0,0,0,0.45),0 0 0 1px var(--gold-glow);
+}
+.show-card-eyebrow{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:4px}
+.show-card-title{font-size:15px;color:var(--text2)}
+.show-card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--text2)}
+.show-legend{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}
+.show-legend span{width:9px;height:9px;border-radius:2px;flex-shrink:0}
+.show-legend b{margin-left:auto;color:var(--text);font-weight:600}
+.show-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;position:relative}
+.show-bar i{width:100%;background:var(--border2);border-radius:4px 4px 0 0;flex:1;min-height:8px;transition:background 0.3s}
+.show-bar i.g{background:linear-gradient(180deg,var(--gold-light),var(--gold))}
+.show-bar em{font-size:8px;color:var(--text3);margin-top:5px;font-style:normal}
+.show-mini-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px}
+.show-mini-v{font-size:20px;font-weight:800;color:var(--gold);margin-top:3px}
+.show-dots{display:flex;gap:7px;justify-content:center;margin-top:18px}
+.show-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);border:none;cursor:pointer;padding:0;transition:all 0.3s}
+.show-dot.active{background:var(--gold);width:22px;border-radius:4px}
+/* PDF preview keeps its own transform but constrained in slide */
+.show-slide .pdf-preview{max-width:100%}
+
+/* ── HERO CAROUSEL ── */
+.hero-carousel{position:relative;width:100%;max-width:440px;margin:0 auto}
+.hc-track{position:relative}
+/* all slides stacked, centered; track height = active slide via grid */
+.hc-track{display:grid}
+.hc-slide{
+  grid-area:1/1;opacity:0;transition:opacity 0.55s ease;
+  pointer-events:none;display:flex;align-items:center;justify-content:center;
+  align-self:center;
+}
+.hc-slide.active{opacity:1;pointer-events:auto}
+.hc-dots{display:flex;justify-content:center;gap:8px;margin-top:22px}
+.hc-dot{
+  width:8px;height:8px;border-radius:50%;border:none;cursor:pointer;padding:0;
+  background:var(--border2);transition:all 0.3s;
+}
+.hc-dot.active{background:var(--gold);width:24px;border-radius:4px}
 </style>
 </head>
 <body>
@@ -1156,47 +1249,139 @@ main.main{opacity:1!important}
 
       <!-- RIGHT: visual preview of the breakdown -->
       <div class="hero-visual">
-        <div class="hero-visual-card">
-          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:4px;position:relative">Example breakdown</div>
-          <div style="font-size:15px;color:var(--text2);margin-bottom:24px;position:relative">A typical month on $15,000</div>
+        <div class="hero-carousel">
+          <div class="hc-track" id="hcTrack">
 
-          <!-- Donut -->
-          <div style="display:flex;align-items:center;gap:28px;position:relative">
-            <svg width="150" height="150" viewBox="0 0 120 120" style="flex-shrink:0">
-              <circle cx="60" cy="60" r="48" fill="none" stroke="var(--border)" stroke-width="16"/>
-              <!-- Housing 35% -->
-              <circle cx="60" cy="60" r="48" fill="none" stroke="var(--gold)" stroke-width="16"
-                stroke-dasharray="105.6 301.6" stroke-dashoffset="0" transform="rotate(-90 60 60)" stroke-linecap="butt"/>
-              <!-- Food 20% -->
-              <circle cx="60" cy="60" r="48" fill="none" stroke="#f5c84a" stroke-width="16"
-                stroke-dasharray="60.3 301.6" stroke-dashoffset="-105.6" transform="rotate(-90 60 60)"/>
-              <!-- Transport 12% -->
-              <circle cx="60" cy="60" r="48" fill="none" stroke="#60b4f8" stroke-width="16"
-                stroke-dasharray="36.2 301.6" stroke-dashoffset="-165.9" transform="rotate(-90 60 60)"/>
-              <!-- Other 8% -->
-              <circle cx="60" cy="60" r="48" fill="none" stroke="#9a6510" stroke-width="16"
-                stroke-dasharray="24.1 301.6" stroke-dashoffset="-202.1" transform="rotate(-90 60 60)"/>
-              <!-- Saved 25% -->
-              <circle cx="60" cy="60" r="48" fill="none" stroke="var(--green)" stroke-width="16"
-                stroke-dasharray="75.4 301.6" stroke-dashoffset="-226.2" transform="rotate(-90 60 60)"/>
-              <text x="60" y="56" text-anchor="middle" font-family="var(--mono)" font-size="20" font-weight="700" fill="var(--text)">25%</text>
-              <text x="60" y="72" text-anchor="middle" font-family="var(--sans)" font-size="9" fill="var(--text3)">saved</text>
-            </svg>
-
-            <div style="display:flex;flex-direction:column;gap:9px;flex:1">
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:var(--gold)"></span><span style="color:var(--text2);flex:1">Housing</span><span style="color:var(--text);font-weight:600">35%</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#f5c84a"></span><span style="color:var(--text2);flex:1">Food</span><span style="color:var(--text);font-weight:600">20%</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#60b4f8"></span><span style="color:var(--text2);flex:1">Transport</span><span style="color:var(--text);font-weight:600">12%</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#9a6510"></span><span style="color:var(--text2);flex:1">Other</span><span style="color:var(--text);font-weight:600">8%</span></div>
-              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:var(--green)"></span><span style="color:var(--text2);flex:1">Saved</span><span style="color:var(--green);font-weight:600">25%</span></div>
+            <!-- SLIDE 1: PDF preview -->
+            <div class="hc-slide">
+              <div class="pdf-preview">
+          <div class="pdf-paper">
+            <!-- Dark header band (mirrors the real PDF) -->
+            <div class="pdf-hdr">
+              <div>
+                <div class="pdf-logo">am i <span>poor?</span></div>
+                <div class="pdf-logo-sub">Personal Financial Plan</div>
+              </div>
+              <div class="pdf-hdr-meta">
+                <div>amipoor.com</div>
+                <div>AI-generated</div>
+              </div>
             </div>
+            <div class="pdf-body">
+              <!-- AI verdict -->
+              <div class="pdf-verdict">
+                <div class="pdf-verdict-tag">AI VERDICT</div>
+                <div class="pdf-verdict-txt">You're 54% to FIRE at 30 with zero monthly contributions — you're coasting, not accelerating.</div>
+              </div>
+              <!-- Stat row -->
+              <div class="pdf-stats">
+                <div><div class="pdf-stat-l">Salary</div><div class="pdf-stat-v">36K</div></div>
+                <div><div class="pdf-stat-l">Savings</div><div class="pdf-stat-v">69%</div></div>
+                <div><div class="pdf-stat-l">FIRE target</div><div class="pdf-stat-v">3.3M</div></div>
+                <div><div class="pdf-stat-l">Timeline</div><div class="pdf-stat-v">3.2y</div></div>
+              </div>
+              <!-- Section: diagnosis -->
+              <div class="pdf-sec">
+                <span class="pdf-sec-bar"></span>
+                <span class="pdf-sec-t">AI Financial Diagnosis</span>
+              </div>
+              <div class="pdf-lines">
+                <div style="width:96%"></div><div style="width:88%"></div><div style="width:72%"></div>
+              </div>
+              <!-- Section: income -->
+              <div class="pdf-sec">
+                <span class="pdf-sec-bar"></span>
+                <span class="pdf-sec-t">1. Income Breakdown</span>
+              </div>
+              <div class="pdf-rows">
+                <div><span>Monthly salary</span><b>36K AED</b></div>
+                <div><span>Per work hour</span><b>208 AED</b></div>
+                <div><span>Per second</span><b>0.0577 AED</b></div>
+              </div>
+              <!-- Section: action plan peeking -->
+              <div class="pdf-sec">
+                <span class="pdf-sec-bar"></span>
+                <span class="pdf-sec-t">Your Action Plan</span>
+              </div>
+              <div class="pdf-action"><span>1</span><i style="width:80%"></i></div>
+              <div class="pdf-action"><span>2</span><i style="width:64%"></i></div>
+            </div>
+            <!-- fade to imply more pages -->
+            <div class="pdf-fade"></div>
           </div>
-
-          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);position:relative">
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="font-size:12px;color:var(--text2)">With AI plan, retire</span>
-              <span style="font-size:15px;font-weight:700;color:var(--green)">4 years sooner</span>
+          <!-- floating badge -->
+          <div class="pdf-badge">✦ Free PDF plan</div>
+        </div>
             </div>
+
+            <!-- SLIDE 2: Spending donut -->
+            <div class="hc-slide">
+              <div class="hero-visual-card">
+                <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Spending breakdown</div>
+                <div style="font-size:15px;color:var(--text2);margin-bottom:24px">A typical month on $15,000</div>
+                <div style="display:flex;align-items:center;gap:28px">
+                  <svg width="150" height="150" viewBox="0 0 120 120" style="flex-shrink:0">
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="var(--border)" stroke-width="16"/>
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="var(--gold)" stroke-width="16" stroke-dasharray="105.6 301.6" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="#f5c84a" stroke-width="16" stroke-dasharray="60.3 301.6" stroke-dashoffset="-105.6" transform="rotate(-90 60 60)"/>
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="#60b4f8" stroke-width="16" stroke-dasharray="36.2 301.6" stroke-dashoffset="-165.9" transform="rotate(-90 60 60)"/>
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="#9a6510" stroke-width="16" stroke-dasharray="24.1 301.6" stroke-dashoffset="-202.1" transform="rotate(-90 60 60)"/>
+                    <circle cx="60" cy="60" r="48" fill="none" stroke="var(--green)" stroke-width="16" stroke-dasharray="75.4 301.6" stroke-dashoffset="-226.2" transform="rotate(-90 60 60)"/>
+                    <text x="60" y="56" text-anchor="middle" font-family="var(--mono)" font-size="20" font-weight="700" fill="var(--text)">25%</text>
+                    <text x="60" y="72" text-anchor="middle" font-family="var(--sans)" font-size="9" fill="var(--text3)">saved</text>
+                  </svg>
+                  <div style="display:flex;flex-direction:column;gap:10px;flex:1">
+                    <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:var(--gold)"></span><span style="color:var(--text2);flex:1">Housing</span><span style="color:var(--text);font-weight:600">35%</span></div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#f5c84a"></span><span style="color:var(--text2);flex:1">Food</span><span style="color:var(--text);font-weight:600">20%</span></div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#60b4f8"></span><span style="color:var(--text2);flex:1">Transport</span><span style="color:var(--text);font-weight:600">12%</span></div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#9a6510"></span><span style="color:var(--text2);flex:1">Other</span><span style="color:var(--text);font-weight:600">8%</span></div>
+                    <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:var(--green)"></span><span style="color:var(--text2);flex:1">Saved</span><span style="color:var(--green);font-weight:600">25%</span></div>
+                  </div>
+                </div>
+                <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+                  <span style="font-size:12px;color:var(--text2)">With AI plan, retire</span>
+                  <span style="font-size:15px;font-weight:700;color:var(--green)">4 years sooner</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- SLIDE 3: Investment projection -->
+            <div class="hc-slide">
+              <div class="hero-visual-card">
+                <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Investment projection</div>
+                <div style="font-size:15px;color:var(--text2);margin-bottom:22px">$50,000 invested at 7% / year</div>
+                <!-- growth bars -->
+                <div style="display:flex;align-items:flex-end;gap:10px;height:130px;margin-bottom:16px">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--gold),var(--gold-dim));border-radius:5px 5px 0 0;height:32px"></div>
+                    <span style="font-size:10px;color:var(--text3)">Now</span>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--gold),var(--gold-dim));border-radius:5px 5px 0 0;height:58px"></div>
+                    <span style="font-size:10px;color:var(--text3)">5 yr</span>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--gold),var(--gold-dim));border-radius:5px 5px 0 0;height:92px"></div>
+                    <span style="font-size:10px;color:var(--text3)">10 yr</span>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                    <div style="width:100%;background:linear-gradient(180deg,var(--green),#1d9b66);border-radius:5px 5px 0 0;height:130px"></div>
+                    <span style="font-size:10px;color:var(--text3)">20 yr</span>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:7px">
+                  <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--text2)">10-year value</span><span style="color:var(--text);font-weight:700">$98,000</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;padding-top:7px;border-top:1px solid var(--border)"><span style="color:var(--text2)">Monthly passive income</span><span style="color:var(--green);font-weight:700">$571 / mo</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- dots -->
+          <div class="hc-dots">
+            <button class="hc-dot active" onclick="hcGo(0)" aria-label="PDF plan"></button>
+            <button class="hc-dot" onclick="hcGo(1)" aria-label="Spending"></button>
+            <button class="hc-dot" onclick="hcGo(2)" aria-label="Investments"></button>
           </div>
         </div>
       </div>
@@ -4247,6 +4432,46 @@ function heroGetPlan(){
     requestAnimationFrame(draw);
   }
   draw();
+})();
+
+// ── HERO SHOWCASE CAROUSEL ──
+(function(){
+  var idx=0, timer=null, track=null;
+  function render(){
+    track = track || document.getElementById('showTrack');
+    if(!track) return;
+    track.style.transform = 'translateX(-'+(idx*100)+'%)';
+    track.style.transition = 'transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+    var dots=document.querySelectorAll('.show-dot');
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  }
+  window.goShow=function(n){ idx=n; render(); restart(); };
+  function next(){ idx=(idx+1)%3; render(); }
+  function restart(){ if(timer) clearInterval(timer); timer=setInterval(next,4500); }
+  function start(){
+    if(!document.getElementById('showTrack')) { setTimeout(start,200); return; }
+    render(); restart();
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
+})();
+
+// ── HERO CAROUSEL ──
+(function(){
+  var slides = document.querySelectorAll('.hc-slide');
+  var dots = document.querySelectorAll('.hc-dot');
+  if(!slides.length) return;
+  var idx = 0, timer;
+  window.hcGo = function(n){
+    idx = n;
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===n); });
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===n); });
+    restart();
+  };
+  function next(){ window.hcGo((idx+1) % slides.length); }
+  function restart(){ clearInterval(timer); timer = setInterval(next, 4500); }
+  // init: first slide active
+  slides[0].classList.add('active');
+  restart();
 })();
 </script>
 <script type="application/ld+json">
