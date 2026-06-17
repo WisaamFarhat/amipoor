@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ═══ PRIMARY SEO ═══ -->
-<title>Am I Poor? — Real-Time Salary Calculator, Spending Tracker & Savings Rate</title>
-<meta name="description" content="Am I poor? Find out instantly. Watch your salary tick up every second, track your spending, see your real savings rate, and calculate passive investment income. Free. Any currency. Uncomfortably honest.">
+<title>Am I Poor? — Where Your Money Goes + Free AI Retirement Plan</title>
+<meta name="description" content="Enter your salary and spending to see a clear breakdown, your real savings rate, and a free AI plan with specific ways to retire sooner. Free. Any currency.">
 <meta name="keywords" content="what am I worth calculator, salary per second calculator, live earnings counter, how much do I earn per minute, time value of money, spending tracker, savings rate calculator, passive income calculator, investment income calculator, salary calculator UAE, AED earnings live, what is my time worth, money per second, hourly rate calculator, FIRE number calculator, financial independence calculator">
 <meta name="author" content="AmiPoor">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -83,9 +83,9 @@ html{scroll-behavior:smooth}
 :root[data-theme="light"] .ob-card{background:var(--card);border-color:var(--border2)}
 /* Sections — transparent so they flow with page bg, just a subtle border */
 :root[data-theme="light"] .section{background:transparent;border-color:var(--border)}
-:root[data-theme="light"] .invest-card{background:var(--bg2);border-color:var(--border)}
+:root[data-theme="light"] .invest-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:20px}
 :root[data-theme="light"] .compare-row{background:var(--bg2);border-color:var(--border)}
-:root[data-theme="light"] .spend-card{background:var(--bg2);border-color:var(--border)}
+:root[data-theme="light"] .spend-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:20px}
 :root[data-theme="light"] .life-card{background:var(--bg2);border-color:var(--border)}
 :root[data-theme="light"] .savings-ring-wrap{background:var(--bg2)}
 :root[data-theme="light"] .savings-pct{color:var(--text)}
@@ -127,7 +127,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .icon-btn{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--text3);cursor:pointer;font-family:var(--sans);font-weight:600;transition:color 0.2s;white-space:nowrap}
 .icon-btn:hover{color:var(--text2)}
 
-#onboarding{position:fixed;inset:0;z-index:500;background:rgba(7,7,7,0.97);display:flex;align-items:center;justify-content:center;padding:16px;transition:opacity 0.4s}
+#onboarding{position:fixed;inset:0;z-index:500;background:rgba(7,7,7,0.97);display:none;align-items:center;justify-content:center;padding:16px;transition:opacity 0.4s}
 .ob-wrap{width:100%;max-width:460px;max-height:90vh;overflow-y:auto;scrollbar-width:none}
 .ob-wrap::-webkit-scrollbar{display:none}
 .ob-card{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:32px 28px;position:relative}
@@ -161,7 +161,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .ob-page{display:none}
 .ob-page.active{display:block}
 
-.main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:32px 24px 0}
+.main{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:32px 40px 0}
 .hero-eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold-dim);text-transform:uppercase;margin-bottom:12px}
 .hero-title{font-family:var(--display);font-size:clamp(36px,9vw,54px);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:10px}
 .hero-title .accent{color:transparent;background:linear-gradient(135deg,var(--gold) 0%,var(--amber) 100%);-webkit-background-clip:text;background-clip:text}
@@ -208,7 +208,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .section-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .sec-num{width:22px;height:22px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0}
 .sec-title{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
-hr.div{border:none;border-top:1px solid var(--border);margin:36px 0}
+hr.div{border:none;border-top:1px solid var(--border);margin:24px 0}
 
 .compare-row{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;transition:border-color 0.2s}
 .compare-row:hover{border-color:var(--border2)}
@@ -301,7 +301,7 @@ input[type=range]#retireSlider::-moz-range-thumb{width:20px;height:20px;border-r
 .wait-row.verdict{background:var(--red-bg);border-top:1px solid var(--red-border)}
 .wait-row.verdict .wl{color:var(--red);font-weight:600}
 
-.spend-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.spend-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);overflow:hidden}
 .spend-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
 .spend-sum-item{padding:18px 16px;border-right:1px solid var(--border);text-align:center}
 .spend-sum-item:last-child{border-right:none}
@@ -334,7 +334,7 @@ input[type=range]#retireSlider::-moz-range-thumb{width:20px;height:20px;border-r
 .spend-edit-row{display:flex;flex-direction:column;gap:4px}
 .spend-edit-label{font-size:9px;font-weight:700;letter-spacing:1.2px;color:var(--text3);text-transform:uppercase}
 
-.savings-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:20px}
+.savings-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:20px}
 .savings-hero{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border)}
 .savings-pct-wrap{text-align:center}
 .savings-pct{font-family:var(--mono);font-size:48px;font-weight:500;letter-spacing:-2px;line-height:1;font-variant-numeric:tabular-nums}
@@ -374,6 +374,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 .ft-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:16px;border-top:1px solid var(--border);font-size:10px;color:var(--text3)}
 
 .fade-in{opacity:0;animation:fadeIn 0.5s 0.1s ease forwards}
+.fade-in.shown,main.main{opacity:1}
 @keyframes fadeIn{to{opacity:1}}
 @keyframes planPulse{
   0%,100%{box-shadow:0 4px 24px rgba(232,160,32,0.30)}
@@ -408,7 +409,7 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 }
 
 /* ═══ INVESTMENTS ═══ */
-.invest-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.invest-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);overflow:hidden}
 .invest-inputs{padding:18px 18px 14px}
 .invest-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .invest-field{display:flex;flex-direction:column;gap:4px}
@@ -568,9 +569,253 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   /* ── Insights */
   #donutInsight,#spendInsight,#retireFireInsight,#invFireInsight{font-size:11px}
 }
+.ft-link{font-size:12px;color:var(--text3);text-decoration:none;transition:color 0.15s;line-height:1.4}
+.ft-link:hover{color:var(--gold)}
+@media(max-width:600px){footer .ft-grid{grid-template-columns:1fr 1fr!important}}
+
+/* ═══ PREMIUM POLISH (Halo · Cognitive Load · Micro-interactions) ═══ */
+
+/* 1. MICRO-INTERACTIONS — smooth transitions on everything interactive */
+button, a, .seo-badge, .ft-link, .mini-card, .mode-tab, input, select, textarea, .icon-btn {
+  transition: transform 0.18s cubic-bezier(0.34,1.4,0.5,1), box-shadow 0.25s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+/* Buttons lift slightly on hover — tactile feedback */
+button:not(:disabled):hover { transform: translateY(-1px); }
+button:not(:disabled):active { transform: translateY(0); }
+
+/* Links and badges get a subtle gold pull */
+.seo-badge:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+/* Cards respond to hover with depth */
+.mini-card { transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease; }
+.mini-card:hover { border-color: var(--border2); box-shadow: 0 6px 24px rgba(0,0,0,0.25); }
+
+/* 2. COGNITIVE FLUENCY — refined focus states (calm, not jarring) */
+input:focus, select:focus, textarea:focus {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 3px var(--gold-glow);
+  outline: none;
+}
+
+
+
+/* Refined scrollbar — small detail that signals craft */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 5px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+/* Selection color — branded */
+::selection { background: var(--gold-glow2); color: var(--text); }
+
+/* Mode tabs — smoother active transition */
+.mode-tab { transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease; }
+
+/* Better text rendering — premium typography feel */
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+main.main{opacity:1!important}
+
+/* ═══ HERO (professional two-column) ═══ */
+.hero-wrap{
+  display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;align-items:center;
+  padding:48px 0 40px;margin-bottom:8px;
+}
+.hero-copy{max-width:520px}
+.hero-eyebrow-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold-glow);border:1px solid var(--gold-glow2);
+  border-radius:20px;padding:5px 14px;margin-bottom:20px;
+}
+.hero-h1{
+  font-family:var(--display);font-size:clamp(28px,3.2vw,40px);font-weight:800;
+  line-height:1.12;letter-spacing:-0.8px;color:var(--text);margin-bottom:14px;
+}
+.hero-h1 .accent{color:var(--gold)}
+.hero-lead{font-size:15px;color:var(--text2);line-height:1.6;margin-bottom:22px;max-width:440px}
+.hero-input-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  padding:20px;position:relative;overflow:hidden;
+  box-shadow:0 12px 48px rgba(0,0,0,0.35);
+}
+.hero-input-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.hero-trust{display:flex;gap:18px;margin-top:16px;flex-wrap:wrap}
+.hero-trust span{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:5px}
+.hero-trust span::before{content:'✓';color:var(--green);font-weight:700}
+
+/* Right-side visual */
+.hero-visual{display:flex;align-items:center;justify-content:center;position:relative}
+.hero-visual-card{
+  width:100%;max-width:460px;background:linear-gradient(165deg,var(--card2),var(--card));
+  border:1px solid var(--gold-glow2);border-radius:22px;padding:32px;
+  box-shadow:0 28px 80px rgba(0,0,0,0.5),0 0 0 1px var(--gold-glow);position:relative;overflow:hidden;
+}
+.hero-visual-card::after{
+  content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;
+  background:radial-gradient(circle,var(--gold-glow),transparent 70%);pointer-events:none;
+}
+@media(max-width:780px){
+  .hero-wrap{grid-template-columns:1fr;gap:32px;padding:32px 0 28px}
+  .hero-visual{display:none}
+}
+
+/* ═══ MODERN LANDING SECTIONS ═══ */
+.band{
+  position:relative;z-index:1;
+  width:100vw;left:50%;right:50%;
+  margin-left:-50vw;margin-right:-50vw;
+  padding:40px 24px;
+}
+.band-inner{max-width:1000px;margin:0 auto}
+.band-alt{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.band-title{
+  font-family:var(--display);font-size:clamp(24px,3vw,32px);font-weight:800;
+  letter-spacing:-0.5px;color:var(--text);text-align:center;margin-bottom:10px;
+}
+.band-sub{
+  font-size:14px;color:var(--text2);text-align:center;
+  max-width:520px;margin:0 auto 28px;line-height:1.5;
+}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:760px){.grid-3{grid-template-columns:1fr;gap:16px}}
+.feat-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:16px;
+  padding:26px 22px;transition:transform 0.2s ease,border-color 0.2s ease,box-shadow 0.25s ease;
+}
+.feat-card:hover{transform:translateY(-3px);border-color:var(--gold-glow2);box-shadow:0 12px 36px rgba(0,0,0,0.3)}
+.feat-ico{
+  width:44px;height:44px;border-radius:11px;background:var(--gold-glow);
+  display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px;
+}
+.feat-h{font-size:16px;font-weight:700;color:var(--text);margin-bottom:7px;letter-spacing:-0.2px}
+.feat-p{font-size:13px;color:var(--text2);line-height:1.6}
+.step-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:step}
+@media(max-width:760px){.step-row{grid-template-columns:1fr;gap:28px}}
+.step{position:relative;text-align:center}
+.step-num{
+  width:46px;height:46px;border-radius:50%;margin:0 auto 16px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;
+  display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800;
+  box-shadow:0 6px 20px rgba(232,160,32,0.3);
+}
+.step-h{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+.step-p{font-size:13px;color:var(--text2);line-height:1.6;max-width:280px;margin:0 auto}
+.faq-item{
+  border-bottom:1px solid var(--border);padding:18px 0;cursor:pointer;
+}
+.faq-q{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  font-size:15px;font-weight:600;color:var(--text);
+}
+.faq-q .chev{color:var(--gold);font-size:13px;transition:transform 0.2s;flex-shrink:0}
+.faq-item.open .chev{transform:rotate(180deg)}
+.faq-a{
+  font-size:13px;color:var(--text2);line-height:1.7;
+  max-height:0;overflow:hidden;transition:max-height 0.3s ease,margin 0.3s ease;
+}
+.faq-item.open .faq-a{max-height:240px;margin-top:12px}
+.stat-row{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-top:8px}
+.stat-n{font-family:var(--display);font-size:38px;font-weight:800;color:var(--gold);line-height:1}
+.stat-l{font-size:12px;color:var(--text3);margin-top:6px;text-transform:uppercase;letter-spacing:1px}
+
+/* ═══ AMBIENT ANIMATED BACKGROUND ═══ */
+#ambientCanvas{
+  position:fixed;inset:0;width:100vw;height:100vh;
+  z-index:0;pointer-events:none;opacity:0.6;
+}
+/* Floating gradient blobs that drift — fill the empty side space */
+.amb-blob{
+  position:fixed;border-radius:50%;z-index:0;pointer-events:none;
+  filter:blur(80px);opacity:0.5;
+}
+.amb-blob.b1{
+  width:480px;height:480px;top:-100px;left:-120px;
+  background:radial-gradient(circle,rgba(232,160,32,0.10),transparent 70%);
+  animation:blobDrift1 22s ease-in-out infinite;
+}
+.amb-blob.b2{
+  width:560px;height:560px;top:30%;right:-160px;
+  background:radial-gradient(circle,rgba(46,204,138,0.06),transparent 70%);
+  animation:blobDrift2 28s ease-in-out infinite;
+}
+.amb-blob.b3{
+  width:420px;height:420px;bottom:-120px;left:25%;
+  background:radial-gradient(circle,rgba(232,160,32,0.07),transparent 70%);
+  animation:blobDrift3 25s ease-in-out infinite;
+}
+@keyframes blobDrift1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,80px)}}
+@keyframes blobDrift2{0%,100%{transform:translate(0,0)}50%{transform:translate(-70px,50px)}}
+@keyframes blobDrift3{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-60px)}}
+@media(prefers-reduced-motion:reduce){
+  .amb-blob{animation:none}
+  #ambientCanvas{display:none}
+}
+
+/* Dashboard density grid */
+.dash-grid{display:flex;flex-direction:column;gap:24px;margin-bottom:28px}
+.dash-grid .section{margin:0}
+@media(max-width:820px){.dash-grid{grid-template-columns:1fr;gap:24px}}
+
+/* FI empty state: if FIRE number box is hidden, let prompt fill the row */
+#investEmpty:has(#investEmptyFire[style*="display:none"]){grid-template-columns:1fr}
+#investEmpty:has(#investEmptyFire[style*="display:none"]) > div:last-child{text-align:center;max-width:420px;margin:0 auto}
+@media(max-width:640px){#investEmpty{grid-template-columns:1fr!important;text-align:center}}
+
+/* ── MODERN SECTION UPGRADES ── */
+.step-row{position:relative}
+/* connecting line behind the step numbers */
+.step-row::before{
+  content:'';position:absolute;top:23px;left:16%;right:16%;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold-glow2),var(--gold-glow2),transparent);
+  z-index:0;
+}
+@media(max-width:760px){.step-row::before{display:none}}
+.step{position:relative;z-index:1}
+.step-num{
+  border:3px solid var(--bg);
+}
+.feat-card{
+  background:linear-gradient(165deg,var(--card2),var(--card));
+  position:relative;overflow:hidden;
+}
+.feat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-glow2),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.feat-card:hover::before{opacity:1}
+/* stat strip */
+.stat-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  background:linear-gradient(165deg,var(--card2),var(--card));
+  border:1px solid var(--border2);border-radius:18px;overflow:hidden;
+  max-width:760px;margin:0 auto;
+}
+.stat-cell{padding:28px 20px;text-align:center;border-right:1px solid var(--border)}
+.stat-cell:last-child{border-right:none}
+.stat-big{font-family:var(--display);font-size:34px;font-weight:800;color:var(--gold);line-height:1}
+.stat-cap{font-size:11px;color:var(--text3);margin-top:8px;text-transform:uppercase;letter-spacing:1px}
+@media(max-width:600px){
+  .stat-strip{grid-template-columns:1fr;max-width:340px}
+  .stat-cell{border-right:none;border-bottom:1px solid var(--border)}
+  .stat-cell:last-child{border-bottom:none}
+}
 </style>
 </head>
 <body>
+<canvas id="ambientCanvas"></canvas>
+<div class="amb-blob b1"></div>
+<div class="amb-blob b2"></div>
+<div class="amb-blob b3"></div>
+
 <div class="glow-orb"></div>
 
 <!-- ═══ ONBOARDING ═══ -->
@@ -582,8 +827,8 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     <!-- Step 0: The hook -->
     <div id="ob-p0" class="ob-page active">
       <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:16px">amipoor.com</div>
-      <h2 style="font-family:var(--display);font-size:clamp(22px,5vw,28px);font-weight:800;line-height:1.15;letter-spacing:-0.5px;color:var(--text);margin-bottom:10px">Every second, your money is either working for you or against you.</h2>
-      <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:24px">Enter your salary and find out — then get a free AI plan that tells you exactly when you can stop working.</p>
+      <h2 style="font-family:var(--display);font-size:clamp(22px,5vw,28px);font-weight:800;line-height:1.15;letter-spacing:-0.5px;color:var(--text);margin-bottom:10px">Where does your money actually go?</h2>
+      <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:24px">Enter your salary and spending — then get a free AI plan with specific ways to retire sooner.</p>
 
       <!-- Progress dots -->
       <div style="display:flex;gap:6px;margin-bottom:20px">
@@ -870,62 +1115,135 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
 
 
     <!-- Hero -->
-    <div style="margin-bottom:28px">
-      <p class="hero-eyebrow">Financial independence · live · any currency</p>
-      <h1 class="hero-title">Do you know what your <span class="accent">time is worth?</span></h1>
-      <p class="hero-sub">Your salary is ticking every second. See exactly where it's going — and get a free AI plan that tells you when you can stop working for good.</p>
+    <div class="hero-wrap">
 
-      <!-- Social proof inline -->
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap">
-        <div style="display:flex;align-items:center;gap:6px">
-          <div style="display:flex">
-            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#c9a84c,#e8a020);border:2px solid var(--bg);margin-right:-6px"></div>
-            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#3ecf8e,#2ecc8a);border:2px solid var(--bg);margin-right:-6px"></div>
-            <div style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#60b4f8,#4d9de8);border:2px solid var(--bg)"></div>
-          </div>
-          <span id="heroSocialProof" style="font-size:12px;color:var(--text2)">Thousands have found their FIRE date</span>
+      <!-- LEFT: copy + input -->
+      <div class="hero-copy">
+        <div class="hero-eyebrow-pill">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--gold);display:inline-block;animation:pulse 2s infinite"></span>
+          <span style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:0.5px">Free · no account · powered by Claude AI</span>
         </div>
-        <div style="width:1px;height:16px;background:var(--border2)"></div>
-        <span style="font-size:12px;color:var(--text2)">Free · No account needed</span>
+
+        <h1 class="hero-h1">Find out how much <span class="accent">sooner you could retire.</span></h1>
+        <p class="hero-lead">Our AI analyses where your money goes and builds a free, personalised plan to help you retire years sooner.</p>
+
+        <div class="hero-input-card">
+          <div style="display:grid;grid-template-columns:120px 1fr;gap:10px">
+            <div class="ob-field" style="margin:0">
+              <label class="ob-label" for="heroCurrency">Currency</label>
+              <select class="ob-inp select-inp" id="heroCurrency" onchange="heroCurrencyChange(this.value)" style="height:58px;font-size:18px;font-weight:700;padding-left:12px;padding-right:8px"></select>
+            </div>
+            <div class="ob-field" style="margin:0">
+              <label class="ob-label" for="heroSalary">Your monthly salary</label>
+              <input class="ob-inp" id="heroSalary" type="number" inputmode="numeric" placeholder="e.g. 15,000"
+                style="font-size:18px;height:58px;font-weight:700"
+                oninput="heroSalaryInput(this.value)" autofocus>
+            </div>
+          </div>
+          <div id="heroHint" style="font-size:11px;color:var(--text3);margin-top:10px;text-align:center">Enter your salary, add spending below, then get your free AI plan</div>
+          <button onclick="heroGetPlan()" id="heroPlanCTA"
+            style="width:100%;margin-top:14px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#070707;border:none;border-radius:12px;padding:15px 12px;font-family:var(--sans);font-weight:800;font-size:14px;cursor:pointer;letter-spacing:0.2px;box-shadow:0 6px 28px rgba(232,160,32,0.3);white-space:nowrap">
+            ✦ Get my free AI retirement plan →
+          </button>
+        </div>
+
+        <div class="hero-trust">
+          <span>Free forever</span>
+          <span>No sign-up</span>
+          <span>Works in any currency</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: visual preview of the breakdown -->
+      <div class="hero-visual">
+        <div class="hero-visual-card">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:4px;position:relative">Example breakdown</div>
+          <div style="font-size:15px;color:var(--text2);margin-bottom:24px;position:relative">A typical month on $15,000</div>
+
+          <!-- Donut -->
+          <div style="display:flex;align-items:center;gap:28px;position:relative">
+            <svg width="150" height="150" viewBox="0 0 120 120" style="flex-shrink:0">
+              <circle cx="60" cy="60" r="48" fill="none" stroke="var(--border)" stroke-width="16"/>
+              <!-- Housing 35% -->
+              <circle cx="60" cy="60" r="48" fill="none" stroke="var(--gold)" stroke-width="16"
+                stroke-dasharray="105.6 301.6" stroke-dashoffset="0" transform="rotate(-90 60 60)" stroke-linecap="butt"/>
+              <!-- Food 20% -->
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#f5c84a" stroke-width="16"
+                stroke-dasharray="60.3 301.6" stroke-dashoffset="-105.6" transform="rotate(-90 60 60)"/>
+              <!-- Transport 12% -->
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#60b4f8" stroke-width="16"
+                stroke-dasharray="36.2 301.6" stroke-dashoffset="-165.9" transform="rotate(-90 60 60)"/>
+              <!-- Other 8% -->
+              <circle cx="60" cy="60" r="48" fill="none" stroke="#9a6510" stroke-width="16"
+                stroke-dasharray="24.1 301.6" stroke-dashoffset="-202.1" transform="rotate(-90 60 60)"/>
+              <!-- Saved 25% -->
+              <circle cx="60" cy="60" r="48" fill="none" stroke="var(--green)" stroke-width="16"
+                stroke-dasharray="75.4 301.6" stroke-dashoffset="-226.2" transform="rotate(-90 60 60)"/>
+              <text x="60" y="56" text-anchor="middle" font-family="var(--mono)" font-size="20" font-weight="700" fill="var(--text)">25%</text>
+              <text x="60" y="72" text-anchor="middle" font-family="var(--sans)" font-size="9" fill="var(--text3)">saved</text>
+            </svg>
+
+            <div style="display:flex;flex-direction:column;gap:9px;flex:1">
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:var(--gold)"></span><span style="color:var(--text2);flex:1">Housing</span><span style="color:var(--text);font-weight:600">35%</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#f5c84a"></span><span style="color:var(--text2);flex:1">Food</span><span style="color:var(--text);font-weight:600">20%</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#60b4f8"></span><span style="color:var(--text2);flex:1">Transport</span><span style="color:var(--text);font-weight:600">12%</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:#9a6510"></span><span style="color:var(--text2);flex:1">Other</span><span style="color:var(--text);font-weight:600">8%</span></div>
+              <div style="display:flex;align-items:center;gap:8px;font-size:12px"><span style="width:9px;height:9px;border-radius:2px;background:var(--green)"></span><span style="color:var(--text2);flex:1">Saved</span><span style="color:var(--green);font-weight:600">25%</span></div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);position:relative">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span style="font-size:12px;color:var(--text2)">With AI plan, retire</span>
+              <span style="font-size:15px;font-weight:700;color:var(--green)">4 years sooner</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <span style="display:none" id="liveCounter"></span><span style="display:none" id="currLabel"></span><span style="display:none" id="metaSec"></span><span style="display:none" id="metaTime"></span><span style="display:none" id="metaDay"></span>
+
+    <span style="display:none" id="perSec"></span><span style="display:none" id="perMin"></span><span style="display:none" id="perHour"></span><span style="display:none" id="perDay"></span><span style="display:none" id="perSecCurr"></span><span style="display:none" id="perMinCurr"></span><span style="display:none" id="perHourCurr"></span><span style="display:none" id="perDayCurr"></span>
+
+    <span style="display:none" id="scrollCost"></span>
+
+    <!-- HOW IT WORKS -->
+    <div class="band">
+      <div class="band-inner">
+        <h2 class="band-title">How it works</h2>
+        <p class="band-sub">Three steps, under a minute, no sign-up.</p>
+        <div class="step-row">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-h">Enter your numbers</div>
+            <div class="step-p">Salary, monthly spending, and any savings. Takes under a minute.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-h">See where it goes</div>
+            <div class="step-p">A clear breakdown of your spending, your real savings rate, and your path to independence.</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-h">Get your AI plan</div>
+            <div class="step-p">A free, personalised plan with specific changes to retire sooner.</div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="mode-tabs">
-      <button class="mode-tab active" data-mode="realistic" onclick="setMode(this,'realistic')">Today</button>
-      <button class="mode-tab" data-mode="optimistic" onclick="setMode(this,'optimistic')">Promoted</button>
-      <button class="mode-tab fantasy" data-mode="fantasy" onclick="setMode(this,'fantasy')">Made it ✦</button>
-    </div>
 
-    <div class="counter-card">
-      <div class="counter-label" style="display:flex;align-items:center;justify-content:space-between"><span>Your salary — ticking live</span><span onclick="document.getElementById('planBtn').scrollIntoView({behavior:'smooth',block:'center'})" style="font-size:10px;font-weight:700;color:var(--gold);cursor:pointer;letter-spacing:0.5px;text-decoration:underline;text-underline-offset:3px">Get your free AI plan ↓</span></div>
-      <div class="counter-amount" id="liveCounter">0.0000</div>
-      <div class="counter-currency" id="currLabel">— ticking every frame</div>
-      <div class="counter-meta">
-        <div class="cmeta">Per second: <strong id="metaSec">—</strong></div>
-        <div class="cmeta">Session: <strong id="metaTime">0:00</strong></div>
-        <div class="cmeta">Est. today: <strong id="metaDay">—</strong></div>
-      </div>
-    </div>
 
-    <div class="mini-grid" style="margin-top:12px">
-      <div class="mini-card"><div class="mini-label">Per Second</div><div class="mini-value" id="perSec">—</div><div class="mini-sub" id="perSecCurr">—</div></div>
-      <div class="mini-card"><div class="mini-label">Per Minute</div><div class="mini-value" id="perMin">—</div><div class="mini-sub" id="perMinCurr">—</div></div>
-      <div class="mini-card"><div class="mini-label">Per Hour (24/7)</div><div class="mini-value" id="perHour">—</div><div class="mini-sub" id="perHourCurr">—</div></div>
-      <div class="mini-card"><div class="mini-label">Per Day</div><div class="mini-value" id="perDay">—</div><div class="mini-sub" id="perDayCurr">—</div></div>
-    </div>
+  
+    
 
-    <div class="scroll-cost" style="margin-top:12px">
-      <div><div class="sc-label">That scroll just cost you</div><div class="sc-sub">five seconds of your one life</div></div>
-      <div class="sc-value" id="scrollCost">—</div>
-    </div>
-
-  <hr class="div">
-
+  <div class="dash-grid">
   <!-- SECTION 1: Spending -->
   <div class="section" id="spendingSection">
     <div class="section-head">
-      <div class="sec-num">2</div>
-      <div><h2 class="sec-title">Where your money goes</h2><div class="sec-subtitle">Monthly spending breakdown</div></div>
+      <div><h2 class="sec-title">Spending breakdown</h2><div class="sec-subtitle">Monthly spending breakdown</div></div>
       <button class="spend-edit-btn" onclick="openEditDrawer();edTab(1)">✏ Edit</button>
     </div>
     <div class="spend-card">
@@ -964,11 +1282,9 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     </div>
   </div>
 
-  <hr class="div">
-
   <!-- SECTION 2: Savings -->
   <div class="section" id="savingsSection">
-    <div class="section-head"><div class="sec-num">2</div><div><h2 class="sec-title">Are you building wealth or just surviving?</h2><div class="sec-subtitle">The number that determines your future</div></div></div>
+    <div class="section-head"><div><h2 class="sec-title">Savings rate</h2><div class="sec-subtitle">Your monthly savings rate</div></div></div>
     <div class="savings-card">
       <div class="savings-hero">
         <!-- SVG ring — shows actual vs goal -->
@@ -1012,39 +1328,13 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
       </div>
     </div>
   </div>
-
-  <hr class="div">
-
-  <!-- AI PLAN TEASER — shown after savings section -->
-  <div id="planTeaser" style="background:linear-gradient(135deg,rgba(232,160,32,0.13),rgba(232,160,32,0.04));border:1.5px solid var(--gold);border-radius:var(--r2);padding:18px 20px;margin-bottom:0;position:relative;overflow:hidden;cursor:pointer" onclick="document.getElementById('planBtn').scrollIntoView({behavior:'smooth',block:'center'})">
-    <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px">✦ Your AI financial plan is ready</div>
-    <!-- Personalised headline — updated by updatePlanTeaser() -->
-    <div id="teaserHeadline" style="font-size:16px;font-weight:800;color:var(--text);letter-spacing:-0.3px;margin-bottom:14px;line-height:1.3">Calculating your financial picture...</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-      <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:12px;text-align:center">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">FIRE age</div>
-        <div id="teaserFireAge" style="font-family:var(--mono);font-size:26px;font-weight:500;color:var(--gold);transition:filter 0.6s ease;user-select:none">—</div>
-      </div>
-      <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:12px;text-align:center">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Savings rate</div>
-        <div id="teaserSavings" style="font-family:var(--mono);font-size:26px;font-weight:500;color:var(--green);transition:filter 0.6s ease;user-select:none">—</div>
-      </div>
-      <div style="background:rgba(0,0,0,0.3);border-radius:10px;padding:12px;text-align:center">
-        <div style="font-size:9px;font-weight:700;letter-spacing:1px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Verdict</div>
-        <div id="teaserVerdict" style="font-family:var(--mono);font-size:13px;font-weight:500;color:var(--green);transition:filter 0.6s ease;user-select:none;line-height:1.3">—</div>
-      </div>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-      <div style="font-size:12px;color:var(--text2)">Your full plan with FIRE timeline, budget analysis & 3 action steps is waiting.</div>
-      <div style="flex-shrink:0;background:var(--gold);color:#070707;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:800;font-family:var(--sans);white-space:nowrap">Unlock free →</div>
-    </div>
-  </div>
+</div>
 
   <hr class="div">
 
   <!-- SECTION 3: FIRE -->
   <div class="section" id="investSection">
-    <div class="section-head"><div class="sec-num">3</div><div><h2 class="sec-title">Your path to financial freedom</h2><div class="sec-subtitle">The exact number you need to never work again</div></div></div>
+    <div class="section-head"><div><h2 class="sec-title">Financial independence</h2><div class="sec-subtitle">When you could stop working</div></div></div>
     <div class="invest-card">
 
       <!-- Hidden inputs — values set via Edit drawer -->
@@ -1054,15 +1344,15 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
       <input type="hidden" id="inv-years" value="10">
 
       <!-- Empty state — shown when no portfolio entered, but still shows FIRE number -->
-      <div id="investEmpty" style="padding:18px 18px">
-        <div id="investEmptyFire" style="display:none;margin-bottom:14px;padding:14px;background:var(--bg3);border-radius:var(--r);border-left:3px solid var(--gold)">
+      <div id="investEmpty" style="padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center">
+        <div id="investEmptyFire" style="display:none;padding:16px;background:var(--bg3);border-radius:var(--r);border-left:3px solid var(--gold)">
           <div style="font-size:10px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:6px">🔥 Your FIRE number</div>
-          <div style="font-family:var(--mono);font-size:24px;font-weight:500;color:var(--text)" id="investEmptyFireNum">—</div>
+          <div style="font-family:var(--mono);font-size:28px;font-weight:500;color:var(--text)" id="investEmptyFireNum">—</div>
           <div style="font-size:11px;color:var(--text3);margin-top:4px">25× your annual expenses · 4% withdrawal rule</div>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <div style="font-size:13px;color:var(--text2)">Add your portfolio to see your progress, passive income &amp; projections.</div>
-          <button onclick="openEditDrawer();edTab(2)" style="flex-shrink:0;background:var(--gold);color:#070707;border:none;border-radius:8px;padding:8px 16px;font-family:var(--sans);font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap">+ Add investments</button>
+        <div style="text-align:left">
+          <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px">Add your portfolio to see your progress, passive income &amp; projections.</div>
+          <button onclick="openEditDrawer();edTab(2)" style="background:var(--gold);color:#070707;border:none;border-radius:8px;padding:10px 18px;font-family:var(--sans);font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap">+ Add investments</button>
         </div>
       </div>
 
@@ -1129,9 +1419,8 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
   <!-- SECTION 4: Financial Plan -->
   <div class="section">
     <div class="section-head">
-      <div class="sec-num">4</div>
       <div>
-        <h2 class="sec-title">Your personalized financial plan</h2>
+        <h2 class="sec-title">Your AI financial plan</h2>
         <div class="sec-subtitle">AI-powered analysis based on your numbers — exportable to PDF</div>
       </div>
     </div>
@@ -1174,158 +1463,180 @@ footer{position:relative;z-index:1;max-width:720px;margin:40px auto 0;padding:24
     </div>
   </div>
 
-  <hr class="div">
-
-  <!-- PARTNERSHIP / WHITE-LABEL -->
-  <div class="section" style="background:linear-gradient(135deg,rgba(232,160,32,0.06),transparent);border-color:var(--border2);padding:24px">
-    <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px">For businesses</div>
-    <h3 style="font-size:18px;font-weight:800;color:var(--text);letter-spacing:-0.3px;margin-bottom:8px;line-height:1.2">White-label this tool for your clients</h3>
-    <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px">Financial advisors, HR platforms, and fintech companies use amipoor.com to give clients a personalised financial independence tool — under their own brand. Built for you, branded as you.</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px">
-      <div style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--gold);flex-shrink:0">✦</span>Your logo, your colours, your domain</div>
-      <div style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--gold);flex-shrink:0">✦</span>AI plans branded to your firm</div>
-      <div style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--gold);flex-shrink:0">✦</span>Keeps clients engaged between meetings</div>
-      <div style="font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px"><span style="color:var(--gold);flex-shrink:0">✦</span>Works in any currency, any country</div>
-    </div>
-    <a href="mailto:hello@amipoor.com?subject=White-label%20enquiry&body=Hi%2C%20I%27m%20interested%20in%20white-labelling%20amipoor.com%20for%20my%20business.%20Here%27s%20a%20bit%20about%20us%3A" style="display:inline-block;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:11px 20px;font-family:var(--sans);font-size:13px;font-weight:700;color:var(--text2);text-decoration:none;transition:all 0.2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--text2)'">Enquire about white-labelling → hello@amipoor.com</a>
-  </div>
+  
 
   </main>
 
+
+    
+
+    
+    <!-- FEATURES -->
+    <div class="band band-alt">
+      <div class="band-inner">
+        <h2 class="band-title">Features</h2>
+        <p class="band-sub">See your full financial picture in one place.</p>
+        <div class="grid-3">
+          <div class="feat-card">
+            <div class="feat-ico">📊</div>
+            <div class="feat-h">Spending breakdown</div>
+            <div class="feat-p">See exactly where every part of your salary goes each month, with your real savings rate.</div>
+          </div>
+          <div class="feat-card">
+            <div class="feat-ico">🔥</div>
+            <div class="feat-h">FIRE projection</div>
+            <div class="feat-p">Find the age you could reach financial independence based on your real numbers.</div>
+          </div>
+          <div class="feat-card">
+            <div class="feat-ico">✦</div>
+            <div class="feat-h">AI retirement plan</div>
+            <div class="feat-p">Claude analyses your finances and writes a personalised plan to retire sooner.</div>
+          </div>
+          <div class="feat-card">
+            <div class="feat-ico">🌍</div>
+            <div class="feat-h">Any currency</div>
+            <div class="feat-p">Works wherever you are, with dozens of currencies and live conversion.</div>
+          </div>
+          <div class="feat-card">
+            <div class="feat-ico">🔒</div>
+            <div class="feat-h">Private by default</div>
+            <div class="feat-p">No account, no email, nothing stored on a server. Your numbers stay in your browser.</div>
+          </div>
+          <div class="feat-card">
+            <div class="feat-ico">📄</div>
+            <div class="feat-h">Download as PDF</div>
+            <div class="feat-p">Take your full plan and breakdown with you as a clean PDF.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="band">
+      <div class="band-inner" style="max-width:720px">
+        <h2 class="band-title">FAQ</h2>
+        <p class="band-sub"></p>
+
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span>Is it really free?</span><span class="chev">▼</span></div>
+          <div class="faq-a">Yes. The calculator, breakdown, and your first AI plan are completely free with no account needed. Additional AI plans are $4.99 for unlimited use, but you never have to pay to see your numbers.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span>Do you store my financial data?</span><span class="chev">▼</span></div>
+          <div class="faq-a">No. Your salary and spending stay in your browser — they're never sent to or stored on a server. There's no account and no email required, so nothing ties the numbers to you.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span>What is FIRE?</span><span class="chev">▼</span></div>
+          <div class="faq-a">FIRE stands for Financial Independence, Retire Early. It's the point where your savings and investments generate enough to cover your living costs, so working becomes optional. The tool estimates the age you could reach it based on your savings rate.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span>How does the AI plan work?</span><span class="chev">▼</span></div>
+          <div class="faq-a">Once you've entered your numbers, Claude analyses your spending, savings rate, and goals, then writes a personalised plan with specific changes — where to cut, how much to invest, and how those changes move your retirement date closer.</div>
+        </div>
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q"><span>Which currencies are supported?</span><span class="chev">▼</span></div>
+          <div class="faq-a">Dozens, including USD, GBP, EUR, AED, INR, SGD, CAD, and many more. Pick yours at the top and every figure converts automatically.</div>
+        </div>
+      </div>
+    </div>
+
 <footer>
-  <div class="ft-logo">am i<span> poor?</span></div>
-  <div class="ft-tag">Financial independence tools · amipoor.com</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+    <div>
+      <div class="ft-logo">am i<span> poor?</span></div>
+      <div class="ft-tag">Financial independence tools · amipoor.com</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a href="/take-home-pay-calculator.html" class="seo-badge">Take-home pay</a>
+      <a href="/cost-of-living-comparison.html" class="seo-badge">City comparison</a>
+      <a href="/fire-number-calculator.html" class="seo-badge">FIRE number</a>
+      <a href="/am-i-saving-enough.html" class="seo-badge">Am I saving enough?</a>
+    </div>
+  </div>
 
-  <!-- Country calculators -->
-  <div style="margin:20px 0 8px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">FIRE calculators by country</div>
-  <nav class="seo-badges">
-    <a class="seo-badge" href="/fire-calculator-uae.html">🇦🇪 UAE</a>
-    <a class="seo-badge" href="/fire-calculator-uk.html">🇬🇧 UK</a>
-    <a class="seo-badge" href="/fire-calculator-india.html">🇮🇳 India</a>
-    <a class="seo-badge" href="/fire-calculator-canada.html">🇨🇦 Canada</a>
-    <a class="seo-badge" href="/fire-calculator-singapore.html">🇸🇬 Singapore</a>
-    <a class="seo-badge" href="/fire-calculator-brazil.html">🇧🇷 Brazil</a>
-    <a class="seo-badge" href="/fire-calculator-south-korea.html">🇰🇷 South Korea</a>
-    <a class="seo-badge" href="/fire-calculator-france.html">🇫🇷 France</a>
-    <a class="seo-badge" href="/fire-calculator-japan.html">🇯🇵 Japan</a>
-  </nav>
 
-  <!-- Tools -->
-  <div style="margin:20px 0 8px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">Free calculators</div>
-  <nav class="seo-badges">
-    <a class="seo-badge" href="/fire-number-calculator.html">FIRE number calculator</a>
-    <a class="seo-badge" href="/how-much-to-retire-early.html">How much to retire early</a>
-    <a class="seo-badge" href="/am-i-saving-enough.html">Am I saving enough?</a>
-    <a class="seo-badge" href="/salary-per-second.html">Salary per second</a>
-    <a class="seo-badge" href="/compound-interest-calculator.html">Compound interest</a>
-    <a class="seo-badge" href="/investment-return-calculator.html">Investment return</a>
-    <a class="seo-badge" href="/coast-fire-calculator.html">Coast FIRE calculator</a>
-    <a class="seo-badge" href="/how-long-to-save-1-million.html">How long to save $1M</a>
-    <a class="seo-badge" href="/how-much-should-i-save-each-month.html">Monthly savings target</a>
-    <a class="seo-badge" href="/how-much-is-my-time-worth.html">Time value calculator</a>
-    <a class="seo-badge" href="/how-much-emergency-fund.html">Emergency fund calculator</a>
-    <a class="seo-badge" href="/how-to-calculate-net-worth.html">Net worth calculator</a>
-    <a class="seo-badge" href="/how-much-to-retire-at-60.html">Retire at 60 calculator</a>
-    <a class="seo-badge" href="/how-much-of-my-salary-should-i-invest.html">How much to invest</a>
-  </nav>
+  <!-- ── SEARCH ── -->
+  <div style="margin-bottom:28px;padding-top:28px;border-top:1px solid var(--border)">
+    <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:10px">Find a page</div>
+    <div style="position:relative">
+      <input id="siteSearch" type="text" placeholder="e.g. is 10,000 AED enough in Dubai, retire at 40, cost of living Singapore..."
+        style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px 16px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color 0.2s"
+        onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"
+        oninput="siteSearchRun(this.value)">
+      <div style="position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3);pointer-events:none">🔍</div>
+    </div>
+    <div id="siteSearchResults" style="margin-top:8px;display:none;background:var(--card);border:1px solid var(--border2);border-radius:12px;overflow:hidden"></div>
+  </div>
+  <!-- 4-column link grid -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:24px;margin-bottom:24px;padding-top:20px;border-top:1px solid var(--border)">
 
-  <!-- Guides -->
-  <div style="margin:20px 0 8px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">Guides & education</div>
-  <nav class="seo-badges">
-    <a class="seo-badge" href="/what-is-fire.html">What is FIRE?</a>
-    <a class="seo-badge" href="/what-is-the-4-percent-rule.html">The 4% rule explained</a>
-    <a class="seo-badge" href="/what-is-a-good-savings-rate.html">What is a good savings rate?</a>
-    <a class="seo-badge" href="/what-is-passive-income.html">What is passive income?</a>
-    <a class="seo-badge" href="/what-is-safe-withdrawal-rate.html">Safe withdrawal rate</a>
-    <a class="seo-badge" href="/lean-fire-vs-fat-fire.html">Lean vs fat vs barista FIRE</a>
-    <a class="seo-badge" href="/retire-at-40.html">How to retire at 40</a>
-    <a class="seo-badge" href="/retire-at-50.html">How to retire at 50</a>
-    <a class="seo-badge" href="/retire-at-55.html">How to retire at 55</a>
-    <a class="seo-badge" href="/how-to-start-investing-with-1000.html">Start investing with $1,000</a>
-    <a class="seo-badge" href="/how-to-reach-financial-independence-in-10-years.html">FIRE in 10 years</a>
-    <a class="seo-badge" href="/how-to-live-off-investments.html">How to live off investments</a>
-    <a class="seo-badge" href="/fire-vs-traditional-retirement.html">FIRE vs traditional retirement</a>
-    <a class="seo-badge" href="/index-funds-vs-savings-account.html">Index funds vs savings account</a>
-    <a class="seo-badge" href="/renting-vs-buying-for-fire.html">Renting vs buying for FIRE</a>
-    <a class="seo-badge" href="/savings-rate-by-country.html">Savings rate by country</a>
-  </nav>
+    <!-- FIRE calculators -->
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:10px">FIRE calculators</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <a href="/fire-calculator-uae.html" class="ft-link">🇦🇪 UAE</a>
+        <a href="/fire-calculator-uk.html" class="ft-link">🇬🇧 UK</a>
+        <a href="/fire-calculator-canada.html" class="ft-link">🇨🇦 Canada</a>
+        <a href="/fire-calculator-singapore.html" class="ft-link">🇸🇬 Singapore</a>
+        <a href="/fire-calculator-india.html" class="ft-link">🇮🇳 India</a>
+        <a href="/fire-calculator-japan.html" class="ft-link">🇯🇵 Japan</a>
+        <a href="/fire-calculator-france.html" class="ft-link">🇫🇷 France</a>
+      </div>
+    </div>
 
-  <!-- Take-home & comparisons -->
-  <div style="margin:20px 0 8px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">Cost of living & take-home pay</div>
-  <nav class="seo-badges">
-    <a class="seo-badge" href="/take-home-pay-calculator.html">🌍 Take-home pay calculator</a>
-    <a class="seo-badge" href="/cost-of-living-comparison.html">🏙 City vs city comparison</a>
-    <a class="seo-badge" href="/dubai-vs-london.html">🇦🇪🇬🇧 Dubai vs London</a>
-    <a class="seo-badge" href="/dubai-vs-singapore.html">🇦🇪🇸🇬 Dubai vs Singapore</a>
-    <a class="seo-badge" href="/singapore-vs-london.html">🇸🇬🇬🇧 Singapore vs London</a>
-    <a class="seo-badge" href="/new-york-vs-london.html">🇺🇸🇬🇧 New York vs London</a>
-    <a class="seo-badge" href="/new-york-vs-miami.html">🇺🇸🇺🇸 New York vs Miami</a>
-    <a class="seo-badge" href="/london-vs-berlin.html">🇬🇧🇩🇪 London vs Berlin</a>
-    <a class="seo-badge" href="/london-vs-amsterdam.html">🇬🇧🇳🇱 London vs Amsterdam</a>
-    <a class="seo-badge" href="/zurich-vs-london.html">🇨🇭🇬🇧 Zurich vs London</a>
-  </nav>
+    <!-- Tools -->
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:10px">Tools</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <a href="/salary-per-second.html" class="ft-link">Salary per second</a>
+        <a href="/compound-interest-calculator.html" class="ft-link">Compound interest</a>
+        <a href="/coast-fire-calculator.html" class="ft-link">Coast FIRE</a>
+        <a href="/investment-return-calculator.html" class="ft-link">Investment return</a>
+        <a href="/how-long-to-save-1-million.html" class="ft-link">Save $1 million</a>
+        <a href="/how-much-emergency-fund.html" class="ft-link">Emergency fund</a>
+        <a href="/how-much-to-retire-at-60.html" class="ft-link">Retire at 60</a>
+      </div>
+    </div>
 
-  <!-- Salary enough -->
-  <div style="margin:20px 0 8px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">Is my salary enough in...</div>
-  <nav class="seo-badges">
-    <a class="seo-badge" href="/salary-enough-tool.html">🌍 All cities</a>
-    <a class="seo-badge" href="/salary-enough-dubai.html">🇦🇪 Dubai</a>
-    <a class="seo-badge" href="/salary-enough-abu-dhabi.html">🇦🇪 Abu Dhabi</a>
-    <a class="seo-badge" href="/salary-enough-london.html">🇬🇧 London</a>
-    <a class="seo-badge" href="/salary-enough-new-york.html">🇺🇸 New York</a>
-    <a class="seo-badge" href="/salary-enough-singapore.html">🇸🇬 Singapore</a>
-    <a class="seo-badge" href="/salary-enough-toronto.html">🇨🇦 Toronto</a>
-    <a class="seo-badge" href="/salary-enough-paris.html">🇫🇷 Paris</a>
-    <a class="seo-badge" href="/salary-enough-tokyo.html">🇯🇵 Tokyo</a>
-    <a class="seo-badge" href="/salary-enough-sydney.html">🇦🇺 Sydney</a>
-    <a class="seo-badge" href="/salary-enough-berlin.html">🇩🇪 Berlin</a>
-    <a class="seo-badge" href="/salary-enough-amsterdam.html">🇳🇱 Amsterdam</a>
-    <a class="seo-badge" href="/salary-enough-mumbai.html">🇮🇳 Mumbai</a>
-    <a class="seo-badge" href="/salary-enough-kuala-lumpur.html">🇲🇾 Kuala Lumpur</a>
-    <a class="seo-badge" href="/salary-enough-miami.html">🇺🇸 Miami</a>
-    <a class="seo-badge" href="/salary-enough-zurich.html">🇨🇭 Zurich</a>
-    <a class="seo-badge" href="/salary-enough-lisbon.html">🇵🇹 Lisbon</a>
-    <a class="seo-badge" href="/salary-enough-barcelona.html">🇪🇸 Barcelona</a>
-    <a class="seo-badge" href="/salary-enough-bangkok.html">🇹🇭 Bangkok</a>
-    <a class="seo-badge" href="/salary-enough-bali.html">🇮🇩 Bali</a>
-    <a class="seo-badge" href="/salary-enough-dublin.html">🇮🇪 Dublin</a>
-    <a class="seo-badge" href="/salary-enough-vienna.html">🇦🇹 Vienna</a>
-    <a class="seo-badge" href="/salary-enough-stockholm.html">🇸🇪 Stockholm</a>
-    <a class="seo-badge" href="/salary-enough-cape-town.html">🇿🇦 Cape Town</a>
-  </nav>
+    <!-- Salary & cities -->
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:10px">Salary by city</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <a href="/salary-enough-tool.html" class="ft-link">All 23 cities →</a>
+        <a href="/salary-enough-dubai.html" class="ft-link">🇦🇪 Dubai</a>
+        <a href="/salary-enough-london.html" class="ft-link">🇬🇧 London</a>
+        <a href="/salary-enough-singapore.html" class="ft-link">🇸🇬 Singapore</a>
+        <a href="/salary-enough-new-york.html" class="ft-link">🇺🇸 New York</a>
+        <a href="/salary-enough-toronto.html" class="ft-link">🇨🇦 Toronto</a>
+        <a href="/salary-enough-lisbon.html" class="ft-link">🇵🇹 Lisbon</a>
+      </div>
+    </div>
 
-  <!-- Specific salary pages -->
-  <div style="margin:20px 0 8px;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase">Specific salary questions</div>
-  <nav class="seo-badges">
-    <a class="seo-badge" href="/is-5000-aed-enough-dubai.html">Is 5,000 AED enough in Dubai?</a>
-    <a class="seo-badge" href="/is-8000-aed-enough-dubai.html">Is 8,000 AED enough in Dubai?</a>
-    <a class="seo-badge" href="/is-10000-aed-enough-dubai.html">Is 10,000 AED enough in Dubai?</a>
-    <a class="seo-badge" href="/is-15000-aed-enough-dubai.html">Is 15,000 AED enough in Dubai?</a>
-    <a class="seo-badge" href="/is-20000-aed-enough-dubai.html">Is 20,000 AED enough in Dubai?</a>
-    <a class="seo-badge" href="/is-25000-aed-enough-dubai.html">Is 25,000 AED enough in Dubai?</a>
-    <a class="seo-badge" href="/is-2000-gbp-enough-london.html">Is £2,000 enough in London?</a>
-    <a class="seo-badge" href="/is-3000-gbp-enough-london.html">Is £3,000 enough in London?</a>
-    <a class="seo-badge" href="/is-4000-gbp-enough-london.html">Is £4,000 enough in London?</a>
-    <a class="seo-badge" href="/is-5000-gbp-enough-london.html">Is £5,000 enough in London?</a>
-    <a class="seo-badge" href="/is-7000-gbp-enough-london.html">Is £7,000 enough in London?</a>
-    <a class="seo-badge" href="/is-3000-sgd-enough-singapore.html">Is S$3,000 enough in Singapore?</a>
-    <a class="seo-badge" href="/is-5000-sgd-enough-singapore.html">Is S$5,000 enough in Singapore?</a>
-    <a class="seo-badge" href="/is-7000-sgd-enough-singapore.html">Is S$7,000 enough in Singapore?</a>
-    <a class="seo-badge" href="/is-10000-sgd-enough-singapore.html">Is S$10,000 enough in Singapore?</a>
-    <a class="seo-badge" href="/is-5000-usd-enough-new-york.html">Is $5,000 enough in New York?</a>
-    <a class="seo-badge" href="/is-7000-usd-enough-new-york.html">Is $7,000 enough in New York?</a>
-    <a class="seo-badge" href="/is-10000-usd-enough-new-york.html">Is $10,000 enough in New York?</a>
-  </nav>
+    <!-- Guides -->
+    <div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:10px">Guides</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <a href="/what-is-fire.html" class="ft-link">What is FIRE?</a>
+        <a href="/what-is-the-4-percent-rule.html" class="ft-link">The 4% rule</a>
+        <a href="/retire-at-40.html" class="ft-link">Retire at 40</a>
+        <a href="/retire-at-50.html" class="ft-link">Retire at 50</a>
+        <a href="/lean-fire-vs-fat-fire.html" class="ft-link">Lean vs fat FIRE</a>
+        <a href="/how-to-start-investing-with-1000.html" class="ft-link">Invest $1,000</a>
+        <a href="/fire-vs-traditional-retirement.html" class="ft-link">FIRE vs retirement</a>
+      </div>
+    </div>
 
-  <div class="ft-bottom" style="margin-top:24px">
+  </div>
+
+  <div class="ft-bottom" style="margin-top:0">
     <span>© 2026 amipoor.com · Not financial advice · All figures are estimates</span>
+    <a href="/take-home-pay-calculator.html" style="color:var(--text3);text-decoration:none">Take-home pay</a>
   </div>
 
   <!-- Bug report -->
   <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
     <div id="bugTrigger" onclick="toggleBugReport()" style="display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--text3);cursor:pointer;transition:color 0.2s" onmouseover="this.style.color='var(--text2)'" onmouseout="this.style.color='var(--text3)'">
-      <span>💬</span>
-      <span>Found a bug? Have a suggestion? Tell us</span>
+      <span>💬</span><span>Found a bug? Have a suggestion? Tell us</span>
       <span id="bugChevron" style="font-size:9px;transition:transform 0.2s">▼</span>
     </div>
     <div id="bugPanel" style="display:none;margin-top:14px">
@@ -1752,7 +2063,7 @@ function recalc(){
   const rl = Math.max(0, 60-age);
   if(g('totalEarned')) g('totalEarned').textContent = fmtK(yw*annualUSD);
   if(g('yearsWorking')){ g('yearsWorking').textContent=yw.toFixed(1)+' yrs'; g('workBar').style.width=Math.min(100,(yw/Math.max(age,1))*100)+'%'; }
-  if(g('timeLeft')){ g('timeLeft').textContent=tl+' yrs'; g('lifeBar').style.width=Math.min(100,(age/65)*100)+'%'; }
+  if(g('timeLeft')){ g('timeLeft').textContent=tl+' yrs'; const _lb=g('lifeBar'); if(_lb) _lb.style.width=Math.min(100,(age/65)*100)+'%'; }
   if(g('coffeeCost')) g('coffeeCost').textContent = toDisp(toUSD(coffee)*365);
   if(g('lifetimeLeft')) g('lifetimeLeft').textContent = fmtK(rl*annualUSD)+' '+s;
   if(g('lifetimeSub')) g('lifetimeSub').textContent = rl>0?`${rl} working years at current salary until age 60`:'You have reached typical retirement age';
@@ -1948,7 +2259,7 @@ function buildCompareDOM(){
   const salaryUSD2     = toUSD(parseFloat(g('salary').value)||0)*(MULT[mode]||1);
   const workHourlyUSD2 = salaryUSD2/((parseFloat(g('hours').value)||40)*52/12);
   const workPerSec2    = workHourlyUSD2/3600;
-  g('compareList').innerHTML=[...activeItemIds].map(i=>{
+  const _cl=g('compareList'); if(_cl) _cl.innerHTML=[...activeItemIds].map(i=>{
     const item=ALL_ITEMS[i];
     const secsToEarn = workPerSec2 > 0 ? item.usd / workPerSec2 : 0;
     const timeCost = workPerSec2 <= 0 ? '—'
@@ -2019,7 +2330,7 @@ const CAT_LABELS={food:'🍴 Food',local:'📍 Local',leisure:'🎭 Leisure',tec
 function togglePicker(){
   const p=g('itemPicker'),open=p.style.display==='none'||!p.style.display;
   p.style.display=open?'block':'none';
-  g('addItemsBtn').textContent=open?'✕ Close':'+ Add items';
+  const _aib=g('addItemsBtn'); if(_aib) _aib.textContent=open?'✕ Close':'+ Add items';
   if(open) renderPicker();
 }
 function renderPicker(){
@@ -2270,7 +2581,7 @@ setInterval(updateClock,1000);
 
 //  LIVE TICKER
 // ═══════════════════════════════════════════════════════════
-function go(){ if(!running){running=true;requestAnimationFrame(tick);} }
+function go(){ /* ticking disabled — tool is static now */ }
 function tick(){
   const elSec=(performance.now()-t0)/1000;
   const earnUSD=perSecUSD*elSec;
@@ -3811,6 +4122,172 @@ setTimeout(()=>{
 // Retire slider wire
 const _sl=g('retireSlider');
 if(_sl) _sl.addEventListener('input',updateRetire);
+
+// ── SITE SEARCH ────────────────────────────────────────────────────────────
+var SEARCH_INDEX = [{"url": "/fire-calculator-uae.html", "title": "FIRE Calculator \u2014 UAE", "keywords": ["uae", "dubai", "abu dhabi", "aed", "fire", "retire", "financial independence", "tax free"]}, {"url": "/fire-calculator-uk.html", "title": "FIRE Calculator \u2014 UK", "keywords": ["uk", "united kingdom", "england", "gbp", "pounds", "isa", "fire", "retire"]}, {"url": "/fire-calculator-canada.html", "title": "FIRE Calculator \u2014 Canada", "keywords": ["canada", "canadian", "cad", "tfsa", "rrsp", "fire", "retire"]}, {"url": "/fire-calculator-singapore.html", "title": "FIRE Calculator \u2014 Singapore", "keywords": ["singapore", "sgd", "cpf", "fire", "retire"]}, {"url": "/fire-calculator-india.html", "title": "FIRE Calculator \u2014 India", "keywords": ["india", "inr", "rupee", "fire", "retire", "nifty"]}, {"url": "/fire-calculator-japan.html", "title": "FIRE Calculator \u2014 Japan", "keywords": ["japan", "jpy", "yen", "nisa", "fire", "retire", "tokyo"]}, {"url": "/fire-calculator-france.html", "title": "FIRE Calculator \u2014 France", "keywords": ["france", "french", "eur", "pea", "fire", "retire", "paris"]}, {"url": "/fire-calculator-brazil.html", "title": "FIRE Calculator \u2014 Brazil", "keywords": ["brazil", "brl", "real", "fire", "retire"]}, {"url": "/fire-calculator-south-korea.html", "title": "FIRE Calculator \u2014 South Korea", "keywords": ["korea", "korean", "krw", "won", "fire", "retire", "seoul"]}, {"url": "/fire-number-calculator.html", "title": "FIRE Number Calculator", "keywords": ["fire number", "how much to retire", "financial independence number", "4 percent rule", "25x"]}, {"url": "/am-i-saving-enough.html", "title": "Am I Saving Enough?", "keywords": ["saving enough", "savings rate", "how much should i save", "am i saving"]}, {"url": "/take-home-pay-calculator.html", "title": "Take-Home Pay Calculator", "keywords": ["take home", "net salary", "after tax", "salary calculator", "gross to net", "how much do i keep"]}, {"url": "/salary-per-second.html", "title": "Salary Per Second Calculator", "keywords": ["salary per second", "per minute", "per hour", "earnings", "ticking"]}, {"url": "/compound-interest-calculator.html", "title": "Compound Interest Calculator", "keywords": ["compound interest", "investment growth", "how much will i have", "future value"]}, {"url": "/coast-fire-calculator.html", "title": "Coast FIRE Calculator", "keywords": ["coast fire", "coasting", "stop contributing", "coast number"]}, {"url": "/investment-return-calculator.html", "title": "Investment Return Calculator", "keywords": ["investment return", "roi", "how much will my investment grow"]}, {"url": "/how-long-to-save-1-million.html", "title": "How Long to Save $1 Million", "keywords": ["million", "how long", "save million", "1 million", "millionaire"]}, {"url": "/how-much-emergency-fund.html", "title": "Emergency Fund Calculator", "keywords": ["emergency fund", "rainy day", "how much emergency", "safety net"]}, {"url": "/how-much-to-retire-at-60.html", "title": "How Much to Retire at 60", "keywords": ["retire at 60", "retirement at 60", "how much retire 60"]}, {"url": "/how-much-of-my-salary-should-i-invest.html", "title": "How Much of My Salary to Invest", "keywords": ["how much invest", "salary invest", "percentage invest", "how much should i invest"]}, {"url": "/how-much-is-my-time-worth.html", "title": "How Much Is My Time Worth", "keywords": ["time worth", "hourly rate", "value of time", "what is my time worth"]}, {"url": "/how-much-should-i-save-each-month.html", "title": "How Much Should I Save Each Month", "keywords": ["how much save monthly", "monthly savings", "save each month"]}, {"url": "/how-much-to-retire-early.html", "title": "How Much Do I Need to Retire Early", "keywords": ["how much retire early", "early retirement number", "fire number", "retire early"]}, {"url": "/how-to-calculate-net-worth.html", "title": "How to Calculate Net Worth", "keywords": ["net worth", "calculate net worth", "assets liabilities", "total wealth"]}, {"url": "/how-to-start-investing-with-1000.html", "title": "How to Start Investing with $1,000", "keywords": ["start investing", "1000", "begin investing", "first investment", "beginner"]}, {"url": "/how-to-reach-financial-independence-in-10-years.html", "title": "FIRE in 10 Years", "keywords": ["10 years", "financial independence 10 years", "fire 10 years", "decade"]}, {"url": "/how-to-live-off-investments.html", "title": "How to Live Off Investments", "keywords": ["live off investments", "passive income", "withdrawal", "4 percent", "drawdown"]}, {"url": "/salary-enough-tool.html", "title": "Is My Salary Enough? \u2014 All Cities", "keywords": ["is my salary enough", "salary enough", "cost of living", "can i afford", "live on my salary"]}, {"url": "/salary-enough-dubai.html", "title": "Is My Salary Enough in Dubai?", "keywords": ["dubai salary", "enough dubai", "live in dubai", "dubai cost", "aed enough"]}, {"url": "/salary-enough-london.html", "title": "Is My Salary Enough in London?", "keywords": ["london salary", "enough london", "live in london", "london cost", "gbp enough"]}, {"url": "/salary-enough-singapore.html", "title": "Is My Salary Enough in Singapore?", "keywords": ["singapore salary", "enough singapore", "live in singapore", "singapore cost"]}, {"url": "/salary-enough-new-york.html", "title": "Is My Salary Enough in New York?", "keywords": ["new york salary", "enough new york", "nyc salary", "live in new york"]}, {"url": "/salary-enough-toronto.html", "title": "Is My Salary Enough in Toronto?", "keywords": ["toronto salary", "enough toronto", "live in toronto", "canada salary"]}, {"url": "/salary-enough-abu-dhabi.html", "title": "Is My Salary Enough in Abu Dhabi?", "keywords": ["abu dhabi salary", "enough abu dhabi", "live in abu dhabi"]}, {"url": "/salary-enough-paris.html", "title": "Is My Salary Enough in Paris?", "keywords": ["paris salary", "enough paris", "live in paris", "france salary"]}, {"url": "/salary-enough-tokyo.html", "title": "Is My Salary Enough in Tokyo?", "keywords": ["tokyo salary", "enough tokyo", "live in japan", "japan salary"]}, {"url": "/salary-enough-sydney.html", "title": "Is My Salary Enough in Sydney?", "keywords": ["sydney salary", "enough sydney", "live in australia", "australia salary"]}, {"url": "/salary-enough-berlin.html", "title": "Is My Salary Enough in Berlin?", "keywords": ["berlin salary", "enough berlin", "live in germany", "germany salary"]}, {"url": "/salary-enough-amsterdam.html", "title": "Is My Salary Enough in Amsterdam?", "keywords": ["amsterdam salary", "enough amsterdam", "live in netherlands"]}, {"url": "/salary-enough-lisbon.html", "title": "Is My Salary Enough in Lisbon?", "keywords": ["lisbon salary", "enough lisbon", "live in portugal", "portugal salary", "nhr"]}, {"url": "/salary-enough-bangkok.html", "title": "Is My Salary Enough in Bangkok?", "keywords": ["bangkok salary", "enough bangkok", "live in thailand", "thailand salary", "nomad thailand"]}, {"url": "/salary-enough-bali.html", "title": "Is My Salary Enough in Bali?", "keywords": ["bali salary", "enough bali", "live in bali", "indonesia", "digital nomad bali"]}, {"url": "/salary-enough-miami.html", "title": "Is My Salary Enough in Miami?", "keywords": ["miami salary", "enough miami", "live in miami", "florida salary"]}, {"url": "/salary-enough-zurich.html", "title": "Is My Salary Enough in Zurich?", "keywords": ["zurich salary", "enough zurich", "live in switzerland", "switzerland salary", "chf"]}, {"url": "/salary-enough-kuala-lumpur.html", "title": "Is My Salary Enough in Kuala Lumpur?", "keywords": ["kuala lumpur salary", "enough kl", "live in malaysia", "malaysia salary"]}, {"url": "/salary-enough-mumbai.html", "title": "Is My Salary Enough in Mumbai?", "keywords": ["mumbai salary", "enough mumbai", "live in india", "india salary inr"]}, {"url": "/salary-enough-cape-town.html", "title": "Is My Salary Enough in Cape Town?", "keywords": ["cape town salary", "enough cape town", "live in south africa", "south africa salary"]}, {"url": "/salary-enough-dublin.html", "title": "Is My Salary Enough in Dublin?", "keywords": ["dublin salary", "enough dublin", "live in ireland", "ireland salary"]}, {"url": "/salary-enough-barcelona.html", "title": "Is My Salary Enough in Barcelona?", "keywords": ["barcelona salary", "enough barcelona", "live in spain", "spain salary", "beckham law"]}, {"url": "/salary-enough-stockholm.html", "title": "Is My Salary Enough in Stockholm?", "keywords": ["stockholm salary", "enough stockholm", "live in sweden", "sweden salary", "isk"]}, {"url": "/salary-enough-vienna.html", "title": "Is My Salary Enough in Vienna?", "keywords": ["vienna salary", "enough vienna", "live in austria", "austria salary"]}, {"url": "/dubai-vs-london.html", "title": "Dubai vs London \u2014 Cost of Living", "keywords": ["dubai vs london", "london vs dubai", "compare dubai london", "move dubai london"]}, {"url": "/dubai-vs-singapore.html", "title": "Dubai vs Singapore", "keywords": ["dubai vs singapore", "singapore vs dubai", "compare dubai singapore"]}, {"url": "/singapore-vs-london.html", "title": "Singapore vs London", "keywords": ["singapore vs london", "london vs singapore", "compare singapore london"]}, {"url": "/new-york-vs-london.html", "title": "New York vs London", "keywords": ["new york vs london", "nyc vs london", "compare new york london"]}, {"url": "/new-york-vs-miami.html", "title": "New York vs Miami", "keywords": ["new york vs miami", "nyc vs miami", "move miami new york", "florida vs new york"]}, {"url": "/london-vs-berlin.html", "title": "London vs Berlin", "keywords": ["london vs berlin", "berlin vs london", "compare london berlin", "move berlin"]}, {"url": "/zurich-vs-london.html", "title": "Zurich vs London", "keywords": ["zurich vs london", "london vs zurich", "switzerland vs uk"]}, {"url": "/cost-of-living-comparison.html", "title": "Cost of Living Comparison \u2014 All Cities", "keywords": ["cost of living comparison", "compare cities", "city comparison", "which city cheaper"]}, {"url": "/what-is-fire.html", "title": "What is FIRE?", "keywords": ["what is fire", "financial independence retire early", "fire movement", "fire meaning", "fire explained"]}, {"url": "/what-is-the-4-percent-rule.html", "title": "The 4% Rule Explained", "keywords": ["4 percent rule", "4% rule", "safe withdrawal rate", "trinity study", "swr"]}, {"url": "/what-is-a-good-savings-rate.html", "title": "What is a Good Savings Rate?", "keywords": ["good savings rate", "what savings rate", "how much save", "savings percentage", "50 percent"]}, {"url": "/what-is-passive-income.html", "title": "What is Passive Income?", "keywords": ["passive income", "what is passive income", "income without working", "dividend income"]}, {"url": "/what-is-safe-withdrawal-rate.html", "title": "Safe Withdrawal Rate", "keywords": ["safe withdrawal rate", "swr", "how much withdraw retirement", "4 percent withdrawal"]}, {"url": "/lean-fire-vs-fat-fire.html", "title": "Lean FIRE vs Fat FIRE", "keywords": ["lean fire", "fat fire", "barista fire", "types of fire", "fire types", "how much fire"]}, {"url": "/retire-at-40.html", "title": "How to Retire at 40", "keywords": ["retire at 40", "retirement 40", "fire 40", "early retirement 40"]}, {"url": "/retire-at-50.html", "title": "How to Retire at 50", "keywords": ["retire at 50", "retirement 50", "fire 50", "early retirement 50"]}, {"url": "/retire-at-55.html", "title": "How to Retire at 55", "keywords": ["retire at 55", "retirement 55", "fire 55"]}, {"url": "/fire-vs-traditional-retirement.html", "title": "FIRE vs Traditional Retirement", "keywords": ["fire vs retirement", "traditional retirement", "pension vs fire", "retire early vs normal"]}, {"url": "/index-funds-vs-savings-account.html", "title": "Index Funds vs Savings Account", "keywords": ["index funds", "savings account", "etf vs savings", "index fund explained", "vanguard", "s&p"]}, {"url": "/renting-vs-buying-for-fire.html", "title": "Renting vs Buying for FIRE", "keywords": ["rent vs buy", "renting vs buying", "should i buy house", "rent or buy", "property fire"]}, {"url": "/savings-rate-by-country.html", "title": "Savings Rate by Country", "keywords": ["savings rate by country", "average savings", "country savings", "global savings rate"]}];
+
+function siteSearchRun(q){
+  var res = document.getElementById('siteSearchResults');
+  if(!q || q.length < 2){ res.style.display='none'; return; }
+  var ql = q.toLowerCase();
+  var words = ql.split(/\s+/).filter(function(w){ return w.length > 1; });
+  
+  var scored = SEARCH_INDEX.map(function(p){
+    var score = 0;
+    words.forEach(function(w){
+      if(p.title.toLowerCase().indexOf(w) >= 0) score += 3;
+      p.keywords.forEach(function(k){
+        if(k.indexOf(w) >= 0) score += (k === w ? 2 : 1);
+      });
+    });
+    return {page: p, score: score};
+  }).filter(function(x){ return x.score > 0; })
+    .sort(function(a,b){ return b.score - a.score; })
+    .slice(0, 6);
+
+  if(!scored.length){
+    res.innerHTML = '<div style="padding:12px 16px;font-size:12px;color:var(--text3)">No pages found — try different keywords</div>';
+    res.style.display = 'block';
+    return;
+  }
+
+  res.innerHTML = scored.map(function(x,i){
+    var p=x.page;
+    var bb=i<scored.length-1?'1px solid var(--border)':'none';
+    return '<a href="'+p.url+'" style="display:flex;align-items:center;justify-content:space-between;padding:11px 16px;font-size:13px;color:var(--text2);text-decoration:none;border-bottom:'+bb+'" class="sr-row"><span>'+p.title+'</span><span style="font-size:11px;color:var(--text3);margin-left:12px">→</span></a>';
+  }).join('');
+  res.style.display = 'block';
+}
+
+// Close search results when clicking outside
+document.addEventListener('click', function(e){
+  if(!e.target.closest('#siteSearch') && !e.target.closest('#siteSearchResults')){
+    var res = document.getElementById('siteSearchResults');
+    if(res) res.style.display = 'none';
+  }
+});
+
+// ── LIVE HERO INPUT ─────────────────────────────────────────────────────────
+function heroSalaryInput(val){
+  var sal = parseFloat(val) || 0;
+  var sf = g('salary');
+  if(sf) sf.value = sal > 0 ? sal : 1000;
+  var hint = g('heroHint');
+  if(hint){
+    if(sal > 0){ hint.textContent = '✓ Now add your monthly spending in the section below'; hint.style.color = 'var(--green)'; }
+    else { hint.textContent = '↓ Enter your salary, then add your spending below'; hint.style.color = 'var(--text3)'; }
+  }
+  try { recalc(); } catch(e){}
+}
+
+function heroCurrencyChange(code){
+  currency = code;
+  ['currencySelect','ob-currency','heroCurrency','ed-currency'].forEach(function(id){
+    var el = g(id); if(el) el.value = code;
+  });
+  try { applyCurrency(code); } catch(e){}
+  try { recalc(); } catch(e){}
+}
+
+// Auto-start the app on load (no popup wall)
+(function autoStart(){
+  function boot(){
+    try {
+      // Populate hero currency dropdown
+      var hc = g('heroCurrency'), oc = g('ob-currency');
+      if(hc && oc && oc.options.length && !hc.options.length){
+        // Build short-code options (e.g. "USD") so the larger font fits cleanly
+        var codeOpts = '';
+        for(var oi=0; oi<oc.options.length; oi++){
+          var full = oc.options[oi].value;
+          codeOpts += '<option value="'+full+'">'+full+'</option>';
+        }
+        hc.innerHTML = codeOpts;
+        hc.value = currency || 'USD';
+      }
+      // Make sure the app/dashboard is visible (not hidden behind onboarding state)
+      var ob = g('onboarding'); if(ob) ob.style.display = 'none';
+      var mn = document.querySelector('main.main'); if(mn) mn.style.display = '';
+      // Seed default salary so dashboard isn't empty, then recalc
+      var sf = g('salary'); if(sf && (!sf.value || sf.value==='0')) sf.value = '1000';
+      if(typeof recalc === 'function') recalc();
+      if(typeof recalcInvest === 'function'){ try{recalcInvest();}catch(e){} }
+      if(typeof go === 'function'){ try{go();}catch(e){} }
+    } catch(e){ console.warn('autostart', e); }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+function heroGetPlan(){
+  var sal = parseFloat(g('heroSalary') ? g('heroSalary').value : 0) || 0;
+  if(sal <= 0){
+    var hint = g('heroHint');
+    if(hint){ hint.textContent = '↑ Enter your monthly salary first'; hint.style.color = 'var(--gold)'; }
+    if(g('heroSalary')) g('heroSalary').focus();
+    return;
+  }
+  var pb = g('planBtn');
+  if(pb){
+    pb.scrollIntoView({behavior:'smooth', block:'center'});
+    setTimeout(function(){ try{ generatePlan(); }catch(e){} }, 700);
+  }
+}
+
+// ═══ AMBIENT PARTICLE FIELD ═══
+(function(){
+  var canvas = document.getElementById('ambientCanvas');
+  if(!canvas) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, dots = [];
+  function size(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  size();
+  window.addEventListener('resize', size);
+  var N = Math.min(70, Math.floor(window.innerWidth / 22));
+  for(var i=0;i<N;i++){
+    dots.push({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-0.5)*0.25, vy: (Math.random()-0.5)*0.25,
+      r: Math.random()*1.6+0.4,
+      a: Math.random()*0.4+0.15
+    });
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<dots.length;i++){
+      var d = dots[i];
+      d.x += d.vx; d.y += d.vy;
+      if(d.x<0) d.x=W; if(d.x>W) d.x=0;
+      if(d.y<0) d.y=H; if(d.y>H) d.y=0;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(232,160,32,' + d.a + ')';
+      ctx.fill();
+    }
+    // connect nearby dots with faint lines
+    for(var i=0;i<dots.length;i++){
+      for(var j=i+1;j<dots.length;j++){
+        var dx = dots[i].x-dots[j].x, dy = dots[i].y-dots[j].y;
+        var dist2 = dx*dx + dy*dy;
+        if(dist2 < 14000){
+          var op = (1 - dist2/14000) * 0.12;
+          ctx.beginPath();
+          ctx.moveTo(dots[i].x, dots[i].y);
+          ctx.lineTo(dots[j].x, dots[j].y);
+          ctx.strokeStyle = 'rgba(232,160,32,' + op + ')';
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 <script type="application/ld+json">
 [
